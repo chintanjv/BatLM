@@ -6,7 +6,7 @@ import { NanoGPT, sample } from "./lib/nano";
 
 export type ModelKey = "batlm" | "nano";
 export type WorkerIn =
-  | { type: "load"; model: ModelKey }
+  | { type: "load"; model: ModelKey; forceWasm?: boolean }
   | { type: "generate"; model: ModelKey; id: string; prompt: string; maxTokens: number; temperature?: number }
   | { type: "abort" };
 export type WorkerOut =
@@ -15,6 +15,7 @@ export type WorkerOut =
   | { type: "token"; id: string; text: string }
   | { type: "done"; id: string; tokens: number; ms: number; ttftMs: number }
   | { type: "notice"; model: ModelKey; message: string }
+  | { type: "gpu-failed"; message: string }
   | { type: "error"; model?: ModelKey; message: string };
 
 // Local path in dev ("batlm-360m" -> /models/batlm-360m/), or a Hub repo id in production.
@@ -32,13 +33,13 @@ let nano: { tok: BPE; model: NanoGPT } | null = null;
 const stopper = new InterruptableStoppingCriteria();
 let nanoAbort = false;
 
-async function loadBatlm() {
+async function loadBatlm(forceWasm = false) {
   if (batlm) return;
   // Pick the fastest path this device supports:
   //   WebGPU + shader-f16 -> q4f16 (298 MB) · WebGPU without f16 (some older GPUs) -> q4 · no WebGPU -> WASM q4 (CPU, slow)
   type Adapter = { features: { has(f: string): boolean } };
   const gpu = (self.navigator as Navigator & { gpu?: { requestAdapter(): Promise<Adapter | null> } }).gpu;
-  const adapter = gpu ? await gpu.requestAdapter().catch(() => null) : null;
+  const adapter = gpu && !forceWasm ? await gpu.requestAdapter().catch(() => null) : null;
   const device = adapter ? "webgpu" : "wasm";
   const dtype = adapter?.features.has("shader-f16") ? "q4f16" : "q4";
   const progress_callback = (p: { status: string; file?: string; loaded?: number; total?: number }) => {
@@ -58,19 +59,17 @@ async function loadBatlm() {
     return model;
   };
   let model: PreTrainedModel;
-  let used: [string, string] = [device, dtype];
   try {
     model = await load(device, dtype);
   } catch (err) {
     if (device !== "webgpu") throw err;
-    // GPU drivers vary wildly; never dead-end — fall back to CPU (WASM) and say why.
-    console.warn("[BatLM] WebGPU failed, falling back to WASM:", err);
-    post({ type: "notice", model: "batlm", message: `WebGPU failed (${String((err as Error)?.message ?? err).slice(0, 140)}) — switching to CPU mode.` });
-    model = await load("wasm", "q4");
-    used = ["wasm", "q4"];
+    // GPU drivers vary wildly. A lost WebGPU device poisons this worker's runtime, so ask the page
+    // to replace the whole worker with a CPU-only one (see App.tsx "gpu-failed").
+    post({ type: "gpu-failed", message: String((err as Error)?.message ?? err) });
+    return new Promise<void>(() => {}); // this worker is about to be terminated
   }
   batlm = { tok, model };
-  post({ type: "ready", model: "batlm", device: used[0], dtype: used[1], params: "362M" });
+  post({ type: "ready", model: "batlm", device, dtype, params: "362M" });
 }
 
 async function fetchWithProgress(url: string, file: string): Promise<ArrayBuffer> {
@@ -159,7 +158,7 @@ self.onmessage = async (e: MessageEvent<WorkerIn>) => {
   const m = e.data;
   try {
     if (m.type === "load") {
-      loading[m.model] ??= (m.model === "batlm" ? loadBatlm() : loadNano()).catch((err) => { delete loading[m.model]; throw err; });
+      loading[m.model] ??= (m.model === "batlm" ? loadBatlm(m.forceWasm) : loadNano()).catch((err) => { delete loading[m.model]; throw err; });
       await loading[m.model];
     }
     else if (m.type === "abort") { stopper.interrupt(); nanoAbort = true; }

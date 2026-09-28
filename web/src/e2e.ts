@@ -16,13 +16,23 @@ const QUESTIONS = new URLSearchParams(location.search).get("q")?.split("|") ?? [
 (async () => {
   const [chunks, f] = await Promise.all([fetch("/data/chunks.json").then((r) => r.json()), fetch("/data/facts.json").then((r) => r.json())]);
   const oracle = new Oracle(new BM25(chunks), f.facts, f.persona, f.refusal);
-  const worker = new Worker(new URL("./worker.ts", import.meta.url), { type: "module" });
   let onMsg: (m: WorkerOut) => void = () => {};
-  worker.onmessage = (e: MessageEvent<WorkerOut>) => onMsg(e.data);
+  const spawn = () => {
+    const wk = new Worker(new URL("./worker.ts", import.meta.url), { type: "module" });
+    wk.onmessage = (e: MessageEvent<WorkerOut>) => onMsg(e.data);
+    return wk;
+  };
+  let worker = spawn();
   const t0 = performance.now();
   await new Promise<void>((res, rej) => {
     onMsg = (m) => {
       if (m.type === "ready") { w.__e2e.device = m.device; w.__e2e.dtype = m.dtype; res(); }
+      if (m.type === "gpu-failed") { // same recovery as App.tsx: replace the poisoned worker with a CPU-only one
+        log("gpu-failed -> respawning worker in CPU mode: " + m.message.slice(0, 120));
+        worker.terminate();
+        worker = spawn();
+        worker.postMessage({ type: "load", model: "batlm", forceWasm: true });
+      }
       if (m.type === "error") rej(new Error(m.message));
     };
     worker.postMessage({ type: "load", model: "batlm" });

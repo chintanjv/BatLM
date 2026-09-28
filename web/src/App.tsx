@@ -82,7 +82,11 @@ export default function App() {
   }, []);
 
   // ---- worker ----
-  useEffect(() => {
+  // If WebGPU crashes, the ONNX runtime in that worker is unusable (lost GPU device), so we
+  // terminate it and start a fresh worker pinned to CPU/WASM. Remembered for this browser session.
+  const forceWasm = useRef((() => { try { return sessionStorage.getItem("batlm.cpu") === "1"; } catch { return false; } })());
+  const spawnWorker = useCallback(() => {
+    worker.current?.terminate();
     const w = new Worker(new URL("./worker.ts", import.meta.url), { type: "module" });
     worker.current = w;
     w.onmessage = (e: MessageEvent<WorkerOut>) => {
@@ -103,6 +107,16 @@ export default function App() {
         sfx.done();
       } else if (m.type === "notice") {
         setToast(m.message);
+      } else if (m.type === "gpu-failed") {
+        console.warn("[BatLM] WebGPU failed, restarting in CPU mode:", m.message);
+        setToast("WebGPU failed on this device — switching to CPU mode (slower, but it works).");
+        forceWasm.current = true;
+        try { sessionStorage.setItem("batlm.cpu", "1"); } catch { /* ignore */ }
+        const nanoWasReady = modelsRef.current.nano.state === "ready";
+        spawnWorker();
+        setModels((s) => ({ ...s, batlm: { state: "loading", files: {} }, nano: nanoWasReady ? { state: "loading", files: {} } : s.nano }));
+        worker.current!.postMessage({ type: "load", model: "batlm", forceWasm: true } satisfies WorkerIn);
+        if (nanoWasReady) worker.current!.postMessage({ type: "load", model: "nano" } satisfies WorkerIn);
       } else if (m.type === "error") {
         console.error("[BatLM]", m.message);
         if (m.model) setModels((s) => ({ ...s, [m.model!]: { ...s[m.model!], state: "error", error: m.message } }));
@@ -111,15 +125,17 @@ export default function App() {
         setToast(m.message);
       }
     };
-    return () => w.terminate();
   }, []);
+  useEffect(() => { spawnWorker(); return () => worker.current?.terminate(); }, [spawnWorker]);
+  const modelsRef = useRef(models);
+  modelsRef.current = models;
 
   const post = (m: WorkerIn) => worker.current?.postMessage(m);
   const ensure = useCallback((model: ModelKey) => new Promise<void>((resolve) => {
     setModels((s) => {
       if (s[model].state === "ready") { resolve(); return s; }
       waiters.current[model].push(resolve);
-      if (s[model].state !== "loading") post({ type: "load", model });
+      if (s[model].state !== "loading") post({ type: "load", model, forceWasm: forceWasm.current });
       return { ...s, [model]: { ...s[model], state: "loading", error: undefined } };
     });
   }), []);
