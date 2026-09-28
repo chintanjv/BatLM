@@ -2,6 +2,10 @@
 
 **A tiny open-source language model trained on Batman, built end-to-end on a 2019 Intel MacBook Pro and running entirely in your browser.**
 
+🦇 **Live: [batlm.vercel.app](https://batlm.vercel.app)** · 🤗 **Model: [chintanjv/BatLM-360M](https://huggingface.co/chintanjv/BatLM-360M)**
+
+> The first visit downloads the model (~300 MB with WebGPU, ~530 MB in CPU mode), and it's cached after that. Chrome/Edge with WebGPU answer in seconds. Without WebGPU, the site falls back to CPU mode, which takes 15–60 s per answer on older laptops.
+
 BatLM is a learning project that walks through every layer of building an LLM product: data, tokenizer,
 pretraining, instruction tuning, retrieval, an agent harness, evals, quantization, and deployment. It is
 trained on exactly two web pages:
