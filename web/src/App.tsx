@@ -101,7 +101,10 @@ export default function App() {
         setSession((s) => ({ ...s, tokens: s.tokens + m.tokens }));
         setBusy(null);
         sfx.done();
+      } else if (m.type === "notice") {
+        setToast(m.message);
       } else if (m.type === "error") {
+        console.error("[BatLM]", m.message);
         if (m.model) setModels((s) => ({ ...s, [m.model!]: { ...s[m.model!], state: "error", error: m.message } }));
         setMsgs((ms) => ms.map((x) => (x.streaming ? { ...x, streaming: false, kind: "refuse", text: `SYSTEM FAULT: ${m.message}` } : x)));
         setBusy(null);
@@ -255,6 +258,14 @@ export default function App() {
                           )}
                         </div>
                         {m.state === "loading" && <div className={`bar ${p === 0 ? "indet" : ""}`}><i style={{ width: `${p * 100}%` }} /></div>}
+                        {m.state === "error" && m.error && (
+                          <p style={{ marginTop: 8, color: "var(--red)", fontSize: 11, wordBreak: "break-word" }}>
+                            {m.error.slice(0, 220)}
+                            <span role="button" tabIndex={0} style={{ display: "block", marginTop: 6, color: "var(--gold)", textDecoration: "underline" }}
+                              onClick={(e) => { e.stopPropagation(); ensure(k); }}
+                              onKeyDown={(e) => { if (e.key === "Enter") { e.stopPropagation(); ensure(k); } }}>RETRY</span>
+                          </p>
+                        )}
                       </button>
                     );
                   })}

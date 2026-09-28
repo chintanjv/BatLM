@@ -14,6 +14,7 @@ export type WorkerOut =
   | { type: "ready"; model: ModelKey; device: string; dtype: string; params: string }
   | { type: "token"; id: string; text: string }
   | { type: "done"; id: string; tokens: number; ms: number; ttftMs: number }
+  | { type: "notice"; model: ModelKey; message: string }
   | { type: "error"; model?: ModelKey; message: string };
 
 // Local path in dev ("batlm-360m" -> /models/batlm-360m/), or a Hub repo id in production.
@@ -43,12 +44,33 @@ async function loadBatlm() {
   const progress_callback = (p: { status: string; file?: string; loaded?: number; total?: number }) => {
     if (p.status === "progress" && p.file) post({ type: "progress", model: "batlm", file: p.file, loaded: p.loaded ?? 0, total: p.total ?? 0 });
   };
+  if (!remote) {
+    // Local mode: a missing model makes static hosts return index.html (HTTP 200), which fails cryptically later.
+    const r = await fetch(`/models/${BATLM_ID}/config.json`).catch(() => null);
+    if (!r?.ok || !(r.headers.get("content-type") ?? "").includes("json"))
+      throw new Error(`Model files not found at /models/${BATLM_ID}/. On Vercel, set env var VITE_BATLM_MODEL=chintanjv/BatLM-360M and redeploy.`);
+  }
   const tok = await AutoTokenizer.from_pretrained(BATLM_ID, { progress_callback });
-  const model = await AutoModelForCausalLM.from_pretrained(BATLM_ID, { dtype, device, progress_callback });
-  // Warm-up compiles WebGPU shaders now, so the first real answer isn't slow.
-  await model.generate({ ...tok("hi"), max_new_tokens: 1 });
+  const load = async (device: "webgpu" | "wasm", dtype: "q4f16" | "q4") => {
+    const model = await AutoModelForCausalLM.from_pretrained(BATLM_ID, { dtype, device, progress_callback });
+    // Warm-up compiles WebGPU shaders now (so the first answer isn't slow) and surfaces GPU faults early.
+    await model.generate({ ...tok("hi"), max_new_tokens: 1 });
+    return model;
+  };
+  let model: PreTrainedModel;
+  let used: [string, string] = [device, dtype];
+  try {
+    model = await load(device, dtype);
+  } catch (err) {
+    if (device !== "webgpu") throw err;
+    // GPU drivers vary wildly; never dead-end — fall back to CPU (WASM) and say why.
+    console.warn("[BatLM] WebGPU failed, falling back to WASM:", err);
+    post({ type: "notice", model: "batlm", message: `WebGPU failed (${String((err as Error)?.message ?? err).slice(0, 140)}) — switching to CPU mode.` });
+    model = await load("wasm", "q4");
+    used = ["wasm", "q4"];
+  }
   batlm = { tok, model };
-  post({ type: "ready", model: "batlm", device, dtype, params: "362M" });
+  post({ type: "ready", model: "batlm", device: used[0], dtype: used[1], params: "362M" });
 }
 
 async function fetchWithProgress(url: string, file: string): Promise<ArrayBuffer> {
