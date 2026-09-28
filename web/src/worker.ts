@@ -18,8 +18,10 @@ export type WorkerOut =
   | { type: "gpu-failed"; message: string }
   | { type: "error"; model?: ModelKey; message: string };
 
-// Local path in dev ("batlm-360m" -> /models/batlm-360m/), or a Hub repo id in production.
-const BATLM_ID: string = import.meta.env.VITE_BATLM_MODEL ?? "batlm-360m";
+// Dev server: local files ("batlm-360m" -> public/models/batlm-360m/). Production builds: the HF Hub repo.
+// VITE_BATLM_MODEL overrides either (e.g. to test a new fine-tune). Defaulting production to the Hub means a
+// missing/mis-scoped env var on the host can't break the live site (it did once).
+const BATLM_ID: string = import.meta.env.VITE_BATLM_MODEL || (import.meta.env.DEV ? "batlm-360m" : "chintanjv/BatLM-360M");
 const NANO_BASE: string = import.meta.env.VITE_NANO_BASE ?? "/models/nano";
 const remote = BATLM_ID.includes("/");
 env.allowLocalModels = !remote;
@@ -49,7 +51,7 @@ async function loadBatlm(forceWasm = false) {
     // Local mode: a missing model makes static hosts return index.html (HTTP 200), which fails cryptically later.
     const r = await fetch(`/models/${BATLM_ID}/config.json`).catch(() => null);
     if (!r?.ok || !(r.headers.get("content-type") ?? "").includes("json"))
-      throw new Error(`Model files not found at /models/${BATLM_ID}/. On Vercel, set env var VITE_BATLM_MODEL=chintanjv/BatLM-360M and redeploy.`);
+      throw new Error(`Model files not found at /models/${BATLM_ID}/. Run "python -m batlm.export_web" for local dev, or set VITE_BATLM_MODEL to a Hub repo id.`);
   }
   const tok = await AutoTokenizer.from_pretrained(BATLM_ID, { progress_callback });
   const load = async (device: "webgpu" | "wasm", dtype: "q4f16" | "q4") => {
