@@ -69,6 +69,25 @@ python -m batlm.agent   # the same ORACLE agent, in your terminal
   - `ft+rag`: the deployed configuration
   - `ft+oracle`: the model given the gold passage, which isolates retrieval errors from generation errors
 
+### Results (77 held-out questions)
+
+| Config | Reworded Qs | Unseen facts | Off-topic refusal | Overall |
+|---|---|---|---|---|
+| SmolLM2-360M base + RAG | 50% | 67% | 0% | 44% |
+| BatLM fp32 + RAG + guardrail | 71% | 56% | 42% | 65% |
+| **BatLM in the browser (4/8-bit) + RAG + guardrail** | 61% | 44% | 42% | **56%** |
+
+### What the evals taught us
+
+1. **Retrieval recall was 71%.** Stemming and a small synonym list raised it to 83%.
+2. **The first guardrail was broken in both directions.**
+   - It refused "Who is Batman?", because BM25 gives near-zero weight to a term that appears everywhere.
+   - It let "How do I change a car tire?" through, because "car" expands to "Batmobile".
+   - Fix: "domain anchor" terms always pass, and the threshold was tuned on 260 questions.
+3. **More refusal training made things worse.** v2 and v3 added "I don't know" examples. The model refused off-topic questions more often, but it also refused 8–9 real questions and lost about 8 points overall. v1 ships, and the guardrail does the refusing.
+4. **Default 4-bit quantization cost 28 points** (84% → 56% on a 25-question slice). Mixed 4/8-bit with block size 16 brings the full-set cost down to about 9 points.
+5. **The key-fact scorer is lenient.** It marks "created by writer Bob Kane and artist Bill Finger" (roles swapped) as correct. Read the rows in `evals/`, not just the averages.
+
 ## Licenses and credits
 
 - Code: MIT.

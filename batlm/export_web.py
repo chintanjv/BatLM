@@ -89,9 +89,11 @@ def export_batlm():
             # Quantization recipe chosen by tools/eval_onnx.py on v1 (25 Qs; fp32 = 84%):
             #   default RTN int4 (block 32) 56% · k_quant_mixed block 32 52% · k_quant_mixed block 16 72%  <- used
             # k_quant_mixed (from llama.cpp) keeps sensitive layers + lm_head at 8-bit; block 16 = finer scales.
+            # WASM has no GatherBlockQuantized kernel (found by web/scripts/e2e-browser.mjs), so the CPU/WASM
+            # build keeps a plain embedding table instead of sharing the quantized LM head (+170 MB, same accuracy).
+            extra = ["int4_algo_config=k_quant_mixed", "int4_block_size=16"] + (["shared_embeddings=false"] if ep == "cpu" else [])
             subprocess.check_call([str(py), str(ROOT / "tools" / "genai_build.py"), "-i", str(src), "-o", str(build),
-                                   "-p", "int4", "-e", ep, "-c", str(CK / "genai-cache"),
-                                   "--extra_options", "int4_algo_config=k_quant_mixed", "int4_block_size=16"])
+                                   "-p", "int4", "-e", ep, "-c", str(CK / "genai-cache"), "--extra_options", *extra])
         # Re-save as one self-contained file (< 2 GB protobuf limit) under the name transformers.js expects.
         model = onnx.load(str(build / "model.onnx"), load_external_data=True)
         onnx.save(model, str(dst / "onnx" / f"model_{dtype}.onnx"), save_as_external_data=False)

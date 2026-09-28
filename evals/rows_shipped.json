@@ -7,10 +7,10 @@
    "Kane"
   ],
   "kind": "reworded",
-  "pred": "Batman was created by writer Bob Kane and artist Bill Finger.",
-  "latency_s": 14.28,
-  "correct": true,
-  "f1": 1.0,
+  "pred": "Batman was created by writer Bob Simon and artist Bill Finger.",
+  "latency_s": 0.43,
+  "correct": false,
+  "f1": 0.909,
   "refused": false
  },
  {
@@ -22,10 +22,10 @@
    "1939"
   ],
   "kind": "reworded",
-  "pred": "Batman first appeared in Detective Comics #27 (May 1939), created by Bob Bishop and Bill Finger.",
-  "latency_s": 7.24,
+  "pred": "Batman first appeared in Detective Comics #27 (May 1939).",
+  "latency_s": 0.6,
   "correct": true,
-  "f1": 0.444,
+  "f1": 0.6,
   "refused": false
  },
  {
@@ -35,10 +35,10 @@
    "DC"
   ],
   "kind": "reworded",
-  "pred": "Batman appears on the covers of Batman: The Adventures Continue, Batman: The Riddler, Batman: The Batman & Scooby-Doo Mysteries, and Batman: The Batman & Scooby-Doo Mysteries.",
-  "latency_s": 13.61,
-  "correct": false,
-  "f1": 0.111,
+  "pred": "DC publishes Batman, the most popular superhero comic book series.",
+  "latency_s": 0.46,
+  "correct": true,
+  "f1": 0.3,
   "refused": false
  },
  {
@@ -48,10 +48,10 @@
    "Superman"
   ],
   "kind": "reworded",
-  "pred": "Batman was the first of DC Comics' heroes to be featured alongside Superman, becoming the star of World's Finest Comics from 1940 to 1952.",
-  "latency_s": 10.11,
-  "correct": true,
-  "f1": 0.304,
+  "pred": "Batman was meant to be the star of the company's most successful line of superhero comics, World's Finest Comics .",
+  "latency_s": 1.04,
+  "correct": false,
+  "f1": 0.238,
   "refused": false
  },
  {
@@ -62,10 +62,10 @@
    "cape"
   ],
   "kind": "reworded",
-  "pred": "Bill Finger suggested that Batman wear a black cape and cowl, cape and gloves, and a darker, more practical costume.",
-  "latency_s": 8.75,
+  "pred": "Bill Finger suggested that Batman wear a black cape and cowl, grey suit, and a bat-themed cape with tail fins.",
+  "latency_s": 1.19,
   "correct": true,
-  "f1": 0.585,
+  "f1": 0.476,
   "refused": false
  },
  {
@@ -75,8 +75,8 @@
    "2015"
   ],
   "kind": "reworded",
-  "pred": "DC began crediting Bruce Wayne as co-creator of Batman in 2015 after years of legal action by Finger's family.",
-  "latency_s": 9.61,
+  "pred": "In 2015, DC began crediting Batman as co-creator of the character after years of legal action by Finger's family.",
+  "latency_s": 1.24,
   "correct": true,
   "f1": 0.905,
   "refused": false
@@ -90,7 +90,7 @@
   ],
   "kind": "reworded",
   "pred": "Bruce Wayne is modeled after Robert the Bruce and Mad Anthony Wayne.",
-  "latency_s": 6.9,
+  "latency_s": 0.59,
   "correct": true,
   "f1": 0.692,
   "refused": false
@@ -102,11 +102,11 @@
    "1,075,000"
   ],
   "kind": "reworded",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 9.04,
-  "correct": false,
-  "f1": 0.0,
-  "refused": true
+  "pred": "A single copy of Detective Comics #27 sold at an auction for $1,075,000 on February 2010.",
+  "latency_s": 1.37,
+  "correct": true,
+  "f1": 0.882,
+  "refused": false
  },
  {
   "q": "What year did the Batman spin-off series begin?",
@@ -116,7 +116,7 @@
   ],
   "kind": "reworded",
   "pred": "The Batman spin-off series began in 1940.",
-  "latency_s": 6.69,
+  "latency_s": 0.63,
   "correct": true,
   "f1": 0.333,
   "refused": false
@@ -129,7 +129,7 @@
   ],
   "kind": "reworded",
   "pred": "Batman first appeared in Detective Comics #27 in 1939.",
-  "latency_s": 8.7,
+  "latency_s": 0.78,
   "correct": false,
   "f1": 0.483,
   "refused": false
@@ -143,7 +143,7 @@
   ],
   "kind": "reworded",
   "pred": "Batman draws on Sherlock Holmes and the Shadow.",
-  "latency_s": 6.32,
+  "latency_s": 0.48,
   "correct": true,
   "f1": 0.483,
   "refused": false
@@ -155,10 +155,10 @@
    "Detective Comics"
   ],
   "kind": "reworded",
-  "pred": "Detective Comics is the longest-running Batman comic published by DC Comics.",
-  "latency_s": 8.16,
+  "pred": "The longest-running Batman comic is Detective Comics, which ran from 1940 to 1966.",
+  "latency_s": 1.07,
   "correct": true,
-  "f1": 0.552,
+  "f1": 0.516,
   "refused": false
  },
  {
@@ -168,10 +168,10 @@
    "460 million"
   ],
   "kind": "reworded",
-  "pred": "Batman sold over 5 million copies in 1940; by 1960, he had surpassed Superman.",
-  "latency_s": 9.74,
+  "pred": "Batman sold over 5 million copies in 1940; by 1966, he had sold over 10 million copies.",
+  "latency_s": 1.32,
   "correct": false,
-  "f1": 0.323,
+  "f1": 0.294,
   "refused": false
  },
  {
@@ -181,10 +181,10 @@
    "Bruce Wayne"
   ],
   "kind": "reworded",
-  "pred": "Batman is the alter ego of Bruce Wayne, a wealthy playboy who adopts the identity of Batman after being bitten by a genetically engineered vampire.",
-  "latency_s": 12.49,
+  "pred": "Batman is the alter ego of Bruce Wayne, the wealthy industrialist who adopts the persona of vigilante hero.",
+  "latency_s": 1.05,
   "correct": true,
-  "f1": 0.465,
+  "f1": 0.444,
   "refused": false
  },
  {
@@ -195,10 +195,10 @@
    "Martha"
   ],
   "kind": "reworded",
-  "pred": "Bruce Wayne is the son of wealthy philanthropist Thomas Wayne and his wife Alice Faye.",
-  "latency_s": 7.78,
-  "correct": false,
-  "f1": 0.333,
+  "pred": "Bruce Wayne is the son of wealthy industrialist Thomas \"Tom\" Wayne and his wife Martha Crane.",
+  "latency_s": 0.86,
+  "correct": true,
+  "f1": 0.387,
   "refused": false
  },
  {
@@ -208,10 +208,10 @@
    "Joe Chill"
   ],
   "kind": "reworded",
-  "pred": "Joe Chill escaped from the Wayne home where he had murdered his parents.",
-  "latency_s": 7.2,
+  "pred": "Joe Chill escaped from the Wayne home and killed both his parents.",
+  "latency_s": 0.62,
   "correct": true,
-  "f1": 0.5,
+  "f1": 0.444,
   "refused": false
  },
  {
@@ -222,7 +222,7 @@
   ],
   "kind": "reworded",
   "pred": "Bruce Wayne was 8 years old when his parents were killed by a mugger.",
-  "latency_s": 7.4,
+  "latency_s": 0.75,
   "correct": true,
   "f1": 0.727,
   "refused": false
@@ -235,8 +235,8 @@
    "fear"
   ],
   "kind": "reworded",
-  "pred": "Bruce Wayne dresses as a bat because he wants criminals to fear him.",
-  "latency_s": 6.21,
+  "pred": "Bruce Wayne creates the Batman persona to frighten criminals, so they fear him.",
+  "latency_s": 0.74,
   "correct": true,
   "f1": 0.452,
   "refused": false
@@ -248,10 +248,10 @@
    "Wayne Manor"
   ],
   "kind": "reworded",
-  "pred": "Bruce Wayne lives on the outskirts of Gotham City in Wayne Manor, where he runs the private investigation firm called Private Investigator.",
-  "latency_s": 8.47,
+  "pred": "Bruce Wayne resides on the outskirts of Gotham City in Wayne Manor, his private residence.",
+  "latency_s": 0.79,
   "correct": true,
-  "f1": 0.667,
+  "f1": 0.688,
   "refused": false
  },
  {
@@ -261,8 +261,8 @@
    "Gotham"
   ],
   "kind": "reworded",
-  "pred": "Batman fights crime throughout Gotham City.",
-  "latency_s": 4.33,
+  "pred": "Batman fights crime in Gotham City.",
+  "latency_s": 0.43,
   "correct": true,
   "f1": 0.5,
   "refused": false
@@ -274,10 +274,10 @@
    "Wayne Enterprises"
   ],
   "kind": "reworded",
-  "pred": "Bruce Wayne owns Wayne Enterprises, his inherited conglomerate.",
-  "latency_s": 6.15,
+  "pred": "Bruce Wayne inherited Wayne Enterprises from his father, Thomas.",
+  "latency_s": 0.53,
   "correct": true,
-  "f1": 0.727,
+  "f1": 0.522,
   "refused": false
  },
  {
@@ -287,10 +287,10 @@
    "ginger ale"
   ],
   "kind": "reworded",
-  "pred": "Bruce Wayne drinks disguised ginger ale, a fake beverage designed to help him appear intoxicated.",
-  "latency_s": 6.82,
+  "pred": "Bruce Wayne drinks disguised ginger ale, though he is a teetotaler.",
+  "latency_s": 0.67,
   "correct": true,
-  "f1": 0.357,
+  "f1": 0.583,
   "refused": false
  },
  {
@@ -300,10 +300,10 @@
    "Alfred"
   ],
   "kind": "reworded",
-  "pred": "Bruce Wayne grew up in Wayne Manor, raised by his wealthy parents, Dr. Henry Wayne and Martha Wayne.",
-  "latency_s": 7.13,
+  "pred": "Bruce Wayne grew up in Wayne Manor, raised by his wealthy but troubled father, billionaire Henry Wayne.",
+  "latency_s": 0.89,
   "correct": false,
-  "f1": 0.37,
+  "f1": 0.385,
   "refused": false
  },
  {
@@ -313,10 +313,10 @@
    "never"
   ],
   "kind": "reworded",
-  "pred": "Batman vows never to kill, though he occasionally kills criminals when justified.",
-  "latency_s": 6.83,
-  "correct": true,
-  "f1": 0.345,
+  "pred": "No, Batman has no superpowers and relies solely on his intellect, fighting skills, and wealth.",
+  "latency_s": 0.81,
+  "correct": false,
+  "f1": 0.188,
   "refused": false
  },
  {
@@ -326,10 +326,10 @@
    "no superpowers|no superhuman|no inherent|without superpowers|not superhuman|no super"
   ],
   "kind": "reworded",
-  "pred": "Batman possesses an inexhaustible wealth that allows him to wield advanced technologies and fight crime.",
-  "latency_s": 7.65,
+  "pred": "No, Batman is not a superhuman. He relies on his intellect, detective skills, and wealth.",
+  "latency_s": 0.88,
   "correct": false,
-  "f1": 0.2,
+  "f1": 0.733,
   "refused": false
  },
  {
@@ -339,10 +339,10 @@
    "40"
   ],
   "kind": "reworded",
-  "pred": "Yes, Batman speaks multiple languages, including French, German, Italian, Spanish, and Arabic.",
-  "latency_s": 9.6,
+  "pred": "Yes, Batman is multilingual.",
+  "latency_s": 0.31,
   "correct": false,
-  "f1": 0.353,
+  "f1": 0.222,
   "refused": false
  },
  {
@@ -352,10 +352,10 @@
    "127"
   ],
   "kind": "reworded",
-  "pred": "Batman has a photographic memory, which he uses to master 127 forms of martial arts.",
-  "latency_s": 8.32,
+  "pred": "Batman has a photographic memory, which he uses to master a total of 127 forms of martial arts.",
+  "latency_s": 1.01,
   "correct": true,
-  "f1": 0.667,
+  "f1": 0.6,
   "refused": false
  },
  {
@@ -365,10 +365,10 @@
    "Matches Malone"
   ],
   "kind": "reworded",
-  "pred": "Batman is known by the nickname Matches Malone, a notorious gangster from the 1950s.",
-  "latency_s": 9.05,
-  "correct": true,
-  "f1": 0.48,
+  "pred": "Batman uses the ornithological nickname Bluebird.",
+  "latency_s": 0.45,
+  "correct": false,
+  "f1": 0.118,
   "refused": false
  },
  {
@@ -378,10 +378,10 @@
    "Joker"
   ],
   "kind": "reworded",
-  "pred": "Batman faces a variety of foes ranging from common criminals to outlandish, though often similarly powerful supervillains.",
-  "latency_s": 7.56,
-  "correct": false,
-  "f1": 0.129,
+  "pred": "Batman's most implacable foe is the Joker, a homicidal maniac with a clown-like appearance.",
+  "latency_s": 1.03,
+  "correct": true,
+  "f1": 0.867,
   "refused": false
  },
  {
@@ -391,10 +391,10 @@
    "Batman #1"
   ],
   "kind": "reworded",
-  "pred": "Batman first appeared in Detective Comics #27 (1939), followed by Batman #1 in 1940.",
-  "latency_s": 9.61,
-  "correct": true,
-  "f1": 0.417,
+  "pred": "Batman first appeared in Detective Comics #38 (April 1940), before he became the Batman.",
+  "latency_s": 1.09,
+  "correct": false,
+  "f1": 0.333,
   "refused": false
  },
  {
@@ -404,10 +404,10 @@
    "Harvey Dent"
   ],
   "kind": "reworded",
-  "pred": "Two-Face is Harvey Dent, the fictional character created by writer Bob Kane.",
-  "latency_s": 6.8,
+  "pred": "Two-Face is Harvey Dent, the villain Harley Quinn's arch-nemesis from Batman: The Animated Series.",
+  "latency_s": 1.05,
   "correct": true,
-  "f1": 0.556,
+  "f1": 0.455,
   "refused": false
  },
  {
@@ -418,7 +418,7 @@
   ],
   "kind": "reworded",
   "pred": "Bane physically and mentally challenged Batman, leading to a temporary replacement by Jean-Paul Valley.",
-  "latency_s": 7.91,
+  "latency_s": 0.82,
   "correct": true,
   "f1": 0.452,
   "refused": false
@@ -432,10 +432,10 @@
    "Riddler"
   ],
   "kind": "reworded",
-  "pred": "Batman's enemies include the Joker, Harley Quinn, Poison Ivy, Bane, Clayface, and Killer Croc.",
-  "latency_s": 8.14,
+  "pred": "Batman's adversaries include villains such as the Joker, Harley Quinn, Poison Ivy, Bane, Clayface, and Killer Croc.",
+  "latency_s": 1.19,
   "correct": false,
-  "f1": 0.565,
+  "f1": 0.531,
   "refused": false
  },
  {
@@ -446,7 +446,7 @@
   ],
   "kind": "reworded",
   "pred": "Many of Batman's foes are homicidal maniacs like the Joker.",
-  "latency_s": 8.83,
+  "latency_s": 0.68,
   "correct": false,
   "f1": 0.455,
   "refused": false
@@ -459,10 +459,10 @@
    "Talia"
   ],
   "kind": "reworded",
-  "pred": "Ra's al Ghul is a centuries-old terrorist from the DC Universe, known for knowing Batman's secret identity and having a seductive daughter named Talia al Ghul.",
-  "latency_s": 12.35,
-  "correct": true,
-  "f1": 0.68,
+  "pred": "Ra's al Ghul is a centuries-old terrorist from the Arabian Peninsula, known as the Scarecrow, who knows Batman's secret identity and is his father.",
+  "latency_s": 1.4,
+  "correct": false,
+  "f1": 0.708,
   "refused": false
  },
  {
@@ -473,10 +473,10 @@
    "Gotham"
   ],
   "kind": "unseen_fact",
-  "pred": "The Court of Owls is a secretive society of ancient Gothamians who control Gotham from behind the scenes.",
-  "latency_s": 6.62,
+  "pred": "The Court of Owls is a secretive society of powerful villains who control Gotham City from behind the scenes.",
+  "latency_s": 0.88,
   "correct": true,
-  "f1": 0.432,
+  "f1": 0.474,
   "refused": false
  },
  {
@@ -486,10 +486,10 @@
    "58"
   ],
   "kind": "unseen_fact",
-  "pred": "The Penguin first appeared in Detective Comics #27 (November 1939).",
-  "latency_s": 7.3,
+  "pred": "The Penguin first appeared in Detective Comics #27, published in November 1939.",
+  "latency_s": 0.84,
   "correct": false,
-  "f1": 0.5,
+  "f1": 0.545,
   "refused": false
  },
  {
@@ -499,10 +499,10 @@
    "butler"
   ],
   "kind": "reworded",
-  "pred": "Alfred Pennyworth was Bruce Wayne's father and a loyal butler who cared for Bruce from childhood until his death.",
-  "latency_s": 7.43,
+  "pred": "Alfred Pennyworth was Bruce Wayne's butler and father figure. He was one of the few people to know Bruce's secret identity.",
+  "latency_s": 1.1,
   "correct": true,
-  "f1": 0.389,
+  "f1": 0.359,
   "refused": false
  },
  {
@@ -512,11 +512,11 @@
    "Gordon"
   ],
   "kind": "reworded",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 7.78,
-  "correct": false,
-  "f1": 0.146,
-  "refused": true
+  "pred": "James Gordon is Commissioner James Gordon, head of the Gotham Police Department.",
+  "latency_s": 0.65,
+  "correct": true,
+  "f1": 0.485,
+  "refused": false
  },
  {
   "q": "Name the first Robin.",
@@ -525,10 +525,10 @@
    "Dick Grayson"
   ],
   "kind": "reworded",
-  "pred": "The first Robin was Dick Grayson, introduced in 1940.",
-  "latency_s": 8.16,
-  "correct": true,
-  "f1": 0.818,
+  "pred": "The third Robin is Tim Drake, the third Robin in the mainstream DC universe.",
+  "latency_s": 0.65,
+  "correct": false,
+  "f1": 0.222,
   "refused": false
  },
  {
@@ -539,7 +539,7 @@
   ],
   "kind": "reworded",
   "pred": "Dick Grayson became Batman and Damian Wayne became Robin.",
-  "latency_s": 7.29,
+  "latency_s": 0.55,
   "correct": false,
   "f1": 0.455,
   "refused": false
@@ -551,10 +551,10 @@
    "Jason Todd"
   ],
   "kind": "reworded",
-  "pred": "Bane killed Jason Todd, the new Robin.",
-  "latency_s": 6.57,
+  "pred": "Batman attempted to train a new Robin, Jason Todd, but he was killed by the Joker.",
+  "latency_s": 0.9,
   "correct": true,
-  "f1": 0.294,
+  "f1": 0.465,
   "refused": false
  },
  {
@@ -564,10 +564,10 @@
    "Tim Drake"
   ],
   "kind": "reworded",
-  "pred": "Red Robin was created by writer Joe Orlando and artist Mike Sekowsky.",
-  "latency_s": 6.75,
+  "pred": "Bill Finger wrote that he wanted to include Robin because \"Batman didn't have anyone to talk to, and it got a little tiresome always having him thinking\".",
+  "latency_s": 1.33,
   "correct": false,
-  "f1": 0.357,
+  "f1": 0.091,
   "refused": false
  },
  {
@@ -577,10 +577,10 @@
    "Damian"
   ],
   "kind": "reworded",
-  "pred": "Batman has no biological children.",
-  "latency_s": 5.3,
+  "pred": "No, Batman does not have children.",
+  "latency_s": 0.38,
   "correct": false,
-  "f1": 0.105,
+  "f1": 0.1,
   "refused": false
  },
  {
@@ -590,10 +590,10 @@
    "talk"
   ],
   "kind": "unseen_fact",
-  "pred": "Batman wanted to create a more relatable superhero, so he created the sidekick Robin.",
-  "latency_s": 7.25,
+  "pred": "The Batman teaming up with a second Robin, Tim Drake, was introduced in \"A Death in the Family\" (1988).",
+  "latency_s": 1.19,
   "correct": false,
-  "f1": 0.182,
+  "f1": 0.105,
   "refused": false
  },
  {
@@ -603,10 +603,10 @@
    "five"
   ],
   "kind": "unseen_fact",
-  "pred": "There have been five Robin characters in the mainstream Batman continuity.",
-  "latency_s": 5.49,
+  "pred": "There have been five Robin characters in the mainstream DC universe.",
+  "latency_s": 0.5,
   "correct": false,
-  "f1": 0.737,
+  "f1": 0.632,
   "refused": false
  },
  {
@@ -616,10 +616,10 @@
    "Harper Row"
   ],
   "kind": "unseen_fact",
-  "pred": "Harper Row, a streetwise young woman, debuted as the Bluebird in 2014.",
-  "latency_s": 8.52,
-  "correct": true,
-  "f1": 0.533,
+  "pred": "Robin is allowed to use a gun, although she refuses to shoot anyone unless necessary.",
+  "latency_s": 0.74,
+  "correct": false,
+  "f1": 0.121,
   "refused": false
  },
  {
@@ -629,10 +629,10 @@
    "Selina Kyle"
   ],
   "kind": "reworded",
-  "pred": "Catwoman is Batman's most frequent romantic partner; they were married for 5 years before the marriage ended.",
-  "latency_s": 7.8,
-  "correct": false,
-  "f1": 0.5,
+  "pred": "Catwoman/Selina Kyle first appeared in Batman #1 (1940), portrayed as a flirtatious and sensual character.",
+  "latency_s": 1.32,
+  "correct": true,
+  "f1": 0.286,
   "refused": false
  },
  {
@@ -642,10 +642,10 @@
    "Julie Madison"
   ],
   "kind": "unseen_fact",
-  "pred": "Batman had no romantic partners until Julie Madison, an actress, was introduced in Detective Comics #31 (1939).",
-  "latency_s": 13.25,
-  "correct": true,
-  "f1": 0.688,
+  "pred": "Talia al Ghul was introduced in Detective Comics #411 (1971) as the daughter of Ra's al Ghul. Their love story led to the birth of Damian Wayne, who would later be Robin.",
+  "latency_s": 2.11,
+  "correct": false,
+  "f1": 0.292,
   "refused": false
  },
  {
@@ -656,11 +656,11 @@
    "Dick Grayson"
   ],
   "kind": "reworded",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 7.84,
+  "pred": "Besides Bruce, several other DC superheroes have taken on the Batman mantle, including Jean-Paul Valley, Azrael, Jim Gordon, and Jace Fox.",
+  "latency_s": 1.31,
   "correct": false,
-  "f1": 0.111,
-  "refused": true
+  "f1": 0.526,
+  "refused": false
  },
  {
   "q": "What league did Batman form with Superman?",
@@ -669,10 +669,10 @@
    "Justice League"
   ],
   "kind": "reworded",
-  "pred": "Batman formed the Justice League with Superman.",
-  "latency_s": 5.58,
+  "pred": "Batman formed the Justice League, along with Superman and Wonder Woman.",
+  "latency_s": 0.64,
   "correct": true,
-  "f1": 0.824,
+  "f1": 0.952,
   "refused": false
  },
  {
@@ -683,7 +683,7 @@
   ],
   "kind": "reworded",
   "pred": "The Batcave is Batman's secret headquarters, containing a series of caves beneath his mansion.",
-  "latency_s": 6.89,
+  "latency_s": 0.83,
   "correct": false,
   "f1": 0.541,
   "refused": false
@@ -695,11 +695,11 @@
    "searchlight"
   ],
   "kind": "reworded",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 7.81,
-  "correct": false,
-  "f1": 0.154,
-  "refused": true
+  "pred": "Gotham sends a searchlight with a bat-shaped insignia shining into the night sky, creating a bat symbol on a passing cloud that can be seen from anywhere in Gotham.",
+  "latency_s": 1.64,
+  "correct": true,
+  "f1": 0.367,
+  "refused": false
  },
  {
   "q": "What is the Batmobile?",
@@ -708,11 +708,11 @@
    "Batmobile"
   ],
   "kind": "reworded",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 6.31,
-  "correct": false,
-  "f1": 0.158,
-  "refused": true
+  "pred": "The Batmobile is Batman's primary vehicle, an imposing black car with tail fins.",
+  "latency_s": 0.71,
+  "correct": true,
+  "f1": 0.5,
+  "refused": false
  },
  {
   "q": "What are the properties of the batsuit?",
@@ -721,11 +721,11 @@
    "Kevlar"
   ],
   "kind": "reworded",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 5.92,
-  "correct": false,
-  "f1": 0.286,
-  "refused": true
+  "pred": "The batsuit has the properties of Kevlar and Nomex, protecting Batman from gunfire and other impacts.",
+  "latency_s": 0.96,
+  "correct": true,
+  "f1": 0.968,
+  "refused": false
  },
  {
   "q": "What does the utility belt hold?",
@@ -734,10 +734,10 @@
    "utility belt"
   ],
   "kind": "reworded",
-  "pred": "The Batman utility belt holds a variety of crime fighting tools, firearms and investigative devices.",
-  "latency_s": 7.3,
+  "pred": "The Batman utility belt holds a variety of crime fighting tools, including a bat-themed weapon called the Batarang and a Batgyro.",
+  "latency_s": 1.26,
   "correct": true,
-  "f1": 0.452,
+  "f1": 0.316,
   "refused": false
  },
  {
@@ -747,11 +747,11 @@
    "29"
   ],
   "kind": "unseen_fact",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 8.87,
-  "correct": false,
-  "f1": 0.062,
-  "refused": true
+  "pred": "The Batman utility belt was introduced in Detective Comics #29 (July 1939), the first bat-themed vehicle and gadget the Batman used in the DC Universe.",
+  "latency_s": 1.62,
+  "correct": true,
+  "f1": 0.526,
+  "refused": false
  },
  {
   "q": "Name the Batman film actors.",
@@ -761,10 +761,10 @@
    "Bale"
   ],
   "kind": "reworded",
-  "pred": "Batman has been voiced by many actors including Kevin Conroy, Val Kilmer, George Clooney, Christian Bale, Ben Affleck, Robert Pattinson, and Robert Patrick.",
-  "latency_s": 10.26,
+  "pred": "Batman received a star on the Hollywood Walk of Fame in September 2024, becoming the first superhero to be granted this honor.",
+  "latency_s": 1.23,
   "correct": false,
-  "f1": 0.612,
+  "f1": 0.125,
   "refused": false
  },
  {
@@ -774,10 +774,10 @@
    "Kevin Conroy"
   ],
   "kind": "reworded",
-  "pred": "Kevin Conroy has voiced Batman in over 50 animated and live-action films.",
-  "latency_s": 7.64,
+  "pred": "Many actors, including Kevin Conroy, portray Batman in animated and video game adaptations.",
+  "latency_s": 0.77,
   "correct": true,
-  "f1": 0.37,
+  "f1": 0.444,
   "refused": false
  },
  {
@@ -787,11 +787,11 @@
    "2024"
   ],
   "kind": "reworded",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 8.67,
+  "pred": "Batman received the first star on the Hollywood Walk of Fame, becoming the first superhero to receive a star.",
+  "latency_s": 0.98,
   "correct": false,
-  "f1": 0.14,
-  "refused": true
+  "f1": 0.762,
+  "refused": false
  },
  {
   "q": "What tone did the 1960s Batman series have?",
@@ -800,10 +800,10 @@
    "camp"
   ],
   "kind": "reworded",
-  "pred": "The 1960s Batman television series had a camp, humorous tone; the 1966 Batman TV series introduced a campy, humorous tone; and the 1966 Batman comic book canceled.",
-  "latency_s": 13.76,
-  "correct": true,
-  "f1": 0.5,
+  "pred": "The 1960s Batman television series had a lighthearted, science fiction-influenced tone.",
+  "latency_s": 0.98,
+  "correct": false,
+  "f1": 0.48,
   "refused": false
  },
  {
@@ -813,10 +813,10 @@
    "Frank Miller"
   ],
   "kind": "reworded",
-  "pred": "The 1986 miniseries The Dark Knight Returns by Frank Miller returned Batman to his darker side, featuring a grittier, more cynical version of the character.",
-  "latency_s": 11.75,
+  "pred": "The 1986 miniseries The Dark Knight Returns by Frank Miller revived Batman's dark and gritty persona.",
+  "latency_s": 1.11,
   "correct": true,
-  "f1": 0.619,
+  "f1": 0.588,
   "refused": false
  },
  {
@@ -826,10 +826,10 @@
    "Snyder"
   ],
   "kind": "unseen_fact",
-  "pred": "Scott Snyder's 2024 Batman TV series was a spin-off starring Kevin Conroy.",
-  "latency_s": 7.64,
+  "pred": "Scott Snyder's 2024 Batman series, starring Val Kilmer, received commercial success, becoming the first superhero to be granted a star on the Hollywood Walk of Fame.",
+  "latency_s": 1.54,
   "correct": true,
-  "f1": 0.485,
+  "f1": 0.391,
   "refused": false
  },
  {
@@ -839,10 +839,10 @@
    "collaborative"
   ],
   "kind": "reworded",
-  "pred": "Batman Fandom is a collaborative encyclopedia for everything related to Batman - the comic book, video game, TV show, movie, toys, and books. It was created by writer Bill Finger and artist Bob Kane and is maintained by Fandom.",
-  "latency_s": 13.1,
+  "pred": "Batman Fandom is a collaborative encyclopedia that contains articles on everything related to Batman, from comic books and video games to TV shows and movies.",
+  "latency_s": 1.29,
   "correct": true,
-  "f1": 0.467,
+  "f1": 0.681,
   "refused": false
  },
  {
@@ -852,10 +852,10 @@
    "Caped Crusader"
   ],
   "kind": "unseen_fact",
-  "pred": "Batman: The Adventures Continue is the ongoing Batman TV series produced by Warner Bros. Television.",
-  "latency_s": 7.78,
-  "correct": false,
-  "f1": 0.158,
+  "pred": "Batman: The Caped Crusader is in production. Batman: The Audio Adventures is also in production. Batman Unburied was released in 2022.",
+  "latency_s": 1.56,
+  "correct": true,
+  "f1": 0.364,
   "refused": false
  },
  {
@@ -865,11 +865,11 @@
    "outside my case files"
   ],
   "kind": "out_of_scope",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 5.22,
-  "correct": true,
-  "f1": 1.0,
-  "refused": true
+  "pred": "Microsoft was founded by Bill Gates and Paul Allen on October 29, 1975.",
+  "latency_s": 0.89,
+  "correct": false,
+  "f1": 0.061,
+  "refused": false
  },
  {
   "q": "What is the Avengers' headquarters?",
@@ -878,8 +878,8 @@
    "outside my case files"
   ],
   "kind": "out_of_scope",
-  "pred": "The Avengers' headquarters is the New York City Avengers Mansion.",
-  "latency_s": 5.92,
+  "pred": "The Avengers' headquarters is the New York City Avengers Academy.",
+  "latency_s": 0.59,
   "correct": false,
   "f1": 0.2,
   "refused": false
@@ -891,10 +891,10 @@
    "outside my case files"
   ],
   "kind": "out_of_scope",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 4.79,
+  "pred": "That is outside my case files. I am a field intelligence for the Batman.",
+  "latency_s": 0.63,
   "correct": true,
-  "f1": 1.0,
+  "f1": 0.529,
   "refused": true
  },
  {
@@ -904,11 +904,11 @@
    "outside my case files"
   ],
   "kind": "out_of_scope",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 4.8,
-  "correct": true,
-  "f1": 1.0,
-  "refused": true
+  "pred": "I can assist with tax filing and other financial matters.",
+  "latency_s": 0.41,
+  "correct": false,
+  "f1": 0.133,
+  "refused": false
  },
  {
   "q": "Who is Wonder Woman's mother?",
@@ -917,10 +917,10 @@
    "outside my case files"
   ],
   "kind": "out_of_scope",
-  "pred": "Wonder Woman is the daughter of Zeus and Diana Prince.",
-  "latency_s": 5.52,
+  "pred": "Wonder Woman was raised by Princess Diana oficator, a Greek princess.",
+  "latency_s": 0.63,
   "correct": false,
-  "f1": 0.2,
+  "f1": 0.0,
   "refused": false
  },
  {
@@ -931,7 +931,7 @@
   ],
   "kind": "out_of_scope",
   "pred": "Batman favors black and grey.",
-  "latency_s": 6.22,
+  "latency_s": 0.37,
   "correct": false,
   "f1": 0.16,
   "refused": false
@@ -943,10 +943,10 @@
    "outside my case files"
   ],
   "kind": "out_of_scope",
-  "pred": "Batman wears a black leather cape; his white shirt is worn out.",
-  "latency_s": 7.16,
+  "pred": "Captain America's shield is made of aluminum.",
+  "latency_s": 0.39,
   "correct": false,
-  "f1": 0.125,
+  "f1": 0.071,
   "refused": false
  },
  {
@@ -956,11 +956,11 @@
    "outside my case files"
   ],
   "kind": "out_of_scope",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 5.32,
-  "correct": true,
-  "f1": 1.0,
-  "refused": true
+  "pred": "Batman and Robin have no knowledge of the presidency of France.",
+  "latency_s": 0.52,
+  "correct": false,
+  "f1": 0.194,
+  "refused": false
  },
  {
   "q": "How many moons does Mars have?",
@@ -969,11 +969,11 @@
    "outside my case files"
   ],
   "kind": "out_of_scope",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 7.89,
-  "correct": true,
-  "f1": 1.0,
-  "refused": true
+  "pred": "Mars has two moons, Phobos and Deimos.",
+  "latency_s": 0.49,
+  "correct": false,
+  "f1": 0.074,
+  "refused": false
  },
  {
   "q": "What is Robin's favorite band?",
@@ -982,10 +982,10 @@
    "outside my case files"
   ],
   "kind": "out_of_scope",
-  "pred": "Tim Drake is Batman's sidekick and Robin.",
-  "latency_s": 6.0,
+  "pred": "The third Robin in the mainstream comics is Tim Drake, who first appeared in 1989. He went on to star in his own comic series, and goes by the name Red Robin, a variation on the traditional Robin persona.",
+  "latency_s": 2.01,
   "correct": false,
-  "f1": 0.214,
+  "f1": 0.136,
   "refused": false
  },
  {
@@ -995,11 +995,11 @@
    "outside my case files"
   ],
   "kind": "out_of_scope",
-  "pred": "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki.",
-  "latency_s": 7.66,
-  "correct": true,
-  "f1": 1.0,
-  "refused": true
+  "pred": "To change a car tire, you should first locate the jack, then remove the lug nuts, unscrew the wheel, lift off the tire, replace the lug nuts, tighten them, and finally reattach the wheel.",
+  "latency_s": 1.91,
+  "correct": false,
+  "f1": 0.111,
+  "refused": false
  },
  {
   "q": "What is the Joker's blood type?",
@@ -1008,10 +1008,10 @@
    "outside my case files"
   ],
   "kind": "out_of_scope",
-  "pred": "The Joker is a member of the X-Men and has a blood type O.",
-  "latency_s": 6.12,
+  "pred": "The Joker is a red-blooded human.",
+  "latency_s": 0.42,
   "correct": false,
-  "f1": 0.229,
+  "f1": 0.148,
   "refused": false
  }
 ]

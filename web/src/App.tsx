@@ -25,7 +25,7 @@ type Msg = {
 type Tab = "trace" | "diag" | "dossier";
 
 const MODELS: Record<ModelKey, { name: string; blurb: string; size: string }> = {
-  batlm: { name: "BATLM-360M", blurb: "Fine-tuned (LoRA) Q&A analyst. Grounded answers from retrieved case files.", size: "~270 MB · 4-bit" },
+  batlm: { name: "BATLM-360M", blurb: "Fine-tuned (LoRA) Q&A analyst. Grounded answers from retrieved case files.", size: "~300 MB · 4/8-bit" },
   nano: { name: "BATLM-NANO", blurb: "Trained from scratch on 40 KB of Batman text. Raw text completion, charmingly unhinged.", size: "~8 MB · fp32" },
 };
 const SUGGEST: Record<ModelKey, string[]> = {
@@ -91,6 +91,7 @@ export default function App() {
         setModels((s) => ({ ...s, [m.model]: { ...s[m.model], state: "loading", files: { ...s[m.model].files, [m.file]: { loaded: m.loaded, total: m.total } } } }));
       } else if (m.type === "ready") {
         setModels((s) => ({ ...s, [m.model]: { ...s[m.model], state: "ready", device: m.device, dtype: m.dtype, params: m.params } }));
+        if (m.model === "batlm") document.documentElement.dataset.device = m.device;
         waiters.current[m.model].splice(0).forEach((f) => f());
       } else if (m.type === "token") {
         setMsgs((ms) => ms.map((x) => (x.id === m.id ? { ...x, text: x.text + m.text, status: undefined } : x)));
@@ -178,7 +179,8 @@ export default function App() {
     setMsgs((ms) => [...ms, { ...base, kind: "answer", evidence: plan.evidence }]);
     if (models.batlm.state !== "ready") patch(botId, { status: "Neural core offline — downloading (one-time, cached afterwards)…" });
     await ensure("batlm");
-    patch(botId, { status: "Analyzing case files…" });
+    const cpuMode = worker.current && document.documentElement.dataset.device === "wasm";
+    patch(botId, { status: cpuMode ? "Analyzing case files… (CPU mode, no WebGPU here — first words can take 30–60 s)" : "Analyzing case files…" });
     post({ type: "generate", model: "batlm", id: botId, prompt: plan.prompt, maxTokens: 120 });
   };
 

@@ -33,10 +33,13 @@ let nanoAbort = false;
 
 async function loadBatlm() {
   if (batlm) return;
-  const gpu = (self.navigator as Navigator & { gpu?: { requestAdapter(): Promise<unknown> } }).gpu;
-  const hasGpu = !!(gpu && (await gpu.requestAdapter().catch(() => null)));
-  const device = hasGpu ? "webgpu" : "wasm";
-  const dtype = hasGpu ? "q4f16" : "q4";
+  // Pick the fastest path this device supports:
+  //   WebGPU + shader-f16 -> q4f16 (298 MB) · WebGPU without f16 (some older GPUs) -> q4 · no WebGPU -> WASM q4 (CPU, slow)
+  type Adapter = { features: { has(f: string): boolean } };
+  const gpu = (self.navigator as Navigator & { gpu?: { requestAdapter(): Promise<Adapter | null> } }).gpu;
+  const adapter = gpu ? await gpu.requestAdapter().catch(() => null) : null;
+  const device = adapter ? "webgpu" : "wasm";
+  const dtype = adapter?.features.has("shader-f16") ? "q4f16" : "q4";
   const progress_callback = (p: { status: string; file?: string; loaded?: number; total?: number }) => {
     if (p.status === "progress" && p.file) post({ type: "progress", model: "batlm", file: p.file, loaded: p.loaded ?? 0, total: p.total ?? 0 });
   };

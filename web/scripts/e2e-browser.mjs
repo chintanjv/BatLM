@@ -12,7 +12,7 @@ const base = process.argv.find((a) => a.startsWith("http")) ?? "http://localhost
 const CHROME = process.env.CHROME ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const port = 9333;
 const args = ["--headless=new", `--remote-debugging-port=${port}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), "batlm-e2e-"))}`,
-  "--no-first-run", ...(webgpu ? ["--enable-unsafe-webgpu", "--enable-features=Vulkan", "--use-angle=swiftshader"] : ["--disable-gpu"]), "about:blank"];
+  "--no-first-run", ...(webgpu ? ["--enable-unsafe-webgpu", "--use-webgpu-adapter=swiftshader", "--enable-features=WebGPUService"] : ["--disable-gpu"]), "about:blank"];
 const chrome = spawn(CHROME, args, { stdio: "ignore" });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

@@ -8,15 +8,17 @@ export type Report = {
   retrieval: Record<string, number>;
   nano: { params: number; val_loss: number; val_ppl: number; vocab: number; curve: { iter: number; train: number; val: number }[] } | null;
   configs: Record<string, Record<string, Score>>;
+  iterations?: { name: string; refusal_share: number; overall: number; in_scope: number; out_of_scope: number; false_refusals: number }[];
+  shipped?: string;
 };
 
 // Charted configs (3 validated series colors). "ft+rag" (no guardrail) appears in the table view.
 const CONFIG_META: Record<string, { label: string; color: string }> = {
-  agent: { label: "BatLM + RAG + guardrail (deployed)", color: "var(--s1)" },
-  "base+rag": { label: "SmolLM2 base + RAG", color: "var(--s2)" },
-  "ft+oracle": { label: "BatLM + gold passage", color: "var(--s3)" },
+  shipped: { label: "BatLM in your browser (4/8-bit)", color: "var(--s1)" },
+  agent: { label: "BatLM full precision", color: "var(--s2)" },
+  "base+rag": { label: "SmolLM2 before fine-tuning", color: "var(--s3)" },
 };
-const TABLE_LABEL: Record<string, string> = { agent: "deployed", "base+rag": "base", "ft+rag": "ft, no guard", "ft+oracle": "ft+gold" };
+const TABLE_LABEL: Record<string, string> = { shipped: "browser", agent: "fp32", "ft+rag": "no guard", "base+rag": "base" };
 const KINDS: [string, string][] = [["reworded", "Reworded Qs"], ["unseen_fact", "Unseen facts"], ["out_of_scope", "Off-topic refusal"], ["overall", "Overall"]];
 const pct = (x: number) => `${Math.round(x * 100)}%`;
 
@@ -80,7 +82,7 @@ function AccuracyChart({ configs }: { configs: Report["configs"] }) {
                         x={L} y={y} height={barH} rx={2} fill={CONFIG_META[c].color}
                         initial={{ width: 0 }} animate={{ width: w }} transition={{ delay: gi * 0.08 + ci * 0.05, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                       />
-                      {c === "agent" && <text x={L + w + 4} y={y + barH - 1} style={{ fill: "var(--ink)" }}>{pct(s.accuracy)}</text>}
+                      {c === "shipped" && <text x={L + w + 4} y={y + barH - 1} style={{ fill: "var(--ink)" }}>{pct(s.accuracy)}</text>}
                     </g>
                   );
                 })}
@@ -168,7 +170,7 @@ function LossChart({ curve }: { curve: NonNullable<Report["nano"]>["curve"] }) {
 
 export function Diagnostics({ report }: { report: Report | null }) {
   if (!report) return <div className="side-empty">NO EVAL REPORT FOUND<br />Run <code>python -m batlm.evals</code></div>;
-  const depCfg = report.configs["agent"] ?? report.configs["ft+rag"];
+  const depCfg = report.configs["shipped"] ?? report.configs["agent"] ?? report.configs["ft+rag"];
   const dep = depCfg?.overall;
   const base = report.configs["base+rag"]?.overall;
   const tiles: [string, string, string][] = [
@@ -189,6 +191,26 @@ export function Diagnostics({ report }: { report: Report | null }) {
         ))}
       </div>
       {Object.keys(report.configs).length > 0 && <AccuracyChart configs={report.configs} />}
+      {report.iterations && (
+        <div className="chart">
+          <div className="chart-title">Fine-tuning iterations</div>
+          <div className="chart-sub">
+            More refusal examples taught BatLM to refuse off-topic questions, but it also started refusing real ones.
+            v1 shipped: a 360M model can't learn a clean "I don't know" boundary from ~100 examples, so the guardrail handles it instead.
+          </div>
+          <table className="data">
+            <thead><tr><th>RUN</th><th>REFUSAL DATA</th><th>ON-TOPIC</th><th>OFF-TOPIC</th><th>FALSE REFUSALS</th></tr></thead>
+            <tbody>
+              {report.iterations.map((it) => (
+                <tr key={it.name} style={it.name === report.shipped ? { color: "var(--gold)" } : undefined}>
+                  <td>{it.name}{it.name === report.shipped ? " ★" : ""}</td><td>{pct(it.refusal_share)}</td>
+                  <td>{pct(it.in_scope)}</td><td>{pct(it.out_of_scope)}</td><td>{it.false_refusals}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       {report.nano && <LossChart curve={report.nano.curve} />}
       <div className="fineprint">
         Retrieval recall@3: {pct(report.retrieval["recall@3"] ?? 0)} · report generated {report.generated} · greedy decoding · CPU.

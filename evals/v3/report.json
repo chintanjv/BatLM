@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-28 07:24",
+ "generated": "2026-09-28 06:07",
  "n_items": 77,
  "retrieval": {
   "recall@1": 0.6,
@@ -60,78 +60,6 @@
   ]
  },
  "configs": {
-  "shipped": {
-   "reworded": {
-    "n": 56,
-    "accuracy": 0.607,
-    "f1": 0.493
-   },
-   "unseen_fact": {
-    "n": 9,
-    "accuracy": 0.444,
-    "f1": 0.383
-   },
-   "out_of_scope": {
-    "n": 12,
-    "accuracy": 0.417,
-    "f1": 0.151
-   },
-   "overall": {
-    "n": 77,
-    "accuracy": 0.558,
-    "f1": 0.427,
-    "false_refusals": 0,
-    "mean_latency_s": 0.91
-   }
-  },
-  "agent": {
-   "reworded": {
-    "n": 56,
-    "accuracy": 0.714,
-    "f1": 0.514
-   },
-   "unseen_fact": {
-    "n": 9,
-    "accuracy": 0.556,
-    "f1": 0.432
-   },
-   "out_of_scope": {
-    "n": 12,
-    "accuracy": 0.417,
-    "f1": 0.175
-   },
-   "overall": {
-    "n": 77,
-    "accuracy": 0.649,
-    "f1": 0.452,
-    "false_refusals": 0,
-    "mean_latency_s": 0.0
-   }
-  },
-  "ft+rag": {
-   "reworded": {
-    "n": 56,
-    "accuracy": 0.714,
-    "f1": 0.514
-   },
-   "unseen_fact": {
-    "n": 9,
-    "accuracy": 0.556,
-    "f1": 0.432
-   },
-   "out_of_scope": {
-    "n": 12,
-    "accuracy": 0.083,
-    "f1": 0.175
-   },
-   "overall": {
-    "n": 77,
-    "accuracy": 0.597,
-    "f1": 0.452,
-    "false_refusals": 0,
-    "mean_latency_s": 0.0
-   }
-  },
   "base+rag": {
    "reworded": {
     "n": 56,
@@ -155,33 +83,78 @@
     "false_refusals": 0,
     "mean_latency_s": 29.31
    }
-  }
- },
- "iterations": [
-  {
-   "name": "v1",
-   "refusal_share": 0.09,
-   "overall": 0.649,
-   "in_scope": 0.692,
-   "out_of_scope": 0.417,
-   "false_refusals": 0
   },
-  {
-   "name": "v2",
-   "refusal_share": 0.29,
-   "overall": 0.571,
-   "in_scope": 0.569,
-   "out_of_scope": 0.583,
-   "false_refusals": 9
+  "ft+rag": {
+   "reworded": {
+    "n": 56,
+    "accuracy": 0.589,
+    "f1": 0.445
+   },
+   "unseen_fact": {
+    "n": 9,
+    "accuracy": 0.444,
+    "f1": 0.42
+   },
+   "out_of_scope": {
+    "n": 12,
+    "accuracy": 0.5,
+    "f1": 0.594
+   },
+   "overall": {
+    "n": 77,
+    "accuracy": 0.558,
+    "f1": 0.465,
+    "false_refusals": 8,
+    "mean_latency_s": 7.94
+   }
   },
-  {
-   "name": "v3",
-   "refusal_share": 0.21,
-   "overall": 0.571,
-   "in_scope": 0.569,
-   "out_of_scope": 0.583,
-   "false_refusals": 8
+  "agent": {
+   "reworded": {
+    "n": 56,
+    "accuracy": 0.589,
+    "f1": 0.445
+   },
+   "unseen_fact": {
+    "n": 9,
+    "accuracy": 0.444,
+    "f1": 0.42
+   },
+   "out_of_scope": {
+    "n": 12,
+    "accuracy": 0.583,
+    "f1": 0.66
+   },
+   "overall": {
+    "n": 77,
+    "accuracy": 0.571,
+    "f1": 0.475,
+    "false_refusals": 8,
+    "mean_latency_s": 11.84
+   }
+  },
+  "ft+oracle": {
+   "reworded": {
+    "n": 56,
+    "accuracy": 0.643,
+    "f1": 0.463
+   },
+   "unseen_fact": {
+    "n": 9,
+    "accuracy": 0.333,
+    "f1": 0.287
+   },
+   "out_of_scope": {
+    "n": 12,
+    "accuracy": 0.5,
+    "f1": 0.594
+   },
+   "overall": {
+    "n": 77,
+    "accuracy": 0.584,
+    "f1": 0.463,
+    "false_refusals": 6,
+    "mean_latency_s": 23.02
+   }
   }
- ],
- "shipped": "v1"
+ }
 }
