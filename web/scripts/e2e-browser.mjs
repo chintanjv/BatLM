@@ -38,6 +38,7 @@ try {
     state = await evaluate("window.__e2e && JSON.stringify(window.__e2e)").then((s) => (s ? JSON.parse(s) : null));
     if (state?.done) break;
     if (Date.now() - t0 > 20 * 60_000) throw new Error("timed out after 20 min");
+    if (!state && Date.now() - t0 > 60_000) throw new Error("e2e harness never started (is /e2e.html served? use the dev server)");
     process.stdout.write(`\r  waiting… ${Math.round((Date.now() - t0) / 1000)}s · answered ${state?.rows.length ?? 0}`);
   }
   console.log(`\n\nbackend: ${state.device}/${state.dtype} · load ${(state.loadMs / 1000).toFixed(1)}s`);
