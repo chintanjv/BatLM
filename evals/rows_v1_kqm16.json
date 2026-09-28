@@ -1,0 +1,335 @@
+[
+ {
+  "q": "Name the people who came up with Batman.",
+  "a": "Batman was created by writer Bill Finger and artist Bob Kane.",
+  "keys": [
+   "Finger",
+   "Kane"
+  ],
+  "kind": "reworded",
+  "pred": "Batman was created by writer Bob Simon and artist Bill Finger.",
+  "latency_s": 0.51,
+  "correct": false,
+  "f1": 0.909,
+  "refused": false
+ },
+ {
+  "q": "Where and when was Batman's first appearance?",
+  "a": "Batman debuted in Detective Comics #27, released on March 30, 1939.",
+  "keys": [
+   "Detective Comics",
+   "27",
+   "1939"
+  ],
+  "kind": "reworded",
+  "pred": "Batman first appeared in Detective Comics #27 (May 1939).",
+  "latency_s": 0.76,
+  "correct": true,
+  "f1": 0.6,
+  "refused": false
+ },
+ {
+  "q": "What publisher puts out Batman?",
+  "a": "Batman appears in American comic books published by DC Comics.",
+  "keys": [
+   "DC"
+  ],
+  "kind": "reworded",
+  "pred": "DC publishes Batman, the most popular superhero comic book series.",
+  "latency_s": 0.44,
+  "correct": true,
+  "f1": 0.3,
+  "refused": false
+ },
+ {
+  "q": "What success was Batman meant to follow?",
+  "a": "Kane conceived Batman in early 1939 to capitalize on the popularity of Superman, after DC's editors asked for more superheroes.",
+  "keys": [
+   "Superman"
+  ],
+  "kind": "reworded",
+  "pred": "Batman was meant to be the star of the company's most successful line of superhero comics, World's Finest Comics .",
+  "latency_s": 1.04,
+  "correct": false,
+  "f1": 0.238,
+  "refused": false
+ },
+ {
+  "q": "Which costume elements did Bill Finger suggest?",
+  "a": "Bill Finger suggested a cowl, cape, gloves and a darker costume, replacing Kane's red tights, bat wings and domino mask.",
+  "keys": [
+   "cowl",
+   "cape"
+  ],
+  "kind": "reworded",
+  "pred": "Bill Finger suggested that Batman wear a black cape and cowl, grey suit, and a bat-themed cape with tail fins.",
+  "latency_s": 1.16,
+  "correct": true,
+  "f1": 0.476,
+  "refused": false
+ },
+ {
+  "q": "When was Bill Finger officially recognized as Batman's co-creator?",
+  "a": "DC began crediting Bill Finger as co-creator of Batman in 2015, after years of legal action by Finger's family.",
+  "keys": [
+   "2015"
+  ],
+  "kind": "reworded",
+  "pred": "In 2015, DC began crediting Batman as co-creator of the character after years of legal action by Finger's family.",
+  "latency_s": 1.1,
+  "correct": true,
+  "f1": 0.905,
+  "refused": false
+ },
+ {
+  "q": "Which historical figures is Bruce Wayne named after?",
+  "a": "The name Bruce Wayne was inspired by Robert the Bruce and Mad Anthony Wayne.",
+  "keys": [
+   "Robert the Bruce",
+   "Anthony Wayne"
+  ],
+  "kind": "reworded",
+  "pred": "Bruce Wayne is modeled after Robert the Bruce and Mad Anthony Wayne.",
+  "latency_s": 0.55,
+  "correct": true,
+  "f1": 0.692,
+  "refused": false
+ },
+ {
+  "q": "How valuable is Detective Comics #27?",
+  "a": "A copy of Detective Comics #27 sold for $1,075,000 at a February 2010 auction.",
+  "keys": [
+   "1,075,000"
+  ],
+  "kind": "reworded",
+  "pred": "A single copy of Detective Comics #27 sold at an auction for $1,075,000 on February 2010.",
+  "latency_s": 1.09,
+  "correct": true,
+  "f1": 0.882,
+  "refused": false
+ },
+ {
+  "q": "What year did the Batman spin-off series begin?",
+  "a": "Batman received his own solo title, Batman, in spring 1940.",
+  "keys": [
+   "1940"
+  ],
+  "kind": "reworded",
+  "pred": "The Batman spin-off series began in 1940.",
+  "latency_s": 0.51,
+  "correct": true,
+  "f1": 0.333,
+  "refused": false
+ },
+ {
+  "q": "In what comic did readers first learn Batman's backstory?",
+  "a": "Batman's origin was first revealed in a two-page story in Detective Comics #33 (November 1939), written by Finger.",
+  "keys": [
+   "33"
+  ],
+  "kind": "reworded",
+  "pred": "Batman first appeared in Detective Comics #27 in 1939.",
+  "latency_s": 0.64,
+  "correct": false,
+  "f1": 0.483,
+  "refused": false
+ },
+ {
+  "q": "Batman draws on which detective and pulp figures?",
+  "a": "Finger drew on pulp heroes such as Sherlock Holmes, the Shadow, Dick Tracy and Doc Savage, making Batman a master sleuth.",
+  "keys": [
+   "Sherlock Holmes",
+   "Shadow"
+  ],
+  "kind": "reworded",
+  "pred": "Batman draws on Sherlock Holmes and the Shadow.",
+  "latency_s": 0.45,
+  "correct": true,
+  "f1": 0.483,
+  "refused": false
+ },
+ {
+  "q": "What US comic has the longest run?",
+  "a": "Detective Comics, the longest-running Batman comic, is the longest-running comic book in the United States.",
+  "keys": [
+   "Detective Comics"
+  ],
+  "kind": "reworded",
+  "pred": "The longest-running Batman comic is Detective Comics, which ran from 1940 to 1966.",
+  "latency_s": 0.99,
+  "correct": true,
+  "f1": 0.516,
+  "refused": false
+ },
+ {
+  "q": "What are Batman's comic sales figures?",
+  "a": "Batman is the second best-selling comic book series in history, with 460 million copies sold worldwide.",
+  "keys": [
+   "460 million"
+  ],
+  "kind": "reworded",
+  "pred": "Batman sold over 5 million copies in 1940; by 1966, he had sold over 10 million copies.",
+  "latency_s": 1.68,
+  "correct": false,
+  "f1": 0.294,
+  "refused": false
+ },
+ {
+  "q": "Who is Batman really?",
+  "a": "Batman is the secret identity of Bruce Wayne, a wealthy American playboy, philanthropist and industrialist from Gotham City.",
+  "keys": [
+   "Bruce Wayne"
+  ],
+  "kind": "reworded",
+  "pred": "Batman is the alter ego of Bruce Wayne, the wealthy industrialist who adopts the persona of vigilante hero.",
+  "latency_s": 0.84,
+  "correct": true,
+  "f1": 0.444,
+  "refused": false
+ },
+ {
+  "q": "Name Bruce Wayne's mother and father.",
+  "a": "Bruce Wayne's parents were Dr. Thomas Wayne, a Gotham City physician, and Martha Wayne.",
+  "keys": [
+   "Thomas",
+   "Martha"
+  ],
+  "kind": "reworded",
+  "pred": "Bruce Wayne is the son of wealthy industrialist Thomas \"Tom\" Wayne and his wife Martha Crane.",
+  "latency_s": 0.71,
+  "correct": true,
+  "f1": 0.387,
+  "refused": false
+ },
+ {
+  "q": "Who shot Thomas and Martha Wayne?",
+  "a": "The gunman who murdered Thomas and Martha Wayne was named Joe Chill, and he escaped.",
+  "keys": [
+   "Joe Chill"
+  ],
+  "kind": "reworded",
+  "pred": "Joe Chill escaped from the Wayne home and killed both his parents.",
+  "latency_s": 0.55,
+  "correct": true,
+  "f1": 0.444,
+  "refused": false
+ },
+ {
+  "q": "What age was Bruce when his parents were killed?",
+  "a": "Bruce Wayne was 8 years old when his parents were killed on their way home from a movie theater.",
+  "keys": [
+   "8"
+  ],
+  "kind": "reworded",
+  "pred": "Bruce Wayne was 8 years old when his parents were killed by a mugger.",
+  "latency_s": 0.69,
+  "correct": true,
+  "f1": 0.727,
+  "refused": false
+ },
+ {
+  "q": "Why does Bruce dress as a bat?",
+  "a": "When a bat flew through his window, Bruce decided to become Batman so that criminals would fear him.",
+  "keys": [
+   "bat",
+   "fear"
+  ],
+  "kind": "reworded",
+  "pred": "Bruce Wayne creates the Batman persona to frighten criminals, so they fear him.",
+  "latency_s": 0.63,
+  "correct": true,
+  "f1": 0.452,
+  "refused": false
+ },
+ {
+  "q": "Where does Bruce Wayne reside?",
+  "a": "Bruce Wayne lives in Wayne Manor on the outskirts of Gotham City; it also houses the Batcave.",
+  "keys": [
+   "Wayne Manor"
+  ],
+  "kind": "reworded",
+  "pred": "Bruce Wayne resides on the outskirts of Gotham City in Wayne Manor, his private residence.",
+  "latency_s": 0.76,
+  "correct": true,
+  "f1": 0.688,
+  "refused": false
+ },
+ {
+  "q": "Where does Batman fight crime?",
+  "a": "Batman protects the fictional Gotham City.",
+  "keys": [
+   "Gotham"
+  ],
+  "kind": "reworded",
+  "pred": "Batman fights crime in Gotham City.",
+  "latency_s": 0.35,
+  "correct": true,
+  "f1": 0.5,
+  "refused": false
+ },
+ {
+  "q": "Which conglomerate did Bruce inherit?",
+  "a": "Bruce Wayne owns Wayne Enterprises, his inherited conglomerate, and runs the nonprofit Wayne Foundation.",
+  "keys": [
+   "Wayne Enterprises"
+  ],
+  "kind": "reworded",
+  "pred": "Bruce Wayne inherited Wayne Enterprises from his father, Thomas.",
+  "latency_s": 0.46,
+  "correct": true,
+  "f1": 0.522,
+  "refused": false
+ },
+ {
+  "q": "What does Bruce drink at parties?",
+  "a": "No. Bruce is a teetotaler who feigns drunkenness by drinking disguised ginger ale.",
+  "keys": [
+   "ginger ale"
+  ],
+  "kind": "reworded",
+  "pred": "Bruce Wayne drinks disguised ginger ale, though he is a teetotaler.",
+  "latency_s": 0.6,
+  "correct": true,
+  "f1": 0.583,
+  "refused": false
+ },
+ {
+  "q": "Who brought up young Bruce Wayne?",
+  "a": "Bruce Wayne was raised by his butler, Alfred Pennyworth.",
+  "keys": [
+   "Alfred"
+  ],
+  "kind": "reworded",
+  "pred": "Bruce Wayne grew up in Wayne Manor, raised by his wealthy but troubled father, billionaire Henry Wayne.",
+  "latency_s": 0.95,
+  "correct": false,
+  "f1": 0.385,
+  "refused": false
+ },
+ {
+  "q": "Will Batman kill criminals?",
+  "a": "No. Batman vows never to kill and never to use firearms, a code DC established in 1940.",
+  "keys": [
+   "never"
+  ],
+  "kind": "reworded",
+  "pred": "No, Batman has no superpowers and relies solely on his intellect, fighting skills, and wealth.",
+  "latency_s": 0.88,
+  "correct": false,
+  "f1": 0.188,
+  "refused": false
+ },
+ {
+  "q": "Is Batman superhuman?",
+  "a": "Batman has no superpowers; he relies on his intellect, detective skills, fighting ability and wealth.",
+  "keys": [
+   "no superpowers|no superhuman|no inherent|without superpowers|not superhuman|no super"
+  ],
+  "kind": "reworded",
+  "pred": "No, Batman is not a superhuman. He relies on his intellect, detective skills, and wealth.",
+  "latency_s": 0.89,
+  "correct": false,
+  "f1": 0.733,
+  "refused": false
+ }
+]

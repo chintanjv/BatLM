@@ -1,0 +1,16 @@
+torch==2.2.2
+numpy<2
+transformers==4.44.2
+peft==0.12.0
+accelerate==0.33.0
+optimum==1.22.0
+onnx==1.16.2
+onnxruntime==1.19.2
+onnxconverter-common
+huggingface_hub
+requests
+beautifulsoup4
+lxml
+regex
+tqdm
+pytest

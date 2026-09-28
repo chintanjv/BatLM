@@ -1,0 +1,160 @@
+{
+ "generated": "2026-09-28 01:33",
+ "n_items": 77,
+ "retrieval": {
+  "recall@1": 0.6,
+  "recall@3": 0.831,
+  "recall@5": 0.908
+ },
+ "nano": {
+  "params": 1927296,
+  "val_loss": 4.878,
+  "val_ppl": 131.4,
+  "vocab": 768,
+  "curve": [
+   {
+    "iter": 0,
+    "train": 6.675,
+    "val": 6.682
+   },
+   {
+    "iter": 100,
+    "train": 4.416,
+    "val": 5.145
+   },
+   {
+    "iter": 200,
+    "train": 3.305,
+    "val": 4.895
+   },
+   {
+    "iter": 300,
+    "train": 2.57,
+    "val": 5.17
+   },
+   {
+    "iter": 400,
+    "train": 1.818,
+    "val": 5.358
+   },
+   {
+    "iter": 500,
+    "train": 1.265,
+    "val": 5.526
+   },
+   {
+    "iter": 600,
+    "train": 0.973,
+    "val": 5.674
+   },
+   {
+    "iter": 700,
+    "train": 0.859,
+    "val": 5.639
+   },
+   {
+    "iter": 800,
+    "train": 0.843,
+    "val": 5.682
+   }
+  ]
+ },
+ "configs": {
+  "base+rag": {
+   "reworded": {
+    "n": 56,
+    "accuracy": 0.5,
+    "f1": 0.383
+   },
+   "unseen_fact": {
+    "n": 9,
+    "accuracy": 0.667,
+    "f1": 0.405
+   },
+   "out_of_scope": {
+    "n": 12,
+    "accuracy": 0.0,
+    "f1": 0.124
+   },
+   "overall": {
+    "n": 77,
+    "accuracy": 0.442,
+    "f1": 0.345,
+    "false_refusals": 0,
+    "mean_latency_s": 29.31
+   }
+  },
+  "ft+rag": {
+   "reworded": {
+    "n": 56,
+    "accuracy": 0.589,
+    "f1": 0.457
+   },
+   "unseen_fact": {
+    "n": 9,
+    "accuracy": 0.444,
+    "f1": 0.378
+   },
+   "out_of_scope": {
+    "n": 12,
+    "accuracy": 0.5,
+    "f1": 0.596
+   },
+   "overall": {
+    "n": 77,
+    "accuracy": 0.558,
+    "f1": 0.47,
+    "false_refusals": 9,
+    "mean_latency_s": 6.71
+   }
+  },
+  "agent": {
+   "reworded": {
+    "n": 56,
+    "accuracy": 0.589,
+    "f1": 0.457
+   },
+   "unseen_fact": {
+    "n": 9,
+    "accuracy": 0.444,
+    "f1": 0.378
+   },
+   "out_of_scope": {
+    "n": 12,
+    "accuracy": 0.583,
+    "f1": 0.663
+   },
+   "overall": {
+    "n": 77,
+    "accuracy": 0.571,
+    "f1": 0.48,
+    "false_refusals": 9,
+    "mean_latency_s": 10.22
+   }
+  },
+  "ft+oracle": {
+   "reworded": {
+    "n": 56,
+    "accuracy": 0.125,
+    "f1": 0.199
+   },
+   "unseen_fact": {
+    "n": 9,
+    "accuracy": 0.0,
+    "f1": 0.171
+   },
+   "out_of_scope": {
+    "n": 12,
+    "accuracy": 0.5,
+    "f1": 0.596
+   },
+   "overall": {
+    "n": 77,
+    "accuracy": 0.169,
+    "f1": 0.257,
+    "false_refusals": 51,
+    "mean_latency_s": 10.72
+   }
+  }
+ }
+}

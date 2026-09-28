@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+logs/
+checkpoints/
+web/node_modules/
+web/dist/
+# BatLM-360M weights are hosted on the Hugging Face Hub, not in git (too large).
+web/public/models/batlm-360m/
+.DS_Store
+.env*
+.vercel
