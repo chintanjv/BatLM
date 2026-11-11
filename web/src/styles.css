@@ -21,20 +21,22 @@
 }
 *, *::before, *::after { box-sizing: border-box; }
 html, body, #root { height: 100%; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0; background: var(--bg); color: var(--ink);
   font: 400 15px/1.6 var(--sans);
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
   overflow: hidden;
 }
 body::after { /* one static light source, like a signal behind cloud */
   content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background: radial-gradient(60% 42% at 50% 0%, color-mix(in srgb, var(--gold) 7%, transparent), transparent 70%);
 }
-button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; touch-action: manipulation; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 6px; }
 
-.app { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
+.app { position: relative; z-index: 1; height: 100%; height: var(--app-h, 100dvh); display: flex; flex-direction: column; }
 .gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .col { width: 100%; max-width: var(--col); margin-inline: auto; min-width: 0; }
 
@@ -55,7 +57,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; color: var(--ink-2);
   transition: background .15s, color .15s, transform .15s var(--ease);
 }
-.newchat:hover { background: var(--raise); color: var(--ink); }
+@media (hover: hover) { .newchat:hover { background: var(--raise); color: var(--ink); } }
 .newchat:active { transform: scale(0.92); }
 .newchat svg { width: 17px; height: 17px; }
 
@@ -80,7 +82,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .chip:nth-child(1) { animation-delay: .40s } .chip:nth-child(2) { animation-delay: .45s }
 .chip:nth-child(3) { animation-delay: .50s } .chip:nth-child(4) { animation-delay: .55s }
-.chip:hover { border-color: color-mix(in srgb, var(--gold) 55%, var(--line)); color: var(--ink); background: var(--surface); transform: translateY(-1px); }
+@media (hover: hover) { .chip:hover { border-color: color-mix(in srgb, var(--gold) 55%, var(--line)); color: var(--ink); background: var(--surface); transform: translateY(-1px); } }
 .chip:active { transform: scale(0.97); }
 
 .msg { animation: rise .22s var(--ease) both; min-width: 0; }
@@ -107,12 +109,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .stopped { color: var(--ink-3); font-size: 13px; margin-top: 6px; }
 .err { color: var(--bad); font-size: 14px; overflow-wrap: anywhere; }
 .err button { display: block; margin-top: 8px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); font-size: 13px; transition: background .15s; }
-.err button:hover { background: var(--raise); }
+@media (hover: hover) { .err button:hover { background: var(--raise); } }
 
 .meta { display: flex; align-items: center; gap: 14px; margin-top: 12px; font: 400 11px/1 var(--mono); letter-spacing: 0.04em; color: var(--ink-3); animation: rise .25s var(--ease) both; font-variant-numeric: tabular-nums; }
 .meta:empty { display: none; }
 .srcbtn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; margin-left: -9px; border-radius: 7px; color: var(--ink-2); transition: background .15s, color .15s; }
-.srcbtn:hover { background: var(--raise); color: var(--ink); }
+@media (hover: hover) { .srcbtn:hover { background: var(--raise); color: var(--ink); } }
 .srcbtn svg { width: 9px; height: 9px; transition: transform .2s var(--ease); }
 .srcbtn[aria-expanded="true"] svg { transform: rotate(90deg); }
 .src { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .24s var(--ease); }
@@ -126,7 +128,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .src .t { font-size: 13px; font-weight: 500; }
 .src .t span { color: var(--ink-3); font-weight: 400; }
 .src .t a { margin-left: 8px; color: var(--ink-2); font: 400 11px var(--mono); text-decoration: none; }
-.src .t a:hover { color: var(--gold); }
+@media (hover: hover) { .src .t a:hover { color: var(--gold); } }
 .src .x { grid-column: 2; font-size: 13px; line-height: 1.5; color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* composer */
@@ -153,13 +155,58 @@ textarea::placeholder { color: var(--ink-3); }
   position: relative; width: 36px; height: 36px; border-radius: 50%; background: var(--gold); color: var(--gold-ink);
   transition: transform .16s var(--ease), opacity .16s;
 }
-.send:hover { transform: scale(1.06); } .send:active { transform: scale(0.92); }
+@media (hover: hover) { .send:hover { transform: scale(1.06); } }
+.send:active { transform: scale(0.92); }
 .send[disabled] { opacity: .28; cursor: default; transform: none; }
 .send svg { position: absolute; inset: 0; margin: auto; width: 16px; height: 16px; transition: opacity .14s, transform .2s var(--ease); }
 .send .i-stop { opacity: 0; transform: scale(0.4) rotate(-90deg); }
 .composer[data-busy="1"] .send .i-go { opacity: 0; transform: scale(0.4) rotate(90deg); }
 .composer[data-busy="1"] .send .i-stop { opacity: 1; transform: none; }
 .note { margin: 9px 0 0; text-align: center; font-size: 12px; color: var(--ink-3); }
+
+/* Touch screens: controls at least 44px, and 16px input text so iOS does not zoom the page on focus. */
+@media (pointer: coarse) {
+  .newchat { width: 44px; height: 44px; margin-right: -6px; }
+  .send { width: 44px; height: 44px; }
+  .chip { padding: 11px 16px; font-size: 14.5px; }
+  .srcbtn { padding: 12px 10px; margin-left: -10px; }
+  textarea { font-size: 16px; padding: 10px 0; }
+  .composer { padding: 6px 6px 6px 16px; border-radius: 22px; }
+}
+
+/* Phones. */
+@media (max-width: 560px) {
+  .feed .col { gap: 22px; }
+  .msg.user { max-width: 88%; }
+  .msg.bot { grid-template-columns: 22px minmax(0, 1fr); gap: 10px; }
+  .av { width: 22px; } .av svg { width: 22px; height: 12px; }
+  .empty { gap: 16px; }
+  .emblem { width: 112px; height: 58px; }
+  .empty p { font-size: 13.5px; }
+  .note { font-size: 11px; }
+}
+
+/* Very narrow screens, such as a folded phone's cover display. */
+@media (max-width: 340px) {
+  .status span:last-child { display: none; } /* keep the dot, drop the words */
+  .chips { gap: 6px; }
+  .chip { padding-inline: 12px; font-size: 13px; }
+  .emblem { width: 96px; height: 50px; }
+}
+
+/* Short screens, such as a phone on its side or with the keyboard open: give the height to the conversation. */
+@media (max-height: 480px) {
+  .bar { padding-block: max(6px, env(safe-area-inset-top, 0px)) 6px; }
+  .emblem, .note { display: none; }
+  .empty { gap: 12px; padding-block: 8px; }
+  .feed { padding-block: 4px 12px; }
+  .dock { padding-bottom: max(8px, env(safe-area-inset-bottom, 0px)); }
+}
+
+/* Dual-screen foldables opened flat: use the right-hand screen so nothing sits across the hinge. */
+@media (horizontal-viewport-segments: 2) {
+  .app { margin-left: env(viewport-segment-left 1 0, 0px); }
+}
 
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
 @keyframes word { from { opacity: 0; } }

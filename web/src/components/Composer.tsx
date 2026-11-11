@@ -18,7 +18,9 @@ export const Composer = memo(function Composer({ busy, onSend, onStop, download 
     el.style.height = "";
     if (value) el.style.height = `${Math.min(el.scrollHeight, 160)}px`;
   }, [value]);
-  useEffect(() => { if (!busy) input.current?.focus(); }, [busy]);
+  // Focus the input when it is free again, but only with a mouse or trackpad: on a touch screen focusing
+  // opens the keyboard over the answer the person is about to read.
+  useEffect(() => { if (!busy && matchMedia("(pointer: fine)").matches) input.current?.focus(); }, [busy]);
 
   const submit = () => {
     if (busy || !value.trim()) return;
@@ -31,7 +33,7 @@ export const Composer = memo(function Composer({ busy, onSend, onStop, download 
       <div className={download ? "track on" : "track"} style={{ transform: `scaleX(${download?.progress ?? 0})` }} />
       <div className={download ? "dl on" : "dl"}><div><span>{download?.label}</span></div></div>
       <textarea
-        ref={input} id="question" rows={1} value={value} placeholder="Ask about Gotham…" aria-label="Your question"
+        ref={input} id="question" rows={1} value={value} placeholder="Ask about Gotham…" aria-label="Your question" enterKeyHint="send"
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); submit(); }
