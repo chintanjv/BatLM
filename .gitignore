@@ -14,3 +14,4 @@ web/public/models/batlm-360m/
 data/raw/
 .venv-export/
 web/tsconfig.tsbuildinfo
+evals/browser_run.json

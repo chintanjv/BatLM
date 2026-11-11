@@ -10,7 +10,7 @@ import pathlib
 from . import rag, sft_data
 from .prompt import render
 
-MIN_SCORE = 10.0 # below this, with no Batman subject named in the question, the question is off-topic
+MIN_SCORE = 16.0 # below this, with no Batman subject named in the question, the question is off-topic
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
@@ -28,7 +28,7 @@ def hf_generate_fn(path, max_new_tokens=160):
     """Greedy generation with the same settings as the browser (web/src/worker.ts)."""
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
-    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    device = "mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu"
     tok = AutoTokenizer.from_pretrained(path)
     model = AutoModelForCausalLM.from_pretrained(path, torch_dtype=torch.float32).to(device).eval()
     eos = tok.convert_tokens_to_ids("<|im_end|>")
@@ -37,7 +37,7 @@ def hf_generate_fn(path, max_new_tokens=160):
         ids = tok(prompt, return_tensors="pt", add_special_tokens=False).input_ids.to(device)
         with torch.no_grad():
             out = model.generate(ids, attention_mask=torch.ones_like(ids), max_new_tokens=max_new_tokens, do_sample=False,
-                                 repetition_penalty=1.1, eos_token_id=eos, pad_token_id=eos)
+                                 repetition_penalty=1.0, eos_token_id=eos, pad_token_id=eos)
         new = out[0, ids.shape[1]:]
         return tok.decode(new, skip_special_tokens=True).strip(), len(new) >= max_new_tokens
     return gen

@@ -3,7 +3,7 @@ import { render } from "./prompt";
 import type { Hit, Index } from "./search";
 
 /** Below this search score, with no Batman subject named in the question, the question is off-topic. */
-export const MIN_SCORE = 10.0;
+export const MIN_SCORE = 16.0;
 
 export type Plan =
   | { kind: "refuse"; answer: string }

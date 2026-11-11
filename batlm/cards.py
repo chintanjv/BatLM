@@ -2,7 +2,8 @@
 versions people ask about most. Mainline comics come first; a film or TV difference gets one clause.
 
 A card does three jobs:
-  * it is a passage in the search index, found through the card's name and aliases;
+  * each of its facts is a short passage in the search index, found through the card's name and aliases
+    and through the ways people ask for that fact;
   * its sentences are the answers the model is trained to give;
   * every fact carries `keys`, the words a correct answer must contain (used by the eval scorer).
 
@@ -45,6 +46,8 @@ E("Batman", "the batman|bruce wayne|the dark knight|the caped crusader|batsy",
        "Batman's archenemy is the Joker.", "Joker"),
       (["What are Batman's nicknames?", "What else is Batman called?", "What other names does Batman go by?", "What is Batman known as?"],
        "Batman is also called the Dark Knight, the Caped Crusader and the World's Greatest Detective.", "Dark Knight, Caped Crusader"),
+      (["Where does Bruce Wayne live?", "Where is Batman's home?", "What is Batman's house called?", "Where does Batman live?"],
+       "Bruce Wayne lives in Wayne Manor, on the outskirts of Gotham City.", "Wayne Manor"),
       (["Who is Batman's son?", "Does Batman have a son?", "Does Batman have any children?", "Who is Bruce Wayne's child?"],
        "Batman's son is Damian Wayne, whose mother is Talia al Ghul.", "Damian"),
   ])
@@ -393,7 +396,7 @@ E("the Arkham Knight", "arkham knight", page="Batman: Arkham Knight",
 # ------------------------------------------------------------------ places and gear
 E("Gotham City", "gotham", kind="what",
   who=("Gotham City is the dark, crime-ridden American city that Batman protects. It is home to Wayne Manor, Arkham Asylum and the Gotham City Police Department.", "city"),
-  more=[(["What city does Batman protect?", "Where does Batman live?", "Which city is Batman from?", "Where does Batman fight crime?"],
+  more=[(["What city does Batman protect?", "What is Batman's city?", "Which city is Batman from?", "Where does Batman fight crime?"],
          "Batman protects Gotham City.", "Gotham")])
 
 E("Arkham Asylum", "arkham|the asylum", kind="what",
@@ -499,7 +502,7 @@ E("Arkham Asylum: A Serious House on Serious Earth", "a serious house on serious
   who=("Arkham Asylum: A Serious House on Serious Earth is a 1989 graphic novel by writer Grant Morrison and artist Dave McKean in which Batman enters the asylum after its inmates take it over.", "Morrison|McKean"))
 
 # ------------------------------------------------------------------ film, television and games
-E("the 1989 film Batman", "batman 1989|the 1989 batman film|tim burton's batman|batman (1989 film)", kind="what", title="Batman (1989 film)",
+E("the 1989 film Batman", "batman 1989|the 1989 batman film|tim burton's batman|batman (1989 film)|the 1989 movie|the 1989 film|the 1989 batman movie", kind="what", title="Batman (1989 film)",
   who=("Batman is a 1989 film directed by Tim Burton, starring Michael Keaton as Batman and Jack Nicholson as the Joker.", "Burton|Keaton"))
 
 E("Batman Returns", "", kind="what",
@@ -515,17 +518,15 @@ E("Batman Begins", "", kind="what",
   who=("Batman Begins is a 2005 film directed by Christopher Nolan, starring Christian Bale as Batman. It tells his origin and pits him against Ra's al Ghul and the Scarecrow.", "Nolan|Bale"))
 
 E("The Dark Knight", "the dark knight film|dark knight movie", kind="what",
-  who=("The Dark Knight is a 2008 film directed by Christopher Nolan, with Christian Bale as Batman and Heath Ledger as the Joker. Ledger won a posthumous Academy Award for the role.", "Nolan|Ledger"),
-  more=[(["Who played the Joker in The Dark Knight?", "Which actor was the Joker in The Dark Knight?", "Who was the Joker in the 2008 film?"],
-         "Heath Ledger played the Joker in The Dark Knight.", "Ledger")])
+  who=("The Dark Knight is a 2008 film directed by Christopher Nolan, with Christian Bale as Batman and Heath Ledger as the Joker. Ledger won a posthumous Academy Award for the role.", "Nolan|Ledger"))
 
 E("The Dark Knight Rises", "", kind="what",
   who=("The Dark Knight Rises is a 2012 film directed by Christopher Nolan, the last of his trilogy, with Christian Bale as Batman, Tom Hardy as Bane and Anne Hathaway as Selina Kyle.", "Nolan|Hardy|Bane"))
 
-E("the 2022 film The Batman", "the batman 2022|the batman movie|the batman film|the batman (2022 film)", kind="what", title="The Batman (film)",
+E("the 2022 film The Batman", "the batman 2022|the batman movie|the batman film|the batman (2022 film)|the batman|the 2022 movie|the 2022 film", kind="what", title="The Batman (film)",
   who=("The Batman is a 2022 film directed by Matt Reeves, starring Robert Pattinson as Batman, with Paul Dano as the Riddler, Zoë Kravitz as Selina Kyle and Colin Farrell as the Penguin.", "Reeves|Pattinson"))
 
-E("the 2019 film Joker", "joker movie|joker film|joker 2019|joker (2019 film)", kind="what", title="Joker (2019 film)",
+E("the 2019 film Joker", "joker movie|joker film|joker 2019|joker (2019 film)|the joker movie|the 2019 movie|the 2019 film", kind="what", title="Joker (2019 film)",
   who=("Joker is a 2019 film directed by Todd Phillips, starring Joaquin Phoenix as Arthur Fleck, a failed comedian who becomes the Joker. Phoenix won the Academy Award for Best Actor.", "Phillips|Phoenix"))
 
 E("the 1966 Batman TV series", "batman 1966|batman '66|the adam west batman|1960s batman show", kind="what", page="Batman (TV series)",
@@ -561,6 +562,28 @@ E("Batman: Arkham Knight", "arkham knight game", kind="what",
 
 E("Batman: Mask of the Phantasm", "mask of the phantasm", kind="what",
   who=("Batman: Mask of the Phantasm is a 1993 animated film based on Batman: The Animated Series, in which Batman is blamed for murders committed by a masked killer called the Phantasm.", "1993|Phantasm"))
+
+# Director and cast questions for each film. Without these the model has to pull a name out of the middle of
+# the card's long opening sentence, which a model this small does unreliably.
+FILMS = [
+    ("Batman (1989 film)", "the 1989 film Batman", "Tim Burton", {"Batman": "Michael Keaton", "the Joker": "Jack Nicholson"}),
+    ("Batman Returns", "Batman Returns", "Tim Burton", {"Batman": "Michael Keaton", "the Penguin": "Danny DeVito", "Catwoman": "Michelle Pfeiffer"}),
+    ("Batman Forever", "Batman Forever", "Joel Schumacher", {"Batman": "Val Kilmer", "the Riddler": "Jim Carrey"}),
+    ("Batman & Robin (film)", "the 1997 film Batman & Robin", "Joel Schumacher", {"Batman": "George Clooney", "Mr. Freeze": "Arnold Schwarzenegger"}),
+    ("Batman Begins", "Batman Begins", "Christopher Nolan", {"Batman": "Christian Bale"}),
+    ("The Dark Knight", "The Dark Knight", "Christopher Nolan", {"Batman": "Christian Bale", "the Joker": "Heath Ledger"}),
+    ("The Dark Knight Rises", "The Dark Knight Rises", "Christopher Nolan", {"Batman": "Christian Bale", "Bane": "Tom Hardy"}),
+    ("The Batman (film)", "the 2022 film The Batman", "Matt Reeves", {"Batman": "Robert Pattinson", "the Riddler": "Paul Dano"}),
+    ("Joker (2019 film)", "the 2019 film Joker", "Todd Phillips", {"the Joker": "Joaquin Phoenix"}),
+]
+for _title, _f, _director, _cast in FILMS:
+    _card = next(c for c in CARDS if c["title"] == _title)
+    _F = _f[0].upper() + _f[1:]
+    _card["more"].append(([f"Who directed {_f}?", f"Who is the director of {_f}?", f"Which director made {_f}?"],
+                          f"{_F} was directed by {_director}.", _director.split()[-1]))
+    for _role, _actor in _cast.items():
+        _card["more"].append(([f"Who played {_role} in {_f}?", f"Which actor was {_role} in {_f}?", f"Who starred as {_role} in {_f}?"],
+                              f"{_actor} played {_role} in {_f}.", _actor.split()[-1]))
 
 # ------------------------------------------------------------------ people behind Batman
 E("Bob Kane", "",
@@ -606,7 +629,7 @@ T("The Bat-Family", "bat-family batfamily bat family members team allies helpers
 T("Actors who have played Batman", "actors played portrayed batman live-action film movie cast star who list all every",
   "In live-action films Batman has been played by Michael Keaton (1989 and 1992), Val Kilmer (1995), George Clooney (1997), Christian Bale (2005 to 2012), "
   "Ben Affleck (2016 to 2023) and Robert Pattinson (2022). Adam West played him in the 1966 television series.",
-  ["Which actors have played Batman?", "Who has played Batman in the movies?", "List the Batman actors.", "Who played Batman on screen?", "Name every live-action Batman."],
+  ["Which actors have played Batman?", "batman actors", "Who has played Batman in the movies?", "List the Batman actors.", "Who played Batman on screen?", "Name every live-action Batman."],
   "Keaton, Bale, Pattinson")
 
 T("Actors who have played the Joker", "actors played portrayed joker live-action film movie cast star who list all every",
@@ -618,7 +641,7 @@ T("Actors who have played the Joker", "actors played portrayed joker live-action
 T("Batman films in order", "films movies in order list all every live-action chronological release timeline",
   "The live-action Batman films, in release order:\n1. Batman (1966)\n2. Batman (1989)\n3. Batman Returns (1992)\n4. Batman Forever (1995)\n5. Batman & Robin (1997)\n"
   "6. Batman Begins (2005)\n7. The Dark Knight (2008)\n8. The Dark Knight Rises (2012)\n9. Batman v Superman: Dawn of Justice (2016)\n10. The Batman (2022)",
-  ["What are the Batman movies in order?", "List all the Batman films.", "How many Batman movies are there?", "Name the live-action Batman films in release order.", "What Batman movies exist?"],
+  ["What are the Batman movies in order?", "batman movies in order", "List all the Batman films.", "How many Batman movies are there?", "Name the live-action Batman films in release order.", "What Batman movies exist?"],
   "Batman Returns, Batman Begins, The Dark Knight")
 
 T("The Dark Knight trilogy", "dark knight trilogy nolan films three movies order",
@@ -633,7 +656,7 @@ T("The Batman: Arkham games", "arkham games video game series order list all roc
 
 T("Essential Batman comics", "best essential comics graphic novels stories read start reading recommended must-read top storylines",
   "The Batman stories most often recommended are:\n1. Batman: Year One\n2. The Dark Knight Returns\n3. The Killing Joke\n4. The Long Halloween\n5. Batman: Hush\n6. The Court of Owls",
-  ["What are the best Batman comics?", "Which Batman comics should I read first?", "What are the essential Batman stories?", "Recommend some Batman graphic novels.", "Where should I start reading Batman?"],
+  ["What are the best Batman comics?", "best batman comics to read", "batman comics to start with", "Which Batman comics should I read first?", "What are the essential Batman stories?", "Recommend some Batman graphic novels.", "Where should I start reading Batman?"],
   "Year One, Dark Knight Returns, Killing Joke")
 
 T("Batman's skills and abilities", "skills abilities powers strengths good at fight fighting detective intelligence training how strong smart",
@@ -663,7 +686,27 @@ T("The Batgirls", "batgirls list all every how many order",
   "Barbara Gordon, Cassandra Cain, Stephanie Brown")
 
 
-# ------------------------------------------------------------------ derived text and checks
+# ------------------------------------------------------------------ questions, passages and checks
+# {n} is the name mid-sentence ("the Joker"); {N} the same with a capital. The LAST phrasing of every fact is
+# kept out of both the search index and training: it is the `reworded` eval question.
+WHO = ["Who is {n}?", "who is {n}", "Tell me about {n}.", "Who's {n}?", "What do you know about {n}?", "Describe {n}.", "{N}",
+       "Can you tell me who {n} is?"]
+WHAT = ["What is {n}?", "what is {n}", "Tell me about {n}.", "What's {n}?", "What do you know about {n}?", "Describe {n}.", "{N}",
+        "Can you explain what {n} is?"]
+REAL = ["What is {n}'s real name?", "What is {n}'s real identity?", "Who is {n} really?", "what's {n}'s secret identity",
+        "What is the true identity of {n}?", "What is the actual name of {n}?"]
+FIRST = ["When did {n} first appear?", "What was {n}'s first appearance?", "In which comic did {n} debut?", "when was {n} introduced",
+         "Where did {n} first show up?"]
+BY = ["Who created {n}?", "Who came up with {n}?", "who made {n}", "Which writers and artists created {n}?",
+      "Who are the creators of {n}?"]
+ALIAS = ["Who is {n}?", "who is {n}", "Tell me about {n}."]  # one each for a card's first three aliases
+ALIAS_WHAT = ["What is {n}?", "what is {n}", "Tell me about {n}."]
+
+
+def fill(t: str, n: str) -> str:
+    return t.format(n=n, N=n[0].upper() + n[1:])
+
+
 def facts(card):
     """All (field, answer, keys) for a card, in card order."""
     out = []
@@ -682,14 +725,20 @@ def facts(card):
     return out
 
 
-def text(card):
-    """The passage shown to the model: the card's answers, without repeats."""
-    seen, out = set(), []
-    for _, a, _ in facts(card):
-        if a not in seen:
-            seen.add(a)
-            out.append(a)
-    return " ".join(out)
+def questions(card):
+    """(field, answer, keys, eval question, other phrasings) for every fact on a card."""
+    out = []
+    more = {f"more{i}": qs for i, (qs, _, _) in enumerate(card["more"])}
+    for field, a, k in facts(card):
+        if field in more:
+            qs = more[field]
+        else:
+            t = {"who": WHAT if card["kind"] == "what" else WHO, "real": REAL, "first": FIRST, "by": BY}[field]
+            qs = [fill(x, card["n"]) for x in t]
+            if field == "who":
+                qs = qs[:-1] + [fill(x, al) for x, al in zip(ALIAS_WHAT if card["kind"] == "what" else ALIAS, card["aliases"])] + qs[-1:]
+        out.append((field, a, k, qs[-1], qs[:-1]))
+    return out
 
 
 def key_hit(answer: str, keys: str) -> bool:
@@ -699,18 +748,22 @@ def key_hit(answer: str, keys: str) -> bool:
 
 
 def passages():
-    """Cards as search passages. Ids are negative so they never collide with Wikipedia passage ids."""
+    """Every fact as its own short search passage, so the model is shown the sentence that answers the
+    question instead of having to find it inside a long profile. A fact carries the ways of asking for it
+    (`asks`), which search matches against the question. Ids are negative so they never collide with
+    Wikipedia passage ids."""
     out = []
-    for i, c in enumerate(CARDS):
-        out.append({"id": -(i + 1), "title": c["title"], "section": "Profile" if c["kind"] != "topic" else "Overview",
-                    "text": text(c), "url": "", "card": True, "page": c["page"],
-                    "aliases": ([c["n"].lower(), re.sub(r"^the ", "", c["n"].lower())] if c["n"] else []) + c["aliases"],
-                    "keywords": c.get("keywords", "")})
+    for c in CARDS:
+        aliases = ([c["n"].lower(), re.sub(r"^the ", "", c["n"].lower())] if c["n"] else []) + c["aliases"]
+        for _, a, _, _, asks in questions(c):
+            out.append({"id": -(len(out) + 1), "title": c["title"], "section": "Overview" if c["kind"] == "topic" else "Profile",
+                        "text": a, "url": "", "card": True, "page": c["page"], "aliases": aliases, "asks": asks,
+                        "keywords": c.get("keywords", "")})
     return out
 
 
 def main():
-    """Check every fact's keys against the card's own answer and against the scraped page."""
+    """Check every fact's keys against its own answer and against the scraped page."""
     chunks = json.loads((ROOT / "data" / "chunks.json").read_text())
     raw = {}
     for f in (ROOT / "data" / "raw").glob("*.json"):

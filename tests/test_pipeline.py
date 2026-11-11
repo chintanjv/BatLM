@@ -20,11 +20,12 @@ def test_render_matches_chat_template():
         chat("Who is the Joker?", hits), tokenize=False, add_generation_prompt=True)
 
 
-def test_simple_questions_retrieve_their_card():
-    for q, title in [("who is the batman?", "Batman"), ("What is the Joker's real identity?", "Joker"),
-                     ("Who is Alfred?", "Alfred Pennyworth"), ("What are the top 5 Batman villains?", "Batman's main villains"),
-                     ("Who is the Batman Who Laughs?", "Batman Who Laughs")]:
-        assert title in [c["title"] for _, c in INDEX.search(q)], q
+def test_simple_questions_put_the_answer_first():
+    for q, fact in [("who is the batman?", "Batman is Bruce Wayne"), ("What is the Joker's real identity?", "no definitive real name"),
+                    ("Who is Alfred?", "butler"), ("What are the top 5 Batman villains?", "1. The Joker"),
+                    ("Who broke Batman's back?", "Bane broke"), ("Who played Batman in The Dark Knight?", "Christian Bale"),
+                    ("Who is the Batman Who Laughs?", "evil Bruce Wayne")]:
+        assert fact in INDEX.search(q)[0][1]["text"], q
 
 
 def test_every_card_fact_is_self_consistent():

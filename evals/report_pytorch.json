@@ -1,0 +1,45 @@
+{
+ "generated": "2026-11-11 17:45",
+ "passages": 6199,
+ "search": {
+  "n": 128,
+  "recall@3": 0.977
+ },
+ "model": "fp32 PyTorch, batlm-merged",
+ "results": {
+  "owner": {
+   "n": 13,
+   "accuracy": 1.0
+  },
+  "reworded": {
+   "n": 59,
+   "accuracy": 0.932
+  },
+  "unseen": {
+   "n": 38,
+   "accuracy": 0.947
+  },
+  "wiki": {
+   "n": 18,
+   "accuracy": 0.944
+  },
+  "missing": {
+   "n": 13,
+   "accuracy": 1.0
+  },
+  "off_topic": {
+   "n": 20,
+   "accuracy": 1.0
+  },
+  "answerable": {
+   "n": 128,
+   "accuracy": 0.945
+  },
+  "overall": {
+   "n": 161,
+   "accuracy": 0.957,
+   "hit_token_limit": 0,
+   "wrongly_declined": 0
+  }
+ }
+}

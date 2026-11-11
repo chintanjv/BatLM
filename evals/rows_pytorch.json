@@ -1,0 +1,1464 @@
+[
+ {
+  "q": "who is the batman?",
+  "a": "",
+  "keys": "Bruce Wayne",
+  "bad": "",
+  "kind": "owner",
+  "pred": "Batman is Bruce Wayne, a billionaire from Gotham City who fights crime as a masked vigilante. He has no superpowers and relies on his intellect, detective skills, martial arts training and technology.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is the Joker's real identity?",
+  "a": "",
+  "keys": "no definitive|unknown|never|uncertain|not known",
+  "bad": "Ra's al Ghul",
+  "kind": "owner",
+  "pred": "The Joker has no definitive real name in the main comics, and his past is deliberately left uncertain. On screen he is Jack Napier in the 1989 film Batman and Arthur Fleck in the 2019 film Joker.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who is Alfred?",
+  "a": "",
+  "keys": "butler",
+  "bad": "",
+  "kind": "owner",
+  "pred": "Alfred Pennyworth is the Wayne family's butler, who raised Bruce Wayne after his parents were murdered. He is Batman's closest confidant and looks after Wayne Manor and the Batcave.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What are the top 5 Batman villains?",
+  "a": "",
+  "keys": "Joker, Two-Face, Penguin",
+  "bad": "",
+  "kind": "owner",
+  "pred": "There is no official ranking, but Batman's most prominent villains are:\n1. The Joker, his archenemy.\n2. Two-Face, former district attorney Harvey Dent.\n3. The Penguin, crime boss Oswald Cobblepot.\n4. The Riddler, Edward Nygma.\n5. Bane, who broke Batman's back.\nOthers include Catwoman, the Scarecrow, Ra's al Ghul, Mr. Freeze, Poison Ivy and Harley Quinn.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "who is the joker",
+  "a": "",
+  "keys": "archenemy|arch-enemy|enemy",
+  "bad": "Ra's al Ghul",
+  "kind": "owner",
+  "pred": "The Joker is Batman's archenemy, a criminal mastermind with chalk-white skin, green hair and a permanent grin. He has no superpowers and commits crimes for his own amusement.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who killed Batman's parents?",
+  "a": "",
+  "keys": "Joe Chill",
+  "bad": "",
+  "kind": "owner",
+  "pred": "Batman's parents were killed by a mugger named Joe Chill.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who is Harley Quinn?",
+  "a": "",
+  "keys": "Harleen Quinzel|psychiatrist",
+  "bad": "",
+  "kind": "owner",
+  "pred": "Harley Quinn is Dr. Harleen Quinzel, a psychiatrist at Arkham Asylum who fell in love with her patient, the Joker, and became his accomplice. She later left him and became an antihero.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who broke Batman's back?",
+  "a": "",
+  "keys": "Bane",
+  "bad": "",
+  "kind": "owner",
+  "pred": "Bane broke Batman's back in the Knightfall storyline.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who played Batman in The Dark Knight?",
+  "a": "",
+  "keys": "Bale",
+  "bad": "Ledger",
+  "kind": "owner",
+  "pred": "Christian Bale played Batman in The Dark Knight.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who played the Joker in the 1989 movie?",
+  "a": "",
+  "keys": "Nicholson",
+  "bad": "",
+  "kind": "owner",
+  "pred": "Jack Nicholson played the Joker in the 1989 film Batman.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who directed The Batman?",
+  "a": "",
+  "keys": "Reeves",
+  "bad": "",
+  "kind": "owner",
+  "pred": "The 2022 film The Batman was directed by Matt Reeves.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "best batman comics to read",
+  "a": "",
+  "keys": "Year One, Dark Knight Returns",
+  "bad": "",
+  "kind": "owner",
+  "pred": "The Batman stories most often recommended are:\n1. Batman: Year One\n2. The Dark Knight Returns\n3. The Killing Joke\n4. The Long Halloween\n5. Batman: Hush\n6. The Court of Owls",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where does Batman live?",
+  "a": "",
+  "keys": "Wayne Manor",
+  "bad": "",
+  "kind": "owner",
+  "pred": "Bruce Wayne lives in Wayne Manor, on the outskirts of Gotham City.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Batman is?",
+  "a": "Batman is Bruce Wayne, a billionaire from Gotham City who fights crime as a masked vigilante. He has no superpowers and relies on his intellect, detective skills, martial arts training and technology.",
+  "keys": "Bruce Wayne",
+  "kind": "reworded",
+  "pred": "Batman is Bruce Wayne, a billionaire from Gotham City who fights crime as a masked vigilante. He has no superpowers and relies on his intellect, detective skills, martial arts training and technology.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What superpowers does Batman have?",
+  "a": "No. Batman has no superpowers.",
+  "keys": "no superpowers|no powers|no super",
+  "kind": "unseen",
+  "pred": "No. Batman has no superpowers.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Will Batman kill his enemies?",
+  "a": "No. Batman refuses to kill and does not use guns.",
+  "keys": "refuses|never|does not|no",
+  "kind": "reworded",
+  "pred": "No. Batman refuses to kill and does not use guns.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who were Bruce Wayne's mother and father?",
+  "a": "Bruce Wayne's parents are Thomas Wayne, a Gotham City doctor, and Martha Wayne. They were shot dead by a mugger in front of their young son, which led him to become Batman.",
+  "keys": "Thomas, Martha",
+  "kind": "reworded",
+  "pred": "Batman's parents were killed by a mugger named Joe Chill.",
+  "capped": false,
+  "correct": false
+ },
+ {
+  "q": "Which criminal killed the Waynes?",
+  "a": "Batman's parents were killed by a mugger named Joe Chill.",
+  "keys": "Joe Chill",
+  "kind": "reworded",
+  "pred": "Batman's parents were killed by a mugger named Joe Chill.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Joe Chill is?",
+  "a": "Joe Chill is the mugger who shot Thomas and Martha Wayne in front of their son Bruce, the crime that created Batman.",
+  "keys": "Wayne|parents",
+  "kind": "reworded",
+  "pred": "Joe Chill is the mugger who shot Thomas and Martha Wayne in front of their son Bruce, the crime that created Batman.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did Alfred Pennyworth first show up?",
+  "a": "Alfred Pennyworth first appeared in Batman #16 in 1943.",
+  "keys": "16, 1943",
+  "kind": "unseen",
+  "pred": "Alfred Pennyworth first appeared in Batman #16 in 1943.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who are the creators of Robin?",
+  "a": "Robin was created by Bob Kane, Bill Finger and Jerry Robinson.",
+  "keys": "Kane, Finger, Robinson",
+  "kind": "reworded",
+  "pred": "Robin was created by Bob Kane, Bill Finger and Jerry Robinson.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who murdered the Flying Graysons?",
+  "a": "Dick Grayson's parents, the Flying Graysons, were killed by the gangster Tony Zucco, who sabotaged their trapeze.",
+  "keys": "Zucco",
+  "kind": "unseen",
+  "pred": "Dick Grayson's parents, the Flying Graysons, were killed by the gangster Tony Zucco, who sabotaged their trapeze.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did Jason Todd first show up?",
+  "a": "Jason Todd first appeared in Batman #357 in 1983.",
+  "keys": "357, 1983",
+  "kind": "unseen",
+  "pred": "Jason Todd first appeared in Batman #357 in 1983.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Stephanie Brown is?",
+  "a": "Stephanie Brown is the vigilante Spoiler, daughter of the villain Cluemaster. She served briefly as the fourth Robin and later as Batgirl.",
+  "keys": "Spoiler",
+  "kind": "reworded",
+  "pred": "Stephanie Brown is the vigilante Spoiler, daughter of the villain Cluemaster. She served briefly as the fourth Robin and later as Batgirl.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "How did Barbara Gordon end up in a wheelchair?",
+  "a": "The Joker shot and paralyzed Barbara Gordon in The Killing Joke.",
+  "keys": "Joker",
+  "kind": "reworded",
+  "pred": "Barbara Gordon first appeared in Detective Comics #359 in 1967.",
+  "capped": false,
+  "correct": false
+ },
+ {
+  "q": "Can you tell me who Batgirl is?",
+  "a": "Batgirl is a heroine who works alongside Batman. The best-known Batgirl is Barbara Gordon; Cassandra Cain and Stephanie Brown have also held the name.",
+  "keys": "Barbara Gordon",
+  "kind": "unseen",
+  "pred": "Batgirl is a heroine who works alongside Batman. The best-known Batgirl is Barbara Gordon; Cassandra Cain and Stephanie Brown have also held the name.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is the actual name of Batgirl?",
+  "a": "Batgirl's real name is usually Barbara Gordon.",
+  "keys": "Barbara Gordon",
+  "kind": "reworded",
+  "pred": "Batgirl's real name is usually Barbara Gordon.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did Cassandra Cain first show up?",
+  "a": "Cassandra Cain first appeared in Batman #567 in 1999.",
+  "keys": "567, 1999",
+  "kind": "unseen",
+  "pred": "Cassandra Cain first appeared in Batman #567 in 1999.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did Batwoman first show up?",
+  "a": "The modern Batwoman, Kate Kane, first appeared in 52 #7 in 2006.",
+  "keys": "7, 2006",
+  "kind": "reworded",
+  "pred": "The modern Batwoman, Kate Kane, first appeared in 52 #7 in 2006.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who are the creators of James Gordon?",
+  "a": "James Gordon was created by Bill Finger and Bob Kane.",
+  "keys": "Finger, Kane",
+  "kind": "reworded",
+  "pred": "James Gordon was created by Bill Finger and Bob Kane.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Catwoman is?",
+  "a": "Catwoman is Selina Kyle, a skilled cat burglar in Gotham City. She is sometimes Batman's enemy, sometimes his ally, and his most enduring love interest.",
+  "keys": "Selina Kyle",
+  "kind": "reworded",
+  "pred": "Catwoman is Selina Kyle, a skilled cat burglar in Gotham City. She is sometimes Batman's enemy, sometimes his ally, and his most enduring love interest.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is the actual name of Catwoman?",
+  "a": "Catwoman's real name is Selina Kyle.",
+  "keys": "Selina Kyle",
+  "kind": "unseen",
+  "pred": "Catwoman's real name is Selina Kyle.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who are the creators of Catwoman?",
+  "a": "Catwoman was created by Bill Finger and Bob Kane.",
+  "keys": "Finger, Kane",
+  "kind": "reworded",
+  "pred": "Catwoman was created by Bill Finger and Bob Kane.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did Harvey Bullock first show up?",
+  "a": "Harvey Bullock first appeared in Detective Comics #441 in 1974.",
+  "keys": "441, 1974",
+  "kind": "reworded",
+  "pred": "Harvey Bullock first appeared in Detective Comics #441 in 1974.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Renee Montoya is?",
+  "a": "Renee Montoya is a Gotham City police detective who was created for Batman: The Animated Series. In the comics she later became the faceless vigilante the Question.",
+  "keys": "detective|Question",
+  "kind": "reworded",
+  "pred": "Renee Montoya is a Gotham City police detective who was created for Batman: The Animated Series. In the comics she later became the faceless vigilante the Question.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Vicki Vale is?",
+  "a": "Vicki Vale is a Gotham City journalist and photographer and one of Bruce Wayne's love interests.",
+  "keys": "journalist|reporter|photo",
+  "kind": "reworded",
+  "pred": "Vicki Vale is a Gotham City journalist and photographer and one of Bruce Wayne's love interests.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did Vicki Vale first show up?",
+  "a": "Vicki Vale first appeared in Batman #49 in 1948.",
+  "keys": "49, 1948",
+  "kind": "unseen",
+  "pred": "Vicki Vale first appeared in Batman #49 in 1948.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who the Huntress is?",
+  "a": "The Huntress is Helena Bertinelli, the daughter of a murdered Gotham mob family who hunts criminals with a crossbow.",
+  "keys": "Helena Bertinelli",
+  "kind": "reworded",
+  "pred": "The Huntress is Helena Bertinelli, the daughter of a murdered Gotham mob family who hunts criminals with a crossbow.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did Ace the Bat-Hound first show up?",
+  "a": "Ace the Bat-Hound first appeared in Batman #92 in 1955.",
+  "keys": "92, 1955",
+  "kind": "reworded",
+  "pred": "Ace the Bat-Hound first appeared in Batman #92 in 1955.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Bat-Mite is?",
+  "a": "Bat-Mite is a small imp from another dimension with magical powers. He idolizes Batman and causes trouble by trying to help him.",
+  "keys": "imp",
+  "kind": "reworded",
+  "pred": "Bat-Mite is a small imp from another dimension with magical powers. He idolizes Batman and causes trouble by trying to help him.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did Bat-Mite first show up?",
+  "a": "Bat-Mite first appeared in Detective Comics #267 in 1959.",
+  "keys": "267, 1959",
+  "kind": "reworded",
+  "pred": "Bat-Mite first appeared in Detective Comics #267 in 1959.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what the Gotham City Police Department is?",
+  "a": "The Gotham City Police Department, or GCPD, is Gotham's police force. It is led by Commissioner James Gordon and calls Batman with the Bat-Signal.",
+  "keys": "police",
+  "kind": "unseen",
+  "pred": "The Gotham City Police Department, or GCPD, is Gotham's police force. It is led by Commissioner James Gordon and calls Batman with the Bat-Signal.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who the Joker is?",
+  "a": "The Joker is Batman's archenemy, a criminal mastermind with chalk-white skin, green hair and a permanent grin. He has no superpowers and commits crimes for his own amusement.",
+  "keys": "archenemy|arch-enemy|enemy",
+  "kind": "reworded",
+  "pred": "The Joker is Batman's archenemy, a criminal mastermind with chalk-white skin, green hair and a permanent grin. He has no superpowers and commits crimes for his own amusement.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did the Joker first show up?",
+  "a": "The Joker first appeared in Batman #1 in 1940.",
+  "keys": "1, 1940",
+  "kind": "unseen",
+  "pred": "The Joker first appeared in Batman #1 in 1940.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who are the creators of the Joker?",
+  "a": "The Joker was created by Bill Finger, Bob Kane and Jerry Robinson.",
+  "keys": "Finger, Kane, Robinson",
+  "kind": "reworded",
+  "pred": "The Joker was created by Bill Finger, Bob Kane and Jerry Robinson.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What happened to make the Joker?",
+  "a": "The best-known origin is that he fell into a vat of chemicals that bleached his skin and drove him insane. The Joker himself says he remembers his past differently each time.",
+  "keys": "chemical",
+  "kind": "unseen",
+  "pred": "The Joker has no definitive real name in the main comics, and his past is deliberately left uncertain. On screen he is Jack Napier in the 1989 film Batman and Arthur Fleck in the 2019 film Joker.",
+  "capped": false,
+  "correct": false
+ },
+ {
+  "q": "Can you tell me who Harley Quinn is?",
+  "a": "Harley Quinn is Dr. Harleen Quinzel, a psychiatrist at Arkham Asylum who fell in love with her patient, the Joker, and became his accomplice. She later left him and became an antihero.",
+  "keys": "Harleen Quinzel|psychiatrist",
+  "kind": "unseen",
+  "pred": "Harley Quinn is Dr. Harleen Quinzel, a psychiatrist at Arkham Asylum who fell in love with her patient, the Joker, and became his accomplice. She later left him and became an antihero.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is the actual name of Harley Quinn?",
+  "a": "Harley Quinn's real name is Dr. Harleen Quinzel.",
+  "keys": "Harleen Quinzel",
+  "kind": "reworded",
+  "pred": "Harley Quinn's real name is Dr. Harleen Quinzel.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who the Penguin is?",
+  "a": "The Penguin is Oswald Cobblepot, a Gotham City crime boss known for his short stature, top hat and trick umbrellas. He runs the Iceberg Lounge nightclub.",
+  "keys": "Oswald Cobblepot|Cobblepot",
+  "kind": "unseen",
+  "pred": "The Penguin is Oswald Cobblepot, a Gotham City crime boss known for his short stature, top hat and trick umbrellas. He runs the Iceberg Lounge nightclub.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did the Penguin first show up?",
+  "a": "The Penguin first appeared in Detective Comics #58 in 1941.",
+  "keys": "58, 1941",
+  "kind": "reworded",
+  "pred": "The Penguin is a 2024 television series, a spin-off of the film The Batman, starring Colin Farrell as Oz Cobb.",
+  "capped": false,
+  "correct": false
+ },
+ {
+  "q": "Who threw acid at Harvey Dent?",
+  "a": "The mob boss Sal Maroni threw acid in Harvey Dent's face during a trial.",
+  "keys": "Maroni",
+  "kind": "reworded",
+  "pred": "The mob boss Sal Maroni threw acid in Harvey Dent's face during a trial.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did Bane first show up?",
+  "a": "Bane first appeared in Batman: Vengeance of Bane #1 in 1993.",
+  "keys": "1, 1993",
+  "kind": "unseen",
+  "pred": "Bane first appeared in Batman: Vengeance of Bane #1 in 1993.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who are the creators of Bane?",
+  "a": "Bane was created by Chuck Dixon, Doug Moench and Graham Nolan.",
+  "keys": "Dixon, Moench, Nolan",
+  "kind": "reworded",
+  "pred": "Bane was created by Chuck Dixon, Doug Moench and Graham Nolan.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who snapped Batman's spine?",
+  "a": "Bane broke Batman's back in the Knightfall storyline.",
+  "keys": "Bane",
+  "kind": "unseen",
+  "pred": "Batman is Bruce Wayne, a billionaire from Gotham City who fights crime as a masked vigilante. He has no superpowers and relies on his intellect, detective skills, martial arts training and technology.",
+  "capped": false,
+  "correct": false
+ },
+ {
+  "q": "Where did Ra's al Ghul first show up?",
+  "a": "Ra's al Ghul first appeared in Batman #232 in 1971.",
+  "keys": "232, 1971",
+  "kind": "reworded",
+  "pred": "Ra's al Ghul first appeared in Batman #232 in 1971.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Mr. Freeze is?",
+  "a": "Mr. Freeze is Dr. Victor Fries, a scientist who must wear a refrigerated suit to survive and who fights with a freeze gun. He turns to crime to save his terminally ill wife, Nora.",
+  "keys": "Victor Fries|Fries",
+  "kind": "reworded",
+  "pred": "Mr. Freeze is Dr. Victor Fries, a scientist who must wear a refrigerated suit to survive and who fights with a freeze gun. He turns to crime to save his terminally ill wife, Nora.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did Mr. Freeze first show up?",
+  "a": "Mr. Freeze first appeared in Batman #121 in 1959, under the name Mr. Zero.",
+  "keys": "121, 1959",
+  "kind": "reworded",
+  "pred": "Mr. Freeze first appeared in Batman #121 in 1959, under the name Mr. Zero.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Killer Croc is?",
+  "a": "Killer Croc is Waylon Jones, a criminal with a rare condition that gives him crocodile-like skin, great strength and sharp teeth.",
+  "keys": "Waylon Jones|crocodile",
+  "kind": "unseen",
+  "pred": "Killer Croc is Waylon Jones, a criminal with a rare condition that gives him crocodile-like skin, great strength and sharp teeth.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Hush is?",
+  "a": "Hush is Dr. Thomas Elliot, a surgeon and childhood friend of Bruce Wayne who hides his face in bandages and sets out to destroy him.",
+  "keys": "Thomas Elliot|Elliot",
+  "kind": "reworded",
+  "pred": "Hush is Dr. Thomas Elliot, a surgeon and childhood friend of Bruce Wayne who hides his face in bandages and sets out to destroy him.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is the actual name of Hush?",
+  "a": "Hush's real name is Dr. Thomas Elliot.",
+  "keys": "Elliot",
+  "kind": "unseen",
+  "pred": "Hush's real name is Dr. Thomas Elliot.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Black Mask is?",
+  "a": "Black Mask is Roman Sionis, a ruthless Gotham City crime lord who wears a black skull mask.",
+  "keys": "Roman Sionis|crime",
+  "kind": "reworded",
+  "pred": "Black Mask is Roman Sionis, a ruthless Gotham City crime lord who wears a black skull mask.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is the actual name of Black Mask?",
+  "a": "Black Mask's real name is Roman Sionis.",
+  "keys": "Sionis",
+  "kind": "reworded",
+  "pred": "Black Mask's real name is Roman Sionis.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Deathstroke is?",
+  "a": "Deathstroke is Slade Wilson, a mercenary and assassin with enhanced strength and reflexes. He began as an enemy of the Teen Titans and often fights Batman.",
+  "keys": "Slade Wilson|mercenary|assassin",
+  "kind": "unseen",
+  "pred": "Deathstroke is Slade Wilson, a mercenary and assassin with enhanced strength and reflexes. He began as an enemy of the Teen Titans and often fights Batman.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who are the creators of the Court of Owls?",
+  "a": "The Court of Owls was created by Scott Snyder and Greg Capullo.",
+  "keys": "Snyder, Capullo",
+  "kind": "reworded",
+  "pred": "The Court of Owls was created by Scott Snyder and Greg Capullo.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Man-Bat is?",
+  "a": "Man-Bat is Dr. Kirk Langstrom, a scientist whose serum made from bat DNA turns him into a giant bat creature.",
+  "keys": "Kirk Langstrom|Langstrom",
+  "kind": "unseen",
+  "pred": "Man-Bat is Dr. Kirk Langstrom, a scientist whose serum made from bat DNA turns him into a giant bat creature.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Sal Maroni is?",
+  "a": "Sal Maroni is a Gotham City mob boss, best known for throwing acid at district attorney Harvey Dent and turning him into Two-Face.",
+  "keys": "acid|Dent|Two-Face",
+  "kind": "unseen",
+  "pred": "Sal Maroni is a Gotham City mob boss, best known for throwing acid at district attorney Harvey Dent and turning him into Two-Face.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Firefly is?",
+  "a": "Firefly is Garfield Lynns, a pyromaniac arsonist who wears a flying suit and carries a flamethrower.",
+  "keys": "Garfield Lynns|pyromaniac|arson|fire",
+  "kind": "unseen",
+  "pred": "Firefly is Garfield Lynns, a pyromaniac arsonist who wears a flying suit and carries a flamethrower.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is the actual name of Firefly?",
+  "a": "Firefly's real name is Garfield Lynns.",
+  "keys": "Lynns",
+  "kind": "reworded",
+  "pred": "Firefly's real name is Garfield Lynns.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who are the creators of Professor Pyg?",
+  "a": "Professor Pyg was created by Grant Morrison and Andy Kubert.",
+  "keys": "Morrison, Kubert",
+  "kind": "unseen",
+  "pred": "Professor Pyg was created by Grant Morrison and Andy Kubert.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where did Deadshot first show up?",
+  "a": "Deadshot first appeared in Batman #59 in 1950.",
+  "keys": "59, 1950",
+  "kind": "reworded",
+  "pred": "Deadshot first appeared in Batman #59 in 1950.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Solomon Grundy is?",
+  "a": "Solomon Grundy is a huge, super-strong zombie who rose from Slaughter Swamp near Gotham City. In life he was a merchant named Cyrus Gold.",
+  "keys": "zombie|undead|Cyrus Gold",
+  "kind": "reworded",
+  "pred": "Solomon Grundy is a huge, super-strong zombie who rose from Slaughter Swamp near Gotham City. In life he was a merchant named Cyrus Gold.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Lady Shiva is?",
+  "a": "Lady Shiva is one of the deadliest martial artists in the DC Universe, an assassin who is the mother of Cassandra Cain.",
+  "keys": "martial artist|assassin|Cassandra",
+  "kind": "unseen",
+  "pred": "Lady Shiva is one of the deadliest martial artists in the DC Universe, an assassin who is the mother of Cassandra Cain.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what the League of Assassins is?",
+  "a": "The League of Assassins is a secret order of killers led by Ra's al Ghul. In the Dark Knight film trilogy it is called the League of Shadows.",
+  "keys": "Ra's al Ghul",
+  "kind": "reworded",
+  "pred": "The League of Assassins is a secret order of killers led by Ra's al Ghul. In the Dark Knight film trilogy it is called the League of Shadows.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who the Batman Who Laughs is?",
+  "a": "The Batman Who Laughs is an evil Bruce Wayne from a dark alternate Earth who was infected by the Joker's toxin, giving him Batman's mind and the Joker's cruelty.",
+  "keys": "alternate|Joker",
+  "kind": "unseen",
+  "pred": "The Batman Who Laughs is an evil Bruce Wayne from a dark alternate Earth who was infected by the Joker's toxin, giving him Batman's mind and the Joker's cruelty.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Punchline is?",
+  "a": "Punchline is Alexis Kaye, a college student who became the Joker's girlfriend and partner after Harley Quinn left him.",
+  "keys": "Alexis Kaye|Joker",
+  "kind": "reworded",
+  "pred": "Punchline is Alexis Kaye, a college student who became the Joker's girlfriend and partner after Harley Quinn left him.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Anarky is?",
+  "a": "Anarky is Lonnie Machin, a teenage prodigy who attacks corrupt institutions in the name of anarchist ideas.",
+  "keys": "Lonnie Machin|anarch",
+  "kind": "unseen",
+  "pred": "Anarky is Lonnie Machin, a teenage prodigy who attacks corrupt institutions in the name of anarchist ideas.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who are the creators of Anarky?",
+  "a": "Anarky was created by Alan Grant and Norm Breyfogle.",
+  "keys": "Grant, Breyfogle",
+  "kind": "unseen",
+  "pred": "Anarky was created by Alan Grant and Norm Breyfogle.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Tony Zucco is?",
+  "a": "Tony Zucco is the gangster who killed Dick Grayson's parents by sabotaging their trapeze act, which led Dick to become Robin.",
+  "keys": "Grayson|parents",
+  "kind": "reworded",
+  "pred": "Tony Zucco is the gangster who killed Dick Grayson's parents by sabotaging their trapeze act, which led Dick to become Robin.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who the Arkham Knight is?",
+  "a": "The Arkham Knight is the masked military commander who hunts Batman in the 2015 video game Batman: Arkham Knight. He is revealed to be Jason Todd.",
+  "keys": "Jason Todd",
+  "kind": "unseen",
+  "pred": "The Arkham Knight is the masked military commander who hunts Batman in the 2015 video game Batman: Arkham Knight. He is revealed to be Jason Todd.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what Wayne Enterprises is?",
+  "a": "Wayne Enterprises is the business empire Bruce Wayne inherited from his family. Its wealth and technology pay for Batman's equipment.",
+  "keys": "Bruce Wayne|company|business",
+  "kind": "reworded",
+  "pred": "Wayne Enterprises is the business empire Bruce Wayne inherited from his family. Its wealth and technology pay for Batman's equipment.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what the Batmobile is?",
+  "a": "The Batmobile is Batman's car, a heavily armored vehicle packed with gadgets and weapons.",
+  "keys": "car|vehicle",
+  "kind": "unseen",
+  "pred": "The Batmobile is Batman's car, a heavily armored vehicle packed with gadgets and weapons.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what the Batsuit is?",
+  "a": "The Batsuit is Batman's costume: a gray and black armored suit with a cape, a cowl with pointed ears and a bat symbol on the chest. It protects him and frightens criminals.",
+  "keys": "costume|cape|cowl|suit",
+  "kind": "reworded",
+  "pred": "The Batsuit is Batman's costume: a gray and black armored suit with a cape, a cowl with pointed ears and a bat symbol on the chest. It protects him and frightens criminals.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what the Bat-Signal is?",
+  "a": "The Bat-Signal is a searchlight that projects a bat symbol onto the sky over Gotham City. The police use it to call Batman.",
+  "keys": "searchlight|light|signal",
+  "kind": "unseen",
+  "pred": "The Bat-Signal is a searchlight that projects a bat symbol onto the sky over Gotham City. The police use it to call Batman.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what the Batcomputer is?",
+  "a": "The Batcomputer is the supercomputer in the Batcave that Batman uses to analyze evidence and track criminals.",
+  "keys": "computer",
+  "kind": "reworded",
+  "pred": "The Batcomputer is the supercomputer in the Batcave that Batman uses to analyze evidence and track criminals.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what Batman: Year One is?",
+  "a": "Batman: Year One is a 1987 story by writer Frank Miller and artist David Mazzucchelli that retells Bruce Wayne's first year as Batman and James Gordon's arrival in Gotham.",
+  "keys": "Miller|first year",
+  "kind": "reworded",
+  "pred": "Batman: Year One is a 1987 story by writer Frank Miller and artist David Mazzucchelli that retells Bruce Wayne's first year as Batman and James Gordon's arrival in Gotham.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Which writer created Batman: Year One?",
+  "a": "Batman: Year One was written by Frank Miller and drawn by David Mazzucchelli.",
+  "keys": "Miller",
+  "kind": "reworded",
+  "pred": "Batman: Year One is a 1987 story by writer Frank Miller and artist David Mazzucchelli that retells Bruce Wayne's first year as Batman and James Gordon's arrival in Gotham.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Which writer is behind The Killing Joke?",
+  "a": "The Killing Joke was written by Alan Moore and drawn by Brian Bolland.",
+  "keys": "Moore",
+  "kind": "reworded",
+  "pred": "The Killing Joke is a 1988 graphic novel by writer Alan Moore and artist Brian Bolland.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what The Dark Knight Returns is?",
+  "a": "The Dark Knight Returns is a 1986 comic by Frank Miller in which a 55-year-old Bruce Wayne comes out of retirement to be Batman again.",
+  "keys": "Miller|retire",
+  "kind": "reworded",
+  "pred": "The Dark Knight Returns is a 1986 comic by Frank Miller in which a 55-year-old Bruce Wayne comes out of retirement to be Batman again.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Which writer made The Dark Knight Returns?",
+  "a": "The Dark Knight Returns was written and drawn by Frank Miller.",
+  "keys": "Miller",
+  "kind": "reworded",
+  "pred": "The Dark Knight Returns was written and drawn by Frank Miller.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what Knightfall is?",
+  "a": "Knightfall is a 1993 to 1994 storyline in which Bane breaks Batman's back and Jean-Paul Valley, Azrael, takes over as a more violent Batman until Bruce Wayne returns.",
+  "keys": "Bane",
+  "kind": "unseen",
+  "pred": "Knightfall is a 1993 to 1994 storyline in which Bane breaks Batman's back and Jean-Paul Valley, Azrael, takes over as a more violent Batman until Bruce Wayne returns.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what Batman: Three Jokers is?",
+  "a": "Batman: Three Jokers is a 2020 series by writer Geoff Johns and artist Jason Fabok built on the idea that three different men have been the Joker.",
+  "keys": "Johns|three",
+  "kind": "unseen",
+  "pred": "Batman: Three Jokers is a 2020 series by writer Geoff Johns and artist Jason Fabok built on the idea that three different men have been the Joker.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what Arkham Asylum: A Serious House on Serious Earth is?",
+  "a": "Arkham Asylum: A Serious House on Serious Earth is a 1989 graphic novel by writer Grant Morrison and artist Dave McKean in which Batman enters the asylum after its inmates take it over.",
+  "keys": "Morrison|McKean",
+  "kind": "reworded",
+  "pred": "Arkham Asylum: A Serious House on Serious Earth is a 1989 graphic novel by writer Grant Morrison and artist Dave McKean in which Batman enters the asylum after its inmates take it over.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Which director made the 1989 film Batman?",
+  "a": "The 1989 film Batman was directed by Tim Burton.",
+  "keys": "Burton",
+  "kind": "unseen",
+  "pred": "The 1989 film Batman was directed by Tim Burton.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who starred as the Penguin in Batman Returns?",
+  "a": "Danny DeVito played the Penguin in Batman Returns.",
+  "keys": "DeVito",
+  "kind": "reworded",
+  "pred": "Danny DeVito played the Penguin in Batman Returns.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what Batman Forever is?",
+  "a": "Batman Forever is a 1995 film directed by Joel Schumacher, with Val Kilmer as Batman, Tommy Lee Jones as Two-Face and Jim Carrey as the Riddler.",
+  "keys": "Schumacher|Kilmer",
+  "kind": "reworded",
+  "pred": "Batman Forever is a 1995 film directed by Joel Schumacher, with Val Kilmer as Batman, Tommy Lee Jones as Two-Face and Jim Carrey as the Riddler.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who starred as Batman in Batman Forever?",
+  "a": "Val Kilmer played Batman in Batman Forever.",
+  "keys": "Kilmer",
+  "kind": "reworded",
+  "pred": "Val Kilmer played Batman in Batman Forever.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who starred as Batman in the 1997 film Batman & Robin?",
+  "a": "George Clooney played Batman in the 1997 film Batman & Robin.",
+  "keys": "Clooney",
+  "kind": "unseen",
+  "pred": "George Clooney played Batman in the 1997 film Batman & Robin.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who starred as Mr. Freeze in the 1997 film Batman & Robin?",
+  "a": "Arnold Schwarzenegger played Mr. Freeze in the 1997 film Batman & Robin.",
+  "keys": "Schwarzenegger",
+  "kind": "unseen",
+  "pred": "Arnold Schwarzenegger played Mr. Freeze in the 1997 film Batman & Robin.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what Batman Begins is?",
+  "a": "Batman Begins is a 2005 film directed by Christopher Nolan, starring Christian Bale as Batman. It tells his origin and pits him against Ra's al Ghul and the Scarecrow.",
+  "keys": "Nolan|Bale",
+  "kind": "unseen",
+  "pred": "Batman Begins is a 2005 film directed by Christopher Nolan, starring Christian Bale as Batman. It tells his origin and pits him against Ra's al Ghul and the Scarecrow.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what The Dark Knight is?",
+  "a": "The Dark Knight is a 2008 film directed by Christopher Nolan, with Christian Bale as Batman and Heath Ledger as the Joker. Ledger won a posthumous Academy Award for the role.",
+  "keys": "Nolan|Ledger",
+  "kind": "unseen",
+  "pred": "The Dark Knight is a 2008 film directed by Christopher Nolan, with Christian Bale as Batman and Heath Ledger as the Joker. Ledger won a posthumous Academy Award for the role.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Which director made The Dark Knight?",
+  "a": "The Dark Knight was directed by Christopher Nolan.",
+  "keys": "Nolan",
+  "kind": "reworded",
+  "pred": "The Dark Knight was directed by Christopher Nolan.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who starred as the Joker in The Dark Knight?",
+  "a": "Heath Ledger played the Joker in The Dark Knight.",
+  "keys": "Ledger",
+  "kind": "reworded",
+  "pred": "Heath Ledger played the Joker in The Dark Knight.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Which director made the 2019 film Joker?",
+  "a": "The 2019 film Joker was directed by Todd Phillips.",
+  "keys": "Phillips",
+  "kind": "reworded",
+  "pred": "The 2019 film Joker was directed by Todd Phillips.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who starred as the Joker in the 2019 film Joker?",
+  "a": "Joaquin Phoenix played the Joker in the 2019 film Joker.",
+  "keys": "Phoenix",
+  "kind": "unseen",
+  "pred": "Joaquin Phoenix played the Joker in the 2019 film Joker.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what the 1966 Batman TV series is?",
+  "a": "Batman is a television series that ran from 1966 to 1968, starring Adam West as Batman and Burt Ward as Robin. It is known for its campy, comic tone.",
+  "keys": "Adam West|West",
+  "kind": "reworded",
+  "pred": "Batman is a television series that ran from 1966 to 1968, starring Adam West as Batman and Burt Ward as Robin. It is known for its campy, comic tone.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what the television series Gotham is?",
+  "a": "Gotham is a television series that ran from 2014 to 2019 about a young James Gordon and a teenage Bruce Wayne in the years before Batman.",
+  "keys": "Gordon",
+  "kind": "reworded",
+  "pred": "Gotham is a television series that ran from 2014 to 2019 about a young James Gordon and a teenage Bruce Wayne in the years before Batman.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Frank Miller is?",
+  "a": "Frank Miller is the writer and artist behind The Dark Knight Returns and Batman: Year One, which made Batman darker in the 1980s.",
+  "keys": "Dark Knight Returns|Year One",
+  "kind": "unseen",
+  "pred": "Frank Miller is the writer and artist behind The Dark Knight Returns and Batman: Year One, which made Batman darker in the 1980s.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Where should I start reading Batman?",
+  "a": "The Batman stories most often recommended are:\n1. Batman: Year One\n2. The Dark Knight Returns\n3. The Killing Joke\n4. The Long Halloween\n5. Batman: Hush\n6. The Court of Owls",
+  "keys": "Year One, Dark Knight Returns, Killing Joke",
+  "kind": "reworded",
+  "pred": "The Batman stories most often recommended are:\n1. Batman: Year One\n2. The Dark Knight Returns\n3. The Killing Joke\n4. The Long Halloween\n5. Batman: Hush\n6. The Court of Owls",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What makes Batman dangerous?",
+  "a": "Batman has no superpowers. He is a genius-level detective, a master of many martial arts, an expert escape artist and tactician, and has the wealth to build advanced equipment. He trained his body and mind to peak human condition.",
+  "keys": "detective, martial arts",
+  "kind": "reworded",
+  "pred": "Batman's most dangerous enemies are held in Arkham Asylum.",
+  "capped": false,
+  "correct": false
+ },
+ {
+  "q": "Who has been Batgirl?",
+  "a": "The main Batgirls, in order, are Barbara Gordon, Cassandra Cain and Stephanie Brown. Bette Kane was an earlier Bat-Girl in 1961.",
+  "keys": "Barbara Gordon, Cassandra Cain, Stephanie Brown",
+  "kind": "reworded",
+  "pred": "Batgirl is a heroine who works alongside Batman. The best-known Batgirl is Barbara Gordon; Cassandra Cain and Stephanie Brown have also held the name.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what List of Batman family enemies is?",
+  "a": "The Batman family enemies are a collection of supervillains appearing in American comic books published by DC Comics.",
+  "keys": "Batman, family",
+  "kind": "wiki",
+  "pred": "The Batman family enemies are a collection of supervillains appearing in American comic books published by DC Comics.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what Nightwing is?",
+  "a": "Nightwing is a codename used by multiple characters appearing in American comic books published by DC Comics.",
+  "keys": "codename, used",
+  "kind": "wiki",
+  "pred": "Nightwing is Dick Grayson, the first Robin.",
+  "capped": false,
+  "correct": false
+ },
+ {
+  "q": "Can you tell me who Julie Madison is?",
+  "a": "Julie Madison is a fictional character appearing in American comic books published by DC Comics, commonly in association with the superhero Batman.",
+  "keys": "fictional, character",
+  "kind": "wiki",
+  "pred": "Julie Madison is a fictional character appearing in American comic books published by DC Comics, commonly in association with the superhero Batman.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Jeremiah Arkham is?",
+  "a": "Jeremiah Arkham is a supervillain and the head of the Arkham Asylum in DC Comics, created by Alan Grant.",
+  "keys": "supervillain, head",
+  "kind": "wiki",
+  "pred": "Jeremiah Arkham is a supervillain and the head of the Arkham Asylum in DC Comics, created by Alan Grant.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Roxy Rocket is?",
+  "a": "Roxy Rocket (Roxanne Sutton) is a supervillain appearing in media published by DC Comics.",
+  "keys": "supervillain, appearing",
+  "kind": "wiki",
+  "pred": "Roxy Rocket (Roxanne Sutton) is a supervillain appearing in media published by DC Comics.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Batman: The Brave and the Bold is?",
+  "a": "Batman: The Brave and the Bold is an American animated television series based in part on the DC Comics series The Brave and the Bold which features two or more superheroes coming together to solve a crime or foil a super villain.",
+  "keys": "American, animated",
+  "kind": "wiki",
+  "pred": "Batman: The Brave and the Bold is an American animated television series based in part on the DC Comics series The Brave and the Bold which features two or more superheroes coming together to solve a crime or foil a super villain.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Beware the Batman is?",
+  "a": "Beware the Batman is an American animated television series based on the DC Comics superhero Batman.",
+  "keys": "American, animated",
+  "kind": "wiki",
+  "pred": "Beware the Batman is an American animated television series based on the DC Comics superhero Batman.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who the TV series Batwoman is?",
+  "a": "Batwoman is an American superhero television series developed by Caroline Dries for The CW.",
+  "keys": "American, superhero",
+  "kind": "wiki",
+  "pred": "Batwoman is an American superhero television series developed by Caroline Dries for The CW.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what the serial Batman and Robin is?",
+  "a": "New Adventures of Batman and Robin, the Boy Wonder, also known as simply Batman and Robin, is a 15-chapter serial released in 1949 by Columbia Pictures.",
+  "keys": "chapter, serial",
+  "kind": "wiki",
+  "pred": "New Adventures of Batman and Robin, the Boy Wonder, also known as simply Batman and Robin, is a 15-chapter serial released in 1949 by Columbia Pictures.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Batman: Return of the Caped Crusaders is?",
+  "a": "Batman: Return of the Caped Crusaders is a 2016 American animated superhero film produced by Warner Bros.",
+  "keys": "American, animated",
+  "kind": "wiki",
+  "pred": "Batman: Return of the Caped Crusaders is a 2016 American animated superhero film produced by Warner Bros.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Batman: Mystery of the Batwoman is?",
+  "a": "Batman: Mystery of the Batwoman is a 2003 American animated superhero film based on The New Batman Adventures (1997–1999).",
+  "keys": "American, animated",
+  "kind": "wiki",
+  "pred": "Batman: Mystery of the Batwoman is a 2003 American animated superhero film based on The New Batman Adventures (1997–1999).",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what Batman: Arkham Shadow is?",
+  "a": "Batman: Arkham Shadow is a 2024 action-adventure game developed by Camouflaj and published by Oculus Studios.",
+  "keys": "action, adventure",
+  "kind": "wiki",
+  "pred": "Batman: Arkham Shadow is a 2024 action-adventure game developed by Camouflaj and published by Oculus Studios.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Batman: Gotham by Gaslight is?",
+  "a": "Batman: Gotham by Gaslight is a 2018 American adult animated superhero film produced by Warner Bros.",
+  "keys": "American, adult",
+  "kind": "wiki",
+  "pred": "Batman: Gotham by Gaslight is a 2018 American adult animated superhero film produced by Warner Bros.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you explain what Batman: Vengeance is?",
+  "a": "Batman: Vengeance is a 2001 action-adventure game developed by Ubi Soft Montreal and published by Ubi Soft in conjunction with Warner Bros.",
+  "keys": "action, adventure",
+  "kind": "wiki",
+  "pred": "Batman: Vengeance is a 2001 action-adventure game developed by Ubi Soft Montreal and published by Ubi Soft in conjunction with Warner Bros.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Michael Keaton is?",
+  "a": "Michael John Douglas (born September 5, 1951), known professionally as Michael Keaton, is an American actor, filmmaker, and producer.",
+  "keys": "American, actor",
+  "kind": "wiki",
+  "pred": "Michael John Douglas (born September 5, 1951), known professionally as Michael Keaton, is an American actor, filmmaker, and producer.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Christian Bale is?",
+  "a": "Christian Charles Philip Bale (born 30 January 1974) is an English actor.",
+  "keys": "English, actor",
+  "kind": "wiki",
+  "pred": "Christian Charles Philip Bale (born 30 January 1974) is an English actor.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Julius Schwartz is?",
+  "a": "Julius \"Julie\" Schwartz ( SHWORTS; June 19, 1915 – February 8, 2004) was an American comic book editor and a science fiction agent.",
+  "keys": "American, comic",
+  "kind": "wiki",
+  "pred": "Julius \"Julie\" Schwartz ( SHWORTS; June 19, 1915 – February 8, 2004) was an American comic book editor and a science fiction agent.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you tell me who Steve Englehart is?",
+  "a": "Steve Englehart (; born April 22, 1947) is an American writer of comic books and novels.",
+  "keys": "American, writer",
+  "kind": "wiki",
+  "pred": "Steve Englehart (; born April 22, 1947) is an American writer of comic books and novels.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Batman's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Jason Todd's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Cassandra Cain's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Renee Montoya's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Duke Thomas's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Harley Quinn's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Ra's al Ghul's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Hush's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Carmine Falcone's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Solomon Grundy's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Anarky's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is the Arkham Knight's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Christopher Nolan's favorite band?",
+  "a": "I don't have that in my case files.",
+  "keys": "",
+  "kind": "missing",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who founded Microsoft?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is the Avengers' headquarters?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "How tall is Mount Everest?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Can you help me with my taxes?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who is Wonder Woman's mother?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is Captain America's shield made of?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who is the president of France?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "How many moons does Mars have?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "How do I change a car tire?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who is Superman's girlfriend?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is the capital of Australia?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Write a haiku about autumn.",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who is Tony Stark's father?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "I don't have that in my case files.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is the fastest animal on Earth?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who discovered America?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "good morning",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "What is 9 times 8?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who is Peter Parker's best friend?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "How do I make coffee?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ },
+ {
+  "q": "Who directed The Godfather?",
+  "a": "That is outside my case files. I only answer questions about the Batman universe.",
+  "keys": "",
+  "kind": "off_topic",
+  "pred": "That is outside my case files. I only answer questions about the Batman universe.",
+  "capped": false,
+  "correct": true
+ }
+]

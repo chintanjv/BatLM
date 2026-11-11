@@ -14,8 +14,8 @@ const log = (s: string) => { document.getElementById("log")!.textContent += "\n"
 const MAX_TOKENS = 160; // same cap as the app (hooks/useModel.ts)
 
 (async () => {
-  // The driver script may hand over its own question list; give it a moment to do so.
-  for (let i = 0; i < 20 && !w.__questions; i++) await new Promise((r) => setTimeout(r, 100));
+  // With ?wait=1 the driver script hands over its own question list once the page is up.
+  if (location.search.includes("wait")) for (let i = 0; i < 600 && !w.__questions; i++) await new Promise((r) => setTimeout(r, 100));
   const questions = w.__questions ?? ["who is the batman?", "What is the Joker's real identity?", "Who is Alfred?", "What are the top 5 Batman villains?", "How do I bake bread?"];
   const d = await fetch("/data/index.json").then((r) => r.json());
   const knowledge: Knowledge = { index: new Index(d.passages), persona: d.persona, refusal: d.refusal };

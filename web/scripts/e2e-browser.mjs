@@ -22,7 +22,7 @@ try {
   let target;
   for (let i = 0; i < 50 && !target; i++) {
     await sleep(200);
-    target = await fetch(`http://127.0.0.1:${port}/json/new?${base}/e2e.html`, { method: "PUT" }).then((r) => r.json()).catch(() => null);
+    target = await fetch(`http://127.0.0.1:${port}/json/new?${base}/e2e.html${questions ? "?wait=1" : ""}`, { method: "PUT" }).then((r) => r.json()).catch(() => null);
   }
   if (!target) throw new Error(`could not reach Chrome on port ${port} (set CHROME to its path)`);
   const ws = new WebSocket(target.webSocketDebuggerUrl);
@@ -34,11 +34,11 @@ try {
     pending.set(++id, (m) => res(m.result?.result?.value));
     ws.send(JSON.stringify({ id, method: "Runtime.evaluate", params: { expression, returnByValue: true } }));
   });
-  if (questions) await evaluate(`window.__questions = ${JSON.stringify(questions)}`);
   const t0 = Date.now();
   let state;
   for (;;) {
     await sleep(2000);
+    if (questions) await evaluate(`window.__questions ??= ${JSON.stringify(questions)}`); // repeated: the page may still be loading
     state = await evaluate("window.__e2e && JSON.stringify(window.__e2e)").then((s) => (s ? JSON.parse(s) : null));
     if (state?.done) break;
     if (Date.now() - t0 > 40 * 60_000) throw new Error("timed out after 40 min");

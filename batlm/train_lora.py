@@ -21,7 +21,8 @@ from peft import LoraConfig, get_peft_model
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from . import rag, sft_data
-from .prompt import BASE_MODEL, render
+from .agent import plan
+from .prompt import BASE_MODEL
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CK = ROOT / "checkpoints"
@@ -30,11 +31,13 @@ CK = ROOT / "checkpoints"
 def build_examples(index):
     out, dropped = [], []
     for it in sft_data.train_items(index):
-        hits = [c for _, c in index.search(it["q"], k=3)]
+        prompt, hits = plan(index, it["q"])
+        if prompt is None:  # the off-topic gate answers this one; the model never sees it
+            continue
         if it["kind"] in ("card", "wiki") and not any(it["a"] in c["text"] for c in hits):
             dropped.append(it["q"])
             continue
-        out.append({"prompt": render(it["q"], hits), "answer": it["a"], "kind": it["kind"]})
+        out.append({"prompt": prompt, "answer": it["a"], "kind": it["kind"]})
     return out, dropped
 
 

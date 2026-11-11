@@ -82,7 +82,7 @@ async function generate(id: string, prompt: string, maxTokens: number) {
     ...tok(prompt, { add_special_tokens: false }),
     max_new_tokens: maxTokens,
     do_sample: false,
-    repetition_penalty: 1.1,
+    repetition_penalty: 1.0, // answers repeat names and list markers from the files; a penalty garbles them
     eos_token_id: eos,
     streamer,
     stopping_criteria: stopper,

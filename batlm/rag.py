@@ -1,8 +1,10 @@
-"""Stage 3 — Search: BM25 over fact cards and Wikipedia passages, plus name matching.
+"""Stage 3 — Search: BM25 over fact cards and Wikipedia passages, plus name and question matching.
 
 Plain BM25 fails on the commonest questions: "who is the batman?" reduces to the single word
-"batman", which is in most passages. So the index also knows every card's name and aliases; a
-passage about something the question names is ranked up, and that subject's card ranks first.
+"batman", which is in most passages. So the index also knows:
+  * every card's name and aliases: the best fact about a subject the question names is always shown first;
+  * the ways people ask for each fact ("who is", "real name", "first appear"): these pick the right fact.
+A 360M model answers reliably when the sentence it needs is the first thing it reads.
 
 Mirrored line-for-line in web/src/lib/search.ts so the browser retrieves exactly what evals measured.
 """
@@ -34,11 +36,12 @@ SYNONYMS = {
     "brought": "raised", "imprisoned": "locked held", "jail": "prison locked", "contact": "call", "summon": "call",
 }
 
-CARD_WEIGHT = 1.5  # a card's BM25 score counts double: cards are short, curated and written to be found
-CARD_BOOST = 12.0  # the card of a subject the question names (it is also pinned to the top, see search)
+CARD_WEIGHT = 1.5  # a fact's BM25 score counts extra: facts are short, curated and written to be found
+ASK_WEIGHT = 20.0  # a fact whose usual phrasing matches the question word for word scores this much
+FACT_BOOST = 3.0   # facts about a subject the question names
 PAGE_BOOST = 1.5   # Wikipedia passages from that subject's page
 LEAD_BOOST = 1.0   # ...and a little more for the page's opening passage
-TITLE_BOOST = 10.0 # the opening passage of a page named in the question, when that page has no card
+TITLE_BOOST = 10.0  # the opening passage of a page named in the question, when that page has no card
 
 
 def stem(t: str) -> str:
@@ -65,12 +68,15 @@ def terms(text: str, expand: bool = False) -> list[str]:
     return out
 
 
+def bm25(tf: int, idf: float, length: int, avg: float, k1: float = 1.5, b: float = 0.75) -> float:
+    return idf * tf * (k1 + 1) / (tf + k1 * (1 - b + b * length / avg))
+
+
 class Index:
-    def __init__(self, passages: list[dict], k1: float = 1.5, b: float = 0.75):
-        self.passages, self.k1, self.b = passages, k1, b
+    def __init__(self, passages: list[dict]):
+        self.passages = passages
         docs = [terms(f"{p['title']} {p['section']} {p['text']} {p.get('keywords', '')}") for p in passages]
         self.len = [len(d) for d in docs]
-        self.weight = [CARD_WEIGHT if p.get("card") else 1.0 for p in passages]
         self.avgdl = sum(self.len) / len(docs)
         self.postings = defaultdict(list)  # term -> [(passage index, term frequency)]
         for i, d in enumerate(docs):
@@ -78,17 +84,27 @@ class Index:
                 self.postings[t].append((i, f))
         n = len(docs)
         self.idf = {t: math.log(1 + (n - len(p) + 0.5) / (len(p) + 0.5)) for t, p in self.postings.items()}
-        self.pages, self.lead = defaultdict(list), {}
+        # The ways of asking for each fact, as (fact index, words). Stopwords are kept: "who is" must match.
+        self.asks = [(i, list(dict.fromkeys(words(a)))) for i, p in enumerate(passages) for a in p.get("asks", [])]
+        df = Counter(w for _, ws in self.asks for w in ws)
+        n = len(self.asks)
+        self.ask_idf = {w: math.log(1 + (n - f + 0.5) / (f + 0.5)) for w, f in df.items()}
+        self.ask_rare = math.log(1 + (n + 0.5) / 0.5)  # weight of a word no phrasing contains
+        self.pages, self.lead, self.facts = defaultdict(list), {}, defaultdict(list)
         for i, p in enumerate(passages):
-            if not p.get("card"):
+            if p.get("card"):
+                self.facts[p["title"]].append(i)
+            else:
                 self.pages[p["title"]].append(i)
                 self.lead.setdefault(p["title"], i)
-        # names -> what they refer to, as (card index or None, Wikipedia page title or None).
+        # names -> what they refer to, as (card title or None, Wikipedia page title or None).
         # Longest names first, so "the batman who laughs" beats "batman".
         names = defaultdict(list)
-        for i, p in enumerate(passages):
+        for p in passages:
             for a in p.get("aliases", []):
-                names[tuple(words(a))].append((i, p.get("page")))
+                target = (p["title"], p.get("page"))
+                if target not in names[tuple(words(a))]:
+                    names[tuple(words(a))].append(target)
         carded = {p.get("page") for p in passages if p.get("card")}
         for title in self.pages:  # a page without a card is still findable by its own title
             if title not in carded:
@@ -114,21 +130,38 @@ class Index:
         score = defaultdict(float)
         for t in terms(query, expand=True):
             for i, tf in self.postings.get(t, ()):
-                score[i] += self.weight[i] * self.idf[t] * tf * (self.k1 + 1) / (tf + self.k1 * (1 - self.b + self.b * self.len[i] / self.avgdl))
-        pinned = []  # what the question names goes first, whatever else scores well: its card, or its page's opening
+                score[i] += (CARD_WEIGHT if self.passages[i].get("card") else 1.0) * bm25(tf, self.idf[t], self.len[i], self.avgdl)
+        # How closely does the question match a known way of asking for a fact? Shared words over all words,
+        # each weighted by rarity, so "how many" alone counts for little and a full paraphrase for a lot.
+        q = list(dict.fromkeys(words(query)))
+        q_weight = sum(self.ask_idf.get(w, self.ask_rare) for w in q)
+        match = {}
+        for i, ask in self.asks:
+            shared = sum(self.ask_idf[w] for w in q if w in ask)  # `ask` is short: a list scan is fine
+            if shared:
+                sim = shared / (q_weight + sum(self.ask_idf[w] for w in ask if w not in q))
+                if sim > match.get(i, 0.0):
+                    match[i] = sim
+        for i, sim in match.items():
+            score[i] += ASK_WEIGHT * sim
+        pinned = []  # what the question names goes first: the best fact about it, or its page's opening passage
         for card, page in self.mentions(query):
             if card is not None:
-                score[card] += CARD_BOOST
-                pinned.append(card)
+                for i in self.facts[card]:
+                    score[i] += FACT_BOOST
+                best = max(self.facts[card], key=lambda i: (score[i], -i))
+                if best not in pinned:
+                    pinned.append(best)
             for i in self.pages.get(page, ()):
                 score[i] += PAGE_BOOST
             if page in self.lead:
                 score[self.lead[page]] += LEAD_BOOST if card is not None else TITLE_BOOST
-                if card is None:
+                if card is None and self.lead[page] not in pinned:
                     pinned.append(self.lead[page])
         pinned = pinned[:k]
         rest = sorted((x for x in score.items() if x[0] not in pinned), key=lambda x: (-x[1], x[0]))[:k - len(pinned)]
-        return [(score[i], self.passages[i]) for i in pinned] + [(s, self.passages[i]) for i, s in rest if s > 0]
+        top = [(i, score[i]) for i in pinned] + [x for x in rest if x[1] > 0]
+        return [(s, self.passages[i]) for i, s in sorted(top, key=lambda x: (-x[1], x[0]))]  # best match is read first
 
 
 def load() -> Index:

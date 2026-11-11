@@ -16,27 +16,13 @@ import hashlib
 import re
 
 from . import cards
+from .cards import WHAT, WHO
 
 PERSONA = ("You are BatLM, an expert on the Batman universe. Answer the question directly in one or two sentences, "
            "or a short numbered list, using only the CASE FILES. If the files do not contain the answer, say so.")
 
 REFUSAL = "That is outside my case files. I only answer questions about the Batman universe."
 MISSING = "I don't have that in my case files."
-
-# {n} is the name mid-sentence ("the Joker"); {N} the same with a capital. The LAST template of each list is
-# never trained: it is the `reworded` eval phrasing.
-WHO = ["Who is {n}?", "who is {n}", "Tell me about {n}.", "Who's {n}?", "What do you know about {n}?", "Describe {n}.", "{N}",
-       "Can you tell me who {n} is?"]
-WHAT = ["What is {n}?", "what is {n}", "Tell me about {n}.", "What's {n}?", "What do you know about {n}?", "Describe {n}.", "{N}",
-        "Can you explain what {n} is?"]
-REAL = ["What is {n}'s real name?", "What is {n}'s real identity?", "Who is {n} really?", "what's {n}'s secret identity",
-        "What is the true identity of {n}?", "What is the actual name of {n}?"]
-FIRST = ["When did {n} first appear?", "What was {n}'s first appearance?", "In which comic did {n} debut?", "when was {n} introduced",
-         "Where did {n} first show up?"]
-BY = ["Who created {n}?", "Who came up with {n}?", "who made {n}", "Which writers and artists created {n}?",
-      "Who are the creators of {n}?"]
-ALIAS = ["Who is {n}?", "who is {n}", "Tell me about {n}."]  # one each for a card's first three aliases
-ALIAS_WHAT = ["What is {n}?", "what is {n}", "Tell me about {n}."]
 
 # Batman questions no file answers. The model must say so rather than invent something.
 UNANSWERABLE = ["What is {n}'s favorite food?", "What is {n}'s blood type?", "What is {n}'s phone number?", "What is {n}'s shoe size?",
@@ -86,6 +72,11 @@ OWNER = [
     ("Who killed Batman's parents?", "Joe Chill", ""),
     ("Who is Harley Quinn?", "Harleen Quinzel|psychiatrist", ""),
     ("Who broke Batman's back?", "Bane", ""),
+    ("Who played Batman in The Dark Knight?", "Bale", "Ledger"),
+    ("Who played the Joker in the 1989 movie?", "Nicholson", ""),
+    ("Who directed The Batman?", "Reeves", ""),
+    ("best batman comics to read", "Year One, Dark Knight Returns", ""),
+    ("Where does Batman live?", "Wayne Manor", ""),
 ]
 
 
@@ -98,24 +89,9 @@ def unseen(title: str, field: str) -> bool:
     return _bucket(f"{title}/{field}") < 12
 
 
-def _fill(t: str, n: str) -> str:
-    return t.format(n=n, N=n[0].upper() + n[1:])
-
-
-def card_questions(card) -> list[tuple[str, str, str, str, list[str]]]:
-    """(field, answer, keys, eval question, train questions) for every fact on a card."""
-    out = []
-    more = {f"more{i}": qs for i, (qs, _, _) in enumerate(card["more"])}
-    for field, a, k in cards.facts(card):
-        if field in more:
-            qs = more[field]
-        else:
-            t = {"who": WHAT if card["kind"] == "what" else WHO, "real": REAL, "first": FIRST, "by": BY}[field]
-            qs = [_fill(x, card["n"]) for x in t]
-            if field == "who":
-                qs = qs[:-1] + [_fill(x, al) for x, al in zip(ALIAS_WHAT if card["kind"] == "what" else ALIAS, card["aliases"])] + qs[-1:]
-        out.append((field, a, k, qs[-1], qs[:-1]))
-    return out
+def unseen_fact(card, field) -> bool:
+    """Lists are a format the model only learns from a handful of examples, so they are always trained."""
+    return card["kind"] != "topic" and unseen(card["title"], field)
 
 
 def lead_sentence(text: str) -> str | None:
@@ -144,22 +120,22 @@ def wiki_questions(index) -> list[tuple[str, str, str, list[str]]]:
             continue
         n = natural(title)
         t = WHO if PERSON.search(a) else WHAT
-        out.append((title, a, _fill(t[-1], n), [_fill(t[0], n), _fill(t[2], n), _fill(t[1], n)]))
+        out.append((title, a, cards.fill(t[-1], n), [cards.fill(t[0], n), cards.fill(t[2], n), cards.fill(t[1], n)]))
     return out
 
 
 def train_items(index) -> list[dict]:
     items = []
     for card in cards.CARDS:
-        for field, a, _, _, qs in card_questions(card):
-            if not unseen(card["title"], field):
+        for field, a, _, _, qs in cards.questions(card):
+            if not unseen_fact(card, field):
                 items += [{"q": q, "a": a, "kind": "card"} for q in qs]
     for title, a, _, qs in wiki_questions(index):
         if _bucket("wiki/" + title) >= 10:
             items += [{"q": q, "a": a, "kind": "wiki"} for q in qs]
     named = [c["n"] for c in cards.CARDS if c["n"] and c["kind"] == "who"]
     for i, t in enumerate(UNANSWERABLE[:-1]):
-        items += [{"q": _fill(t, n), "a": MISSING, "kind": "missing"} for n in named[i::8]]
+        items += [{"q": cards.fill(t, n), "a": MISSING, "kind": "missing"} for n in named[i::8]]
     items += [{"q": q, "a": REFUSAL, "kind": "off_topic"} for q in OFF_TOPIC]
     for i, it in enumerate(items):  # people often type without capitals or a question mark
         if i % 4 == 3:
@@ -170,9 +146,9 @@ def train_items(index) -> list[dict]:
 def eval_items(index) -> list[dict]:
     items = [{"q": q, "a": "", "keys": k, "bad": bad, "kind": "owner"} for q, k, bad in OWNER]
     for card in cards.CARDS:
-        for field, a, k, q, qs in card_questions(card):
-            if unseen(card["title"], field):
-                items.append({"q": qs[0], "a": a, "keys": k, "kind": "unseen"})
+        for field, a, k, q, qs in cards.questions(card):
+            if unseen_fact(card, field):
+                items.append({"q": q, "a": a, "keys": k, "kind": "unseen"})
             elif _bucket(f"reworded/{card['title']}/{field}") < 30:
                 items.append({"q": q, "a": a, "keys": k, "kind": "reworded"})
     for title, a, q, _ in wiki_questions(index):
@@ -181,6 +157,6 @@ def eval_items(index) -> list[dict]:
             words = [w for w in re.findall(r"[A-Za-z][a-z]{3,}", a.split(" is ", 1)[-1].split(" was ", 1)[-1])][:2]
             items.append({"q": q, "a": a, "keys": ", ".join(words), "kind": "wiki"})
     named = [c["n"] for c in cards.CARDS if c["n"] and c["kind"] == "who"]
-    items += [{"q": _fill(UNANSWERABLE[-1], n), "a": MISSING, "keys": "", "kind": "missing"} for n in named[::6]]
+    items += [{"q": cards.fill(UNANSWERABLE[-1], n), "a": MISSING, "keys": "", "kind": "missing"} for n in named[::6]]
     items += [{"q": q, "a": REFUSAL, "keys": "", "kind": "off_topic"} for q in OFF_TOPIC_EVAL]
     return items

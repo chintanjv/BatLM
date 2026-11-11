@@ -1,0 +1,409 @@
+{
+ "backend": "webgpu/q4f16",
+ "rows": [
+  {
+   "q": "who is batman",
+   "kind": "generate",
+   "answer": "Batman is Bruce Wayne, a billionaire from Gotham City who fights crime as a masked vigilante. He has no superpowers and relies on his intellect, detective skills, martial arts training and technology.",
+   "tokens": 44,
+   "ms": 749.1949999928474,
+   "capped": false
+  },
+  {
+   "q": "whos the joker",
+   "kind": "generate",
+   "answer": "The Joker is Batman's archenemy, a criminal mastermind with chalk-white skin, green hair and a permanent grin. He has no superpowers and commits crimes for his own amusement.",
+   "tokens": 42,
+   "ms": 828.9149999916553,
+   "capped": false
+  },
+  {
+   "q": "tell me about harley quinn",
+   "kind": "generate",
+   "answer": "Harley Quinn is Dr. Harleen Quinzel, a psychiatrist at Arkham Asylum who fell in love with her patient, the Joker, and became his accomplice. She later left him and became an antihero.",
+   "tokens": 47,
+   "ms": 770.3950000107288,
+   "capped": false
+  },
+  {
+   "q": "What is Two-Face's real name?",
+   "kind": "generate",
+   "answer": "Two-Face's real name is Harvey Dent.",
+   "tokens": 11,
+   "ms": 495.96000000834465,
+   "capped": false
+  },
+  {
+   "q": "who is the riddler?",
+   "kind": "generate",
+   "answer": "The Riddler is Edward Nygma, a criminal genius who is compelled to leave riddles and puzzles as clues to his crimes.",
+   "tokens": 28,
+   "ms": 598.7100000083447,
+   "capped": false
+  },
+  {
+   "q": "Who is Bane?",
+   "kind": "generate",
+   "answer": "Bane is a brilliant strategist and one of Batman's strongest enemies. He uses the drug Venom to boost his strength and is known as the man who broke Batman's back.",
+   "tokens": 40,
+   "ms": 739.3999999761581,
+   "capped": false
+  },
+  {
+   "q": "What is the Penguin's real name?",
+   "kind": "generate",
+   "answer": "The Penguin's real name is Oswald Chesterfield Cobblepot.",
+   "tokens": 14,
+   "ms": 456.56999999284744,
+   "capped": false
+  },
+  {
+   "q": "who is poison ivy",
+   "kind": "generate",
+   "answer": "Poison Ivy is Dr. Pamela Isley, a botanist who can control plants and whose touch is poisonous. She commits crimes to protect the natural world.",
+   "tokens": 33,
+   "ms": 632.6349999904633,
+   "capped": false
+  },
+  {
+   "q": "Who is Mr. Freeze and why is he a criminal?",
+   "kind": "generate",
+   "answer": "Mr. Freeze's real name is Dr. Victor Fries.",
+   "tokens": 15,
+   "ms": 591.3949999809265,
+   "capped": false
+  },
+  {
+   "q": "Who is Ra's al Ghul?",
+   "kind": "generate",
+   "answer": "Ra's al Ghul is the centuries-old leader of the League of Assassins, who stays alive by bathing in the Lazarus Pits. He is the father of Talia al Ghul and wants Batman as his heir.",
+   "tokens": 49,
+   "ms": 846.7450000047684,
+   "capped": false
+  },
+  {
+   "q": "What is the Court of Owls?",
+   "kind": "generate",
+   "answer": "The Court of Owls is a secret society of wealthy families that has controlled Gotham City for centuries. Its assassins are called Talons.",
+   "tokens": 31,
+   "ms": 700.4300000071526,
+   "capped": false
+  },
+  {
+   "q": "Who is Catwoman?",
+   "kind": "generate",
+   "answer": "Catwoman is Selina Kyle, a skilled cat burglar in Gotham City. She is sometimes Batman's enemy, sometimes his ally, and his most enduring love interest.",
+   "tokens": 39,
+   "ms": 682.9899999797344,
+   "capped": false
+  },
+  {
+   "q": "Is Catwoman a villain?",
+   "kind": "generate",
+   "answer": "Catwoman is Selina Kyle, a skilled cat burglar in Gotham City. She is sometimes Batman's enemy, sometimes his ally, and his most enduring love interest.",
+   "tokens": 39,
+   "ms": 914.0099999904633,
+   "capped": false
+  },
+  {
+   "q": "Who is Nightwing?",
+   "kind": "generate",
+   "answer": "Nightwing is Dick Grayson, the first Robin.",
+   "tokens": 12,
+   "ms": 716.5949999988079,
+   "capped": false
+  },
+  {
+   "q": "who is red hood",
+   "kind": "generate",
+   "answer": "The Red Hood is Jason Todd, the second Robin.",
+   "tokens": 12,
+   "ms": 549.4000000059605,
+   "capped": false
+  },
+  {
+   "q": "Who is Damian Wayne's mother?",
+   "kind": "generate",
+   "answer": "Damian Wayne's mother is Talia al Ghul and his father is Bruce Wayne.",
+   "tokens": 19,
+   "ms": 586.4099999964237,
+   "capped": false
+  },
+  {
+   "q": "Who is Barbara Gordon?",
+   "kind": "generate",
+   "answer": "Barbara Gordon is the best-known Batgirl and the daughter of Commissioner James Gordon. After the Joker shot and paralyzed her in The Killing Joke, she became the computer expert Oracle.",
+   "tokens": 41,
+   "ms": 723.3249999880791,
+   "capped": false
+  },
+  {
+   "q": "who is commissioner gordon",
+   "kind": "generate",
+   "answer": "James Gordon is the commissioner of the Gotham City Police Department and one of Batman's most trusted allies. He is the father of Barbara Gordon.",
+   "tokens": 32,
+   "ms": 710.0199999809265,
+   "capped": false
+  },
+  {
+   "q": "Who is Lucius Fox?",
+   "kind": "generate",
+   "answer": "Lucius Fox is the businessman who runs Wayne Enterprises for Bruce Wayne. In many versions he also supplies Batman's equipment.",
+   "tokens": 28,
+   "ms": 669.5750000178814,
+   "capped": false
+  },
+  {
+   "q": "Where does Batman live?",
+   "kind": "generate",
+   "answer": "Bruce Wayne lives in Wayne Manor, on the outskirts of Gotham City.",
+   "tokens": 18,
+   "ms": 1016.1450000107288,
+   "capped": false
+  },
+  {
+   "q": "What is Arkham Asylum?",
+   "kind": "generate",
+   "answer": "Arkham Asylum is the psychiatric hospital in Gotham City where many of Batman's enemies, including the Joker, are locked up. Its inmates often escape.",
+   "tokens": 37,
+   "ms": 797.6899999976158,
+   "capped": false
+  },
+  {
+   "q": "what is the batcave",
+   "kind": "generate",
+   "answer": "The Batcave is Batman's secret headquarters, a network of caves beneath Wayne Manor. It holds the Batcomputer, his vehicles, a crime lab and a trophy room.",
+   "tokens": 37,
+   "ms": 685.1850000023842,
+   "capped": false
+  },
+  {
+   "q": "What is the Batmobile?",
+   "kind": "generate",
+   "answer": "The Batmobile is Batman's car, a heavily armored vehicle packed with gadgets and weapons.",
+   "tokens": 20,
+   "ms": 641.8799999952316,
+   "capped": false
+  },
+  {
+   "q": "What is the Bat-Signal used for?",
+   "kind": "generate",
+   "answer": "The Bat-Signal is a searchlight that projects a bat symbol onto the sky over Gotham City. The police use it to call Batman.",
+   "tokens": 32,
+   "ms": 721.3250000178814,
+   "capped": false
+  },
+  {
+   "q": "Who created Batman?",
+   "kind": "generate",
+   "answer": "Batman was created by artist Bob Kane and writer Bill Finger.",
+   "tokens": 15,
+   "ms": 477.5600000023842,
+   "capped": false
+  },
+  {
+   "q": "When did Batman first appear?",
+   "kind": "generate",
+   "answer": "Batman first appeared in Detective Comics #27 in 1939.",
+   "tokens": 20,
+   "ms": 524.580000013113,
+   "capped": false
+  },
+  {
+   "q": "Does Batman have superpowers?",
+   "kind": "generate",
+   "answer": "No. Batman has no superpowers. He is a genius-level detective, a master of many martial arts, an expert escape artist and tactician, and has the wealth to build advanced equipment. He trained his body and mind to peak human condition.",
+   "tokens": 52,
+   "ms": 904.3350000083447,
+   "capped": false
+  },
+  {
+   "q": "Does Batman kill people?",
+   "kind": "generate",
+   "answer": "No. Batman refuses to kill and does not use guns.",
+   "tokens": 14,
+   "ms": 562.580000013113,
+   "capped": false
+  },
+  {
+   "q": "Why did Bruce Wayne become Batman?",
+   "kind": "generate",
+   "answer": "As a child, Bruce Wayne saw his parents, Thomas and Martha Wayne, shot dead by a mugger. He swore to spend his life fighting crime.",
+   "tokens": 33,
+   "ms": 732.1899999976158,
+   "capped": false
+  },
+  {
+   "q": "Who played Batman in The Dark Knight?",
+   "kind": "generate",
+   "answer": "Christian Bale played Batman in The Dark Knight.",
+   "tokens": 12,
+   "ms": 469.8600000143051,
+   "capped": false
+  },
+  {
+   "q": "Who played the Joker in the 1989 movie?",
+   "kind": "generate",
+   "answer": "Jack Nicholson played the Joker in the 1989 film Batman.",
+   "tokens": 19,
+   "ms": 648.875,
+   "capped": false
+  },
+  {
+   "q": "Who directed The Batman?",
+   "kind": "generate",
+   "answer": "The 2022 film The Batman was directed by Matt Reeves.",
+   "tokens": 18,
+   "ms": 558.3499999940395,
+   "capped": false
+  },
+  {
+   "q": "What is The Killing Joke about?",
+   "kind": "generate",
+   "answer": "The Killing Joke is a 1988 graphic novel by writer Alan Moore and artist Brian Bolland. The Joker shoots and paralyzes Barbara Gordon to try to drive her father insane, and the book gives a possible origin for the Joker.",
+   "tokens": 54,
+   "ms": 907.6799999773502,
+   "capped": false
+  },
+  {
+   "q": "Who wrote The Long Halloween?",
+   "kind": "generate",
+   "answer": "The Long Halloween was written by Jeph Loeb and drawn by Tim Sale.",
+   "tokens": 17,
+   "ms": 747.4900000095367,
+   "capped": false
+  },
+  {
+   "q": "What happens in Knightfall?",
+   "kind": "generate",
+   "answer": "Knightfall is a 1993 to 1994 storyline in which Bane breaks Batman's back and Jean-Paul Valley, Azrael, takes over as a more violent Batman until Bruce Wayne returns.",
+   "tokens": 49,
+   "ms": 845.3900000154972,
+   "capped": false
+  },
+  {
+   "q": "list all the robins",
+   "kind": "generate",
+   "answer": "Five characters have been Robin in the main comics, in this order:\n1. Dick Grayson\n2. Jason Todd\n3. Tim Drake\n4. Stephanie Brown\n5. Damian Wayne",
+   "tokens": 42,
+   "ms": 1035.75,
+   "capped": false
+  },
+  {
+   "q": "Who voices Batman in the animated series?",
+   "kind": "generate",
+   "answer": "Kevin Conroy voiced Batman in Batman: The Animated Series.",
+   "tokens": 17,
+   "ms": 588.0999999940395,
+   "capped": false
+  },
+  {
+   "q": "What are the Arkham games?",
+   "kind": "generate",
+   "answer": "The main Batman: Arkham video games, in release order:\n1. Batman: Arkham Asylum (2009)\n2. Batman: Arkham City (2011)\n3. Batman: Arkham Origins (2013)\n4. Batman: Arkham Knight (2015)",
+   "tokens": 76,
+   "ms": 1160.1200000047684,
+   "capped": false
+  },
+  {
+   "q": "best batman comics to read",
+   "kind": "generate",
+   "answer": "The Batman stories most often recommended are:\n1. Batman: Year One\n2. The Dark Knight Returns\n3. The Killing Joke\n4. The Long Halloween\n5. Batman: Hush\n6. The Court of Owls",
+   "tokens": 55,
+   "ms": 926.9899999797344,
+   "capped": false
+  },
+  {
+   "q": "Who is Scarecrow and what does he use?",
+   "kind": "generate",
+   "answer": "The Scarecrow's real name is Dr. Jonathan Crane.",
+   "tokens": 14,
+   "ms": 519.0949999988079,
+   "capped": false
+  },
+  {
+   "q": "who is hush",
+   "kind": "generate",
+   "answer": "Hush is Dr. Thomas Elliot, a surgeon and childhood friend of Bruce Wayne who hides his face in bandages and sets out to destroy him.",
+   "tokens": 32,
+   "ms": 607.8100000023842,
+   "capped": false
+  },
+  {
+   "q": "Who is Deathstroke?",
+   "kind": "generate",
+   "answer": "Deathstroke is Slade Wilson, a mercenary and assassin with enhanced strength and reflexes. He began as an enemy of the Teen Titans and often fights Batman.",
+   "tokens": 36,
+   "ms": 675.0949999988079,
+   "capped": false
+  },
+  {
+   "q": "What is the Lazarus Pit?",
+   "kind": "generate",
+   "answer": "A Lazarus Pit is a pool of chemicals that can heal injuries and bring back the dead. Ra's al Ghul uses the pits to live for centuries.",
+   "tokens": 32,
+   "ms": 853.4500000178814,
+   "capped": false
+  },
+  {
+   "q": "who is alfred pennyworth",
+   "kind": "generate",
+   "answer": "Alfred Pennyworth is the Wayne family's butler, who raised Bruce Wayne after his parents were murdered. He is Batman's closest confidant and looks after Wayne Manor and the Batcave.",
+   "tokens": 43,
+   "ms": 783.7699999809265,
+   "capped": false
+  },
+  {
+   "q": "Who is Talia al Ghul?",
+   "kind": "generate",
+   "answer": "Talia al Ghul is the daughter of Ra's al Ghul, a love interest of Batman and the mother of his son, Damian Wayne.",
+   "tokens": 33,
+   "ms": 761.0150000154972,
+   "capped": false
+  },
+  {
+   "q": "Who is Superman?",
+   "kind": "refuse",
+   "answer": "That is outside my case files. I only answer questions about the Batman universe."
+  },
+  {
+   "q": "what's the capital of japan",
+   "kind": "refuse",
+   "answer": "That is outside my case files. I only answer questions about the Batman universe."
+  },
+  {
+   "q": "write me a poem",
+   "kind": "refuse",
+   "answer": "That is outside my case files. I only answer questions about the Batman universe."
+  },
+  {
+   "q": "asdf qwer",
+   "kind": "refuse",
+   "answer": "That is outside my case files. I only answer questions about the Batman universe."
+  },
+  {
+   "q": "What is Batman's favorite pizza topping?",
+   "kind": "generate",
+   "answer": "I don't have that in my case files.",
+   "tokens": 11,
+   "ms": 754.4850000143051,
+   "capped": false
+  },
+  {
+   "q": "Who would win, Batman or Superman?",
+   "kind": "generate",
+   "answer": "That is outside my case files. I only answer questions about the Batman universe.",
+   "tokens": 18,
+   "ms": 823.294999986887,
+   "capped": false
+  },
+  {
+   "q": "Who is the best Robin?",
+   "kind": "generate",
+   "answer": "Robin is Batman's crime-fighting partner, known as the Boy Wonder. Five characters have been Robin in the main comics: Dick Grayson, Jason Todd, Tim Drake, Stephanie Brown and Damian Wayne.",
+   "tokens": 45,
+   "ms": 796.5399999916553,
+   "capped": false
+  }
+ ]
+}
