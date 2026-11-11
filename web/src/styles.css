@@ -43,7 +43,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* top bar */
 .bar { display: flex; align-items: center; gap: 12px; padding-block: max(12px, env(safe-area-inset-top, 0px)) 12px; }
 .brand { display: flex; align-items: center; gap: 9px; font: 600 16px/1 var(--display); letter-spacing: 0.01em; }
-.brand svg { width: 26px; height: 14px; fill: var(--gold); }
+.brand svg { width: 31px; height: 18px; }
 .status {
   margin-left: auto; display: flex; align-items: center; gap: 7px;
   font: 400 11px/1 var(--mono); letter-spacing: 0.04em; color: var(--ink-2);
@@ -66,12 +66,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .feed .col { display: flex; flex-direction: column; gap: 26px; min-height: 100%; }
 
 .empty { margin: auto 0; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; padding-block: 24px; }
-.emblem { width: 132px; height: 68px; overflow: visible; }
-.emblem path {
-  fill: var(--gold); fill-opacity: 0; stroke: var(--gold); stroke-width: 1.4; stroke-linejoin: round;
-  stroke-dasharray: 1; stroke-dashoffset: 1;
-  animation: draw .9s var(--ease) forwards, fill .45s ease-out .7s forwards;
+/* the emblem: a yellow oval with a black bat, in the page's two colours */
+.mark .oval { fill: var(--gold); }
+.mark .rim { fill: none; stroke: var(--bg); stroke-width: 2.5; }
+.mark .bat { fill: var(--bg); }
+.emblem { width: 150px; height: 88px; overflow: visible; }
+.emblem .oval {
+  fill-opacity: 0; stroke: var(--gold); stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 1;
+  animation: draw .8s var(--ease) forwards, fill .4s ease-out .55s forwards;
 }
+.emblem .rim, .emblem .bat { opacity: 0; transform-box: fill-box; transform-origin: center; animation: pop .45s var(--ease) .8s forwards; }
 .empty h1 { margin: 0; font: 500 clamp(22px, 4.6vw, 30px)/1.2 var(--display); letter-spacing: -0.01em; text-wrap: balance; animation: rise .4s var(--ease) .25s both; }
 .empty p { margin: -8px 0 0; color: var(--ink-2); font-size: 14px; animation: rise .4s var(--ease) .32s both; }
 .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 6px; max-width: 520px; }
@@ -89,7 +93,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .msg.user { align-self: flex-end; max-width: 82%; background: var(--surface); border: 1px solid var(--line); border-radius: 18px 18px 4px 18px; padding: 9px 14px; overflow-wrap: anywhere; white-space: pre-wrap; }
 .msg.bot { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; }
 .av { width: 26px; height: 26px; margin-top: -1px; display: grid; place-items: center; }
-.av svg { width: 24px; height: 13px; fill: var(--gold); }
+.av svg { width: 26px; height: 15px; }
 .msg.bot.busy .av svg { animation: pulse 1s ease-in-out infinite; }
 .body { min-width: 0; }
 
@@ -179,9 +183,9 @@ textarea::placeholder { color: var(--ink-3); }
   .feed .col { gap: 22px; }
   .msg.user { max-width: 88%; }
   .msg.bot { grid-template-columns: 22px minmax(0, 1fr); gap: 10px; }
-  .av { width: 22px; } .av svg { width: 22px; height: 12px; }
+  .av { width: 22px; } .av svg { width: 22px; height: 13px; }
   .empty { gap: 16px; }
-  .emblem { width: 112px; height: 58px; }
+  .emblem { width: 128px; height: 75px; }
   .empty p { font-size: 13.5px; }
   .note { font-size: 11px; }
 }
@@ -191,7 +195,7 @@ textarea::placeholder { color: var(--ink-3); }
   .status span:last-child { display: none; } /* keep the dot, drop the words */
   .chips { gap: 6px; }
   .chip { padding-inline: 12px; font-size: 13px; }
-  .emblem { width: 96px; height: 50px; }
+  .emblem { width: 108px; height: 63px; }
 }
 
 /* Short screens, such as a phone on its side or with the keyboard open: give the height to the conversation. */
@@ -215,6 +219,7 @@ textarea::placeholder { color: var(--ink-3); }
 @keyframes sheen { to { background-position: -220% 0; } }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes fill { to { fill-opacity: 1; } }
+@keyframes pop { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
 }
