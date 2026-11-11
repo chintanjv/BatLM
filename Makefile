@@ -1,31 +1,33 @@
-# BatLM end-to-end pipeline. `make all` reproduces everything from scratch on a laptop CPU.
+# BatLM pipeline. `make all` rebuilds everything from scratch (about an hour on an Apple Silicon laptop,
+# most of it the Wikipedia download, which is rate-limited).
 PY := .venv/bin/python
 
-.PHONY: setup data nano lora evals export test web all
+.PHONY: setup data cards lora evals export test web all
 
-setup:            ## Python 3.11 env (Intel-Mac friendly: torch 2.2.2 is the last x86_64 macOS wheel)
+setup:            ## Python 3.11 environments (training + ONNX export) and web dependencies
 	uv venv --python 3.11 .venv && uv pip install --python $(PY) -r requirements.txt
+	uv venv --python 3.11 .venv-export && uv pip install --python .venv-export/bin/python -r requirements-export.txt
 	cd web && npm install
 
-data:             ## scrape + clean + chunk the two source pages
+data:             ## download the Wikipedia pages and cut them into passages -> data/chunks.json
 	$(PY) -m batlm.scrape
 
-nano:             ## tokenizer + pretrain BatLM-nano from scratch (~15 min)
-	$(PY) -m batlm.train_nano --iters 800
+cards:            ## check every fact card against its Wikipedia page -> data/cards.json
+	$(PY) -m batlm.cards
 
-lora:             ## LoRA instruction-tune SmolLM2-360M-Instruct -> BatLM (~1-2 h on CPU)
-	$(PY) -m batlm.train_lora --epochs 3
+lora:             ## fine-tune SmolLM2-360M-Instruct -> checkpoints/batlm-merged (about 15 min on Apple Silicon)
+	$(PY) -m batlm.train_lora --epochs 1
 
-evals:            ## retrieval + generation evals, ablations -> evals/report.json
+evals:            ## search and answer accuracy on the held-out questions -> evals/
 	$(PY) -m batlm.evals
 
-export:           ## ONNX/quantize + web data
+export:           ## search index for the site + 4-bit ONNX models for the browser
 	$(PY) -m batlm.export_web
 
 test:
-	$(PY) -m pytest -q tests && cd web && npm run parity
+	$(PY) -m pytest -q tests
 
 web:              ## local dev server at http://localhost:5173
 	cd web && npm run dev
 
-all: data nano lora evals export test
+all: data cards lora evals export test

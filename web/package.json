@@ -6,16 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && node scripts/prune-dist.mjs",
-    "e2e": "node scripts/e2e-browser.mjs",
     "preview": "vite preview",
-    "parity": "node scripts/nano-parity.mjs"
+    "e2e": "node scripts/e2e-browser.mjs"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.1.0",
     "@fontsource/jetbrains-mono": "^5.1.0",
-    "@fontsource/major-mono-display": "^5.1.0",
-    "@fontsource/share-tech-mono": "^5.1.0",
+    "@fontsource/space-grotesk": "^5.1.0",
     "@huggingface/transformers": "^4.3.0",
-    "motion": "^12.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

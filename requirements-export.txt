@@ -1,0 +1,6 @@
+torch==2.5.1
+transformers==4.44.2
+onnx==1.19.1
+onnxruntime==1.23.2
+onnxruntime-genai==0.11.4
+onnx-ir

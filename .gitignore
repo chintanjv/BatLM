@@ -11,3 +11,6 @@ web/public/models/batlm-360m/
 .DS_Store
 .env*
 .vercel
+data/raw/
+.venv-export/
+web/tsconfig.tsbuildinfo

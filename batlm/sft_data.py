@@ -1,210 +1,186 @@
-"""Stage 5a — Hand-written, source-grounded Q&A ("case files") for instruction tuning + evals.
+"""Stage 4 — Questions and answers for training and for evals, generated from the fact cards and the corpus.
 
-Every fact below is taken from the two scraped pages. Each entry has several phrasings:
-  * all but the LAST phrasing are used for training;
-  * the LAST phrasing is held out for evals (tests robustness to rewording);
-  * entries marked holdout=True are never trained on (tests whether RAG lets the
-    model answer facts it only sees in retrieved context).
-`keys` are the facts a correct answer must contain (used by the eval scorer).
+Four kinds of training question:
+  * card facts       many phrasings of each fact on a card -> that card's sentence
+  * Wikipedia leads  "What is <page>?" for pages without a card -> the page's opening sentence
+  * missing          Batman questions the files cannot answer -> MISSING
+  * off-topic        everything else -> REFUSAL
+
+Held out for evals, so they measure reading rather than memory:
+  * `unseen`    whole facts that never appear in training (about one in eight)
+  * `reworded`  one phrasing of every trained fact
+  * `wiki`      pages whose lead question is never trained
+  * held-out missing and off-topic questions
 """
+import hashlib
+import re
 
-PERSONA = ("You are BatLM, the Batcomputer's field intelligence. Answer in one to three short sentences, "
-           "using only the CASE FILES provided. If the files do not cover the question, say it is outside your case files.")
+from . import cards
 
-REFUSAL = "That is outside my case files. I only hold intel from the Batman Wikipedia article and the Batman Fandom wiki."
+PERSONA = ("You are BatLM, an expert on the Batman universe. Answer the question directly in one or two sentences, "
+           "or a short numbered list, using only the CASE FILES. If the files do not contain the answer, say so.")
 
-F = [
-    # --- creation & publication ---
-    dict(q=["Who created Batman?", "Who were the creators of Batman?", "Which writer and artist made Batman?", "Name the people who came up with Batman."],
-         a="Batman was created by writer Bill Finger and artist Bob Kane.", keys=["Finger", "Kane"]),
-    dict(q=["When did Batman first appear?", "What was Batman's debut comic?", "In which issue did Batman debut?", "Where and when was Batman's first appearance?"],
-         a="Batman debuted in Detective Comics #27, released on March 30, 1939.", keys=["Detective Comics", "27", "1939"]),
-    dict(q=["Who publishes Batman comics?", "Which company owns Batman?", "What publisher puts out Batman?"],
-         a="Batman appears in American comic books published by DC Comics.", keys=["DC"]),
-    dict(q=["Why did Bob Kane create Batman?", "What prompted the creation of Batman in 1939?", "What success was Batman meant to follow?"],
-         a="Kane conceived Batman in early 1939 to capitalize on the popularity of Superman, after DC's editors asked for more superheroes.", keys=["Superman"]),
-    dict(q=["What did Bill Finger contribute to Batman's design?", "How did Finger change Kane's original Batman drawing?", "Which costume elements did Bill Finger suggest?"],
-         a="Bill Finger suggested a cowl, cape, gloves and a darker costume, replacing Kane's red tights, bat wings and domino mask.", keys=["cowl", "cape"]),
-    dict(q=["When did DC start crediting Bill Finger?", "Since what year has Finger been credited as co-creator?", "When was Bill Finger officially recognized as Batman's co-creator?"],
-         a="DC began crediting Bill Finger as co-creator of Batman in 2015, after years of legal action by Finger's family.", keys=["2015"]),
-    dict(q=["Who inspired the name Bruce Wayne?", "Where does the name Bruce Wayne come from?", "Which historical figures is Bruce Wayne named after?"],
-         a="The name Bruce Wayne was inspired by Robert the Bruce and Mad Anthony Wayne.", keys=["Robert the Bruce", "Anthony Wayne"]),
-    dict(q=["How much did a copy of Detective Comics #27 sell for?", "What is the record sale for Batman's first issue?", "How valuable is Detective Comics #27?"],
-         a="A copy of Detective Comics #27 sold for $1,075,000 at a February 2010 auction.", keys=["1,075,000"]),
-    dict(q=["When did Batman get his own comic?", "When was the solo Batman title launched?", "What year did the Batman spin-off series begin?"],
-         a="Batman received his own solo title, Batman, in spring 1940.", keys=["1940"]),
-    dict(q=["Where was Batman's origin first told?", "Which issue first revealed Batman's origin?", "In what comic did readers first learn Batman's backstory?"],
-         a="Batman's origin was first revealed in a two-page story in Detective Comics #33 (November 1939), written by Finger.", keys=["33"]),
-    dict(q=["Which pulp characters inspired Batman?", "What pulp heroes influenced Batman's creators?", "Batman draws on which detective and pulp figures?"],
-         a="Finger drew on pulp heroes such as Sherlock Holmes, the Shadow, Dick Tracy and Doc Savage, making Batman a master sleuth.", keys=["Sherlock Holmes", "Shadow"]),
-    dict(q=["What is the longest-running comic book in the United States?", "Which Batman comic has run the longest?", "What US comic has the longest run?"],
-         a="Detective Comics, the longest-running Batman comic, is the longest-running comic book in the United States.", keys=["Detective Comics"]),
-    dict(q=["How many Batman comics have been sold?", "How many copies has the Batman series sold?", "What are Batman's comic sales figures?"],
-         a="Batman is the second best-selling comic book series in history, with 460 million copies sold worldwide.", keys=["460 million"]),
-    # --- identity & origin ---
-    dict(q=["Who is Batman?", "What is Batman's secret identity?", "Who is behind the Batman mask?", "Who is Batman really?"],
-         a="Batman is the secret identity of Bruce Wayne, a wealthy American playboy, philanthropist and industrialist from Gotham City.", keys=["Bruce Wayne"]),
-    dict(q=["Who were Batman's parents?", "What were the names of Bruce Wayne's parents?", "Name Bruce Wayne's mother and father."],
-         a="Bruce Wayne's parents were Dr. Thomas Wayne, a Gotham City physician, and Martha Wayne.", keys=["Thomas", "Martha"]),
-    dict(q=["Who killed Bruce Wayne's parents?", "What was the name of the gunman who murdered the Waynes?", "Who shot Thomas and Martha Wayne?"],
-         a="The gunman who murdered Thomas and Martha Wayne was named Joe Chill, and he escaped.", keys=["Joe Chill"]),
-    dict(q=["How old was Bruce when his parents died?", "At what age was Bruce Wayne orphaned?", "What age was Bruce when his parents were killed?"],
-         a="Bruce Wayne was 8 years old when his parents were killed on their way home from a movie theater.", keys=["8"]),
-    dict(q=["Why did Bruce choose a bat?", "What inspired the Batman persona?", "Why does Bruce dress as a bat?"],
-         a="When a bat flew through his window, Bruce decided to become Batman so that criminals would fear him.", keys=["bat", "fear"]),
-    dict(q=["Where does Batman live?", "What is Bruce Wayne's home called?", "Where does Bruce Wayne reside?"],
-         a="Bruce Wayne lives in Wayne Manor on the outskirts of Gotham City; it also houses the Batcave.", keys=["Wayne Manor"]),
-    dict(q=["What city does Batman protect?", "Which city is Batman based in?", "Where does Batman fight crime?"],
-         a="Batman protects the fictional Gotham City.", keys=["Gotham"]),
-    dict(q=["What company does Bruce Wayne own?", "What is the Wayne family business called?", "Which conglomerate did Bruce inherit?"],
-         a="Bruce Wayne owns Wayne Enterprises, his inherited conglomerate, and runs the nonprofit Wayne Foundation.", keys=["Wayne Enterprises"]),
-    dict(q=["Does Bruce Wayne drink alcohol?", "Is Bruce Wayne a drinker?", "What does Bruce drink at parties?"],
-         a="No. Bruce is a teetotaler who feigns drunkenness by drinking disguised ginger ale.", keys=["ginger ale"]),
-    dict(q=["Who raised Bruce Wayne?", "Who looked after Bruce after his parents died?", "Who brought up young Bruce Wayne?"],
-         a="Bruce Wayne was raised by his butler, Alfred Pennyworth.", keys=["Alfred"]),
-    dict(q=["Does Batman kill?", "Does Batman use guns?", "What is Batman's rule about killing?", "Will Batman kill criminals?"],
-         a="No. Batman vows never to kill and never to use firearms, a code DC established in 1940.", keys=["never"]),
-    dict(q=["Does Batman have superpowers?", "What powers does Batman have?", "Is Batman superhuman?"],
-         a="Batman has no superpowers; he relies on his intellect, detective skills, fighting ability and wealth.", keys=["no superpowers|no superhuman|no inherent|without superpowers|not superhuman|no super"]),
-    dict(q=["How many languages does Batman speak?", "How many languages does Bruce Wayne know?", "Is Batman multilingual?"],
-         a="Batman speaks over 40 languages.", keys=["40"]),
-    dict(q=["How many martial arts does Batman know?", "How many fighting styles has Batman mastered?", "What martial arts count does Batman have?"],
-         a="Using his photographic memory, Batman has mastered 127 forms of martial arts.", keys=["127"]),
-    dict(q=["What alias does Batman use undercover?", "Who is Matches Malone?", "What gangster identity does Batman use?"],
-         a="Batman often goes undercover as a notorious gangster named Matches Malone.", keys=["Matches Malone"]),
-    # --- villains ---
-    dict(q=["Who is Batman's archenemy?", "Who is Batman's greatest foe?", "Who is Batman's nemesis?", "Who is Batman's biggest villain?"],
-         a="Batman's archenemy is the Joker, a homicidal maniac with a clown-like appearance.", keys=["Joker"]),
-    dict(q=["Where did the Joker first appear?", "When did the Joker debut?", "Which comic introduced the Joker?"],
-         a="The Joker debuted in Batman #1 in 1940, alongside Catwoman.", keys=["Batman #1"]),
-    dict(q=["What is Two-Face's real name?", "Who is Two-Face?", "Two-Face is the alias of whom?"],
-         a="Two-Face is Harvey Dent.", keys=["Harvey Dent"]),
-    dict(q=["Who broke Batman's back?", "Which villain paralyzed Batman?", "Who broke Batman's spine in Knightfall?"],
-         a="Bane broke Batman's spine in Knightfall (1993-1994), leading Jean-Paul Valley to replace him.", keys=["Bane"]),
-    dict(q=["What is Batman's rogues gallery?", "Name some of Batman's villains.", "List Batman's enemies."],
-         a="Batman's rogues gallery includes the Joker, Catwoman, Two-Face, the Penguin, the Riddler, Ra's al Ghul, the Scarecrow, Mr. Freeze, Poison Ivy, Harley Quinn, Bane, Clayface and Killer Croc.", keys=["Joker", "Penguin", "Riddler"]),
-    dict(q=["Where are Batman's villains locked up?", "What asylum holds Batman's enemies?", "Where are many of Batman's foes treated?"],
-         a="Many of Batman's adversaries are psychiatric patients at Arkham Asylum.", keys=["Arkham"]),
-    dict(q=["Who is Ra's al Ghul?", "Describe Ra's al Ghul.", "What kind of villain is Ra's al Ghul?"],
-         a="Ra's al Ghul is a centuries-old terrorist who knows Batman's secret identity; his daughter is Talia al Ghul.", keys=["centuries", "Talia"]),
-    dict(q=["What is the Court of Owls?", "Who secretly controls Gotham in Night of the Owls?", "Describe the Court of Owls."],
-         a="The Court of Owls is a clandestine society that has controlled Gotham City for centuries, introduced by Scott Snyder.", keys=["secret", "Gotham"], holdout=True),
-    dict(q=["When did the Penguin debut?", "Which issue introduced the Penguin?", "Where did the Penguin first appear?"],
-         a="The Penguin debuted in Detective Comics #58 in December 1941.", keys=["58"], holdout=True),
-    # --- allies & Robins ---
-    dict(q=["Who is Alfred?", "Who is Batman's butler?", "Tell me about Alfred Pennyworth."],
-         a="Alfred Pennyworth is Batman's loyal butler and father figure, first appearing in Batman #16 (1943).", keys=["butler"]),
-    dict(q=["Who is Commissioner Gordon?", "Who is Batman's ally in the police?", "Tell me about James Gordon."],
-         a="Commissioner James Gordon is one of Batman's most crucial allies, the Gotham police officer who shares his commitment to justice.", keys=["Gordon"]),
-    dict(q=["Who was the first Robin?", "Who was Batman's original sidekick?", "Name the first Robin."],
-         a="The first Robin was Dick Grayson, an orphaned circus acrobat introduced in 1940.", keys=["Dick Grayson"]),
-    dict(q=["What did Dick Grayson become?", "What is Dick Grayson's hero name after Robin?", "Which identity did Dick Grayson adopt later?"],
-         a="Dick Grayson grew up and became Nightwing, and has also served as Batman.", keys=["Nightwing"]),
-    dict(q=["Who was the second Robin?", "What happened to Jason Todd?", "Which Robin did the Joker kill?"],
-         a="Jason Todd, the second Robin, was killed by the Joker in A Death in the Family (1988) after a fan vote; he later returned as Red Hood.", keys=["Jason Todd"]),
-    dict(q=["Who was the third Robin?", "Who is Tim Drake?", "Which Robin became Red Robin?"],
-         a="Tim Drake was the third Robin, first appearing in 1989, and later went by Red Robin.", keys=["Tim Drake"]),
-    dict(q=["Who is Batman's son?", "Who is Damian Wayne?", "Does Batman have children?"],
-         a="Damian Wayne is Batman's son with Talia al Ghul; he later became Robin.", keys=["Damian"]),
-    dict(q=["Why did Bill Finger add Robin?", "Why was Robin created?", "What was the reason for introducing Robin?"],
-         a="Finger added Robin because Batman didn't have anyone to talk to, and always showing him thinking got tiresome.", keys=["talk"], holdout=True),
-    dict(q=["How many Robins have there been?", "How many mainstream Robins are there?", "Count the Robins in continuity."],
-         a="There have been five Robins in mainstream continuity.", keys=["five"], holdout=True),
-    dict(q=["Who is the Bluebird?", "Who is Harper Row?", "Which sidekick is allowed to use a gun?"],
-         a="Harper Row is the Bluebird, a sidekick who debuted in 2014 and uses a non-lethal taser rifle.", keys=["Harper Row"], holdout=True),
-    dict(q=["Who is Catwoman?", "Who is Selina Kyle?", "What is Batman's relationship with Catwoman?"],
-         a="Catwoman, Selina Kyle, is a cat burglar anti-heroine and Batman's most frequent romantic partner; they were engaged, but she left him at the altar.", keys=["Selina Kyle"]),
-    dict(q=["Who was Batman's first love interest?", "Who is Julie Madison?", "Name Batman's first girlfriend."],
-         a="Batman's first love interest was actress Julie Madison, introduced in Detective Comics #31 (1939).", keys=["Julie Madison"], holdout=True),
-    dict(q=["Who else has been Batman?", "Who replaced Bruce Wayne as Batman?", "Which characters have worn the cowl besides Bruce?"],
-         a="Others to be Batman include Jean-Paul Valley (Azrael), Dick Grayson, Jim Gordon and Jace Fox.", keys=["Jean-Paul Valley", "Dick Grayson"]),
-    dict(q=["What team did Batman found?", "Which superhero team is Batman part of?", "What league did Batman form with Superman?"],
-         a="Batman formed the Justice League with Superman and Wonder Woman.", keys=["Justice League"]),
-    # --- gear ---
-    dict(q=["What is the Batcave?", "Where is Batman's headquarters?", "What is inside the Batcave?"],
-         a="The Batcave is Batman's secret headquarters, caves beneath Wayne Manor holding his supercomputer, forensics lab, training dojo, hangar and trophy room.", keys=["Wayne Manor"]),
-    dict(q=["What is the Bat-Signal?", "How do the police call Batman?", "How does Gotham summon Batman?"],
-         a="The Gotham police shine the Bat-Signal, a searchlight with a bat insignia, onto the clouds to summon Batman.", keys=["searchlight"]),
-    dict(q=["What car does Batman drive?", "What is Batman's vehicle?", "What is the Batmobile?"],
-         a="Batman drives the Batmobile, an imposing black car often with bat-wing tailfins; he also flies the Batplane.", keys=["Batmobile"]),
-    dict(q=["What is the batsuit made of?", "What protects Batman in combat?", "What are the properties of the batsuit?"],
-         a="The batsuit has the properties of Kevlar and Nomex, protecting Batman from gunfire and impacts.", keys=["Kevlar"]),
-    dict(q=["What is in Batman's utility belt?", "Where does Batman keep his gadgets?", "What does the utility belt hold?"],
-         a="Batman keeps most of his field equipment - tools, weapons and investigative instruments - in his utility belt.", keys=["utility belt"]),
-    dict(q=["When did the utility belt first appear?", "Who created Batman's utility belt?", "Which issue introduced the utility belt?"],
-         a="Gardner Fox introduced the utility belt in Detective Comics #29 (July 1939).", keys=["29"], holdout=True),
-    # --- media & legacy ---
-    dict(q=["Which actors have played Batman?", "Who played Batman in the movies?", "Name the Batman film actors."],
-         a="Batman has been played by Adam West on TV, and in films by Michael Keaton, Val Kilmer, George Clooney, Christian Bale, Ben Affleck and Robert Pattinson.", keys=["Keaton", "Bale"]),
-    dict(q=["Who voiced Batman the most?", "Who is the most famous Batman voice actor?", "Which actor voiced Batman most prolifically?"],
-         a="Kevin Conroy is the most prolific voice of Batman in animation and video games.", keys=["Kevin Conroy"]),
-    dict(q=["Does Batman have a star on the Hollywood Walk of Fame?", "When did Batman get a Hollywood star?", "Which superhero first got a Walk of Fame star?"],
-         a="Yes. In September 2024 Batman became the first superhero to receive a star on the Hollywood Walk of Fame, the 2,790th star.", keys=["2024"]),
-    dict(q=["What was the 1960s Batman show like?", "Who starred in the 1966 Batman TV series?", "What tone did the 1960s Batman series have?"],
-         a="The 1966 Batman TV series starring Adam West had a campy, humorous tone.", keys=["camp"]),
-    dict(q=["What is The Dark Knight Returns?", "Who wrote The Dark Knight Returns?", "Which 1986 miniseries made Batman darker?"],
-         a="The Dark Knight Returns is Frank Miller's 1986 miniseries that returned Batman to his darker roots.", keys=["Frank Miller"]),
-    dict(q=["What is Absolute Batman?", "Who wrote Absolute Batman?", "What was Scott Snyder's 2024 Batman series?"],
-         a="Absolute Batman is Scott Snyder's 2024 series about an alternate Batman, and it was a big commercial success.", keys=["Snyder"], holdout=True),
-    dict(q=["What is Batman Fandom?", "What is the Batman Fandom wiki?", "Describe the Batman Wiki on Fandom."],
-         a="Batman Fandom is a collaborative encyclopedia for everything Batman - comics, video games, TV shows, movies, toys and books - that anyone can edit.", keys=["collaborative"]),
-    dict(q=["What upcoming Batman media does the Fandom wiki list?", "What current Batman shows and comics are listed on the wiki?", "Which Batman titles are in production?"],
-         a="The wiki lists media such as Batman: Caped Crusader (in production), Batman and Robin (from 2023) and Batman: Gargoyle of Gotham (from 2023).", keys=["Caped Crusader"], holdout=True),
-]
+REFUSAL = "That is outside my case files. I only answer questions about the Batman universe."
+MISSING = "I don't have that in my case files."
 
-# Out-of-scope questions -> refuse. Last few held out for evals.
-OUT_OF_SCOPE = [
-    "What is the capital of France?", "Who is Iron Man?", "Write me a Python function to sort a list.",
-    "What's the weather today?", "Who won the 2018 World Cup?", "How do I bake bread?",
-    "What is quantum computing?", "Who is Spider-Man's aunt?", "Explain the stock market.",
-    "What is 17 times 23?", "Who painted the Mona Lisa?", "Recommend a good laptop.",
-    # held out
-    "Who founded Microsoft?", "What is the Avengers' headquarters?", "How tall is Mount Everest?",
-    "Can you help me with my taxes?",
-]
-OOS_HOLDOUT = 4
+# {n} is the name mid-sentence ("the Joker"); {N} the same with a capital. The LAST template of each list is
+# never trained: it is the `reworded` eval phrasing.
+WHO = ["Who is {n}?", "who is {n}", "Tell me about {n}.", "Who's {n}?", "What do you know about {n}?", "Describe {n}.", "{N}",
+       "Can you tell me who {n} is?"]
+WHAT = ["What is {n}?", "what is {n}", "Tell me about {n}.", "What's {n}?", "What do you know about {n}?", "Describe {n}.", "{N}",
+        "Can you explain what {n} is?"]
+REAL = ["What is {n}'s real name?", "What is {n}'s real identity?", "Who is {n} really?", "what's {n}'s secret identity",
+        "What is the true identity of {n}?", "What is the actual name of {n}?"]
+FIRST = ["When did {n} first appear?", "What was {n}'s first appearance?", "In which comic did {n} debut?", "when was {n} introduced",
+         "Where did {n} first show up?"]
+BY = ["Who created {n}?", "Who came up with {n}?", "who made {n}", "Which writers and artists created {n}?",
+      "Who are the creators of {n}?"]
+ALIAS = ["Who is {n}?", "who is {n}", "Tell me about {n}."]  # one each for a card's first three aliases
+ALIAS_WHAT = ["What is {n}?", "what is {n}", "Tell me about {n}."]
 
-# v2: the v1 model refused only 1/4 held-out off-topic questions (it saw 12 refusals vs 117 answers).
-# These add volume and, crucially, *near misses*: other superheroes, and Batman questions the two
-# pages simply don't answer — the cases where a small model is most tempted to make things up.
-OOS_TRAIN_EXTRA = [
-    "Who is Superman's father?", "Where is Wakanda?", "What is Iron Man's suit made of?", "Who leads the X-Men?",
-    "What is Spider-Man's real name?", "Who is Thor's brother?", "What planet is Superman from?",
-    "What is the Flash's top speed?", "Who is Green Lantern?", "Where do the Avengers live?",
-    "What is Batman's favorite food?", "What is Bruce Wayne's blood type?", "What is Alfred's middle name?",
-    "How tall is Batman in centimeters?", "What is the Batmobile's top speed?", "What music does the Joker like?",
-    "What is Batman's shoe size?", "How much does the batsuit weigh?", "What is Commissioner Gordon's phone number?",
-    "Who will direct the next Batman movie?", "Write a poem about the ocean.", "Translate hello into Spanish.",
-    "What is the square root of 144?", "Who invented the telephone?", "What is the speed of light?",
-    "How do I cook pasta?", "What is the tallest building in the world?", "Summarize World War II.",
-    "What is Bitcoin?", "Give me a workout plan.", "Who is Taylor Swift?", "What year did the Titanic sink?",
-    "How do vaccines work?", "What is the best programming language?", "Who discovered penicillin?",
-    "Recommend a movie that isn't about superheroes.",
-]
-OOS_EVAL_EXTRA = [
-    "Who is Wonder Woman's mother?", "What is Batman's favorite color?", "What is Captain America's shield made of?",
-    "Who is the president of France?", "How many moons does Mars have?", "What is Robin's favorite band?",
-    "How do I change a car tire?", "What is the Joker's blood type?",
+# Batman questions no file answers. The model must say so rather than invent something.
+UNANSWERABLE = ["What is {n}'s favorite food?", "What is {n}'s blood type?", "What is {n}'s phone number?", "What is {n}'s shoe size?",
+                "What is {n}'s favorite color?", "What is {n}'s email address?", "What is {n}'s zodiac sign?",
+                "What did {n} eat for breakfast today?", "What is {n}'s favorite song?", "How many pets does {n} have?",
+                "What is {n}'s favorite band?"]  # last: eval only
+
+OFF_TOPIC = """What is the capital of France? | Who is Iron Man? | Write me a Python function to sort a list. | What's the weather today? |
+Who won the 2018 World Cup? | How do I bake bread? | What is quantum computing? | Who is Spider-Man's aunt? | Explain the stock market. |
+What is 17 times 23? | Who painted the Mona Lisa? | Recommend a good laptop. | Who is Superman's father? | Where is Wakanda? |
+What is Iron Man's suit made of? | Who leads the X-Men? | What is Spider-Man's real name? | Who is Thor's brother? |
+What planet is Superman from? | What is the Flash's top speed? | Who is Green Lantern? | Where do the Avengers live? |
+Write a poem about the ocean. | Translate hello into Spanish. | What is the square root of 144? | Who invented the telephone? |
+What is the speed of light? | How do I cook pasta? | What is the tallest building in the world? | Summarize World War II. |
+What is Bitcoin? | Give me a workout plan. | Who is Taylor Swift? | What year did the Titanic sink? | How do vaccines work? |
+What is the best programming language? | Who discovered penicillin? | Recommend a movie that isn't about superheroes. |
+hello | hi there | how are you? | what can you do? | thanks | What time is it? | Tell me a joke. | What is your name? |
+Who is the president of the United States? | How far is the moon? | What is photosynthesis? | Who wrote Hamlet? |
+What is the population of India? | How do I learn to code? | What is the meaning of life? | Who is Wolverine? | Who is Captain Marvel? |
+What is Thanos's goal? | Who is Black Panther? | What is Hogwarts? | Who is Darth Vader? | Who is Luke Skywalker's father? |
+Who is Harry Potter? | Who is Sherlock Holmes's assistant? | What is the plot of Titanic? | Who directed Jaws? | What is Pikachu? |
+How do I fix a flat tire? | What is the boiling point of water? | How many continents are there? | What is the largest ocean? |
+Who was Albert Einstein? | What is machine learning? | How do airplanes fly? | What is the GDP of Japan? | Write an essay about climate change. |
+What should I eat for dinner? | How do I lose weight? | Is it going to rain tomorrow? | What is 2 plus 2? | Solve x squared equals 9. |
+Who is Elon Musk? | What is the stock price of Apple? | How do I invest money? | Explain blockchain. | What is the theory of relativity? |
+Who won the Super Bowl? | Who is Lionel Messi? | How long is a marathon? | What is the offside rule? | Who is LeBron James? |
+What is the best phone to buy? | How do I reset my password? | Write a cover letter for me. | Draft an email to my boss. |
+What is Wonder Woman's lasso called? | Who is Aquaman? | Who is Lex Luthor? | What is Kryptonite? | Who is Lois Lane? |
+Who is Deadpool? | Who is Doctor Strange? | What is the Infinity Gauntlet? | Who is Hulk? | Who is Loki? | Who is Venom's host? |
+What is Star Trek about? | Who is Frodo? | What is Game of Thrones? | Who is James Bond? | Who is Mario? | What is Minecraft? |
+asdfghjkl | ??? | 12345 | Give me a recipe for pancakes. | How do I meditate? | What is a black hole? | What causes earthquakes? |
+Who built the pyramids? | When was the French Revolution? | What language is spoken in Brazil? | How do I tie a tie? |
+What's a good name for a dog? | How many days are in a leap year? | Convert 10 miles to kilometers. | Define the word ephemeral.""".replace("\n", " ").split(" | ")
+OFF_TOPIC_EVAL = """Who founded Microsoft? | What is the Avengers' headquarters? | How tall is Mount Everest? | Can you help me with my taxes? |
+Who is Wonder Woman's mother? | What is Captain America's shield made of? | Who is the president of France? | How many moons does Mars have? |
+How do I change a car tire? | Who is Superman's girlfriend? | What is the capital of Australia? | Write a haiku about autumn. |
+Who is Tony Stark's father? | What is the fastest animal on Earth? | Who discovered America? | good morning | What is 9 times 8? |
+Who is Peter Parker's best friend? | How do I make coffee? | Who directed The Godfather?""".replace("\n", " ").split(" | ")
+
+# The questions the owner asked for by name. Always in the eval set, whatever else is sampled.
+OWNER = [
+    ("who is the batman?", "Bruce Wayne", ""),
+    ("What is the Joker's real identity?", "no definitive|unknown|never|uncertain|not known", "Ra's al Ghul"),
+    ("Who is Alfred?", "butler", ""),
+    ("What are the top 5 Batman villains?", "Joker, Two-Face, Penguin", ""),
+    ("who is the joker", "archenemy|arch-enemy|enemy", "Ra's al Ghul"),
+    ("Who killed Batman's parents?", "Joe Chill", ""),
+    ("Who is Harley Quinn?", "Harleen Quinzel|psychiatrist", ""),
+    ("Who broke Batman's back?", "Bane", ""),
 ]
 
 
-def train_items(oos_extra=len(OOS_TRAIN_EXTRA)):
-    """oos_extra = how many OOS_TRAIN_EXTRA refusals to include (near-misses first).
-    v1: 0 (9% refusals, under-refuses) · v2: 36 (29%, over-refuses) · v3: 20 (~21%)."""
-    items = []
-    for f in F:
-        if f.get("holdout"):
+def _bucket(s: str, n: int = 100) -> int:
+    """Stable pseudo-random bucket, so the train/eval split never changes between runs."""
+    return int(hashlib.md5(s.encode()).hexdigest(), 16) % n
+
+
+def unseen(title: str, field: str) -> bool:
+    return _bucket(f"{title}/{field}") < 12
+
+
+def _fill(t: str, n: str) -> str:
+    return t.format(n=n, N=n[0].upper() + n[1:])
+
+
+def card_questions(card) -> list[tuple[str, str, str, str, list[str]]]:
+    """(field, answer, keys, eval question, train questions) for every fact on a card."""
+    out = []
+    more = {f"more{i}": qs for i, (qs, _, _) in enumerate(card["more"])}
+    for field, a, k in cards.facts(card):
+        if field in more:
+            qs = more[field]
+        else:
+            t = {"who": WHAT if card["kind"] == "what" else WHO, "real": REAL, "first": FIRST, "by": BY}[field]
+            qs = [_fill(x, card["n"]) for x in t]
+            if field == "who":
+                qs = qs[:-1] + [_fill(x, al) for x, al in zip(ALIAS_WHAT if card["kind"] == "what" else ALIAS, card["aliases"])] + qs[-1:]
+        out.append((field, a, k, qs[-1], qs[:-1]))
+    return out
+
+
+def lead_sentence(text: str) -> str | None:
+    """A page's opening sentence, if it is a usable one- or two-line answer."""
+    s = re.split(r"(?<=[.!?])\s+(?=[A-Z\"'])", text)[0].strip()
+    return s if 8 <= len(s.split()) <= 45 and s.endswith(".") else None
+
+
+PERSON = re.compile(r"\b(?:is|was) (?:an?|the) [^.]*?\b(actor|actress|writer|artist|director|filmmaker|composer|editor|cartoonist|"
+                    r"screenwriter|producer|animator|character|supervillain|superhero|antihero|villain|vigilante)\b")
+
+
+def natural(title: str) -> str:
+    """'Batman (1966 film)' -> 'the 1966 film Batman': how someone would actually say it."""
+    m = re.match(r"^(.*?)\s*\((.+)\)$", title)
+    return f"the {m.group(2)} {m.group(1)}" if m else title
+
+
+def wiki_questions(index) -> list[tuple[str, str, str, list[str]]]:
+    """(page title, answer, eval question, train questions) for pages that have no card."""
+    carded = {p.get("page") for p in index.passages if p.get("card")}
+    out = []
+    for title, i in index.lead.items():
+        a = lead_sentence(index.passages[i]["text"])
+        if title in carded or a is None:
             continue
-        for q in f["q"][:-1]:
-            items.append({"q": q, "a": f["a"]})
-    for q in OUT_OF_SCOPE[:-OOS_HOLDOUT] + OOS_TRAIN_EXTRA[:oos_extra]:
-        items.append({"q": q, "a": REFUSAL, "oos": True})
+        n = natural(title)
+        t = WHO if PERSON.search(a) else WHAT
+        out.append((title, a, _fill(t[-1], n), [_fill(t[0], n), _fill(t[2], n), _fill(t[1], n)]))
+    return out
+
+
+def train_items(index) -> list[dict]:
+    items = []
+    for card in cards.CARDS:
+        for field, a, _, _, qs in card_questions(card):
+            if not unseen(card["title"], field):
+                items += [{"q": q, "a": a, "kind": "card"} for q in qs]
+    for title, a, _, qs in wiki_questions(index):
+        if _bucket("wiki/" + title) >= 10:
+            items += [{"q": q, "a": a, "kind": "wiki"} for q in qs]
+    named = [c["n"] for c in cards.CARDS if c["n"] and c["kind"] == "who"]
+    for i, t in enumerate(UNANSWERABLE[:-1]):
+        items += [{"q": _fill(t, n), "a": MISSING, "kind": "missing"} for n in named[i::8]]
+    items += [{"q": q, "a": REFUSAL, "kind": "off_topic"} for q in OFF_TOPIC]
+    for i, it in enumerate(items):  # people often type without capitals or a question mark
+        if i % 4 == 3:
+            it["q"] = it["q"].lower().rstrip("?.")
     return items
 
 
-def eval_items():
-    items = [{"q": f["q"][-1], "a": f["a"], "keys": f["keys"],
-              "kind": "unseen_fact" if f.get("holdout") else "reworded"} for f in F]
-    items += [{"q": q, "a": REFUSAL, "keys": ["outside my case files"], "kind": "out_of_scope"}
-              for q in OUT_OF_SCOPE[-OOS_HOLDOUT:] + OOS_EVAL_EXTRA]
+def eval_items(index) -> list[dict]:
+    items = [{"q": q, "a": "", "keys": k, "bad": bad, "kind": "owner"} for q, k, bad in OWNER]
+    for card in cards.CARDS:
+        for field, a, k, q, qs in card_questions(card):
+            if unseen(card["title"], field):
+                items.append({"q": qs[0], "a": a, "keys": k, "kind": "unseen"})
+            elif _bucket(f"reworded/{card['title']}/{field}") < 30:
+                items.append({"q": q, "a": a, "keys": k, "kind": "reworded"})
+    for title, a, q, _ in wiki_questions(index):
+        if _bucket("wiki/" + title) < 10:
+            # the opening sentence names its subject; a right answer repeats the two most telling words
+            words = [w for w in re.findall(r"[A-Za-z][a-z]{3,}", a.split(" is ", 1)[-1].split(" was ", 1)[-1])][:2]
+            items.append({"q": q, "a": a, "keys": ", ".join(words), "kind": "wiki"})
+    named = [c["n"] for c in cards.CARDS if c["n"] and c["kind"] == "who"]
+    items += [{"q": _fill(UNANSWERABLE[-1], n), "a": MISSING, "keys": "", "kind": "missing"} for n in named[::6]]
+    items += [{"q": q, "a": REFUSAL, "keys": "", "kind": "off_topic"} for q in OFF_TOPIC_EVAL]
     return items
