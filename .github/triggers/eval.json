@@ -1,0 +1,5 @@
+{
+ "adapter": "chintanjv/BatLM-360M",
+ "only": "hand",
+ "name": "baseline-360m"
+}
