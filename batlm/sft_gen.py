@@ -246,7 +246,7 @@ def references(teacher, convs) -> list[dict]:
             ref = fixed.get(style) or replies.get(i, "")
             if not ref or (style not in fixed and declined(ref)):
                 continue  # no usable reference: the conversation ends here
-            kind = "followup" if style == "followup" else KIND[style]
+            kind = "followup" if style == "followup" else KIND.get(style, "lookup")
             state[i]["turns"].append({"q": c["turns"][n], "kind": kind, "ref": ref})
             state[i]["history"].append({"q": c["turns"][n], "a": ref})
     for c, s in zip(convs, state):
