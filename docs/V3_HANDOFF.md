@@ -83,15 +83,25 @@ Results land here:
 
 ## What remains
 
-1. **Full teach run.** In progress when this was written (GitHub run 43449478375, Kaggle kernel
-   `chintanjv/batlm-teach`). Check that `data/facts.json` holds thousands of facts from hundreds of pages
-   (a 12-page trial leaves about 320) and that `evals/generated.json` has kinds other than `off_topic`.
-   If it is still the trial data, run `teach` again.
+1. **Full teach run: done** (2026-11-13). 8,599 facts from 804 pages in `data/facts.json`; 19,331 training
+   examples in the Hugging Face dataset `chintanjv/batlm-data` (4,167 follow-ups, 1,646 yes/no, 1,471
+   challenges, 1,269 false-premise, 1,230 two-part, 984 comparisons, and more); 555 held-out eval
+   conversations in `evals/generated.json`. The browser index now has 20,217 passages (8.7 MB).
+   Search recall on the eval fell from 0.94 to 0.89 once the new `fact` questions were added: look at the
+   `by_kind` numbers in the `ci` search report before blaming the models.
 2. **Train the candidates** on the same data, one `train` run each:
-   - `360m`: `HuggingFaceTB/SmolLM2-360M-Instruct` (browser file about 350 MB)
-   - `qwen05`: `Qwen/Qwen2.5-0.5B-Instruct`
-   - `qwen15`: `Qwen/Qwen2.5-1.5B-Instruct` (browser file 1.43 GB; its CPU fallback is 2.6 GB, too big
-     for most browsers)
+   - `360m`: `HuggingFaceTB/SmolLM2-360M-Instruct`. **Started** 2026-11-13 14:35 PST (GitHub run 43520155888,
+     Kaggle kernel `chintanjv/batlm-train-360m`).
+   - `qwen05`: `Qwen/Qwen2.5-0.5B-Instruct`. **Started** 2026-11-13 14:36 PST (GitHub run 43520850400,
+     Kaggle kernel `chintanjv/batlm-train-qwen05`).
+   - `qwen15`: `Qwen/Qwen2.5-1.5B-Instruct`. **Not started**: Kaggle runs two GPU sessions at a time. Its
+     browser file is 1.43 GB and its CPU fallback 2.6 GB (too big for most browsers). Use `"epochs": 1`;
+     at batch size 2 it needs several hours, so expect to need `"action": "collect"`.
+   For the two started runs: if `evals/runs/<name>/` exists on `v3`, they finished and committed. If not,
+   look at the GitHub run; if it ended with "still running", push the same trigger with
+   `"action": "collect"` (keep `stage`, `name` and `base`). Check `run.json` there for failed steps: the
+   teacher-judging step had not yet succeeded in any run when this was written, and until it does the
+   report shows answers "waiting for the teacher" and the gate fails for that reason alone.
    Consider `HuggingFaceTB/SmolLM2-1.7B-Instruct` only if the others miss the gate.
 3. **Bake-off table** for the owner: accuracy by kind, gate verdict, download size, speed.
 4. **Preview.** Vercel builds a preview for every push to `v3`. Point it at the chosen model with the
@@ -123,4 +133,4 @@ Results land here:
 - **The `kaggle` command needs `six`** installed beside it on the runner.
 - **Commits through the API:** build every file with a checked script and confirm the blob is not empty
   before committing. One commit in this work emptied a file through a shell-quoting mistake.
-- Kaggle gives 30 GPU hours a week; about 10 were used on 2026-11-13.
+- Kaggle gives 30 GPU hours a week; roughly 13 were used on 2026-11-13 before the two training runs, so check the quota before starting `qwen15` the same week.
