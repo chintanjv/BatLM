@@ -119,6 +119,8 @@ def build(teacher, limit: int | None = None) -> list[dict]:
             seen.add(norm(f["text"]))
             out.append({"id": FIRST_ID + len(out), "title": title, "section": "Facts", "url": url, "fact": True, **f})
     print(f"{len(out)} facts kept of {raw} written", flush=True)
+    for f in out[::max(len(out) // 40, 1)][:40]:  # a sample to read in the log
+        print(f"  [{f['title']}] {f['text']}  ASKS {f['asks']} / {f['held']}  KEYS {f['keys']}", flush=True)
     return out
 
 
