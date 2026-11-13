@@ -47,11 +47,12 @@ Does the student answer give the same key fact or facts as the reference, withou
 def handwritten() -> list[dict]:
     """evals/handwritten.json: conversations written by hand, never generated and never trained on.
     A group {"kind", "items": [[question, keys, forbidden?], ...]} is shorthand for one-turn conversations."""
-    convs = []
+    convs, count = [], defaultdict(int)
     for n, c in enumerate(json.loads((OUT / "handwritten.json").read_text())):
         if "items" in c:
-            for m, it in enumerate(c["items"]):
-                convs.append({"id": f"hand-{c['kind']}-{m}", "turns": [
+            for it in c["items"]:
+                count[c["kind"]] += 1  # several groups may share a kind
+                convs.append({"id": f"hand-{c['kind']}-{count[c['kind']] - 1}", "turns": [
                     {"q": it[0], "keys": it[1] if len(it) > 1 else "", "bad": it[2] if len(it) > 2 else "", "kind": c["kind"]}]})
         else:
             convs.append({"id": c.get("id", f"hand-talk-{n}"), "turns": c["turns"]})
