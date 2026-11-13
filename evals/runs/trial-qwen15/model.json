@@ -1,0 +1,8 @@
+{
+ "repo": "chintanjv/BatLM-v3-trial-qwen15",
+ "base": "Qwen/Qwen2.5-1.5B-Instruct",
+ "onnx_mb": {
+  "model_q4.onnx": 0,
+  "model_q4f16.onnx": 1432
+ }
+}

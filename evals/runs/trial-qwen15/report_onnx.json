@@ -1,0 +1,157 @@
+{
+ "generated": "2026-11-13 14:30",
+ "passages": 11935,
+ "search": {
+  "n": 194,
+  "recall@3": 0.912,
+  "by_kind": {
+   "challenge": {
+    "n": 9,
+    "recall": 1.0
+   },
+   "compare": {
+    "n": 10,
+    "recall": 1.0
+   },
+   "followup": {
+    "n": 42,
+    "recall": 0.857
+   },
+   "list": {
+    "n": 9,
+    "recall": 1.0
+   },
+   "lookup": {
+    "n": 79,
+    "recall": 0.924
+   },
+   "multipart": {
+    "n": 6,
+    "recall": 0.667
+   },
+   "typo": {
+    "n": 10,
+    "recall": 1.0
+   },
+   "why": {
+    "n": 8,
+    "recall": 0.875
+   },
+   "yesno": {
+    "n": 21,
+    "recall": 0.905
+   }
+  },
+  "answerable_refused_by_gate": [],
+  "off_topic_reaching_model": "2 of 16",
+  "training_off_topic_reaching_model": "22 of 125",
+  "misses": [
+   "what happened to him?",
+   "in which story?",
+   "what year did it come out?",
+   "what was his job before?",
+   "what did he become after he came back?",
+   "Is Gotham City a real place?",
+   "Is Batman a Marvel character?",
+   "Who created Batman and when did he first appear?",
+   "Who is Nightwing and where does he operate?",
+   "Why does Batman dress like a bat?",
+   "Who composed the music for The Dark Knight?",
+   "Who plays the Penguin in The Batman?",
+   "Who played Alfred in The Dark Knight?",
+   "Who played Commissioner Gordon in Batman Begins?",
+   "Who played Catwoman in The Dark Knight Rises?",
+   "who played him in The Batman?",
+   "What year was The Dark Knight released?"
+  ]
+ },
+ "model": "4-bit ONNX, /kaggle/working/BatLM/checkpoints/genai-q4",
+ "results": {
+  "challenge": {
+   "n": 9,
+   "accuracy": 0.667
+  },
+  "compare": {
+   "n": 10,
+   "accuracy": 0.8
+  },
+  "followup": {
+   "n": 42,
+   "accuracy": 0.738
+  },
+  "list": {
+   "n": 9,
+   "accuracy": 1.0
+  },
+  "lookup": {
+   "n": 79,
+   "accuracy": 0.899
+  },
+  "missing": {
+   "n": 5,
+   "accuracy": 1.0
+  },
+  "multipart": {
+   "n": 6,
+   "accuracy": 0.333
+  },
+  "near_topic": {
+   "n": 6,
+   "accuracy": 0.833
+  },
+  "off_topic": {
+   "n": 16,
+   "accuracy": 1.0
+  },
+  "typo": {
+   "n": 10,
+   "accuracy": 0.9
+  },
+  "why": {
+   "n": 8,
+   "accuracy": 0.875
+  },
+  "yesno": {
+   "n": 21,
+   "accuracy": 0.762
+  },
+  "source:auto": {
+   "n": 0
+  },
+  "source:hand": {
+   "n": 221,
+   "accuracy": 0.837
+  },
+  "source:gen": {
+   "n": 0
+  },
+  "answerable": {
+   "n": 194,
+   "accuracy": 0.82
+  },
+  "overall": {
+   "n": 221,
+   "accuracy": 0.837,
+   "waiting_for_the_teacher": 0,
+   "hit_token_limit": 0,
+   "wrongly_declined": 7,
+   "batman_question_called_off_topic": 3
+  }
+ },
+ "gate": {
+  "passed": false,
+  "failures": [
+   "overall accuracy 0.837 is below 0.9",
+   "yesno: 0.762 on 21 questions",
+   "challenge: 0.667 on 9 questions",
+   "followup: 0.738 on 42 questions",
+   "3 Batman questions answered with the off-topic refusal"
+  ],
+  "thresholds": {
+   "overall": 0.9,
+   "followup": 0.85,
+   "each_kind": 0.8,
+   "each_kind_min_n": 8
+  }
+ }
+}
