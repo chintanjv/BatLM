@@ -17,3 +17,4 @@ web/tsconfig.tsbuildinfo
 evals/browser_run.json
 build/
 cloud/run.json
+data/pages.json

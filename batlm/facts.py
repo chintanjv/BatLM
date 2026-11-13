@@ -79,13 +79,14 @@ def accept(item, source: str) -> dict | None:
 
 def pages(limit: int | None = None) -> dict[str, dict]:
     """Display title -> {"text", "url", "words"} for the pages in the corpus (the first `limit`, if given), in corpus
-    order. The full text comes from the download cache, or from Wikipedia for any page not in it."""
+    order. The full text comes from the download cache, the one-file bundle of it, or Wikipedia for any page in neither."""
     chunks = json.loads((ROOT / "data" / "chunks.json").read_text())
     size, url = {}, {}
     for c in chunks:
         size[c["title"]] = size.get(c["title"], 0) + len(c["text"].split())
         url.setdefault(c["title"], c["url"])
-    cached = {}
+    bundle = ROOT / "data" / "pages.json"  # every page's full text in one file, as cloud/pipeline.py ships it
+    cached = json.loads(bundle.read_text()) if bundle.exists() else {}
     for f in sorted(scrape.RAW.glob("*.json")):
         page = json.loads(f.read_text()).get("query", {}).get("pages", [{}])[0]
         if page.get("extract"):

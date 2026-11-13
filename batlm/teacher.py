@@ -37,25 +37,31 @@ class Teacher:
             subprocess.check_call(["uv", "venv", "--python", "3.11", env_dir])
             subprocess.check_call(["uv", "pip", "install", "-q", "--python", py, "vllm"])
         self.log_path = "/kaggle/working/teacher.log" if os.path.isdir("/kaggle/working") else "teacher.log"
-        self.log = open(self.log_path, "w")
         gpus = max(torch.cuda.device_count(), 1)
-        print(f"starting teacher {model} on {gpus} GPU(s)", flush=True)
-        self.proc = subprocess.Popen(
-            [py, "-m", "vllm.entrypoints.openai.api_server", "--model", model, "--served-model-name", "teacher", "--port", "8000",
-             "--max-model-len", str(context), "--tensor-parallel-size", str(gpus), "--gpu-memory-utilization", "0.92"],
-            stdout=self.log, stderr=subprocess.STDOUT)
-        t0 = time.time()
-        while True:
-            if self.proc.poll() is not None or time.time() - t0 > 2700:
-                self.close()
-                raise RuntimeError("the teacher did not start:\n" + open(self.log_path).read()[-6000:])
-            try:
-                if requests.get(URL + "/models", timeout=5).ok:
-                    break
-            except requests.RequestException:
-                pass
-            time.sleep(10)
-        print(f"teacher ready after {time.time() - t0:.0f}s", flush=True)
+        for attempt in range(3):
+            self.log = open(self.log_path, "a")
+            print(f"starting teacher {model} on {gpus} GPU(s)", flush=True)
+            # vLLM's own multi-GPU all-reduce sometimes crashes at start-up on T4s ("invalid argument"); the standard one is reliable.
+            self.proc = subprocess.Popen(
+                [py, "-m", "vllm.entrypoints.openai.api_server", "--model", model, "--served-model-name", "teacher", "--port", "8000",
+                 "--max-model-len", str(context), "--tensor-parallel-size", str(gpus), "--gpu-memory-utilization", "0.92",
+                 "--disable-custom-all-reduce"],
+                stdout=self.log, stderr=subprocess.STDOUT)
+            t0, up = time.time(), False
+            while self.proc.poll() is None and time.time() - t0 < 2700 and not up:
+                try:
+                    up = requests.get(URL + "/models", timeout=5).ok
+                except requests.RequestException:
+                    pass
+                if not up:
+                    time.sleep(10)
+            if up:
+                print(f"teacher ready after {time.time() - t0:.0f}s", flush=True)
+                return
+            self.close()
+            print(f"the teacher did not start (attempt {attempt + 1}):\n" + open(self.log_path).read()[-3000:], flush=True)
+            time.sleep(30)
+        raise RuntimeError("the teacher did not start after 3 attempts; see teacher.log")
 
     def _one(self, prompt: str, system: str | None, max_tokens: int, temperature: float) -> str:
         msgs = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": prompt}]

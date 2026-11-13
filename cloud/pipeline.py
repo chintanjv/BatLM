@@ -63,7 +63,20 @@ def start(user: str):
     kernel.mkdir()
     (ROOT / "cloud" / "run.json").write_text(json.dumps(run))
     paths = ["batlm", "cloud/run.json", "data/chunks.json", "data/facts.json", "docs", "evals/handwritten.json", "evals/generated.json"]
-    if stage == "train":
+    if stage == "teach":
+        # The full text of every page, in one file: the teacher reads past the word cap of the search passages,
+        # and downloading 800 pages again on Kaggle takes over an hour of GPU session.
+        sys.path.insert(0, str(ROOT))
+        from batlm import scrape
+        pages = {}
+        for f in sorted(scrape.RAW.glob("*.json")):
+            page = json.loads(f.read_text()).get("query", {}).get("pages", [{}])[0]
+            if page.get("extract"):
+                pages.setdefault(scrape.display(page["title"]), page["extract"])
+        (ROOT / "data" / "pages.json").write_text(json.dumps(pages, ensure_ascii=False))
+        print(f"{len(pages)} downloaded pages bundled into data/pages.json")
+        paths.append("data/pages.json")
+    else:
         api, me = hub()
         try:
             got = api.hf_hub_download(f"{me}/batlm-data", "sft_teacher.jsonl", repo_type="dataset", local_dir=str(ROOT / "checkpoints"))
