@@ -27,6 +27,7 @@ jobs:
           [ -n "$KAGGLE_API_TOKEN" ] || [ -n "$KAGGLE_KEY" ] || { echo "::error::The KAGGLE_API_TOKEN secret is missing"; exit 1; }
           echo "STAGE=$(python3 -c "import json; print(json.load(open('.github/triggers/pipeline.json'))['stage'])")" >> "$GITHUB_ENV"
           echo "ACTION=$(python3 -c "import json; print(json.load(open('.github/triggers/pipeline.json')).get('action', 'start'))")" >> "$GITHUB_ENV"
+          echo "LIMIT=$(python3 -c "import json; print(json.load(open('.github/triggers/pipeline.json')).get('limit') or '')")" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -36,14 +37,14 @@ jobs:
       - name: Install
         run: pip install -q -U kaggle huggingface_hub requests "transformers>=4.44,<5" jinja2 pytest
       - name: Restore downloaded pages
-        if: env.STAGE == 'teach' && env.ACTION == 'start'
+        if: env.STAGE == 'teach' && env.ACTION == 'start' && env.LIMIT == ''
         uses: actions/cache@v4
         with:
           path: data/raw
           key: wikipedia-${{ github.run_id }}
           restore-keys: wikipedia-
       - name: Make sure every page is downloaded
-        if: env.STAGE == 'teach' && env.ACTION == 'start'
+        if: env.STAGE == 'teach' && env.ACTION == 'start' && env.LIMIT == ''
         run: |
           python -u -m batlm.scrape | tail -n 5
           git diff --quiet data/chunks.json || echo "::warning::Wikipedia changed since the corpus was built; run the corpus workflow to pick the changes up"

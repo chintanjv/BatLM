@@ -77,25 +77,33 @@ def accept(item, source: str) -> dict | None:
     return {"text": fact, "asks": asks[:-1], "held": asks[-1], "keys": ", ".join(keys[:2])}
 
 
-def pages() -> dict[str, dict]:
-    """Display title -> {"text", "url", "words"} for every page in the corpus, read from the download cache."""
+def pages(limit: int | None = None) -> dict[str, dict]:
+    """Display title -> {"text", "url", "words"} for the pages in the corpus (the first `limit`, if given), in corpus
+    order. The full text comes from the download cache, or from Wikipedia for any page not in it."""
     chunks = json.loads((ROOT / "data" / "chunks.json").read_text())
-    size = {}
+    size, url = {}, {}
     for c in chunks:
         size[c["title"]] = size.get(c["title"], 0) + len(c["text"].split())
-    url = {c["title"]: c["url"] for c in chunks}
-    out = {}
+        url.setdefault(c["title"], c["url"])
+    cached = {}
     for f in sorted(scrape.RAW.glob("*.json")):
-        page = json.loads(f.read_text())["query"]["pages"][0]
-        title = scrape.display(page.get("title", ""))
-        if page.get("extract") and title in url and title not in out:
-            out[title] = {"text": page["extract"], "url": url[title], "words": size[title]}
+        page = json.loads(f.read_text()).get("query", {}).get("pages", [{}])[0]
+        if page.get("extract"):
+            cached.setdefault(scrape.display(page["title"]), page["extract"])
+    out = {}
+    for title in list(url)[:limit]:
+        text = cached.get(title)
+        if text is None:
+            page = scrape.fetch(url[title].split("/wiki/", 1)[1].replace("_", " "))
+            text = page and page["text"]
+        if text:
+            out[title] = {"text": text, "url": url[title], "words": size[title]}
     return out
 
 
 def build(teacher, limit: int | None = None) -> list[dict]:
     jobs = []
-    for title, page in list(pages().items())[:limit]:
+    for title, page in pages(limit).items():
         for w in windows(page["text"], most=min(4, max(1, round(page["words"] / 600)))):
             jobs.append((title, page["url"], w))
     print(f"{len(jobs)} stretches of text from {len({j[0] for j in jobs})} pages", flush=True)
