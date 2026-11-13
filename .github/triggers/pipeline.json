@@ -4,5 +4,5 @@
  "name": "trial-qwen15",
  "base": "Qwen/Qwen2.5-1.5B-Instruct",
  "epochs": 1,
- "note": "trial of the train stage on the largest candidate, before the teacher data exists"
+ "note": "trial 2 of the train stage on the largest candidate"
 }

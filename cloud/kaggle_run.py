@@ -71,7 +71,7 @@ os.makedirs(OUT, exist_ok=True)
 os.makedirs(f"{ROOT}/checkpoints", exist_ok=True)
 
 py = sys.executable
-env = {**os.environ, "TOKENIZERS_PARALLELISM": "false", "BATLM_BASE": run.get("base") or "",
+env = {**os.environ, "TOKENIZERS_PARALLELISM": "false", "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True", "BATLM_BASE": run.get("base") or "",
        "BATLM_TEACHER": run.get("teacher") or "", "BATLM_TOP_K": str(run.get("top_k") or "")}
 subprocess.call(["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv"])
 
