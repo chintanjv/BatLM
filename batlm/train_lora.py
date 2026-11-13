@@ -131,12 +131,18 @@ def main():
     total = max(args.epochs * (len(batches(0)) // args.accum), 1)
     step, log, t0 = 0, [], time.time()
     model.train()
+    inner = model.get_base_model()  # the causal LM with the LoRA layers in place: .model is the transformer, .lm_head the output layer
     for epoch in range(args.epochs):
         running = 0.0
         for i, idx in enumerate(batches(epoch)):
             x, y, m = collate(idx)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
-                loss = model(input_ids=x, attention_mask=m, labels=y).loss / args.accum
+                # Score only the answer positions. Scoring every prompt token against the whole vocabulary
+                # costs gigabytes on a model with a large vocabulary, for numbers the loss then ignores.
+                hidden = inner.model(input_ids=x, attention_mask=m).last_hidden_state[:, :-1]
+                keep = y[:, 1:] != -100
+                logits = inner.lm_head(hidden[keep])
+            loss = torch.nn.functional.cross_entropy(logits.float(), y[:, 1:][keep]) / args.accum
             scaler.scale(loss).backward()
             running += loss.item()
             if (i + 1) % args.accum == 0:
