@@ -2,7 +2,7 @@
 
     python -m batlm.export_web [--skip-model]
 
-  web/public/data/index.json       system prompt, refusal text and every search passage (cards + Wikipedia)
+  web/public/data/index.json       system prompt, the two decline messages and every search passage (cards + Wikipedia)
   web/public/models/batlm-360m/    transformers.js layout: config + tokenizer + onnx/model_{q4f16,q4}.onnx
                                    (local dev only; the live site loads the same files from the Hugging Face Hub)
 """
@@ -25,7 +25,7 @@ def export_data():
     d = PUB / "data"
     d.mkdir(parents=True, exist_ok=True)
     passages = rag.load().passages
-    json.dump({"persona": sft_data.PERSONA, "refusal": sft_data.REFUSAL, "passages": passages},
+    json.dump({"persona": sft_data.PERSONA, "refusal": sft_data.REFUSAL, "missing": sft_data.MISSING, "passages": passages},
               open(d / "index.json", "w"), ensure_ascii=False, separators=(",", ":"))
     print(f"data -> {d / 'index.json'} ({len(passages)} passages, {(d / 'index.json').stat().st_size / 1e6:.1f} MB)")
 

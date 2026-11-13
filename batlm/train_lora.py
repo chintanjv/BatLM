@@ -31,13 +31,13 @@ CK = ROOT / "checkpoints"
 def build_examples(index):
     out, dropped = [], []
     for it in sft_data.train_items(index):
-        prompt, hits = plan(index, it["q"])
-        if prompt is None:  # the off-topic gate answers this one; the model never sees it
+        p = plan(index, it["q"])
+        if p.prompt is None:  # the off-topic gate answers this one; the model never sees it
             continue
-        if it["kind"] in ("card", "wiki") and not any(it["a"] in c["text"] for c in hits):
+        if it["kind"] in ("card", "wiki") and not any(it["a"] in c["text"] for c in p.hits):
             dropped.append(it["q"])
             continue
-        out.append({"prompt": prompt, "answer": it["a"], "kind": it["kind"]})
+        out.append({"prompt": p.prompt, "answer": it["a"], "kind": it["kind"]})
     return out, dropped
 
 
