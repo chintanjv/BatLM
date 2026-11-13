@@ -49,10 +49,12 @@ Give two different questions for each style that fits (skip a style the facts do
 - "list": asks for several items, with a number if natural ("name three ...")
 - "plain": an ordinary question, worded differently from "Who is ...?" or "What is ...?"
 - "unknowable": a sensible-sounding question about "{title}" that no encyclopedia could answer (a private or never-stated detail)
-Then write two short conversations of 2 or 3 user messages each. The first message names the subject. The later ones lean on it without naming it, the way people really talk ("what about his son?", "who played her?", "and when was that?", "are you sure?").
+Then write two short conversations of 2 or 3 messages. Every message is typed by the USER and every message is a question for the chatbot. Never write the chatbot's side, and never write statements or small talk. The first question names the subject. Each later question asks something new that these facts answer, but refers to the subject only by a pronoun or leaves it out, the way people do in chat.
+Examples of the form: ["Who is Mr. Freeze?", "what is his real name?", "why does he commit crimes?"] and ["Tell me about Batman Begins", "who directed it?", "and who played the lead?"].
+Finally write one "pushback" conversation of 2 messages: a question these facts answer, then the user doubting or disputing the answer without naming the subject again ("are you sure?", "really? I thought it was someone else", "that doesn't sound right, wasn't she a hero?").
 
 Reply with JSON and nothing else:
-{{"questions": [{{"style": "yesno", "q": "..."}}], "conversations": [["...", "...", "..."], ["...", "..."]]}}"""
+{{"questions": [{{"style": "yesno", "q": "..."}}], "conversations": [["...", "...", "..."], ["...", "..."]], "pushback": ["...", "..."]}}"""
 
 PAIR = """You are writing test questions for a chatbot that answers questions about the Batman universe.
 Here is what its files say about "{a}":
@@ -82,12 +84,12 @@ RULES = """You write the ideal reply for BatLM, a small assistant that answers q
 
 Rules for the reply:
 1. Use only what the CASE FILES and the earlier turns say. Never add anything you know from elsewhere.
-2. Answer the exact question in one or two sentences, or a short numbered list when several items are asked for. No preamble, and do not mention the files.
-3. For a yes/no question, start with "Yes" or "No", then give the fact that settles it. If the user assumes something the files contradict, say so and give the correct fact.
+2. Answer the exact question in one or two full sentences, or a short numbered list when several items are asked for. No preamble. Never mention "the files", "the case files" or passage numbers like [1]: state the facts as your own knowledge.
+3. For a yes/no question, start with "Yes" or "No", then give the fact that settles it. If the user assumes something the files contradict, say so and give the correct fact. If the user doubts something that is true ("are you sure?"), confirm it plainly ("Yes, that is right: ...").
 4. Check who each file is about. A file about another character counts only if it actually states the answer.
 5. In a conversation, "he", "she", "it", "that" and similar words refer to the earlier turns.
 6. If the user asks for more items than the files list, give the ones the files list and say that is all the files have.
-7. If the question asks two things and the files answer only one, answer that one and say the files do not cover the other.
+7. If the question asks two things and the files answer only one, answer that one and add "I don't know the other part."
 8. If the question is about the Batman universe but the files do not contain the answer, reply exactly: I don't have that in my case files.
 9. If the question is not about the Batman universe at all, reply exactly: That is outside my case files. I only answer questions about the Batman universe.
 
@@ -149,6 +151,8 @@ def answer(teacher, contexts: list[str]) -> list[str]:
     """The teacher's reply for each context, or "" where it broke the length limit or the check found it unsupported."""
     replies = [tidy(a) for a in teacher.ask(contexts, system=RULES, max_tokens=220, temperature=0.0)]
     replies = [a if 1 <= len(a.split()) <= 90 else "" for a in replies]
+    # A reply that talks about its sources ("the files state", "[1] says") would teach the student to do the same.
+    replies = [a if declined(a) or not re.search(r"\bfiles?\b|\[\d\]", a, re.I) else "" for a in replies]
     todo = [i for i, a in enumerate(replies) if a and not declined(a)]
     verdicts = teacher.ask([CHECK.format(context=contexts[i], answer=replies[i]) for i in todo], max_tokens=6, temperature=0.0)
     for i, v in zip(todo, verdicts):
@@ -192,8 +196,9 @@ def write_questions(teacher, index, limit=None, rng=None):
         for item in data.get("questions") or []:
             if isinstance(item, dict) and item.get("style") in KIND:
                 add(titles_, facts, [item["style"]], [item.get("q")])
-        for turns in data.get("conversations") or []:
-            if isinstance(turns, list) and 2 <= len(turns) <= 3:
+        for turns in (data.get("conversations") or []) + [data.get("pushback")]:
+            # every later turn must be a question: the teacher sometimes writes the chatbot's side or a remark instead
+            if isinstance(turns, list) and 2 <= len(turns) <= 3 and all(isinstance(q, str) and q.strip().endswith("?") for q in turns[1:]):
                 add(titles_, facts, ["plain"] + ["followup"] * (len(turns) - 1), turns)
     # Off-topic messages: alone, and dropped into the middle of a Batman conversation.
     openers = [c["turns"][0] for c in convs if len(c["turns"]) > 1] or ["Who is Batman?"]
@@ -219,9 +224,13 @@ def walk(index, teacher, convs) -> list[dict]:
             p = plan(index, c["turns"][n], s["history"])
             if p.prompt is not None:  # otherwise the gate answers: nothing for the model to learn, and the turn leaves no history
                 batch.append((c, s, p))
-        replies = answer(teacher, [context(c["turns"][n], p.hits, s["history"]) for c, s, p in batch])
-        for (c, s, p), a in zip(batch, replies):
-            a = settle(a, p.named)
+        ask = [(c, s, p) for c, s, p in batch if c["styles"][n] != "off"]
+        replies = dict(zip((id(s) for _, s, _ in ask), answer(teacher, [context(c["turns"][n], p.hits, s["history"]) for c, s, p in ask])))
+        for c, s, p in batch:
+            if c["styles"][n] == "off":
+                a = "" if p.named else sft_data.REFUSAL  # it names a Batman subject after all: not a clean example, leave it out
+            else:
+                a = settle(replies[id(s)], p.named)
             if not a:
                 s["dead"] = True  # the later turns lean on this one
                 continue
@@ -283,7 +292,8 @@ def main(teacher=None, limit=None):
             print("  [" + e["kind"] + "] " + " / ".join(past + [e["q"]]) + "\n      -> " + e["answer"], flush=True)
         held = [c for c in convs if c["held"]]
         rng.shuffle(held)
-        evals = references(teacher, held[:700])
+        off = [c for c in held if c["styles"] == ["off"]]
+        evals = references(teacher, [c for c in held if c["styles"] != ["off"]][:700] + off[:60])
         EVAL.write_text(json.dumps(evals, ensure_ascii=False, indent=1))
         for c in evals[:25]:
             print("  eval: " + " / ".join("[" + t["kind"] + "] " + t["q"] + " -> " + t["ref"] for t in c["turns"]), flush=True)

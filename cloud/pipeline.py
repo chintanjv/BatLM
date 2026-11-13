@@ -124,7 +124,7 @@ def collect(user: str):
         except ValueError:
             text = log.read_text()
         (BUILD / "kaggle.log").write_text(text)
-        print("---- end of the Kaggle log ----\n" + text[-12000:], flush=True)
+        print("---- end of the Kaggle log ----\n" + text[-60000:], flush=True)
     res = out / "out"
     status = json.loads((res / "status.json").read_text()) if (res / "status.json").exists() else {"failed": ["no status file"]}
     api, me = hub()
