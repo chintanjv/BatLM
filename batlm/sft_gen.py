@@ -39,7 +39,7 @@ Here is what its files say about "{title}":
 {facts}
 
 Write questions a real person might type. Use only things these facts answer, except for the "unknowable" style.
-Give two different questions for each style that fits (skip a style the facts do not support):
+Give one question for each style that fits (skip a style the facts do not support):
 - "yesno": a yes/no question whose answer is yes
 - "false": a yes/no question or a statement built on a wrong assumption that these facts correct (wrong name, wrong person, wrong date)
 - "challenge": the user doubts one of the facts or pushes back ("Are you sure ...?", "I thought ...", "No way, ...")
@@ -169,19 +169,20 @@ def write_questions(teacher, index, limit=None, rng=None):
     held = {t for t in titles if sft_data._bucket("gen/" + t) < 8}
     jobs = []  # (titles, facts, prompt)
     for t in titles:
-        for _ in range(2 if len(subs[t]) > 8 else 1):
+        for _ in range(3 if len(subs[t]) > 8 else 2):  # asked more than once, each time about a different handful of facts
             facts = rng.sample(subs[t], min(8, len(subs[t])))
             jobs.append(((t,), facts, ASK.format(title=t, facts=bullets(facts))))
     rich = [t for t in titles if len(subs[t]) >= 4]
-    for _ in range(min(1200, len(rich) * 2) if len(rich) > 1 else 0):
+    for _ in range(min(800, len(rich) * 2) if len(rich) > 1 else 0):
         a, b = rng.sample(rich, 2)
         fa, fb = rng.sample(subs[a], min(5, len(subs[a]))), rng.sample(subs[b], min(5, len(subs[b])))
         jobs.append(((a, b), fa + fb, PAIR.format(a=a, b=b, facts_a=bullets(fa), facts_b=bullets(fb))))
     replies = teacher.ask([j[2] for j in jobs], max_tokens=1500, temperature=0.9)
-    convs = []
+    convs, seen = [], set()
 
     def add(titles_, facts, styles, turns):
-        if turns and all(good(q) for q in turns):
+        if turns and all(good(q) for q in turns) and " / ".join(turns).lower() not in seen:
+            seen.add(" / ".join(turns).lower())
             convs.append({"id": f"gen-{len(convs)}", "styles": styles, "turns": [q.strip() for q in turns], "facts": facts,
                           "held": any(t in held for t in titles_)})
 

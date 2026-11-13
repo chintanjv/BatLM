@@ -104,10 +104,10 @@ def pages(limit: int | None = None) -> dict[str, dict]:
 def build(teacher, limit: int | None = None) -> list[dict]:
     jobs = []
     for title, page in pages(limit).items():
-        for w in windows(page["text"], most=min(4, max(1, round(page["words"] / 600)))):
+        for w in windows(page["text"], most=min(3, max(1, round(page["words"] / 600)))):
             jobs.append((title, page["url"], w))
     print(f"{len(jobs)} stretches of text from {len({j[0] for j in jobs})} pages", flush=True)
-    replies = teacher.ask([PROMPT.format(title=t, n=10, text=w) for t, _, w in jobs], max_tokens=1500, temperature=0.2)
+    replies = teacher.ask([PROMPT.format(title=t, n=10, text=w) for t, _, w in jobs], max_tokens=1300, temperature=0.2)
     out, seen, raw = [], set(), 0
     for (title, url, w), reply in zip(jobs, replies):
         items = parse_json(reply)
