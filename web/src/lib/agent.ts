@@ -4,8 +4,8 @@ import type { Hit, Index, Target } from "./search";
 
 /** Below this search score, with no Batman subject named or carried over from the previous turn, the question is off-topic. */
 export const MIN_SCORE = 16.0;
-/** Passages shown to the model. */
-export const TOP_K = 3;
+/** Passages shown to the model (must match BATLM_TOP_K at training time). */
+export const TOP_K = Number(import.meta.env.VITE_BATLM_TOP_K) || 3;
 
 export type Plan =
   | { kind: "refuse"; answer: string }

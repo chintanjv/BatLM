@@ -32,5 +32,5 @@ web:              ## local dev server at http://localhost:5173
 
 all: data cards lora evals export test
 
-cloud:            ## train, score and export on a free Kaggle GPU instead (needs KAGGLE_API_TOKEN in .env)
-	cloud/kaggle.sh push
+cloud:            ## the cloud pipeline runs from GitHub Actions: see .github/workflows/ and cloud/pipeline.py
+	@echo "Edit .github/triggers/pipeline.json on the working branch and push it; GitHub Actions runs the stage on Kaggle."

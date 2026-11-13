@@ -15,3 +15,5 @@ data/raw/
 .venv-export/
 web/tsconfig.tsbuildinfo
 evals/browser_run.json
+build/
+cloud/run.json

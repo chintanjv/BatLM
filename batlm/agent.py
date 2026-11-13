@@ -8,6 +8,7 @@ follow-up to one, and search finds nothing relevant. Mirrored in web/src/lib/age
 A conversation is a list of turns, {"q": question, "a": answer, "topic": subjects}. The last turn tells
 search who a follow-up is about, and the last few are shown to the model.
 """
+import os
 import pathlib
 from typing import NamedTuple
 
@@ -15,7 +16,7 @@ from . import rag, sft_data
 from .prompt import render
 
 MIN_SCORE = 16.0  # below this, with no Batman subject named or carried over, the question is off-topic
-TOP_K = 3         # passages shown to the model
+TOP_K = int(os.environ.get("BATLM_TOP_K") or 3)  # passages shown to the model; a larger model can read more
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 

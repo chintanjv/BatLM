@@ -22,8 +22,8 @@ jobs:
         with:
           node-version: 24
       - name: Install Python test dependencies
-        run: pip install -q "transformers>=4.44,<5" jinja2 pytest
-      - name: Pipeline tests (prompt format, search, follow-ups, Python/browser parity)
+        run: pip install -q "transformers>=4.44,<5" jinja2 requests pytest
+      - name: Pipeline tests (prompt format, search, follow-ups, Python/browser parity, teacher data)
         run: python -m pytest -q tests
       - name: Search report
         if: always()

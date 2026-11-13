@@ -6,10 +6,13 @@ train/serve skew in prompt formatting is one of the most common silent LLM bugs.
 A first question is one system message and one user message (case files + question). In a conversation
 the earlier exchanges come in between as ordinary chat turns, without their case files.
 """
+import os
+
 from .rag import format_context
 from .sft_data import PERSONA
 
-BASE_MODEL = "HuggingFaceTB/SmolLM2-360M-Instruct"
+# Any model that uses the ChatML format works: BATLM_BASE is how the larger candidates are trained and exported.
+BASE_MODEL = os.environ.get("BATLM_BASE") or "HuggingFaceTB/SmolLM2-360M-Instruct"
 HISTORY = 2        # earlier exchanges shown to the model
 ANSWER_WORDS = 60  # each earlier answer is cut to this many words
 

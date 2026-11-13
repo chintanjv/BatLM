@@ -133,6 +133,9 @@ def train_items(index) -> list[dict]:
     for title, a, _, qs in wiki_questions(index):
         if _bucket("wiki/" + title) >= 10:
             items += [{"q": q, "a": a, "kind": "wiki"} for q in qs]
+    for p in index.passages:  # teacher-written facts: one of the ways of asking, for a share of them
+        if p.get("fact") and p["asks"] and _bucket("fact/" + p["text"]) < 40:
+            items.append({"q": p["asks"][0], "a": p["text"], "kind": "fact"})
     named = [c["n"] for c in cards.CARDS if c["n"] and c["kind"] == "who"]
     for i, t in enumerate(UNANSWERABLE[:-1]):
         items += [{"q": cards.fill(t, n), "a": MISSING, "kind": "missing"} for n in named[i::8]]
@@ -156,6 +159,9 @@ def eval_items(index) -> list[dict]:
             # the opening sentence names its subject; a right answer repeats the two most telling words
             words = [w for w in re.findall(r"[A-Za-z][a-z]{3,}", a.split(" is ", 1)[-1].split(" was ", 1)[-1])][:2]
             items.append({"q": q, "a": a, "keys": ", ".join(words), "kind": "wiki"})
+    for p in index.passages:  # teacher-written facts, asked in the wording kept out of search and training
+        if p.get("fact") and _bucket("fact-eval/" + p["text"]) < 2:
+            items.append({"q": p["held"], "a": p["text"], "keys": p["keys"], "kind": "fact"})
     named = [c["n"] for c in cards.CARDS if c["n"] and c["kind"] == "who"]
     items += [{"q": cards.fill(UNANSWERABLE[-1], n), "a": MISSING, "keys": "", "kind": "missing"} for n in named[::6]]
     items += [{"q": q, "a": REFUSAL, "keys": "", "kind": "off_topic"} for q in OFF_TOPIC_EVAL]

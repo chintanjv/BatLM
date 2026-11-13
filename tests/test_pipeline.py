@@ -69,7 +69,7 @@ def test_handwritten_eval_is_well_formed():
     assert len(turns) > 150
     for t in turns:
         assert t["kind"] in evals.KINDS, t
-        assert bool(t["keys"]) != (t["kind"] in evals.DECLINE), t  # answerable turns need keys; the others must not have any
+        assert bool(t.get("keys")) != (t["kind"] in evals.DECLINE), t  # answerable turns need keys; the others must not have any
     ids = [c["id"] for c in evals.conversations(INDEX)]
     assert len(ids) == len(set(ids))
 

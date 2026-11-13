@@ -280,8 +280,11 @@ class Index:
 
 
 def load() -> Index:
+    """Hand-written fact cards, then the Wikipedia passages, then the teacher-written facts (batlm.facts), if built."""
     from . import cards
-    return Index(cards.passages() + json.loads((ROOT / "data" / "chunks.json").read_text()))
+    facts = ROOT / "data" / "facts.json"
+    return Index(cards.passages() + json.loads((ROOT / "data" / "chunks.json").read_text())
+                 + (json.loads(facts.read_text()) if facts.exists() else []))
 
 
 def format_context(hits: list[dict]) -> str:

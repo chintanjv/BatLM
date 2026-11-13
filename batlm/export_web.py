@@ -24,7 +24,8 @@ CK = ROOT / "checkpoints"
 def export_data():
     d = PUB / "data"
     d.mkdir(parents=True, exist_ok=True)
-    passages = rag.load().passages
+    # `held` and `keys` exist for evals only: the browser must not ship or search them
+    passages = [{k: v for k, v in p.items() if k not in ("held", "keys")} for p in rag.load().passages]
     json.dump({"persona": sft_data.PERSONA, "refusal": sft_data.REFUSAL, "missing": sft_data.MISSING, "passages": passages},
               open(d / "index.json", "w"), ensure_ascii=False, separators=(",", ":"))
     print(f"data -> {d / 'index.json'} ({len(passages)} passages, {(d / 'index.json').stat().st_size / 1e6:.1f} MB)")
