@@ -116,7 +116,7 @@ def wiki_questions(index) -> list[tuple[str, str, str, list[str]]]:
     out = []
     for title, i in index.lead.items():
         a = lead_sentence(index.passages[i]["text"])
-        if title in carded or a is None:
+        if title in carded or title in index.noname or a is None:
             continue
         n = natural(title)
         t = WHO if PERSON.search(a) else WHAT

@@ -141,8 +141,9 @@ class Index:
                 if target not in names[tuple(words(a))]:
                     names[tuple(words(a))].append(target)
         carded = {p.get("page") for p in passages if p.get("card")}
+        self.noname = {p["title"] for p in passages if p.get("name") is False}  # pages titled with an everyday word
         for title in self.pages:  # a page without a card is still findable by its own title
-            if title not in carded:
+            if title not in carded and title not in self.noname:
                 names[tuple(words(title))].append((None, title))
                 if m := re.match(r"^(.*?)\s*\((.+)\)$", title):  # "Batman (1966 film)" is also "the 1966 film Batman"
                     names[tuple(words(f"{m.group(2)} {m.group(1)}"))].append((None, title))

@@ -4,6 +4,8 @@ export type Passage = {
   id: number; title: string; section: string; text: string; url: string;
   /** Fact passages only: a fact card's name for the subject, and the usual ways of asking for this fact. */
   card?: boolean; page?: string | null; aliases?: string[]; asks?: string[]; keywords?: string;
+  /** false on pages titled with an everyday word ("Legacy"): the title is not used as a subject name. */
+  name?: boolean;
 };
 export type Hit = { score: number; passage: Passage };
 /** A subject named in a question: its fact card's title and/or its Wikipedia page title. */
@@ -144,8 +146,9 @@ export class Index {
     };
     for (const p of passages) p.aliases?.forEach((a) => add(a, [p.title, p.page ?? null]));
     const carded = new Set(passages.filter((p) => p.card).map((p) => p.page));
+    const noname = new Set(passages.filter((p) => p.name === false).map((p) => p.title));
     for (const title of this.pages.keys()) {
-      if (carded.has(title)) continue;
+      if (carded.has(title) || noname.has(title)) continue;
       add(title, [null, title]); // a page without a card is still findable by its own title
       const m = title.match(/^(.*?)\s*\((.+)\)$/); // "Batman (1966 film)" is also "the 1966 film Batman"
       if (m) add(`${m[2]} ${m[1]}`, [null, title]);
