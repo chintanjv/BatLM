@@ -31,6 +31,7 @@ run = json.loads((ROOT / ".github" / "triggers" / "pipeline.json").read_text())
 stage, name = run["stage"], run.get("name") or "360m"
 slug = f"batlm-{stage}" + (f"-{name}" if stage == "train" else "")
 WAIT = 4.6 * 3600  # GitHub ends a job after 6 hours
+run["id"] = run.get("id") or str(int(time.time()))  # the Kaggle run checks this, to be sure it was given this upload and not an older one
 
 
 def kaggle(*args, check=True, quiet=False) -> str:
@@ -90,11 +91,15 @@ def start(user: str):
         if "ready" in kaggle("datasets", "status", dataset, check=False, quiet=True):
             break
         time.sleep(10)
-    shutil.copy(ROOT / "cloud" / "kaggle_run.py", kernel / "kaggle_run.py")
+    (kernel / "kaggle_run.py").write_text(f"RUN_ID = {run['id']!r}\n" + (ROOT / "cloud" / "kaggle_run.py").read_text())
     (kernel / "kernel-metadata.json").write_text(json.dumps({
         "id": f"{user}/{slug}", "title": slug, "code_file": "kaggle_run.py", "language": "python", "kernel_type": "script",
         "is_private": True, "enable_gpu": True, "enable_internet": True, "dataset_sources": [dataset]}))
-    kaggle("kernels", "push", "-p", str(kernel))
+    push()
+
+
+def push():
+    kaggle("kernels", "push", "-p", str(BUILD / "kernel"))
 
 
 def wait(user: str) -> str:
@@ -115,7 +120,8 @@ def wait(user: str) -> str:
 
 def collect(user: str):
     out = BUILD / "out"
-    out.mkdir(parents=True, exist_ok=True)
+    shutil.rmtree(out, ignore_errors=True)
+    out.mkdir(parents=True)
     kaggle("kernels", "output", f"{user}/{slug}", "-p", str(out), quiet=True)
     log = out / f"{slug}.log"
     if log.exists():  # Kaggle's log is a JSON list of {"stream_name", "data"}
@@ -127,6 +133,8 @@ def collect(user: str):
         print("---- end of the Kaggle log ----\n" + text[-60000:], flush=True)
     res = out / "out"
     status = json.loads((res / "status.json").read_text()) if (res / "status.json").exists() else {"failed": ["no status file"]}
+    if status.get("stale"):
+        return "stale"
     api, me = hub()
     if stage == "teach":
         for f, dst in (("facts.json", "data/facts.json"), ("generated.json", "evals/generated.json")):
@@ -158,13 +166,23 @@ def collect(user: str):
 
 def main():
     user = username()
-    if run.get("action", "start") == "start":
+    started = run.get("action", "start") == "start"
+    if started:
         start(user)
+    for attempt in range(10):
         time.sleep(60)
-    state = wait(user)
-    if state == "running":
-        sys.exit(f"{slug} is still running on Kaggle. Start this workflow again with \"action\": \"collect\" to pick up the results.")
-    collect(user)
+        state = wait(user)
+        if state == "running":
+            sys.exit(f"{slug} is still running on Kaggle. Start this workflow again with \"action\": \"collect\" to pick up the results.")
+        if collect(user) != "stale":
+            break
+        if not started:
+            sys.exit("the last Kaggle run used an out-of-date upload; start the stage again")
+        print("Kaggle gave the run an older upload (it was still processing the new one). Starting it again…", flush=True)
+        time.sleep(90)
+        push()
+    else:
+        sys.exit("Kaggle never picked up the new upload")
     if state == "error":
         sys.exit(f"{slug} ended with an error on Kaggle")
 

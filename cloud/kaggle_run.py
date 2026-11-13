@@ -68,6 +68,11 @@ else:
 run = json.load(open(f"{ROOT}/cloud/run.json"))
 print("run:", run, sorted(os.listdir(ROOT)), flush=True)
 os.makedirs(OUT, exist_ok=True)
+if "RUN_ID" in globals() and run.get("id") != RUN_ID:  # noqa: F821 (cloud/pipeline.py writes RUN_ID above this script)
+    print(f"STALE UPLOAD: this run is {RUN_ID} but the dataset holds {run.get('id')}", flush=True)  # noqa: F821
+    json.dump({"failed": ["stale upload"], "stale": True, "run": run}, open(f"{OUT}/status.json", "w"))
+    shutil.rmtree(ROOT, ignore_errors=True)
+    sys.exit(0)
 os.makedirs(f"{ROOT}/checkpoints", exist_ok=True)
 
 py = sys.executable
