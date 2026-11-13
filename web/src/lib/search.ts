@@ -47,7 +47,15 @@ const FOLLOW = new RegExp(
   "you said|you listed|you mentioned|you told|are you sure|what about|how about)\\b" +
   "|^(?:and|but|so|also|then|why|really|sure)\\b");
 
+const SMALLTALK = /^(?:hi|hello|hey|yo|thanks|thank you|thx|ok|okay|cool|nice|great|bye|goodbye|good morning|good night|good evening|lol|wow|how are you)\b/;
+
 export const follows = (question: string): boolean => FOLLOW.test(question.toLowerCase().trim());
+
+/** A few words said mid-conversation ("in which story?") continue it, unless they are small talk. */
+function brief(question: string): boolean {
+  const q = question.toLowerCase().trim();
+  return (q.match(/[a-z0-9]+/g) ?? []).length <= 5 && !SMALLTALK.test(q);
+}
 
 function stem(t: string): string {
   for (const suf of ["ing", "ed", "es", "s"]) {
@@ -95,7 +103,8 @@ export class Index {
   private lead = new Map<string, number>();
   private facts = new Map<string, number[]>();
   private names: [string[], Target[]][];
-  private known = new Map<string, number>();     // every word the index knows -> how many passages use it
+  private stems = new Set<string>();             // every stemmed word the index knows
+  private raw = new Map<string, number>();       // every word as written -> how many passages use it
   private byShape = new Map<string, string[]>(); // first letter + length -> known words
   private fixed = new Map<string, string>();
   private wtext: string[];                       // each passage as a run of words
@@ -144,12 +153,18 @@ export class Index {
     this.names = [...names.entries()]
       .map(([k, t]): [string[], Target[]] => [k ? k.split(" ") : [], t])
       .sort((a, b) => b[0].length - a[0].length);
-    // Every word the index knows, with how many passages use it: what a mistyped word is corrected to.
-    this.postings.forEach((p, t) => this.known.set(t, p.length));
-    for (const [name] of this.names) for (const w of name) if (!this.known.has(w)) this.known.set(w, 0);
-    this.askIdf.forEach((_, w) => { if (!this.known.has(w)) this.known.set(w, 0); });
-    STOP.forEach((w) => this.known.set(w, 1e9));
-    this.known.forEach((_, w) => { if (w) push(this.byShape, `${w[0]}${w.length}`, w); });
+    // Every word the index knows, stemmed and as written (with how many passages use it): a mistyped
+    // word is corrected to the commonest known word one typo away.
+    this.postings.forEach((_, t) => this.stems.add(t));
+    for (const [name] of this.names) for (const w of name) this.stems.add(w);
+    this.askIdf.forEach((_, w) => this.stems.add(w));
+    for (const p of passages)
+      for (const w of new Set(tokens(`${p.title} ${p.section} ${p.text} ${p.keywords ?? ""}`))) this.raw.set(w, (this.raw.get(w) ?? 0) + 1);
+    for (const p of passages)
+      for (const a of [...(p.aliases ?? []), ...(p.asks ?? [])])
+        for (const w of tokens(a)) if (!this.raw.has(w)) this.raw.set(w, 0);
+    STOP.forEach((w) => this.raw.set(w, 1e9));
+    this.raw.forEach((_, w) => push(this.byShape, `${w[0]}${w.length}`, w));
     this.wtext = passages.map((p) => ` ${words(`${p.title} ${p.text}`).join(" ")} `);
     for (const [name, targets] of this.names) {
       if (!name.length) continue;
@@ -157,35 +172,34 @@ export class Index {
     }
   }
 
-  /** A question word as the index knows it: stemmed, and corrected if it is an unknown word one typo away from a known one. */
-  private fix(t: string): string {
-    const s = stem(t);
-    if (this.known.has(s) || this.known.has(t) || s.length < 5 || !/^[a-z]+$/.test(s)) return s;
-    let best = this.fixed.get(s);
+  /** A question word as the index spells it: an unknown word one typo away from a known one becomes that word. */
+  private correct(t: string): string {
+    if (this.raw.has(t) || this.stems.has(stem(t)) || t.length < 5 || !/^[a-z]+$/.test(t)) return t;
+    let best = this.fixed.get(t);
     if (best === undefined) {
       let b: string | null = null;
-      for (const n of [s.length - 1, s.length, s.length + 1]) {
-        for (const c of this.byShape.get(`${s[0]}${n}`) ?? []) {
-          if (!near(s, c)) continue;
-          if (b === null || this.known.get(c)! > this.known.get(b)! || (this.known.get(c) === this.known.get(b) && c < b)) b = c;
+      for (const n of [t.length - 1, t.length, t.length + 1]) {
+        for (const c of this.byShape.get(`${t[0]}${n}`) ?? []) {
+          if (!near(t, c)) continue;
+          if (b === null || this.raw.get(c)! > this.raw.get(b)! || (this.raw.get(c) === this.raw.get(b) && c < b)) b = c;
         }
       }
-      best = b ?? s;
-      this.fixed.set(s, best);
+      best = b ?? t;
+      this.fixed.set(t, best);
     }
     return best;
   }
 
   private qWords(query: string): string[] {
-    return tokens(query).map((t) => this.fix(t));
+    return tokens(query).map((t) => stem(this.correct(t)));
   }
 
   private qTerms(query: string): string[] {
     const out: string[] = [];
-    for (const t of tokens(query)) {
+    for (const raw of tokens(query)) {
+      const t = this.correct(raw);
       if (STOP.has(t)) continue;
-      const s = this.fix(t);
-      if (s !== stem(t) && STOP.has(s)) continue; // a mistyped stopword ("thier")
+      const s = stem(t);
       out.push(s);
       if (Object.hasOwn(SYNONYMS, s)) out.push(...SYNONYMS[s].split(" ").map(stem));
     }
@@ -209,10 +223,11 @@ export class Index {
   }
 
   /** The subjects the question names, and those it inherits from the previous turn. Only a follow-up inherits:
-   *  first who the previous question was about, then anyone its answer introduced. */
+   *  (a question that points back, or a few words naming nobody): first who the previous question was about,
+   *  then anyone its answer introduced. */
   subjects(question: string, last?: Last | null): { named: Target[]; carried: Target[] } {
     const named = this.mentions(question);
-    if (!last || !follows(question)) return { named, carried: [] };
+    if (!last || !(follows(question) || (!named.length && brief(question)))) return { named, carried: [] };
     const prev = [...last.topic.slice(0, 2), ...this.mentions(last.a).filter((t) => !has(last.topic, t)).slice(0, 2)];
     return { named, carried: prev.filter((t) => !has(named, t)) };
   }

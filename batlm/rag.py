@@ -53,8 +53,17 @@ FOLLOW = re.compile(
     r"|^(?:and|but|so|also|then|why|really|sure)\b")
 
 
+SMALLTALK = re.compile(r"^(?:hi|hello|hey|yo|thanks|thank you|thx|ok|okay|cool|nice|great|bye|goodbye|good morning|good night|good evening|lol|wow|how are you)\b")
+
+
 def follows(question: str) -> bool:
     return bool(FOLLOW.search(question.lower().strip()))
+
+
+def brief(question: str) -> bool:
+    """A few words said mid-conversation ("in which story?") continue it, unless they are small talk."""
+    q = question.lower().strip()
+    return len(re.findall(r"[a-z0-9]+", q)) <= 5 and not SMALLTALK.search(q)
 
 
 def stem(t: str) -> str:
@@ -138,19 +147,21 @@ class Index:
                 if m := re.match(r"^(.*?)\s*\((.+)\)$", title):  # "Batman (1966 film)" is also "the 1966 film Batman"
                     names[tuple(words(f"{m.group(2)} {m.group(1)}"))].append((None, title))
         self.names = sorted(names.items(), key=lambda kv: -len(kv[0]))
-        # Every word the index knows, with how many passages use it: what a mistyped word is corrected to.
-        self.known = {t: len(p) for t, p in self.postings.items()}
-        for name, _ in self.names:
-            for w in name:
-                self.known.setdefault(w, 0)
-        for w in self.ask_idf:
-            self.known.setdefault(w, 0)
+        # Every word the index knows, stemmed and as written (with how many passages use it): a mistyped
+        # word is corrected to the commonest known word one typo away.
+        self.stems = set(self.postings) | {w for name, _ in self.names for w in name} | set(self.ask_idf)
+        self.raw = Counter()
+        for p in passages:
+            self.raw.update(set(re.findall(r"[a-z0-9]+", f"{p['title']} {p['section']} {p['text']} {p.get('keywords', '')}".lower())))
+        for p in passages:
+            for a in p.get("aliases", []) + p.get("asks", []):
+                for w in re.findall(r"[a-z0-9]+", a.lower()):
+                    self.raw.setdefault(w, 0)
         for w in STOP:
-            self.known[w] = 10 ** 9
+            self.raw[w] = 10 ** 9
         self.by_shape = defaultdict(list)  # (first letter, length) -> known words
-        for w in self.known:
-            if w:
-                self.by_shape[(w[0], len(w))].append(w)
+        for w in self.raw:
+            self.by_shape[(w[0], len(w))].append(w)
         self.fixed = {}
         # Each passage as a run of words, and each subject's names in the same form, to test "does this passage mention them?"
         self.wtext = [" " + " ".join(words(f"{p['title']} {p['text']}")) + " " for p in passages]
@@ -160,31 +171,29 @@ class Index:
                 for t in targets:
                     self.called[t].append(" " + " ".join(name) + " ")
 
-    def fix(self, t: str) -> str:
-        """A question word as the index knows it: stemmed, and corrected if it is an unknown word one typo away from a known one."""
-        s = stem(t)
-        if s in self.known or t in self.known or len(s) < 5 or not s.isalpha():
-            return s
-        if s not in self.fixed:
+    def correct(self, t: str) -> str:
+        """A question word as the index spells it: an unknown word one typo away from a known one becomes that word."""
+        if t in self.raw or stem(t) in self.stems or len(t) < 5 or not t.isalpha():
+            return t
+        if t not in self.fixed:
             best = None
-            for n in (len(s) - 1, len(s), len(s) + 1):
-                for c in self.by_shape.get((s[0], n), ()):
-                    if near(s, c) and (best is None or (-self.known[c], c) < (-self.known[best], best)):
+            for n in (len(t) - 1, len(t), len(t) + 1):
+                for c in self.by_shape.get((t[0], n), ()):
+                    if near(t, c) and (best is None or (-self.raw[c], c) < (-self.raw[best], best)):
                         best = c
-            self.fixed[s] = best or s
-        return self.fixed[s]
+            self.fixed[t] = best or t
+        return self.fixed[t]
 
     def q_words(self, query: str) -> list[str]:
-        return [self.fix(t) for t in re.findall(r"[a-z0-9]+", query.lower())]
+        return [stem(self.correct(t)) for t in re.findall(r"[a-z0-9]+", query.lower())]
 
     def q_terms(self, query: str) -> list[str]:
         out = []
         for t in re.findall(r"[a-z0-9]+", query.lower()):
+            t = self.correct(t)
             if t in STOP:
                 continue
-            s = self.fix(t)
-            if s != stem(t) and s in STOP:  # a mistyped stopword ("thier")
-                continue
+            s = stem(t)
             out.append(s)
             if s in SYNONYMS:
                 out += [stem(x) for x in SYNONYMS[s].split()]
@@ -205,10 +214,11 @@ class Index:
 
     def subjects(self, question: str, last: dict | None = None) -> tuple[list, list]:
         """(named, carried): the subjects the question names, and those it inherits from the previous turn.
-        `last` is that turn: {"a": its answer, "topic": its subjects}. Only a follow-up inherits: first who the
-        previous question was about, then anyone its answer introduced."""
+        `last` is that turn: {"a": its answer, "topic": its subjects}. Only a follow-up inherits (a question that
+        points back, or a few words naming nobody): first who the previous question was about, then anyone its
+        answer introduced."""
         named = self.mentions(question)
-        if not last or not follows(question):
+        if not last or not (follows(question) or (not named and brief(question))):
             return named, []
         topic = [tuple(t) for t in last["topic"]]
         prev = topic[:2] + [t for t in self.mentions(last["a"]) if t not in topic][:2]
