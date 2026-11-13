@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: 24
       - name: Install
-        run: pip install -q -U kaggle huggingface_hub requests "transformers>=4.44,<5" jinja2 pytest
+        run: pip install -q -U kaggle six huggingface_hub requests "transformers>=4.44,<5" jinja2 pytest
       - name: Restore downloaded pages
         if: env.STAGE == 'teach' && env.ACTION == 'start' && env.LIMIT == ''
         uses: actions/cache@v4
@@ -49,6 +49,8 @@ jobs:
           python -u -m batlm.scrape | tail -n 5
           git diff --quiet data/chunks.json || echo "::warning::Wikipedia changed since the corpus was built; run the corpus workflow to pick the changes up"
           git checkout data/chunks.json
+      - name: Check the Kaggle tool
+        run: pip show kaggle | head -n 2 && kaggle --version
       - name: Run the stage on Kaggle
         run: python -u cloud/pipeline.py
       - name: Rebuild the browser search index
