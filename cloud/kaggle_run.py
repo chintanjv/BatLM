@@ -85,6 +85,7 @@ import json, sys
 from batlm import facts, sft_gen
 from batlm.teacher import Teacher
 limit = int(sys.argv[1]) or None
+print(len(facts.pages(limit)), "pages downloaded", flush=True)  # before the teacher starts, so the GPU is not held idle
 teacher = Teacher()
 try:
     facts.OUT.write_text(json.dumps(facts.build(teacher, limit), ensure_ascii=False, separators=(",", ":")))

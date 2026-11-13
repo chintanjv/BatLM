@@ -63,9 +63,7 @@ def start(user: str):
     kernel.mkdir()
     (ROOT / "cloud" / "run.json").write_text(json.dumps(run))
     paths = ["batlm", "cloud/run.json", "data/chunks.json", "data/facts.json", "docs", "evals/handwritten.json", "evals/generated.json"]
-    if stage == "teach":
-        paths.append("data/raw")  # the full pages: the teacher reads past the word cap of the search passages
-    else:
+    if stage == "train":
         api, me = hub()
         try:
             got = api.hf_hub_download(f"{me}/batlm-data", "sft_teacher.jsonl", repo_type="dataset", local_dir=str(ROOT / "checkpoints"))
@@ -79,15 +77,14 @@ def start(user: str):
                 tar.add(ROOT / p, arcname=p, filter=lambda t: None if "__pycache__" in t.name else t)
             else:
                 print("not present, left out:", p)
-    dataset = f"{user}/{slug}-src"
-    (src / "dataset-metadata.json").write_text(json.dumps({"title": f"{slug} src", "id": dataset, "licenses": [{"name": "CC-BY-SA-4.0"}]}))
-    if "ready" in kaggle("datasets", "status", dataset, check=False, quiet=True):
-        kaggle("datasets", "version", "-p", str(src), "-m", "update")
-    else:
-        kaggle("datasets", "create", "-p", str(src))
+    # A new dataset for every run: Kaggle can take very long to switch an existing dataset to a new version,
+    # and the run would then start with the previous upload.
+    dataset = f"{user}/{slug}-{run['id']}"
+    (src / "dataset-metadata.json").write_text(json.dumps({"title": f"{slug} {run['id']}", "id": dataset, "licenses": [{"name": "CC-BY-SA-4.0"}]}))
+    kaggle("datasets", "create", "-p", str(src))
     print("waiting for Kaggle to process the dataset…", flush=True)
     time.sleep(30)
-    for _ in range(60):
+    for _ in range(90):
         if "ready" in kaggle("datasets", "status", dataset, check=False, quiet=True):
             break
         time.sleep(10)
