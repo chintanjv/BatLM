@@ -1,6 +1,5 @@
 {
  "stage": "teach",
  "action": "start",
- "limit": 12,
- "note": "trial run 5: prompt and filter fixes"
+ "note": "full run: every page"
 }
