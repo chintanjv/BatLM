@@ -14,7 +14,7 @@ const questions = flag("--questions") ? JSON.parse(readFileSync(flag("--question
 const CHROME = process.env.CHROME ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const port = 9333;
 const args = ["--headless=new", `--remote-debugging-port=${port}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), "batlm-e2e-"))}`,
-  "--no-first-run", ...(cpu ? ["--disable-gpu"] : ["--enable-unsafe-webgpu", "--enable-features=WebGPU", "--use-angle=metal"]), "about:blank"];
+  "--no-first-run", ...(process.env.CI ? ["--no-sandbox"] : []), ...(cpu ? ["--disable-gpu"] : ["--enable-unsafe-webgpu", "--enable-features=WebGPU", "--use-angle=metal"]), "about:blank"];
 const chrome = spawn(CHROME, args, { stdio: "ignore" });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -41,9 +41,11 @@ try {
     if (questions) await evaluate(`window.__questions ??= ${JSON.stringify(questions)}`); // repeated: the page may still be loading
     state = await evaluate("window.__e2e && JSON.stringify(window.__e2e)").then((s) => (s ? JSON.parse(s) : null));
     if (state?.done) break;
-    if (Date.now() - t0 > 40 * 60_000) throw new Error("timed out after 40 min");
+    const limit = Number(process.env.E2E_MINUTES) || 40;
+    if (Date.now() - t0 > limit * 60_000) throw new Error(`timed out after ${limit} min`);
     if (!state && Date.now() - t0 > 60_000) throw new Error("the test page never started (is /e2e.html served? use the dev server)");
-    process.stdout.write(`\r  waiting… ${Math.round((Date.now() - t0) / 1000)}s · answered ${state?.rows.length ?? 0}`);
+    if (process.env.CI) { if (Math.round((Date.now() - t0) / 2000) % 60 === 0) console.log(`  waiting… ${Math.round((Date.now() - t0) / 60000)} min · answered ${state?.rows.length ?? 0}`); }
+    else process.stdout.write(`\r  waiting… ${Math.round((Date.now() - t0) / 1000)}s · answered ${state?.rows.length ?? 0}`);
   }
   const backend = `${state.device}/${state.dtype}`;
   console.log(`\n\nbackend: ${backend} · load ${(state.loadMs / 1000).toFixed(1)}s`);

@@ -1,0 +1,67 @@
+# Scores the build the browser really runs: the site's own page, worker and search, in headless Chrome on a
+# GitHub runner (CPU path, 4-bit ONNX). The request is .github/triggers/browser-eval.json.
+name: browser-eval
+on:
+  push:
+    branches: [v3]
+    paths: [".github/triggers/browser-eval.json"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Read the request
+        run: |
+          python - <<'EOF' >> "$GITHUB_ENV"
+          import json
+          t = json.load(open(".github/triggers/browser-eval.json"))
+          print(f"VITE_BATLM_MODEL={t['model']}")
+          print(f"VITE_BATLM_TOP_K={t.get('top_k') or 3}")
+          print(f"BATLM_TOP_K={t.get('top_k') or 3}")
+          print(f"EVAL_ONLY={t.get('only') or 'hand'}")
+          print(f"EVAL_NAME={t.get('name') or 'browser'}")
+          EOF
+      - name: Install
+        run: |
+          pip install -q "transformers>=4.44,<5" jinja2 requests
+          cd web && npm ci
+      - name: Write the questions
+        run: python -m batlm.evals --questions --only "$EVAL_ONLY"
+      - name: Answer them in headless Chrome
+        working-directory: web
+        env:
+          E2E_MINUTES: 240
+        run: |
+          npx vite --port 5173 --strictPort > vite.log 2>&1 &
+          for i in $(seq 60); do curl -sf http://localhost:5173/e2e.html > /dev/null && break; sleep 1; done
+          CHROME="$(which google-chrome)" node scripts/e2e-browser.mjs --cpu --questions ../evals/questions.json --out ../evals/browser_run.json
+      - name: Score
+        run: python -m batlm.evals --browser evals/browser_run.json --only "$EVAL_ONLY" --name "$EVAL_NAME" | tee eval.log
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### Browser eval: $EVAL_NAME ($VITE_BATLM_MODEL)"
+            echo '```'
+            tail -n 90 eval.log || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-eval-${{ env.EVAL_NAME }}
+          path: |
+            evals/browser_run.json
+            evals/rows_*.json
+            evals/report_*.json
+            web/vite.log

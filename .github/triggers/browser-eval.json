@@ -1,0 +1,6 @@
+{
+ "model": "chintanjv/BatLM-360M",
+ "only": "hand",
+ "name": "browser-baseline-360m",
+ "top_k": 3
+}
