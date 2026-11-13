@@ -29,7 +29,7 @@ def parse_json(text: str):
 
 
 class Teacher:
-    def __init__(self, model: str = MODEL, context: int = 8192, env_dir: str = "/kaggle/working/teacher-env"):
+    def __init__(self, model: str = MODEL, context: int = 8192, env_dir: str = "/tmp/teacher-env"):
         import torch
         py = f"{env_dir}/bin/python"
         if not os.path.exists(py):

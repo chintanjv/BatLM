@@ -1,5 +1,8 @@
 {
- "stage": "teach",
+ "stage": "train",
  "action": "start",
- "note": "full run, third attempt: every page"
+ "name": "trial-qwen15",
+ "base": "Qwen/Qwen2.5-1.5B-Instruct",
+ "epochs": 1,
+ "note": "trial 4 of the train stage on the largest candidate"
 }

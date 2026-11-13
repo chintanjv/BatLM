@@ -50,7 +50,6 @@ def finish():
         keep(f"{WORK}/{f}")
     json.dump({"failed": failed, "run": run}, open(f"{OUT}/status.json", "w"))
     shutil.rmtree(ROOT, ignore_errors=True)  # merged weights and build caches are large and can be rebuilt
-    shutil.rmtree(f"{WORK}/teacher-env", ignore_errors=True)
     for path, _, files in os.walk(OUT):
         for f in files:
             print(f"{os.path.getsize(os.path.join(path, f)) / 1e6:8.1f} MB  {os.path.join(path, f)}")
@@ -125,6 +124,9 @@ else:
         # The build the browser's CPU path runs, scored on the hand-written conversations: does quantization cost accuracy?
         step("eval-onnx", lambda: sh(py, "-u", "-m", "batlm.evals", "--onnx", f"{ROOT}/checkpoints/genai-q4", "--only", "hand",
                                      "--name", "onnx", cwd=ROOT, env=env))
+    for d in ("batlm-merged", "genai-q4", "genai-q4f16", "genai-cache"):  # several GB each: make room before the teacher is installed
+        shutil.rmtree(f"{ROOT}/checkpoints/{d}", ignore_errors=True)
+    subprocess.call(["df", "-h", WORK, "/tmp"])
     if os.path.exists(f"{ROOT}/evals/generated.json") and os.path.exists(f"{ROOT}/evals/rows_pytorch.json"):
         step("judge", lambda: sh(py, "-u", "-m", "batlm.evals", "--judge", "evals/rows_pytorch.json", cwd=ROOT, env=env))
     os.makedirs(f"{OUT}/evals", exist_ok=True)
