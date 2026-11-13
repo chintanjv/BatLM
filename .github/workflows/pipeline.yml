@@ -1,0 +1,83 @@
+# Runs one stage of the training pipeline on Kaggle's free GPU and brings the results back (cloud/pipeline.py).
+# The request is .github/triggers/pipeline.json; pushing a change to that file starts this workflow.
+# Needs the repository secrets KAGGLE_API_TOKEN (or KAGGLE_USERNAME + KAGGLE_KEY) and HF_TOKEN.
+name: pipeline
+on:
+  push:
+    branches: [v3]
+    paths: [".github/triggers/pipeline.json"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: pipeline
+env:
+  KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+  KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+  KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+  HF_TOKEN: ${{ secrets.HF_TOKEN }}
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the secrets
+        run: |
+          [ -n "$HF_TOKEN" ] || { echo "::error::The HF_TOKEN secret is missing"; exit 1; }
+          [ -n "$KAGGLE_API_TOKEN" ] || [ -n "$KAGGLE_KEY" ] || { echo "::error::The KAGGLE_API_TOKEN secret is missing"; exit 1; }
+          echo "STAGE=$(python3 -c "import json; print(json.load(open('.github/triggers/pipeline.json'))['stage'])")" >> "$GITHUB_ENV"
+          echo "ACTION=$(python3 -c "import json; print(json.load(open('.github/triggers/pipeline.json')).get('action', 'start'))")" >> "$GITHUB_ENV"
+          echo "LIMIT=$(python3 -c "import json; print(json.load(open('.github/triggers/pipeline.json')).get('limit') or '')")" >> "$GITHUB_ENV"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install
+        run: pip install -q -U kaggle six huggingface_hub requests "transformers>=4.44,<5" jinja2 pytest
+      - name: Restore downloaded pages
+        if: env.STAGE == 'teach' && env.ACTION == 'start' && env.LIMIT == ''
+        uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: wikipedia-${{ github.run_id }}
+          restore-keys: wikipedia-
+      - name: Make sure every page is downloaded
+        if: env.STAGE == 'teach' && env.ACTION == 'start' && env.LIMIT == ''
+        run: |
+          python -u -m batlm.scrape | tail -n 5
+          git diff --quiet data/chunks.json || echo "::warning::Wikipedia changed since the corpus was built; run the corpus workflow to pick the changes up"
+          git checkout data/chunks.json
+      - name: Check the Kaggle tool
+        run: pip show kaggle | head -n 2 && kaggle --version
+      - name: Run the stage on Kaggle
+        run: python -u cloud/pipeline.py
+      - name: Rebuild the browser search index
+        if: always() && env.STAGE == 'teach' && hashFiles('build/collected') != ''
+        run: python -m batlm.export_web --skip-model
+      - name: Commit the results
+        if: always() && hashFiles('build/collected') != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data/facts.json evals/generated.json web/public/data/index.json evals/runs 2>/dev/null || true
+          if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
+          git commit -q -m "Results of the $STAGE stage on Kaggle"
+          git pull -q --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Search report and pipeline tests on the new data
+        if: always() && env.STAGE == 'teach' && hashFiles('build/collected') != ''
+        run: |
+          python -m batlm.evals --search | head -n 80
+          python -m pytest -q tests
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pipeline-${{ env.STAGE }}
+          path: |
+            build/kaggle.log
+            build/out/out/status.json
+            build/out/out/teacher.log
+            build/out/out/evals
+            evals/report_search.json

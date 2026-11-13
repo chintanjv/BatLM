@@ -1,0 +1,59 @@
+# Rebuilds the knowledge base on a GitHub runner: downloads the Wikipedia pages, cuts them into passages,
+# checks the fact cards, rebuilds the browser's search index, and commits the results to this branch if
+# the pipeline tests still pass. Started by a push that changes .github/triggers/corpus.json.
+name: corpus
+on:
+  push:
+    branches: [v3]
+    paths: [".github/triggers/corpus.json"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: corpus
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install
+        run: pip install -q requests "transformers>=4.44,<5" jinja2 pytest
+      - name: Restore downloaded pages
+        uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: wikipedia-${{ github.run_id }}
+          restore-keys: wikipedia-
+      - name: Download pages and cut them into passages
+        run: python -u -m batlm.scrape | tee corpus.log
+      - name: Check the fact cards against their pages
+        run: python -m batlm.cards | tee -a corpus.log
+      - name: Rebuild the browser search index
+        run: python -m batlm.export_web --skip-model | tee -a corpus.log
+      - name: Search report
+        run: python -m batlm.evals --search | tee -a corpus.log
+      - name: Pipeline tests
+        run: python -m pytest -q tests 2>&1 | tee -a corpus.log; exit ${PIPESTATUS[0]}
+      - name: Commit the new knowledge base
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/chunks.json data/cards.json web/public/data/index.json
+          if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
+          git commit -q -m "Rebuild the knowledge base ($(tail -n 40 corpus.log | grep -o 'pages=[0-9]* .*' | head -1))"
+          git pull -q --rebase origin "${GITHUB_REF_NAME}"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: corpus
+          path: |
+            corpus.log
+            data/chunks.json
+            evals/report_search.json

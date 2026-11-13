@@ -2,6 +2,7 @@
 
     python -m batlm.scrape
 
+The pages are the hand-picked list below plus every article in Wikipedia's Batman categories.
 Each page is fetched once as plain text (cached under data/raw/, not tracked in git) and written to
 data/chunks.json as ~80-word passages that keep their page title and section.
 Text is CC BY-SA 4.0, from en.wikipedia.org.
@@ -10,6 +11,7 @@ import json
 import pathlib
 import re
 import time
+from collections import Counter
 
 import requests
 
@@ -64,7 +66,7 @@ PAGES = [
         Batman: KnightsEnd | Batman: Haunted Knight | Catwoman: When in Rome | Gotham Central | Joker (graphic novel) |
         Batman: The Doom That Came to Gotham | Batman: Holy Terror | Kingdom Come (comics)"""),
     # film, television and games
-    (1000, """Batman (TV series) | Batman (1966 film) | Batman (1989 film) | Batman Returns | Batman Forever |
+    (1300, """Batman (TV series) | Batman (1966 film) | Batman (1989 film) | Batman Returns | Batman Forever |
         Batman & Robin (film) | Batman Begins | The Dark Knight | The Dark Knight Rises |
         Batman v Superman: Dawn of Justice | The Batman (film) | Joker (2019 film) | Joker: Folie à Deux |
         The Lego Batman Movie | Batman: The Animated Series | The New Batman Adventures | Batman Beyond |
@@ -100,16 +102,49 @@ PAGES = [
         James Tynion IV | Chip Zdarsky | Sean Murphy (artist) | Hans Zimmer | Danny Elfman"""),
 ]
 
+# Wikipedia categories walked for more pages, after the list above: (word cap per page, levels of subcategories, category).
+CATEGORIES = [
+    (1000, 1, "Batman characters"), (1000, 1, "Batman storylines"), (1300, 2, "Batman films"),
+    (1000, 2, "Batman television series"), (800, 1, "Batman video games"), (600, 1, "Batman titles"),
+    (800, 1, "Batman in other media"), (800, 0, "Batman objects"), (800, 1, "Gotham City"),
+]
+AUTO_LIMIT = 1200  # at most this many pages from the categories
+SKIP_TITLE = re.compile(r"^(?:Lists? of|Outline of|Index of)\b|\((?:soundtrack|album|song|score)\)$|discography", re.I)
+
 # Top-level sections that are lists, credits or commentary rather than facts about the subject.
 SKIP = {"see also", "references", "notes", "further reading", "external links", "sources", "citations",
         "bibliography", "collected editions", "footnotes", "accolades", "awards", "awards and nominations",
         "discography", "filmography", "soundtrack", "music", "home media", "merchandise", "marketing",
         "box office", "reception", "critical reception", "critical response", "sales", "works", "publications",
         "explanatory notes", "general and cited references", "works cited", "analysis", "themes", "release"}
+# Sections read straight after the lead, because people ask about them and the word cap would otherwise cut them off.
+FIRST = {"cast", "voice cast", "cast and characters", "characters", "main characters", "premise"}
 
 
 def slug(title: str) -> str:
     return re.sub(r"[^A-Za-z0-9]+", "_", title).strip("_")
+
+
+def get(params: dict) -> str:
+    """One Wikipedia API call, as text. Waits and retries when rate-limited or disconnected."""
+    r = None
+    for attempt in range(8):
+        try:
+            r = requests.get(API, headers=UA, timeout=30, params={**params, "format": "json", "formatversion": 2, "maxlag": 5})
+        except (requests.ConnectionError, requests.Timeout):
+            time.sleep(10 * (attempt + 1))
+            continue
+        try:
+            if r.status_code != 429 and "error" not in r.json():
+                break
+        except ValueError:  # an error page instead of JSON
+            pass
+        time.sleep(int(r.headers.get("Retry-After", 0)) or 5 * (attempt + 1))
+    if r is None:
+        raise RuntimeError(f"could not reach Wikipedia for {params}")
+    r.raise_for_status()
+    time.sleep(1.0)
+    return r.text
 
 
 def fetch(title: str) -> dict | None:
@@ -117,29 +152,45 @@ def fetch(title: str) -> dict | None:
     cache = RAW / f"{slug(title)}.json"
     if not cache.exists():
         RAW.mkdir(parents=True, exist_ok=True)
-        for attempt in range(8):
-            try:
-                r = requests.get(API, headers=UA, timeout=30, params={
-                    "action": "query", "prop": "extracts", "explaintext": 1, "redirects": 1,
-                    "titles": title, "format": "json", "formatversion": 2, "maxlag": 5})
-            except requests.ConnectionError:  # dropped connection: wait and try again
-                time.sleep(10 * (attempt + 1))
-                continue
-            if r.status_code != 429 and "error" not in r.json():
-                break
-            time.sleep(int(r.headers.get("Retry-After", 0)) or 5 * (attempt + 1))  # rate-limited: back off
-        r.raise_for_status()
-        cache.write_text(r.text)
-        time.sleep(1.0)
+        cache.write_text(get({"action": "query", "prop": "extracts", "explaintext": 1, "redirects": 1, "titles": title}))
     page = json.loads(cache.read_text())["query"]["pages"][0]
     if page.get("missing") or not page.get("extract"):
         return None
     return {"title": page["title"], "text": page["extract"]}
 
 
+def members(category: str, depth: int) -> list[str]:
+    """Titles of the articles in a category and `depth` levels of its subcategories. Cached."""
+    cache = RAW / "categories" / f"{slug(category)}_{depth}.json"
+    if cache.exists():
+        return json.loads(cache.read_text())
+    out, todo, seen = [], [(category, depth)], set()
+    while todo:
+        cat, d = todo.pop(0)
+        if cat in seen:
+            continue
+        seen.add(cat)
+        more = {}
+        while True:
+            r = json.loads(get({"action": "query", "list": "categorymembers", "cmtitle": f"Category:{cat}",
+                                "cmlimit": 500, "cmtype": "page|subcat", **more}))
+            for m in r.get("query", {}).get("categorymembers", []):
+                if m["ns"] == 0 and m["title"] not in out:
+                    out.append(m["title"])
+                elif m["ns"] == 14 and d > 0:
+                    todo.append((m["title"].split(":", 1)[1], d - 1))
+            if "continue" not in r:
+                break
+            more = r["continue"]
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    cache.write_text(json.dumps(out))
+    return out
+
+
 def sections(text: str, cap: int) -> list[tuple[str, str]]:
-    """(section, paragraph) pairs in page order, skipping list-like sections, up to `cap` words."""
-    out, top, section, words = [], "Overview", "Overview", 0
+    """(section, paragraph) pairs, skipping list-like sections, up to `cap` words: the lead, then cast lists
+    (at most 40% of the cap), then the rest in page order."""
+    lead, first, rest, top, section = [], [], [], "Overview", "Overview"
     for line in text.split("\n"):
         line = line.strip()
         if m := re.match(r"^(=+)\s*(.+?)\s*=+$", line):
@@ -148,12 +199,21 @@ def sections(text: str, cap: int) -> list[tuple[str, str]]:
                 top = section
             continue
         n = len(line.split())
-        if n < 8 or top.lower() in SKIP:
+        early = top.lower() in FIRST
+        if n < (4 if early else 8) or top.lower() in SKIP:  # a cast entry can be short: "Michael Caine as Alfred Pennyworth"
             continue
-        if words + n > cap and words:
-            break
-        out.append((section, re.sub(r"\s+", " ", line)))
-        words += n
+        (lead if top == "Overview" else first if early else rest).append((section, re.sub(r"\s+", " ", line), n))
+    out, words, early_words = [], 0, 0
+    for group in (lead, first, rest):
+        for section, line, n in group:
+            if group is first:
+                if early_words + n > 0.4 * cap:
+                    break
+                early_words += n
+            if words + n > cap and words:
+                return out
+            out.append((section, line))
+            words += n
     return out
 
 
@@ -178,22 +238,44 @@ def display(title: str) -> str:
 
 
 def main():
-    out, seen, missing = [], set(), []
-    for cap, block in PAGES:
-        for title in (t.strip() for t in block.replace("\n", " ").split("|")):
-            page = fetch(title)
-            if page is None:
-                missing.append(title)
-                continue
-            if page["title"] in seen:  # two list entries redirected to the same page
-                continue
-            seen.add(page["title"])
-            url = "https://en.wikipedia.org/wiki/" + page["title"].replace(" ", "_")
-            for section, text in chunk(sections(page["text"], cap)):
-                out.append({"id": len(out), "title": display(page["title"]), "section": section, "text": text, "url": url})
+    out, seen, shown, missing, auto = [], set(), set(), [], set()
+    wanted = [(cap, t.strip(), False) for cap, block in PAGES for t in block.replace("\n", " ").split("|")]
+    listed = {t for _, t, _ in wanted}
+    found = []
+    for cap, depth, category in CATEGORIES:
+        titles = [t for t in members(category, depth) if not SKIP_TITLE.search(t)]
+        print(f"category {category!r}: {len(titles)} pages", flush=True)
+        found += [(cap, t, True) for t in titles if t not in listed and t not in {x[1] for x in found}]
+    wanted += found[:AUTO_LIMIT]
+    for n, (cap, title, from_category) in enumerate(wanted):
+        if n % 100 == 0:
+            print(f"page {n} of {len(wanted)}", flush=True)
+        page = fetch(title)
+        if page is None:
+            missing.append(title)
+            continue
+        name = display(page["title"])
+        if page["title"] in seen or name in shown:  # two entries redirected to the same page, or two pages that display alike
+            continue
+        seen.add(page["title"])
+        shown.add(name)
+        if from_category:
+            auto.add(name)
+        url = "https://en.wikipedia.org/wiki/" + page["title"].replace(" ", "_")
+        for section, text in chunk(sections(page["text"], cap)):
+            out.append({"id": len(out), "title": name, "section": section, "text": text, "url": url})
+    # A category page titled with one everyday word ("Legacy") must not turn that word into a Batman subject:
+    # if the word also turns up in lowercase in running text, search will not treat it as a name.
+    lower = Counter(w for c in out for w in set(re.findall(r"\b[a-z]{3,}\b", c["text"])))
+    plain = {t for t in auto if re.fullmatch(r"(?:The )?[A-Za-z]+", t) and lower[t.split()[-1].lower()] >= 3}
+    for c in out:
+        if c["title"] in plain:
+            c["name"] = False
     (ROOT / "data" / "chunks.json").write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")))
     words = sum(len(c["text"].split()) for c in out)
-    print(f"pages={len(seen)} passages={len(out)} words={words}")
+    print(f"pages={len(seen)} (from categories: {len(auto)}) passages={len(out)} words={words}")
+    if plain:
+        print("not used as names:", " | ".join(sorted(plain)))
     if missing:
         print("missing:", " | ".join(missing))
 

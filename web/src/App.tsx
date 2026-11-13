@@ -3,7 +3,8 @@ import { BatMark, Emblem } from "./components/Bat";
 import { Composer } from "./components/Composer";
 import { Message, type Msg } from "./components/Message";
 import { useModel } from "./hooks/useModel";
-import { plan, type Knowledge } from "./lib/agent";
+import { plan, settle, type Knowledge } from "./lib/agent";
+import type { Turn } from "./lib/prompt";
 import { Index } from "./lib/search";
 
 const SUGGESTIONS = ["Who is the Batman?", "What is the Joker's real identity?", "Who is Alfred?", "Top 5 Batman villains"];
@@ -14,6 +15,7 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   const [chat, setChat] = useState(0); // bumped by "new chat" so the empty state replays its entrance
   const knowledge = useRef<Promise<Knowledge> | null>(null);
+  const history = useRef<Turn[]>([]); // answered exchanges of this chat: follow-up questions lean on them
   const feed = useRef<HTMLElement>(null);
   const pinned = useRef(true);       // is the view at the bottom? Only then do new words scroll it
   const run = useRef(0);             // identifies the current answer; callbacks from an older one are ignored
@@ -24,7 +26,7 @@ export default function App() {
   const loadKnowledge = useCallback(() => {
     knowledge.current ??= fetch("/data/index.json")
       .then((r) => { if (!r.ok) throw new Error(`could not load the case files (HTTP ${r.status})`); return r.json(); })
-      .then((d): Knowledge => ({ index: new Index(d.passages), persona: d.persona, refusal: d.refusal }))
+      .then((d): Knowledge => ({ index: new Index(d.passages), persona: d.persona, refusal: d.refusal, missing: d.missing ?? "I don't have that in my case files." }))
       .catch((e) => { knowledge.current = null; throw e; }); // a failed load can be retried
     return knowledge.current;
   }, []);
@@ -48,13 +50,15 @@ export default function App() {
       frame.current = 0;
       const rest = buffer.current;
       buffer.current = "";
-      patch(id, (m) => { const n = typeof p === "function" ? p(m) : p; return { ...n, text: ((n.text ?? m.text) + (n.status === "error" ? "" : rest)).trim() }; });
+      patch(id, (m) => { const n = typeof p === "function" ? p(m) : p; return { ...n, text: (n.text ?? m.text + rest).trim() }; });
       live.current = null;
       setBusy(false);
     };
     try {
-      const p = plan(await loadKnowledge(), q);
+      const k = await loadKnowledge();
+      const p = plan(k, q, history.current);
       if (run.current !== me) return;
+      let said = ""; // the whole answer so far, whether or not it has been drawn yet
       if (p.kind === "refuse") return finish({ text: p.answer, status: "done" });
       patch(id, { sources: p.sources, status: "waiting" });
       await model.load();
@@ -64,6 +68,7 @@ export default function App() {
       model.generate(id, p.prompt, {
         onText: (t) => {
           if (run.current !== me) return;
+          said += t;
           buffer.current += t;
           frame.current ||= requestAnimationFrame(() => { // one render per frame, not per token
             frame.current = 0;
@@ -72,7 +77,12 @@ export default function App() {
             patch(id, (m) => ({ text: m.text + add, status: "streaming" }));
           });
         },
-        onDone: (stats) => finish({ status: state.stopped ? "stopped" : "done", stats }),
+        onDone: (stats) => {
+          if (run.current !== me) return;
+          const text = settle(said.trim(), p.named, k.missing);
+          if (!state.stopped && text) history.current = [...history.current, { q, a: text, topic: p.topic }];
+          finish({ status: state.stopped ? "stopped" : "done", stats, text });
+        },
         onError: (message) => finish({ status: "error", text: message }),
       });
     } catch (e) {
@@ -95,6 +105,7 @@ export default function App() {
     run.current++;
     live.current = null;
     buffer.current = "";
+    history.current = [];
     setBusy(false);
     setMsgs([]);
     setChat((c) => c + 1);

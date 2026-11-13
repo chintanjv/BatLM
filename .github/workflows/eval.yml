@@ -1,0 +1,78 @@
+# Scores a model on the eval with PyTorch on a GitHub runner (CPU, no secrets needed).
+# Until this file is on the default branch it cannot be started by hand, so a push that changes
+# .github/triggers/eval.json starts it: that file holds the inputs.
+name: eval
+on:
+  push:
+    branches: [v3]
+    paths: [".github/triggers/eval.json"]
+  workflow_dispatch:
+    inputs:
+      adapter:
+        description: Hugging Face repo whose lora/ folder holds the adapter to score
+        default: chintanjv/BatLM-360M
+      only:
+        description: "hand = hand-written conversations, auto = generated questions, all = both"
+        default: hand
+      name:
+        description: Name of this run, used in the report file names
+        default: manual
+permissions:
+  contents: read
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Read inputs
+        env:
+          IN_ADAPTER: ${{ inputs.adapter }}
+          IN_ONLY: ${{ inputs.only }}
+          IN_NAME: ${{ inputs.name }}
+        run: |
+          python - <<'EOF' >> "$GITHUB_ENV"
+          import json, os
+          t = json.load(open(".github/triggers/eval.json"))
+          for k in ("adapter", "only", "name"):
+              print(f"EVAL_{k.upper()}={os.environ.get('IN_' + k.upper()) or t[k]}")
+          EOF
+      - name: Install
+        run: |
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "transformers>=4.44,<5" peft huggingface_hub
+      - name: Download the adapter and rebuild the full weights
+        run: |
+          python - <<'EOF'
+          import os, shutil
+          from huggingface_hub import snapshot_download
+          snapshot_download(os.environ["EVAL_ADAPTER"], allow_patterns=["lora/*"], local_dir="hf")
+          os.makedirs("checkpoints", exist_ok=True)
+          shutil.move("hf/lora", "checkpoints/batlm-lora")
+          from batlm import export_web
+          export_web.merge_adapter()
+          EOF
+      - name: Run the eval
+        run: |
+          ONLY=""; [ "$EVAL_ONLY" = "all" ] || ONLY="--only $EVAL_ONLY"
+          python -u -m batlm.evals $ONLY --name "$EVAL_NAME" | tee eval.log
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### Eval: $EVAL_NAME ($EVAL_ADAPTER, $EVAL_ONLY)"
+            echo '```json'
+            python -c "import json,sys; print(json.dumps(json.load(open('evals/report_$EVAL_NAME.json'))['results'], indent=1))" || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-${{ env.EVAL_NAME }}
+          path: |
+            evals/rows_*.json
+            evals/report_*.json
+            eval.log

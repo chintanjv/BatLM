@@ -1,0 +1,33 @@
+name: ci
+on:
+  push:
+    branches: [main, v3]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install Python test dependencies
+        run: pip install -q "transformers>=4.44,<5" jinja2 requests pytest
+      - name: Pipeline tests (prompt format, search, follow-ups, Python/browser parity, teacher data)
+        run: python -m pytest -q tests
+      - name: Search report
+        if: always()
+        run: python -m batlm.evals --search
+      - name: Web build
+        working-directory: web
+        run: npm ci && npm run build

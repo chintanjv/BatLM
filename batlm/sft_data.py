@@ -23,6 +23,9 @@ PERSONA = ("You are BatLM, an expert on the Batman universe. Answer the question
 
 REFUSAL = "That is outside my case files. I only answer questions about the Batman universe."
 MISSING = "I don't have that in my case files."
+# Said by the code, not the model, when someone greets or thanks BatLM instead of asking something.
+HELLO = "I'm BatLM. Ask me about the Batman universe: its characters, comics, films, shows and games."
+THANKS = "You're welcome. Ask me anything else about the Batman universe."
 
 # Batman questions no file answers. The model must say so rather than invent something.
 UNANSWERABLE = ["What is {n}'s favorite food?", "What is {n}'s blood type?", "What is {n}'s phone number?", "What is {n}'s shoe size?",
@@ -116,7 +119,7 @@ def wiki_questions(index) -> list[tuple[str, str, str, list[str]]]:
     out = []
     for title, i in index.lead.items():
         a = lead_sentence(index.passages[i]["text"])
-        if title in carded or a is None:
+        if title in carded or title in index.noname or a is None:
             continue
         n = natural(title)
         t = WHO if PERSON.search(a) else WHAT
@@ -133,6 +136,9 @@ def train_items(index) -> list[dict]:
     for title, a, _, qs in wiki_questions(index):
         if _bucket("wiki/" + title) >= 10:
             items += [{"q": q, "a": a, "kind": "wiki"} for q in qs]
+    for p in index.passages:  # teacher-written facts: one of the ways of asking, for a share of them
+        if p.get("fact") and p["asks"] and _bucket("fact/" + p["text"]) < 40:
+            items.append({"q": p["asks"][0], "a": p["text"], "kind": "fact"})
     named = [c["n"] for c in cards.CARDS if c["n"] and c["kind"] == "who"]
     for i, t in enumerate(UNANSWERABLE[:-1]):
         items += [{"q": cards.fill(t, n), "a": MISSING, "kind": "missing"} for n in named[i::8]]
@@ -156,6 +162,9 @@ def eval_items(index) -> list[dict]:
             # the opening sentence names its subject; a right answer repeats the two most telling words
             words = [w for w in re.findall(r"[A-Za-z][a-z]{3,}", a.split(" is ", 1)[-1].split(" was ", 1)[-1])][:2]
             items.append({"q": q, "a": a, "keys": ", ".join(words), "kind": "wiki"})
+    for p in index.passages:  # teacher-written facts, asked in the wording kept out of search and training
+        if p.get("fact") and _bucket("fact-eval/" + p["text"]) < 2:
+            items.append({"q": p["held"], "a": p["text"], "keys": p["keys"], "kind": "fact"})
     named = [c["n"] for c in cards.CARDS if c["n"] and c["kind"] == "who"]
     items += [{"q": cards.fill(UNANSWERABLE[-1], n), "a": MISSING, "keys": "", "kind": "missing"} for n in named[::6]]
     items += [{"q": q, "a": REFUSAL, "keys": "", "kind": "off_topic"} for q in OFF_TOPIC_EVAL]

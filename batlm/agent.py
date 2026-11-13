@@ -2,26 +2,67 @@
 
     python -m batlm.agent            # interactive prompt
 
-The gate refuses without calling the model when the question names no Batman subject and search
-finds nothing relevant. Mirrored in web/src/lib/agent.ts.
+The gate refuses without calling the model when the question names no Batman subject, is not a
+follow-up to one, and search finds nothing relevant. Mirrored in web/src/lib/agent.ts.
+
+A conversation is a list of turns, {"q": question, "a": answer, "topic": subjects}. The last turn tells
+search who a follow-up is about, and the last few are shown to the model.
 """
+import os
 import pathlib
+import re
+from typing import NamedTuple
 
 from . import rag, sft_data
 from .prompt import render
 
-MIN_SCORE = 16.0 # below this, with no Batman subject named in the question, the question is off-topic
+MIN_SCORE = 16.0  # below this, with no Batman subject named or carried over, the question is off-topic
+TOP_K = int(os.environ.get("BATLM_TOP_K") or 3)  # passages shown to the model; a larger model can read more
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 
-def plan(index, question):
-    """Returns (prompt, passages), or (None, []) when the question is off-topic."""
-    scored = index.search(question, k=3)
-    if not index.mentions(question) and (scored[0][0] if scored else 0) < MIN_SCORE:
-        return None, []
+GREETING = re.compile(r"^(?:hi|hello|hey|yo|good (?:morning|afternoon|evening|night)|how are you|who are you|what are you|"
+                      r"what can you do|what do you do|what(?:'s| is) your name|help)\b")
+GRATEFUL = re.compile(r"^(?:thanks|thank you|thx|ty|cheers)\b")
+
+
+def canned(question: str) -> str:
+    """What the code says when the gate stops a question: a greeting gets a welcome, anything else the refusal."""
+    q = question.lower().strip()
+    return sft_data.THANKS if GRATEFUL.search(q) else sft_data.HELLO if GREETING.search(q) else sft_data.REFUSAL
+
+
+class Plan(NamedTuple):
+    prompt: str | None  # None: the off-topic gate answers, the model is not called
+    hits: list          # the passages shown to the model
+    topic: list         # who this turn is about, for the next turn's follow-up
+    named: bool         # does the question itself name a Batman subject?
+
+
+def plan(index, question, history=()) -> Plan:
+    named, carried = index.subjects(question, history[-1] if history else None)
+    scored = index.search(question, k=TOP_K, carried=carried)
+    if not named and not carried and (scored[0][0] if scored else 0) < MIN_SCORE:
+        return Plan(None, [], [], False)
     hits = [c for _, c in scored]
-    return render(question, hits), hits
+    return Plan(render(question, hits, history), hits, carried[:1] + named if named else carried[:2], bool(named))
+
+
+def settle(answer: str, named: bool) -> str:
+    """A question that names a Batman subject is never 'outside the Batman universe': at worst the files lack the answer."""
+    return sft_data.MISSING if named and "outside my case files" in answer.lower() else answer
+
+
+def respond(index, gen, question, history: list):
+    """One turn, exactly as the site runs it: (answer, hit the token limit?, plan). An answered turn joins `history`."""
+    p = plan(index, question, history)
+    if p.prompt is None:
+        return canned(question), False, p
+    pred, capped = gen(p.prompt)
+    pred = settle(pred, p.named)
+    history.append({"q": question, "a": pred, "topic": p.topic})
+    return pred, capped, p
 
 
 def hf_generate_fn(path, max_new_tokens=160):
@@ -46,6 +87,7 @@ def hf_generate_fn(path, max_new_tokens=160):
 def main():
     index, gen = rag.load(), hf_generate_fn(str(ROOT / "checkpoints" / "batlm-merged"))
     print("BatLM ready. Ask about the Batman universe. Ctrl-D to exit.")
+    history = []
     while True:
         try:
             q = input("\n> ").strip()
@@ -53,10 +95,10 @@ def main():
             break
         if not q:
             continue
-        prompt, hits = plan(index, q)
-        for c in hits:
+        answer, _, p = respond(index, gen, q, history)
+        for c in p.hits:
             print(f"  · {c['title']}: {c['section']}")
-        print("\n" + (gen(prompt)[0] if prompt else sft_data.REFUSAL))
+        print("\n" + answer)
 
 
 if __name__ == "__main__":
