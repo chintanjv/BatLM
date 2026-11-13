@@ -1,0 +1,204 @@
+{
+ "generated": "2026-11-13 12:40",
+ "passages": 11935,
+ "search": {
+  "n": 368,
+  "recall@3": 0.938,
+  "by_kind": {
+   "challenge": {
+    "n": 9,
+    "recall": 1.0
+   },
+   "compare": {
+    "n": 10,
+    "recall": 1.0
+   },
+   "fact": {
+    "n": 5,
+    "recall": 0.6
+   },
+   "followup": {
+    "n": 42,
+    "recall": 0.857
+   },
+   "list": {
+    "n": 9,
+    "recall": 1.0
+   },
+   "lookup": {
+    "n": 79,
+    "recall": 0.924
+   },
+   "multipart": {
+    "n": 6,
+    "recall": 0.667
+   },
+   "owner": {
+    "n": 13,
+    "recall": 1.0
+   },
+   "reworded": {
+    "n": 59,
+    "recall": 0.966
+   },
+   "typo": {
+    "n": 10,
+    "recall": 1.0
+   },
+   "unseen": {
+    "n": 38,
+    "recall": 0.947
+   },
+   "why": {
+    "n": 8,
+    "recall": 0.875
+   },
+   "wiki": {
+    "n": 59,
+    "recall": 1.0
+   },
+   "yesno": {
+    "n": 21,
+    "recall": 0.905
+   }
+  },
+  "answerable_refused_by_gate": [],
+  "off_topic_reaching_model": "8 of 74",
+  "training_off_topic_reaching_model": "22 of 125",
+  "misses": [
+   "Who were Bruce Wayne's mother and father?",
+   "What happened to make the Joker?",
+   "Who snapped Batman's spine?",
+   "What makes Batman dangerous?",
+   "Who was the actor playing Alfred in the 1943 Batman movie?",
+   "How old was Dick Grayson when he became Robin in the 1950s?",
+   "what happened to him?",
+   "in which story?",
+   "what year did it come out?",
+   "what was his job before?",
+   "what did he become after he came back?",
+   "Is Gotham City a real place?",
+   "Is Batman a Marvel character?",
+   "Who created Batman and when did he first appear?",
+   "Who is Nightwing and where does he operate?",
+   "Why does Batman dress like a bat?",
+   "Who composed the music for The Dark Knight?",
+   "Who plays the Penguin in The Batman?",
+   "Who played Alfred in The Dark Knight?",
+   "Who played Commissioner Gordon in Batman Begins?",
+   "Who played Catwoman in The Dark Knight Rises?",
+   "who played him in The Batman?",
+   "What year was The Dark Knight released?"
+  ]
+ },
+ "model": "fp32 PyTorch, batlm-merged",
+ "results": {
+  "challenge": {
+   "n": 9,
+   "accuracy": 0.778
+  },
+  "compare": {
+   "n": 10,
+   "accuracy": 0.6
+  },
+  "fact": {
+   "n": 5,
+   "accuracy": 0.6
+  },
+  "followup": {
+   "n": 42,
+   "accuracy": 0.833
+  },
+  "list": {
+   "n": 9,
+   "accuracy": 1.0
+  },
+  "lookup": {
+   "n": 79,
+   "accuracy": 0.924
+  },
+  "missing": {
+   "n": 18,
+   "accuracy": 1.0
+  },
+  "multipart": {
+   "n": 6,
+   "accuracy": 0.5
+  },
+  "near_topic": {
+   "n": 6,
+   "accuracy": 1.0
+  },
+  "off_topic": {
+   "n": 74,
+   "accuracy": 1.0
+  },
+  "owner": {
+   "n": 13,
+   "accuracy": 1.0
+  },
+  "reworded": {
+   "n": 59,
+   "accuracy": 0.949
+  },
+  "typo": {
+   "n": 10,
+   "accuracy": 0.9
+  },
+  "unseen": {
+   "n": 38,
+   "accuracy": 0.947
+  },
+  "why": {
+   "n": 8,
+   "accuracy": 0.875
+  },
+  "wiki": {
+   "n": 59,
+   "accuracy": 0.983
+  },
+  "yesno": {
+   "n": 21,
+   "accuracy": 0.905
+  },
+  "source:auto": {
+   "n": 207,
+   "accuracy": 0.961
+  },
+  "source:hand": {
+   "n": 221,
+   "accuracy": 0.882
+  },
+  "source:gen": {
+   "n": 38,
+   "accuracy": 1.0
+  },
+  "answerable": {
+   "n": 368,
+   "accuracy": 0.908
+  },
+  "overall": {
+   "n": 466,
+   "accuracy": 0.927,
+   "waiting_for_the_teacher": 0,
+   "hit_token_limit": 0,
+   "wrongly_declined": 10,
+   "batman_question_called_off_topic": 1
+  }
+ },
+ "gate": {
+  "passed": false,
+  "failures": [
+   "challenge: 0.778 on 9 questions",
+   "followup: 0.833 on 42 questions",
+   "compare: 0.6 on 10 questions",
+   "1 Batman questions answered with the off-topic refusal"
+  ],
+  "thresholds": {
+   "overall": 0.9,
+   "followup": 0.85,
+   "each_kind": 0.8,
+   "each_kind_min_n": 8
+  }
+ }
+}
