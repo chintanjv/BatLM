@@ -10,6 +10,7 @@ search who a follow-up is about, and the last few are shown to the model.
 """
 import os
 import pathlib
+import re
 from typing import NamedTuple
 
 from . import rag, sft_data
@@ -19,6 +20,17 @@ MIN_SCORE = 16.0  # below this, with no Batman subject named or carried over, th
 TOP_K = int(os.environ.get("BATLM_TOP_K") or 3)  # passages shown to the model; a larger model can read more
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+
+
+GREETING = re.compile(r"^(?:hi|hello|hey|yo|good (?:morning|afternoon|evening|night)|how are you|who are you|what are you|"
+                      r"what can you do|what do you do|what(?:'s| is) your name|help)\b")
+GRATEFUL = re.compile(r"^(?:thanks|thank you|thx|ty|cheers)\b")
+
+
+def canned(question: str) -> str:
+    """What the code says when the gate stops a question: a greeting gets a welcome, anything else the refusal."""
+    q = question.lower().strip()
+    return sft_data.THANKS if GRATEFUL.search(q) else sft_data.HELLO if GREETING.search(q) else sft_data.REFUSAL
 
 
 class Plan(NamedTuple):
@@ -46,7 +58,7 @@ def respond(index, gen, question, history: list):
     """One turn, exactly as the site runs it: (answer, hit the token limit?, plan). An answered turn joins `history`."""
     p = plan(index, question, history)
     if p.prompt is None:
-        return sft_data.REFUSAL, False, p
+        return canned(question), False, p
     pred, capped = gen(p.prompt)
     pred = settle(pred, p.named)
     history.append({"q": question, "a": pred, "topic": p.topic})

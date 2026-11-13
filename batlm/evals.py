@@ -72,10 +72,35 @@ def declined(pred: str) -> bool:
     return "outside my case files" in p or "don't have that" in p
 
 
+# What a model must reach before it may ship. Checked on every run and stored in the report as "gate".
+GATE = {"overall": 0.90, "followup": 0.85, "each_kind": 0.80, "each_kind_min_n": 8}
+
+
+def gate(results: dict, rows: list[dict]) -> list[str]:
+    """Reasons this run may not ship; empty when it passes."""
+    why, o = [], results["overall"]
+    if o.get("accuracy", 0) < GATE["overall"]:
+        why.append(f"overall accuracy {o.get('accuracy', 0)} is below {GATE['overall']}")
+    for kind in KINDS + ("owner", "unseen", "reworded", "wiki", "fact"):
+        r = results.get(kind)
+        if r and r["n"] >= GATE["each_kind_min_n"] and r["accuracy"] < GATE["followup" if kind == "followup" else "each_kind"]:
+            why.append(f"{kind}: {r['accuracy']} on {r['n']} questions")
+    if o["batman_question_called_off_topic"]:
+        why.append(f"{o['batman_question_called_off_topic']} Batman questions answered with the off-topic refusal")
+    if o["hit_token_limit"]:
+        why.append(f"{o['hit_token_limit']} answers ran into the token limit")
+    if o["waiting_for_the_teacher"]:
+        why.append(f"{o['waiting_for_the_teacher']} answers not yet marked by the teacher")
+    broken = [r["q"] for r in rows if r["conv"].startswith("hand-talk-screenshot") and not r["correct"]]
+    if broken:
+        why.append(f"conversations that failed in real use still fail: {broken}")
+    return why
+
+
 def judge(it: dict, pred: str, capped: bool):
     """True or False; None when only the teacher can tell (a reference answer and no key words)."""
     if it["kind"] in DECLINE:
-        return declined(pred)
+        return declined(pred) or pred in (sft_data.HELLO, sft_data.THANKS)
     if capped or declined(pred):
         return False
     if not it["keys"]:
@@ -154,9 +179,12 @@ def finish(rows, report, name):
     for r in rows:
         r["correct"] = judge(r, r["pred"], r["capped"])
     report["results"] = summarize(rows)
+    why = gate(report["results"], rows)
+    report["gate"] = {"passed": not why, "failures": why, "thresholds": GATE}
     json.dump(rows, open(OUT / f"rows_{name}.json", "w"), indent=1, ensure_ascii=False)
     json.dump(report, open(OUT / f"report_{name}.json", "w"), indent=1)
     print(json.dumps(report["results"], indent=1))
+    print("RELEASE GATE:", "PASSED" if not why else "FAILED\n  - " + "\n  - ".join(why))
 
 
 def teacher_judge(rows_file: str):

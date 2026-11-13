@@ -23,6 +23,9 @@ PERSONA = ("You are BatLM, an expert on the Batman universe. Answer the question
 
 REFUSAL = "That is outside my case files. I only answer questions about the Batman universe."
 MISSING = "I don't have that in my case files."
+# Said by the code, not the model, when someone greets or thanks BatLM instead of asking something.
+HELLO = "I'm BatLM. Ask me about the Batman universe: its characters, comics, films, shows and games."
+THANKS = "You're welcome. Ask me anything else about the Batman universe."
 
 # Batman questions no file answers. The model must say so rather than invent something.
 UNANSWERABLE = ["What is {n}'s favorite food?", "What is {n}'s blood type?", "What is {n}'s phone number?", "What is {n}'s shoe size?",

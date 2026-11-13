@@ -64,6 +64,15 @@ def test_follow_ups_keep_their_subject():
     assert INDEX.subjects("What is the capital of France?", joker[-1]) == ([], [])  # an unrelated question does not inherit one
 
 
+def test_greetings_get_a_welcome_and_the_gate_reports_failures():
+    from batlm.agent import canned
+    assert canned("hi") == sft_data.HELLO and canned("Thanks!") == sft_data.THANKS and canned("What is 2 plus 2?") == sft_data.REFUSAL
+    assert evals.judge({"kind": "off_topic", "keys": ""}, sft_data.HELLO, False)
+    rows = [{"conv": "hand-talk-screenshot-arkham", "q": "was he an arkham patient?", "kind": "followup", "pred": sft_data.REFUSAL, "capped": False, "correct": False}]
+    why = evals.gate(evals.summarize(rows), rows)
+    assert any("real use" in w for w in why) and any("off-topic refusal" in w for w in why)
+
+
 def test_handwritten_eval_is_well_formed():
     turns = [t for c in evals.handwritten() for t in c["turns"]]
     assert len(turns) > 150
