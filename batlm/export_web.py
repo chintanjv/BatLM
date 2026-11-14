@@ -66,6 +66,7 @@ def export_model(bits="attn+down", only=None):
     if adapter.exists() and (not merged.exists() or merged.stat().st_mtime < adapter.stat().st_mtime):
         merge_adapter()  # the adapter is newer than the merged weights (it came from a cloud run)
     (dst / "onnx").mkdir(parents=True, exist_ok=True)
+    external = {}  # builds too large for one file (over 2 GB) keep their weights in a second file
     for dtype, ep in (("q4f16", "webgpu"), ("q4", "cpu")):
         if only and dtype != only:
             continue
@@ -80,13 +81,23 @@ def export_model(bits="attn+down", only=None):
                               cwd=ROOT, env={**os.environ, "BATLM_8BIT": bits})
         # Re-save as one self-contained file under the name transformers.js expects.
         model = onnx.load(str(build / "model.onnx"), load_external_data=True)
-        onnx.save(model, str(dst / "onnx" / f"model_{dtype}.onnx"), save_as_external_data=False)
-        print(f"  model_{dtype}.onnx: {(dst / 'onnx' / f'model_{dtype}.onnx').stat().st_size / 1e6:.0f} MB")
+        out = dst / "onnx" / f"model_{dtype}.onnx"
+        try:
+            onnx.save(model, str(out), save_as_external_data=False)
+        except Exception as e:  # protobuf cannot write a file over 2 GB
+            print(f"  model_{dtype}.onnx does not fit in one file ({type(e).__name__}); writing its weights beside it")
+            out.unlink(missing_ok=True)
+            model = onnx.load(str(build / "model.onnx"), load_external_data=True)
+            onnx.save(model, str(out), save_as_external_data=True, all_tensors_to_one_file=True, location=f"model_{dtype}.onnx_data")
+            external[f"model_{dtype}.onnx"] = True
+        del model
+        size = sum(f.stat().st_size for f in (dst / "onnx").glob(f"model_{dtype}.onnx*"))
+        print(f"  model_{dtype}.onnx: {size / 1e6:.0f} MB")
     for f in ["generation_config.json", "tokenizer.json", "tokenizer_config.json", "special_tokens_map.json"]:
         if (src / f).exists():  # newer transformers versions no longer write every one of these
             shutil.copy(src / f, dst / f)
     cfg = json.load(open(src / "config.json"))
-    cfg["transformers.js_config"] = {"kv_cache_dtype": {"q4f16": "float16"}, "dtype": "q4f16"}
+    cfg["transformers.js_config"] = {"kv_cache_dtype": {"q4f16": "float16"}, "dtype": "q4f16", **({"use_external_data_format": external} if external else {})}
     json.dump(cfg, open(dst / "config.json", "w"), indent=1)
     shutil.copy(ROOT / "docs" / "MODEL_CARD.md", dst / "README.md")
     print("model ->", dst)

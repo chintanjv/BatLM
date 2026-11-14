@@ -21,13 +21,14 @@ class Stub:
                     "questions": [{"style": "yesno", "q": "Is the Joker Batman's archenemy?"},
                                   {"style": "unknowable", "q": "What is the Joker's shoe size?"},
                                   {"style": "nonsense", "q": "ignored"}],
-                    "conversations": [["Who is the Joker?", "who created him?"], ["too short"]]}) + "\n```")
+                    "conversations": [["Who is the Joker?", "who created him?"], ["too short"], ["Who is Bane?", "He is strong."]],
+                    "pushback": ["Who is Alfred?", "are you sure?"]}) + "\n```")
             elif "NOTHING to do with Batman" in p:
                 out.append(json.dumps(["What is the capital of France?", "what time is it", "how do i bake bread"]))
             elif "SUPPORTED or UNSUPPORTED" in p:
                 out.append("UNSUPPORTED" if "shoe size" in p else "SUPPORTED.")
-            elif system and "what time is it" in p:
-                out.append("That is outside my case files. I only answer questions about the Batman universe.")
+            elif system and "Who is Alfred?" in p and "are you sure" not in p:
+                out.append("The files state that Alfred is a butler [1].")
             elif system:
                 out.append("Answer: Yes. The Joker is Batman's archenemy.")
             else:
@@ -72,6 +73,9 @@ def test_teacher_data_end_to_end():
     assert follow and "QUESTION: Who is the Joker?<|im_end|>" in follow[0]["prompt"]   # the earlier turn is in the prompt
     assert follow[0]["answer"] == "Yes. The Joker is Batman's archenemy."              # "Answer:" prefix removed
     assert not any("shoe size" in e["q"] for e in examples)                            # the check rejected its reply
+    assert not any("strong" in e["q"] or "Alfred" in e["q"] for e in examples)         # a remark is not a follow-up; a reply must not cite its files
+    off = [e for e in examples if e["kind"] == "off"]
+    assert off and all(e["answer"] == sft_data.REFUSAL for e in off)                   # off-topic is labelled by rule, not by the teacher
     refs = sft_gen.references(stub, convs)
     kinds = {t["kind"] for c in refs for t in c["turns"]}
     assert {"yesno", "missing", "off_topic", "followup"} <= kinds and kinds <= set(evals.KINDS)

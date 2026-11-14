@@ -50,7 +50,6 @@ def finish():
         keep(f"{WORK}/{f}")
     json.dump({"failed": failed, "run": run}, open(f"{OUT}/status.json", "w"))
     shutil.rmtree(ROOT, ignore_errors=True)  # merged weights and build caches are large and can be rebuilt
-    shutil.rmtree(f"{WORK}/teacher-env", ignore_errors=True)
     for path, _, files in os.walk(OUT):
         for f in files:
             print(f"{os.path.getsize(os.path.join(path, f)) / 1e6:8.1f} MB  {os.path.join(path, f)}")
@@ -68,10 +67,15 @@ else:
 run = json.load(open(f"{ROOT}/cloud/run.json"))
 print("run:", run, sorted(os.listdir(ROOT)), flush=True)
 os.makedirs(OUT, exist_ok=True)
+if "RUN_ID" in globals() and run.get("id") != RUN_ID:  # noqa: F821 (cloud/pipeline.py writes RUN_ID above this script)
+    print(f"STALE UPLOAD: this run is {RUN_ID} but the dataset holds {run.get('id')}", flush=True)  # noqa: F821
+    json.dump({"failed": ["stale upload"], "stale": True, "run": run}, open(f"{OUT}/status.json", "w"))
+    shutil.rmtree(ROOT, ignore_errors=True)
+    sys.exit(0)
 os.makedirs(f"{ROOT}/checkpoints", exist_ok=True)
 
 py = sys.executable
-env = {**os.environ, "TOKENIZERS_PARALLELISM": "false", "BATLM_BASE": run.get("base") or "",
+env = {**os.environ, "TOKENIZERS_PARALLELISM": "false", "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True", "BATLM_BASE": run.get("base") or "",
        "BATLM_TEACHER": run.get("teacher") or "", "BATLM_TOP_K": str(run.get("top_k") or "")}
 subprocess.call(["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv"])
 
@@ -80,6 +84,7 @@ import json, sys
 from batlm import facts, sft_gen
 from batlm.teacher import Teacher
 limit = int(sys.argv[1]) or None
+print(len(facts.pages(limit)), "pages downloaded", flush=True)  # before the teacher starts, so the GPU is not held idle
 teacher = Teacher()
 try:
     facts.OUT.write_text(json.dumps(facts.build(teacher, limit), ensure_ascii=False, separators=(",", ":")))
@@ -119,6 +124,9 @@ else:
         # The build the browser's CPU path runs, scored on the hand-written conversations: does quantization cost accuracy?
         step("eval-onnx", lambda: sh(py, "-u", "-m", "batlm.evals", "--onnx", f"{ROOT}/checkpoints/genai-q4", "--only", "hand",
                                      "--name", "onnx", cwd=ROOT, env=env))
+    for d in ("batlm-merged", "genai-q4", "genai-q4f16", "genai-cache"):  # several GB each: make room before the teacher is installed
+        shutil.rmtree(f"{ROOT}/checkpoints/{d}", ignore_errors=True)
+    subprocess.call(["df", "-h", WORK, "/tmp"])
     if os.path.exists(f"{ROOT}/evals/generated.json") and os.path.exists(f"{ROOT}/evals/rows_pytorch.json"):
         step("judge", lambda: sh(py, "-u", "-m", "batlm.evals", "--judge", "evals/rows_pytorch.json", cwd=ROOT, env=env))
     os.makedirs(f"{OUT}/evals", exist_ok=True)

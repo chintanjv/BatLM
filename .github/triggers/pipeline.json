@@ -1,6 +1,8 @@
 {
- "stage": "teach",
+ "stage": "train",
  "action": "start",
- "limit": 12,
- "note": "trial run 2: 12 pages"
+ "name": "qwen05",
+ "base": "Qwen/Qwen2.5-0.5B-Instruct",
+ "epochs": 2,
+ "note": "bake-off candidate"
 }
