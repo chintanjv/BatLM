@@ -1,0 +1,244 @@
+{
+ "generated": "2026-11-13 23:53",
+ "passages": 20217,
+ "search": {
+  "n": 511,
+  "recall@3": 0.894,
+  "by_kind": {
+   "challenge": {
+    "n": 9,
+    "recall": 1.0
+   },
+   "compare": {
+    "n": 10,
+    "recall": 1.0
+   },
+   "fact": {
+    "n": 148,
+    "recall": 0.791
+   },
+   "followup": {
+    "n": 42,
+    "recall": 0.833
+   },
+   "list": {
+    "n": 9,
+    "recall": 1.0
+   },
+   "lookup": {
+    "n": 79,
+    "recall": 0.911
+   },
+   "multipart": {
+    "n": 6,
+    "recall": 0.667
+   },
+   "owner": {
+    "n": 13,
+    "recall": 0.923
+   },
+   "reworded": {
+    "n": 59,
+    "recall": 0.966
+   },
+   "typo": {
+    "n": 10,
+    "recall": 1.0
+   },
+   "unseen": {
+    "n": 38,
+    "recall": 0.947
+   },
+   "why": {
+    "n": 8,
+    "recall": 0.875
+   },
+   "wiki": {
+    "n": 59,
+    "recall": 1.0
+   },
+   "yesno": {
+    "n": 21,
+    "recall": 0.952
+   }
+  },
+  "answerable_refused_by_gate": [
+   "Who is involved in the accident with the ambulance?",
+   "Who helmed The Flash?"
+  ],
+  "off_topic_reaching_model": "19 of 96",
+  "training_off_topic_reaching_model": "35 of 125",
+  "misses": [
+   "Where does Batman live?",
+   "Who were Bruce Wayne's mother and father?",
+   "What happened to make the Joker?",
+   "Who snapped Batman's spine?",
+   "What makes Batman dangerous?",
+   "Who has taken charge of the League of Assassins?",
+   "What was the first issue featuring Barbara Gordon and Batgirl?",
+   "What device did Talia use to manipulate Damian?",
+   "What action did Talia take against her father?",
+   "Which comics include Killer Croc?",
+   "How does the Justice Society deal with Solomon Grundy at the end?",
+   "Who headed the League of Assassins initially?",
+   "What cultural figures inspired the Joker's costume in The Dark Knight?",
+   "What is Batman's starting weapon in Batman: Arkham Asylum?",
+   "In which year did Batman: The Man Who Laughs come out?",
+   "What was the first collaboration between Dennis O'Neil and Neal Adams on Batman?",
+   "What prompts Terry McGinnis to take up the mantle of Batman?",
+   "What position does Carmine Falcone hold?",
+   "How did Batman die?",
+   "Which composers worked on the soundtrack for Batman and Harley Quinn?",
+   "Which comic introduced the Creeper?",
+   "What led to Amanda Waller's imprisonment?",
+   "Which actor played a different Batman in The Flash?",
+   "Who is Batman's granddaughter in Kingdom Come?",
+   "Who was the voice of Bruce Wayne in the film?",
+   "Which actor plays the role of Batman in Alyas Batman en Robin?",
+   "Who was the actor for Robin in the 1973 Batman movie?",
+   "Who plays Nightwing in the Lego DC Comics movie?",
+   "Who was cast as the Penguin in Batman Returns?",
+   "Who is the writer of the comic The Riddler: Year One?",
+   "What kind of game was Batman: The Dark Knight?",
+   "Is The Penguin related to any other Batman film?",
+   "What is Poison Ivy's origin?",
+   "What was the basis for The Lego Batman Movie?",
+   "what were their names?",
+   "what happened to him?",
+   "in which story?",
+   "what year did it come out?",
+   "what was his job before?",
+   "Where does Batman live?",
+   "what is her name?",
+   "Is Gotham City a real place?",
+   "Who created Batman and when did he first appear?",
+   "Who is Nightwing and where does he operate?",
+   "Why does Batman dress like a bat?",
+   "Who composed the music for The Dark Knight?",
+   "Who plays the Penguin in The Batman?",
+   "Who played Alfred in The Dark Knight?",
+   "Who played Commissioner Gordon in Batman Begins?",
+   "Who played Catwoman in The Dark Knight Rises?",
+   "who played him in The Batman?",
+   "What year was The Dark Knight released?"
+  ]
+ },
+ "model": "fp32 PyTorch, batlm-merged",
+ "results": {
+  "challenge": {
+   "n": 63,
+   "accuracy": 0.825
+  },
+  "compare": {
+   "n": 53,
+   "accuracy": 0.264
+  },
+  "fact": {
+   "n": 148,
+   "accuracy": 0.682
+  },
+  "followup": {
+   "n": 177,
+   "accuracy": 0.684
+  },
+  "list": {
+   "n": 45,
+   "accuracy": 0.333
+  },
+  "lookup": {
+   "n": 217,
+   "accuracy": 0.696
+  },
+  "missing": {
+   "n": 51,
+   "accuracy": 0.922
+  },
+  "multipart": {
+   "n": 63,
+   "accuracy": 0.54
+  },
+  "near_topic": {
+   "n": 6,
+   "accuracy": 0.5
+  },
+  "off_topic": {
+   "n": 96,
+   "accuracy": 0.99
+  },
+  "owner": {
+   "n": 13,
+   "accuracy": 0.923
+  },
+  "reworded": {
+   "n": 59,
+   "accuracy": 0.898
+  },
+  "typo": {
+   "n": 49,
+   "accuracy": 0.551
+  },
+  "unseen": {
+   "n": 38,
+   "accuracy": 0.921
+  },
+  "why": {
+   "n": 21,
+   "accuracy": 0.524
+  },
+  "wiki": {
+   "n": 59,
+   "accuracy": 0.864
+  },
+  "yesno": {
+   "n": 103,
+   "accuracy": 0.748
+  },
+  "source:auto": {
+   "n": 350,
+   "accuracy": 0.814
+  },
+  "source:hand": {
+   "n": 221,
+   "accuracy": 0.783
+  },
+  "source:gen": {
+   "n": 690,
+   "accuracy": 0.639
+  },
+  "answerable": {
+   "n": 1108,
+   "accuracy": 0.681
+  },
+  "overall": {
+   "n": 1261,
+   "accuracy": 0.713,
+   "waiting_for_the_teacher": 0,
+   "hit_token_limit": 0,
+   "wrongly_declined": 160,
+   "batman_question_called_off_topic": 14
+  }
+ },
+ "gate": {
+  "passed": false,
+  "failures": [
+   "overall accuracy 0.713 is below 0.9",
+   "lookup: 0.696 on 217 questions",
+   "yesno: 0.748 on 103 questions",
+   "followup: 0.684 on 177 questions",
+   "compare: 0.264 on 53 questions",
+   "list: 0.333 on 45 questions",
+   "multipart: 0.54 on 63 questions",
+   "why: 0.524 on 21 questions",
+   "typo: 0.551 on 49 questions",
+   "fact: 0.682 on 148 questions",
+   "14 Batman questions answered with the off-topic refusal",
+   "conversations that failed in real use still fail: ['Give me the top 10 villians (ranked from most damage to least damage)', 'Catwoman is a villian? Are you sure?', 'You listed her as a Batman villian.']"
+  ],
+  "thresholds": {
+   "overall": 0.9,
+   "followup": 0.85,
+   "each_kind": 0.8,
+   "each_kind_min_n": 8
+  }
+ }
+}
