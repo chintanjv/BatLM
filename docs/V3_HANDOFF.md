@@ -83,38 +83,72 @@ Results land here:
 
 ## What remains
 
-1. **Full teach run: done** (2026-11-13). 8,599 facts from 804 pages in `data/facts.json`; 19,331 training
-   examples in the Hugging Face dataset `chintanjv/batlm-data` (4,167 follow-ups, 1,646 yes/no, 1,471
-   challenges, 1,269 false-premise, 1,230 two-part, 984 comparisons, and more); 555 held-out eval
-   conversations in `evals/generated.json`. The browser index now has 20,217 passages (8.7 MB).
-   Search recall on the eval fell from 0.94 to 0.89 once the new `fact` questions were added: look at the
-   `by_kind` numbers in the `ci` search report before blaming the models.
-2. **Train the candidates** on the same data, one `train` run each:
-   - `360m`: `HuggingFaceTB/SmolLM2-360M-Instruct`. **Started** 2026-11-13 14:35 PST (GitHub run 43520155888,
-     Kaggle kernel `chintanjv/batlm-train-360m`).
-   - `qwen05`: `Qwen/Qwen2.5-0.5B-Instruct`. **Started** 2026-11-13 14:36 PST (GitHub run 43520850400,
-     Kaggle kernel `chintanjv/batlm-train-qwen05`).
-   - `qwen15`: `Qwen/Qwen2.5-1.5B-Instruct`. **Not started**: Kaggle runs two GPU sessions at a time. Its
-     browser file is 1.43 GB and its CPU fallback 2.6 GB (too big for most browsers). Use `"epochs": 1`;
-     at batch size 2 it needs several hours, so expect to need `"action": "collect"`.
-   For the two started runs: if `evals/runs/<name>/` exists on `v3`, they finished and committed. If not,
-   look at the GitHub run; if it ended with "still running", push the same trigger with
-   `"action": "collect"` (keep `stage`, `name` and `base`). Check `run.json` there for failed steps: the
-   teacher-judging step had not yet succeeded in any run when this was written, and until it does the
-   report shows answers "waiting for the teacher" and the gate fails for that reason alone.
-   Consider `HuggingFaceTB/SmolLM2-1.7B-Instruct` only if the others miss the gate.
-3. **Bake-off table** for the owner: accuracy by kind, gate verdict, download size, speed.
-4. **Preview.** Vercel builds a preview for every push to `v3`. Point it at the chosen model with the
-   Vercel environment variable `VITE_BATLM_MODEL` (and `VITE_BATLM_TOP_K` if training used a different
-   `top_k`). Run `browser-eval` on the chosen repo.
-5. **Release** only after the owner agrees: merge `v3` to `main`, set the production model id
-   (`web/src/worker.ts` and `web/scripts/prune-dist.mjs` default to `chintanjv/BatLM-360M`), update
-   `README.md` and `docs/MODEL_CARD.md` (limits and eval table), delete `evals/runs/trial-*` and the
-   Hugging Face repo `chintanjv/BatLM-v3-trial-qwen15`.
-6. **If no candidate passes the gate:** read `rows_pytorch.json` for the failing kinds; likely levers are
-   more teacher conversations of that kind, `top_k` 5 for the larger models, and meaning-based
-   (embedding) search, which was planned but deliberately not built yet because search already finds
-   the answer for 94% of answerable questions.
+### State on 2026-11-18
+
+**First bake-off (2026-11-13 data): both candidates failed the gate.**
+
+| | 360m | qwen05 |
+|---|---|---|
+| overall (1,261 turns, PyTorch) | 0.713 | 0.715 |
+| hand-written (221), PyTorch | 0.783 | 0.824 |
+| hand-written, 4-bit build | not scored (config bug, since fixed) | 0.756 |
+| browser files | 347 MB WebGPU / 583 MB CPU | 480 MB / 1,091 MB |
+
+The live model scores 0.756 on the hand-written set in its browser build, so neither was an improvement once quantized. Reports are in
+`evals/runs/<name>/`. The failures came from five causes:
+
+1. **Search regressed when the corpus grew.** Every named subject got a reserved place, so "Who played Alfred in The Dark
+   Knight?" got three summaries and no cast line; "Where does Batman live?" matched the stage show *Batman Live*.
+   **Fixed 2026-11-18:**
+   - At most two reserved places: one named subject and one carried over from the previous turn.
+   - Phrasing matches are scaled by how many of the question's subjects a passage covers.
+   - An ambiguous name ("the batman": the hero or the 2022 film) is one subject with two readings.
+   - A title that is a character's name plus everyday words is not used as a name.
+   - Every "Actor as Role" line of a cast list, and every such pair in the film cards, becomes a short passage
+     (`rag.cast_facts`).
+2. **A bias toward "yes"** on false premises ("Is Alfred Batman's father?" → "Yes"). The training data had about 3,100
+   agreeing replies against 1,270 correcting ones. **Fixed in `sft_gen.py`:**
+   - A `wrongclaim` question style.
+   - Replies check claims instead of confirming them.
+   - At most 1.2 "Yes" replies per "No".
+3. **Too many "I don't have that"** replies, learned from labels made with the weak search. Declines are now capped
+   at 8%, and the data is being relabelled with the fixed search.
+4. **4-bit quantization cost about 7 points** (0.824 to 0.756). Being measured: the `export` stage rebuilds qwen05 with
+   every matrix at 8-bit (`"bits": "all"`).
+5. **The generated eval was noisy:** unanswerable openers, a strict judge, and phrase-style keys. **Fixed:**
+   - Openers that name no subject are dropped (555 to 484).
+   - The judge accepts any accurate answer to an open question.
+   - Fact questions are judged by the teacher.
+
+### Running when this was written (2026-11-18)
+
+- GitHub run 44447193003: `teach` with `"skip_facts": true`. It regenerates the training conversations with the
+  fixed search and rules, and keeps `data/facts.json`.
+- GitHub run 44447316744: `export` of qwen05 with `"bits": "all"`. Results go to `evals/runs/qwen05-8bit/` and
+  `chintanjv/BatLM-v3-qwen05-8bit`.
+
+### Next
+
+1. When `teach` has committed, train `360m`, `qwen05` and `qwen15` again (`"epochs": 2`; qwen15 `1`). Use the `bits`
+   setting the export result supports. A train run with `"bits"` set builds that way.
+2. Bake-off table for the owner: hand-written accuracy in the quantized build is the number that matters, plus the
+   gate, file sizes and speed.
+3. Preview on Vercel with `VITE_BATLM_MODEL`, then `browser-eval`, then release only with the owner's approval
+   (release steps below).
+4. If no candidate passes, read `rows_*.json` per kind before changing anything.
+
+### Release steps (unchanged)
+
+Merge `v3` to `main` and set the production model id. `web/src/worker.ts` and `web/scripts/prune-dist.mjs` default to
+`chintanjv/BatLM-360M`, so both need the new id. Update `README.md` and `docs/MODEL_CARD.md`. Delete
+`evals/runs/trial-*`, the Hugging Face repo `chintanjv/BatLM-v3-trial-qwen15`, the `try` branch, `.github/probe.py`
+and `.github/workflows/try.yml`.
+
+## Working rule: test on `try` first
+
+Failing workflow runs on `v3` email the owner, who asked for fewer of them. Iterate on the `try` branch: its `try`
+workflow runs the tests, the search report and `.github/probe.py` with every step allowed to fail, so it never sends
+an email. Fast-forward `v3` to the tested commit only when the tests pass there.
 
 ## Pitfalls already hit (do not rediscover)
 
@@ -130,6 +164,7 @@ Results land here:
 - **Disk.** Kaggle's working directory is 20 GB; the teacher is installed under `/tmp` and build folders
   are deleted before judging.
 - **Files over 2 GB** cannot be saved as one ONNX file; `export_web.py` falls back to external weights.
+- **SmolLM2 leaves `do_sample` empty** in its generation config; onnxruntime-genai refuses it (`evals.og_generate_fn` fills it in).
 - **The `kaggle` command needs `six`** installed beside it on the runner.
 - **Commits through the API:** build every file with a checked script and confirm the blob is not empty
   before committing. One commit in this work emptied a file through a shell-quoting mistake.
