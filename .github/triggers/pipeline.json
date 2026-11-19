@@ -1,1 +1,1 @@
-{"stage": "teach", "action": "collect", "skip_facts": true, "note": "collect the regenerated training conversations"}
+{"stage": "train", "action": "start", "name": "qwen05-r2", "base": "Qwen/Qwen2.5-0.5B-Instruct", "epochs": 2, "bits": "all", "note": "round 2: new data, fixed search, 8-bit build"}
