@@ -1,0 +1,248 @@
+{
+ "generated": "2026-11-19 20:15",
+ "passages": 20341,
+ "search": {
+  "n": 511,
+  "recall@3": 0.888,
+  "by_kind": {
+   "challenge": {
+    "n": 9,
+    "recall": 0.778
+   },
+   "compare": {
+    "n": 10,
+    "recall": 0.9
+   },
+   "fact": {
+    "n": 148,
+    "recall": 0.824
+   },
+   "followup": {
+    "n": 42,
+    "recall": 0.881
+   },
+   "list": {
+    "n": 9,
+    "recall": 1.0
+   },
+   "lookup": {
+    "n": 79,
+    "recall": 0.975
+   },
+   "multipart": {
+    "n": 6,
+    "recall": 0.667
+   },
+   "owner": {
+    "n": 13,
+    "recall": 1.0
+   },
+   "reworded": {
+    "n": 59,
+    "recall": 0.966
+   },
+   "typo": {
+    "n": 10,
+    "recall": 1.0
+   },
+   "unseen": {
+    "n": 38,
+    "recall": 0.947
+   },
+   "why": {
+    "n": 8,
+    "recall": 0.875
+   },
+   "wiki": {
+    "n": 59,
+    "recall": 0.78
+   },
+   "yesno": {
+    "n": 21,
+    "recall": 0.952
+   }
+  },
+  "answerable_refused_by_gate": [
+   "Who is involved in the accident with the ambulance?",
+   "Who helmed The Flash?"
+  ],
+  "off_topic_reaching_model": "15 of 96",
+  "training_off_topic_reaching_model": "35 of 125",
+  "misses": [
+   "Who were Bruce Wayne's mother and father?",
+   "What happened to make the Joker?",
+   "Who snapped Batman's spine?",
+   "What makes Batman dangerous?",
+   "Can you explain what List of Batman family enemies is?",
+   "Can you tell me who the TV series Batwoman is?",
+   "Can you explain what Batman: Vengeance is?",
+   "Can you explain what Red Robin is?",
+   "Can you explain what Batman: City of Crime is?",
+   "Can you tell me who The Return of the Joker is?",
+   "Can you tell me who Batman Beyond: Year One is?",
+   "Can you explain what the TV series Bruce Wayne is?",
+   "Can you explain what the Batman: The Animated Series Heart of Steel is?",
+   "Can you explain what Joker's Favor is?",
+   "Can you explain what the comic strip Batman is?",
+   "Can you tell me who Batman and the Monster Men is?",
+   "Can you tell me who Batman: No\u00ebl is?",
+   "Who has taken charge of the League of Assassins?",
+   "What was the first issue featuring Barbara Gordon and Batgirl?",
+   "What device did Talia use to manipulate Damian?",
+   "What action did Talia take against her father?",
+   "Which comics include Killer Croc?",
+   "How does the Justice Society deal with Solomon Grundy at the end?",
+   "Who headed the League of Assassins initially?",
+   "In which year did Batman: The Man Who Laughs come out?",
+   "What prompts Terry McGinnis to take up the mantle of Batman?",
+   "What position does Carmine Falcone hold?",
+   "How did Batman die?",
+   "Which composers worked on the soundtrack for Batman and Harley Quinn?",
+   "Which comic introduced the Creeper?",
+   "What led to Amanda Waller's imprisonment?",
+   "Which actor played a different Batman in The Flash?",
+   "Who is Batman's granddaughter in Kingdom Come?",
+   "Who was the voice of Bruce Wayne in the film?",
+   "Who plays Nightwing in the Lego DC Comics movie?",
+   "Who was cast as the Penguin in Batman Returns?",
+   "Who is the writer of the comic The Riddler: Year One?",
+   "What kind of game was Batman: The Dark Knight?",
+   "Is The Penguin related to any other Batman film?",
+   "What is Poison Ivy's origin?",
+   "What was the basis for The Lego Batman Movie?",
+   "who was the second one?",
+   "what year did it come out?",
+   "what was his job before?",
+   "what is her name?",
+   "Is Gotham City a real place?",
+   "Wasn't Val Kilmer the Batman in The Dark Knight?",
+   "Isn't the Batcave under Arkham Asylum?",
+   "Are Nightwing and Red Hood the same person?",
+   "Who created Batman and when did he first appear?",
+   "Who is Nightwing and where does he operate?",
+   "Why does Batman dress like a bat?",
+   "Who composed the music for The Dark Knight?",
+   "who are his parents?",
+   "What year was The Dark Knight released?"
+  ]
+ },
+ "model": "fp32 PyTorch, batlm-merged",
+ "results": {
+  "challenge": {
+   "n": 69,
+   "accuracy": 0.71
+  },
+  "compare": {
+   "n": 40,
+   "accuracy": 0.425
+  },
+  "fact": {
+   "n": 148,
+   "accuracy": 0.757
+  },
+  "followup": {
+   "n": 144,
+   "accuracy": 0.701
+  },
+  "list": {
+   "n": 42,
+   "accuracy": 0.381
+  },
+  "lookup": {
+   "n": 173,
+   "accuracy": 0.786
+  },
+  "missing": {
+   "n": 66,
+   "accuracy": 0.955
+  },
+  "multipart": {
+   "n": 41,
+   "accuracy": 0.585
+  },
+  "near_topic": {
+   "n": 6,
+   "accuracy": 0.5
+  },
+  "off_topic": {
+   "n": 96,
+   "accuracy": 0.979
+  },
+  "owner": {
+   "n": 13,
+   "accuracy": 0.923
+  },
+  "reworded": {
+   "n": 59,
+   "accuracy": 0.881
+  },
+  "typo": {
+   "n": 30,
+   "accuracy": 0.733
+  },
+  "unseen": {
+   "n": 38,
+   "accuracy": 0.947
+  },
+  "why": {
+   "n": 19,
+   "accuracy": 0.684
+  },
+  "wiki": {
+   "n": 59,
+   "accuracy": 0.661
+  },
+  "yesno": {
+   "n": 94,
+   "accuracy": 0.84
+  },
+  "source:auto": {
+   "n": 350,
+   "accuracy": 0.811
+  },
+  "source:hand": {
+   "n": 221,
+   "accuracy": 0.851
+  },
+  "source:gen": {
+   "n": 566,
+   "accuracy": 0.7
+  },
+  "answerable": {
+   "n": 969,
+   "accuracy": 0.731
+  },
+  "overall": {
+   "n": 1137,
+   "accuracy": 0.763,
+   "waiting_for_the_teacher": 0,
+   "hit_token_limit": 0,
+   "wrongly_declined": 84,
+   "batman_question_called_off_topic": 4
+  }
+ },
+ "gate": {
+  "passed": false,
+  "failures": [
+   "overall accuracy 0.763 is below 0.9",
+   "lookup: 0.786 on 173 questions",
+   "challenge: 0.71 on 69 questions",
+   "followup: 0.701 on 144 questions",
+   "compare: 0.425 on 40 questions",
+   "list: 0.381 on 42 questions",
+   "multipart: 0.585 on 41 questions",
+   "why: 0.684 on 19 questions",
+   "typo: 0.733 on 30 questions",
+   "wiki: 0.661 on 59 questions",
+   "fact: 0.757 on 148 questions",
+   "4 Batman questions answered with the off-topic refusal",
+   "conversations that failed in real use still fail: ['Give me the top 10 villians (ranked from most damage to least damage)']"
+  ],
+  "thresholds": {
+   "overall": 0.9,
+   "followup": 0.85,
+   "each_kind": 0.8,
+   "each_kind_min_n": 8
+  }
+ }
+}
