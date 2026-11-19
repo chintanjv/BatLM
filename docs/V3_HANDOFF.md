@@ -3,6 +3,37 @@
 Written 2026-11-13 for whoever continues this work (a person or an AI assistant with no memory of the
 earlier sessions). Everything is on branch `v3`. `main` and batlm.vercel.app are untouched.
 
+## Status: released 2026-11-19
+
+`chintanjv/BatLM-v3-qwen05-r2` is the live model. It is Qwen2.5-0.5B, trained in round 2 and built with every
+matrix at 8-bit; the WebGPU file is 591 MB.
+
+- **Release:** PR #2 merged into `main`. Vercel production serves it at batlm.vercel.app, verified that day.
+- **Hand-written eval, 8-bit build:** 83.7%, against 75.6% for BatLM-360M. In headless Chrome through the site's
+  code: 82.9%, with every turn of the conversations that failed in real use passing.
+- **Release gate:** not met (90% overall, 85% follow-ups). The owner chose to ship it as a clear improvement.
+  Results are in `evals/runs/qwen05-r2/` and the README.
+
+**If work resumes, the weak spots are:**
+
+- comparisons (60%);
+- two-part questions (50%);
+- follow-ups (76%);
+- the "top 10 villains ranked by damage" request, which passed the browser run but failed the Kaggle scoring
+  run, so it is not reliable;
+- download size on phones.
+
+**Ideas not yet tried:**
+
+- top_k 5;
+- Qwen2.5-1.5B with the mixed 8-bit build (about 1.4 GB);
+- more teacher data for comparisons, two-part questions and follow-ups;
+- meaning-based (embedding) search.
+
+Kept on purpose: the `try` branch and workflow (see the working rule below), and the Hugging Face repos of the
+other candidates (`BatLM-v3-qwen05`, `-qwen05-8bit`, `-360m`, `-360m-r2`) and of the previous model
+`BatLM-360M`, which can be deleted if no longer wanted.
+
 ## Why v3 exists
 
 The live model (BatLM-360M) scored 95.7% on its own eval but failed in real use:
