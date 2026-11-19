@@ -41,6 +41,8 @@ const PAGE_BOOST = 1.5;   // Wikipedia passages from that subject's page
 const LEAD_BOOST = 1.0;   // ...and a little more for the page's opening passage
 const TITLE_BOOST = 10.0; // the opening passage of a page named in the question, when that page has no card
 const OFF_SUBJECT = 0.6;  // a passage that never mentions any subject the question is about keeps this share of its score
+const BOTH_BOOST = 2.0;   // for each further subject of the question a passage is about or mentions
+const RARE = 30;          // a word used in lowercase running text by fewer passages than this is distinctive
 const K1 = 1.5, B = 0.75;
 
 // A question that leans on the previous turn: it uses a pronoun, points back at what was said, or starts mid-thought.
@@ -147,8 +149,29 @@ export class Index {
     for (const p of passages) p.aliases?.forEach((a) => add(a, [p.title, p.page ?? null]));
     const carded = new Set(passages.filter((p) => p.card).map((p) => p.page));
     const noname = new Set(passages.filter((p) => p.name === false).map((p) => p.title));
+    // A page titled with a card's name plus everyday words ("Batman Live", "Batman Family") would swallow ordinary
+    // questions ("where does batman live?"): such a title is a name only if one of its extra words is rare.
+    const lower = new Map<string, number>();
+    for (const p of passages) {
+      if (p.card) continue;
+      for (const w of new Set(p.text.match(/\b[a-z]{3,}\b/g) ?? [])) lower.set(w, (lower.get(w) ?? 0) + 1);
+    }
+    const runs = new Map<string, string[]>();
+    for (const p of passages) for (const a of p.aliases ?? []) { const r = tokens(a); if (r.length) runs.set(r.join(" "), r); }
+    const distinct = (title: string): boolean => {
+      const tw = tokens(title);
+      for (const run of runs.values()) {
+        const n = run.length;
+        for (let s = 0; s + n <= tw.length; s++) {
+          if (tw.length <= n || run.some((w, j) => tw[s + j] !== w)) continue;
+          const extra = [...tw.slice(0, s), ...tw.slice(s + n)].filter((w) => !STOP.has(w) && !(/^[a-z]+$/.test(w) && w.length < 3));
+          if (!extra.some((w) => (lower.get(w) ?? 0) < RARE)) return false;
+        }
+      }
+      return true;
+    };
     for (const title of this.pages.keys()) {
-      if (carded.has(title) || noname.has(title)) continue;
+      if (carded.has(title) || noname.has(title) || !distinct(title)) continue;
       add(title, [null, title]); // a page without a card is still findable by its own title
       const m = title.match(/^(.*?)\s*\((.+)\)$/); // "Batman (1966 film)" is also "the 1966 film Batman"
       if (m) add(`${m[2]} ${m[1]}`, [null, title]);
@@ -270,8 +293,20 @@ export class Index {
         if (!calls.some((n) => this.wtext[i].includes(n))) score.set(i, s * OFF_SUBJECT);
       }
     }
-    // What the question names goes first: the best fact about it, or its page's opening passage.
-    // A subject carried over from the previous turn is pinned too, and is always given a place.
+    if (subjects.length > 1) { // a passage about two of the question's subjects is likelier to answer it
+      for (const [i, s] of [...score.entries()]) {
+        const p = this.passages[i];
+        let hit = 0;
+        for (const t of subjects) {
+          const [card, page] = t;
+          if (p.title === (p.card ? card : page) || (this.called.get(JSON.stringify(t)) ?? []).some((n) => this.wtext[i].includes(n))) hit++;
+        }
+        if (hit > 1) score.set(i, s + BOTH_BOOST * (hit - 1));
+      }
+    }
+    // One place is reserved: the best fact about a subject the question names, or that subject's opening passage
+    // (without one, a subject carried over from the previous turn). The rest compete on score, so a question
+    // naming several subjects still leaves room for the passage that answers it.
     let pinned: number[] = [];
     const late: number[] = [];
     for (const t of subjects) {
@@ -291,9 +326,10 @@ export class Index {
       bump(lead, card !== null ? LEAD_BOOST : TITLE_BOOST);
       if (card === null && !pins.includes(lead)) pins.push(lead);
     }
-    pinned = pinned.slice(0, late.length ? k - 1 : k);
-    const room = Math.min(k - pinned.length, pinned.length ? 1 : k - 1);
-    pinned.push(...late.filter((i) => !pinned.includes(i)).slice(0, Math.max(room, 0)));
+    const pool = pinned.length ? pinned : late;
+    let top = -1;
+    for (const i of pool) if (top < 0 || score.get(i)! > score.get(top)! || (score.get(i) === score.get(top) && i < top)) top = i;
+    pinned = top < 0 ? [] : [top];
     const rest = [...score.entries()]
       .filter(([i]) => !pinned.includes(i))
       .sort((a, b) => b[1] - a[1] || a[0] - b[0])
