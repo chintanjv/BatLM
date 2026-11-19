@@ -242,7 +242,9 @@ export class Index {
         for (let j = 0; j < n && ok; j++) ok = q[s + j] === name[j] && !used.has(s + j);
         if (!ok) continue;
         for (let j = 0; j < n; j++) used.add(s + j);
-        for (const t of targets) if (!has(out, t)) out.push(t);
+        // A name that is one subject's title and another's nickname ("the dark knight") means the title.
+        const exact = targets.length > 1 ? targets.filter((t) => words((t[0] ?? t[1])!).join(" ") === name.join(" ")) : [];
+        for (const t of exact.length ? exact : targets) if (!has(out, t)) out.push(t);
       }
     }
     return out;
@@ -282,9 +284,26 @@ export class Index {
       const sim = shared / (qWeight + extra);
       if (sim > (match.get(i) ?? 0)) match.set(i, sim);
     }
-    match.forEach((sim, i) => bump(i, ASK_WEIGHT * sim));
     const named = this.mentions(query);
     const subjects = [...named, ...carried.filter((t) => !has(named, t))];
+    const cover = new Map<number, number>();
+    /** How many of the question's subjects passage i is about or mentions. */
+    const covers = (i: number): number => {
+      let c = cover.get(i);
+      if (c === undefined) {
+        const p = this.passages[i];
+        c = 0;
+        for (const t of subjects) {
+          const [card, page] = t;
+          if (p.title === (p.card ? card : page) || (this.called.get(JSON.stringify(t)) ?? []).some((n) => this.wtext[i].includes(n))) c++;
+        }
+        cover.set(i, c);
+      }
+      return c;
+    };
+    // A known way of asking counts in full only for a passage about the question's subjects: "Who played Batman in
+    // The Dark Knight?" is worded almost like "Who played Alfred in The Dark Knight?" but answers something else.
+    match.forEach((sim, i) => bump(i, ASK_WEIGHT * sim * (subjects.length ? (1 + covers(i)) / (1 + subjects.length) : 1.0)));
     if (subjects.length) { // a passage that is neither about a subject nor mentions one is probably about someone else
       const calls = subjects.flatMap((t) => this.called.get(JSON.stringify(t)) ?? []);
       for (const [i, s] of [...score.entries()]) {
@@ -295,18 +314,13 @@ export class Index {
     }
     if (subjects.length > 1) { // a passage about two of the question's subjects is likelier to answer it
       for (const [i, s] of [...score.entries()]) {
-        const p = this.passages[i];
-        let hit = 0;
-        for (const t of subjects) {
-          const [card, page] = t;
-          if (p.title === (p.card ? card : page) || (this.called.get(JSON.stringify(t)) ?? []).some((n) => this.wtext[i].includes(n))) hit++;
-        }
+        const hit = covers(i);
         if (hit > 1) score.set(i, s + BOTH_BOOST * (hit - 1));
       }
     }
-    // One place is reserved: the best fact about a subject the question names, or that subject's opening passage
-    // (without one, a subject carried over from the previous turn). The rest compete on score, so a question
-    // naming several subjects still leaves room for the passage that answers it.
+    // Two places at most are reserved: the best fact about (or opening passage of) a subject the question names, and
+    // the best about a subject carried over from the previous turn, who is often the "he" or "she" being asked about.
+    // The rest compete on score, so a question naming several subjects still leaves room for the passage that answers it.
     let pinned: number[] = [];
     const late: number[] = [];
     for (const t of subjects) {
@@ -326,10 +340,12 @@ export class Index {
       bump(lead, card !== null ? LEAD_BOOST : TITLE_BOOST);
       if (card === null && !pins.includes(lead)) pins.push(lead);
     }
-    const pool = pinned.length ? pinned : late;
-    let top = -1;
-    for (const i of pool) if (top < 0 || score.get(i)! > score.get(top)! || (score.get(i) === score.get(top) && i < top)) top = i;
-    pinned = top < 0 ? [] : [top];
+    const best = (pool: number[]): number[] => {
+      let top = -1;
+      for (const i of pool) if (top < 0 || score.get(i)! > score.get(top)! || (score.get(i) === score.get(top) && i < top)) top = i;
+      return top < 0 ? [] : [top];
+    };
+    pinned = [...new Set([...best(pinned), ...best(late)])].slice(0, k);
     const rest = [...score.entries()]
       .filter(([i]) => !pinned.includes(i))
       .sort((a, b) => b[1] - a[1] || a[0] - b[0])

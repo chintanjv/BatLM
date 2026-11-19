@@ -226,7 +226,9 @@ class Index:
             for s in range(len(q) - n + 1):
                 if tuple(q[s:s + n]) == name and not used & set(range(s, s + n)):
                     used |= set(range(s, s + n))
-                    for t in targets:
+                    # A name that is one subject's title and another's nickname ("the dark knight") means the title.
+                    exact = [t for t in targets if tuple(words(t[0] if t[0] is not None else t[1])) == name] if len(targets) > 1 else []
+                    for t in exact or targets:
                         if t not in out:
                             out.append(t)
         return out
@@ -259,10 +261,22 @@ class Index:
                 sim = shared / (q_weight + sum(self.ask_idf[w] for w in ask if w not in q))
                 if sim > match.get(i, 0.0):
                     match[i] = sim
-        for i, sim in match.items():
-            score[i] += ASK_WEIGHT * sim
         named = self.mentions(query)
         subjects = named + [t for t in (tuple(c) for c in carried) if t not in named]
+        cover = {}
+
+        def covers(i):
+            """How many of the question's subjects passage i is about or mentions."""
+            if i not in cover:
+                p = self.passages[i]
+                cover[i] = sum(p["title"] == (card if p.get("card") else page) or any(n in self.wtext[i] for n in self.called.get((card, page), ()))
+                               for card, page in subjects)
+            return cover[i]
+
+        # A known way of asking counts in full only for a passage about the question's subjects: "Who played Batman in
+        # The Dark Knight?" is worded almost like "Who played Alfred in The Dark Knight?" but answers something else.
+        for i, sim in match.items():
+            score[i] += ASK_WEIGHT * sim * ((1 + covers(i)) / (1 + len(subjects)) if subjects else 1.0)
         if subjects:  # a passage that is neither about a subject nor mentions one is probably about someone else
             calls = [n for t in subjects for n in self.called.get(t, ())]
             for i in score:
@@ -273,14 +287,12 @@ class Index:
                     score[i] *= OFF_SUBJECT
         if len(subjects) > 1:  # a passage about two of the question's subjects is likelier to answer it
             for i in list(score):
-                p = self.passages[i]
-                hit = sum(p["title"] == (card if p.get("card") else page) or any(n in self.wtext[i] for n in self.called.get((card, page), ()))
-                          for card, page in subjects)
+                hit = covers(i)
                 if hit > 1:
                     score[i] += BOTH_BOOST * (hit - 1)
-        # One place is reserved: the best fact about a subject the question names, or that subject's opening passage
-        # (without one, a subject carried over from the previous turn). The rest compete on score, so a question
-        # naming several subjects still leaves room for the passage that answers it.
+        # Two places at most are reserved: the best fact about (or opening passage of) a subject the question names, and
+        # the best about a subject carried over from the previous turn, who is often the "he" or "she" being asked about.
+        # The rest compete on score, so a question naming several subjects still leaves room for the passage that answers it.
         pinned, late = [], []
         for t in subjects:
             card, page = t
@@ -297,8 +309,8 @@ class Index:
                 score[self.lead[page]] += LEAD_BOOST if card is not None else TITLE_BOOST
                 if card is None and self.lead[page] not in pins:
                     pins.append(self.lead[page])
-        pool = pinned or late
-        pinned = [max(pool, key=lambda i: (score[i], -i))] if pool else []
+        best = lambda pool: [max(pool, key=lambda i: (score[i], -i))] if pool else []
+        pinned = list(dict.fromkeys(best(pinned) + best(late)))[:k]
         rest = sorted((x for x in score.items() if x[0] not in pinned), key=lambda x: (-x[1], x[0]))[:k - len(pinned)]
         top = [(i, score[i]) for i in pinned] + [x for x in rest if x[1] > 0]
         return [(s, self.passages[i]) for i, s in sorted(top, key=lambda x: (-x[1], x[0]))]  # best match is read first
