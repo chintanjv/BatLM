@@ -1,8 +1,1 @@
-{
- "stage": "train",
- "action": "start",
- "name": "qwen05",
- "base": "Qwen/Qwen2.5-0.5B-Instruct",
- "epochs": 2,
- "note": "bake-off candidate"
-}
+{"stage": "teach", "action": "start", "skip_facts": true, "note": "regenerate training conversations with the fixed search and rules"}
