@@ -42,7 +42,8 @@ Write questions a real person might type. Use only things these facts answer, ex
 Give one question for each style that fits (skip a style the facts do not support):
 - "yesno": a yes/no question whose answer is yes
 - "false": a yes/no question or a statement built on a wrong assumption that these facts correct (wrong name, wrong person, wrong date)
-- "challenge": the user doubts one of the facts or pushes back ("Are you sure ...?", "I thought ...", "No way, ...")
+- "challenge": the user doubts one of these facts, which is in fact true ("Are you sure ...?", "Really? ...")
+- "wrongclaim": the user confidently asserts something false that these facts contradict ("I thought ...", "No way, ...", "Wasn't it ...?")
 - "why": a why or how question
 - "casual": terse lowercase chat style, no punctuation, with one small spelling mistake
 - "multipart": one question that asks for two different things
@@ -51,7 +52,7 @@ Give one question for each style that fits (skip a style the facts do not suppor
 - "unknowable": a sensible-sounding question about "{title}" that no encyclopedia could answer (a private or never-stated detail)
 Then write two short conversations of 2 or 3 messages. Every message is typed by the USER and every message is a question for the chatbot. Never write the chatbot's side, and never write statements or small talk. The first question names the subject. Each later question asks something new that these facts answer, but refers to the subject only by a pronoun or leaves it out, the way people do in chat.
 Examples of the form: ["Who is Mr. Freeze?", "what is his real name?", "why does he commit crimes?"] and ["Tell me about Batman Begins", "who directed it?", "and who played the lead?"].
-Finally write one "pushback" conversation of 2 messages: a question these facts answer, then the user doubting or disputing the answer without naming the subject again ("are you sure?", "really? I thought it was someone else", "that doesn't sound right, wasn't she a hero?").
+Finally write one "pushback" conversation of 2 messages: a question these facts answer, then the user disputing the answer with a specific wrong alternative, without naming the subject again ("no, I'm pretty sure it was <wrong name>", "wasn't that in <wrong year>?", "but isn't she a hero?").
 
 Reply with JSON and nothing else:
 {{"questions": [{{"style": "yesno", "q": "..."}}], "conversations": [["...", "...", "..."], ["...", "..."]], "pushback": ["...", "..."]}}"""
@@ -85,7 +86,7 @@ RULES = """You write the ideal reply for BatLM, a small assistant that answers q
 Rules for the reply:
 1. Use only what the CASE FILES and the earlier turns say. Never add anything you know from elsewhere.
 2. Answer the exact question in one or two full sentences, or a short numbered list when several items are asked for. No preamble. Never mention "the files", "the case files" or passage numbers like [1]: state the facts as your own knowledge.
-3. For a yes/no question, start with "Yes" or "No", then give the fact that settles it. If the user assumes something the files contradict, say so and give the correct fact. If the user doubts something that is true ("are you sure?"), confirm it plainly ("Yes, that is right: ...").
+3. For a yes/no question, start with "Yes" or "No", then give the fact that settles it. If the user states or assumes something, check it against the files before agreeing: if the files contradict it, start with "No" and give the correct fact; agree only when the files support it. Never agree just because the user sounds sure.
 4. Check who each file is about. A file about another character counts only if it actually states the answer.
 5. In a conversation, "he", "she", "it", "that" and similar words refer to the earlier turns.
 6. If the user asks for more items than the files list, give the ones the files list and say that is all the files have.
@@ -102,7 +103,7 @@ REPLY: {answer}
 Is every statement in the REPLY supported by the case files or the earlier turns above, and does it answer the QUESTION? Reply with one word: SUPPORTED or UNSUPPORTED."""
 
 # teacher style -> eval kind (batlm.evals.KINDS)
-KIND = {"yesno": "yesno", "false": "yesno", "challenge": "challenge", "why": "why", "casual": "typo", "multipart": "multipart",
+KIND = {"yesno": "yesno", "false": "yesno", "challenge": "challenge", "wrongclaim": "challenge", "why": "why", "casual": "typo", "multipart": "multipart",
         "list": "list", "plain": "lookup", "unknowable": "missing", "compare": "compare", "off": "off_topic"}
 
 
@@ -282,7 +283,16 @@ def main(teacher=None, limit=None):
         refusals = [e for e in examples if declined(e["answer"])]
         rest = [e for e in examples if not declined(e["answer"])]
         rng.shuffle(refusals)
-        examples = rest + refusals[:max(int(len(rest) * 0.15 / 0.85), 20)]  # declining stays a minority habit
+        examples = rest + refusals[:max(int(len(rest) * 0.08 / 0.92), 20)]  # declining stays a rare habit
+        # Agreeing must not become a habit either: at most 1.2 replies starting "Yes" for every one starting "No".
+        yes = [e for e in examples if re.match(r"yes\b", e["answer"], re.I)]
+        no = [e for e in examples if re.match(r"no\b", e["answer"], re.I)]
+        cap = max(int(1.2 * len(no)), 50)
+        if len(yes) > cap:
+            rng.shuffle(yes)
+            drop = {id(e) for e in yes[cap:]}
+            examples = [e for e in examples if id(e) not in drop]
+        print(f"replies starting Yes: {min(len(yes), cap)}, No: {len(no)}", flush=True)
         TRAIN.parent.mkdir(exist_ok=True)
         with open(TRAIN, "w") as f:
             for e in examples:

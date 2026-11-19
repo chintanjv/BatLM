@@ -41,7 +41,7 @@ JUDGE = """{earlier}QUESTION: {q}
 REFERENCE ANSWER (known to be correct): {ref}
 STUDENT ANSWER: {pred}
 
-Does the student answer give the same key fact or facts as the reference, without saying anything that contradicts it? Different wording and extra correct detail are fine. A refusal, or "I don't have that", is wrong. Reply with one word: CORRECT or WRONG."""
+Is the student answer a correct answer to the question? Treat the reference as the truth. The student is correct if it gives what the question asks for and says nothing that contradicts the reference. For an open question ("who is X", "tell me about X") any accurate summary consistent with the reference is correct, even if it picks different details. A refusal, or "I don't have that", is wrong. Reply with one word: CORRECT or WRONG."""
 
 
 def handwritten() -> list[dict]:
@@ -62,9 +62,15 @@ def handwritten() -> list[dict]:
 def conversations(index) -> list[dict]:
     convs = [{"id": f"auto-{i}", "turns": [it]} for i, it in enumerate(sft_data.eval_items(index))] + handwritten()
     if (OUT / "generated.json").exists():
-        convs += json.loads((OUT / "generated.json").read_text())
+        # A generated conversation must open with a question that names its subject; "What year was the game released?"
+        # with nothing before it cannot be answered by anyone.
+        convs += [c for c in json.loads((OUT / "generated.json").read_text())
+                  if c["turns"][0]["kind"] in DECLINE or index.mentions(c["turns"][0]["q"])]
     for c in convs:
         c["turns"] = [{"a": "", "keys": "", "bad": "", "ref": "", **t} for t in c["turns"]]
+        for t in c["turns"]:  # a teacher-written fact's keys are phrases copied from it, too strict to require word for word
+            if t["kind"] == "fact" and c["id"].startswith("auto-"):
+                t["ref"], t["keys"] = t["a"], ""
     return convs
 
 
@@ -160,6 +166,13 @@ def summarize(rows) -> dict:
 def og_generate_fn(path, max_new_tokens=160):
     """Greedy generation with a quantized build, through onnxruntime-genai (the builder that makes the browser models)."""
     import onnxruntime_genai as og
+    cfg = pathlib.Path(path) / "genai_config.json"
+    c = json.loads(cfg.read_text())  # some base models leave settings empty, which the runtime refuses
+    search = c.get("search", {})
+    for k, v in {"do_sample": False, "num_beams": 1, "top_k": 1, "top_p": 1.0, "temperature": 1.0, "repetition_penalty": 1.0}.items():
+        if k in search and search[k] is None:
+            search[k] = v
+    cfg.write_text(json.dumps(c, indent=1))
     model = og.Model(str(path))
     tok = og.Tokenizer(model)
 

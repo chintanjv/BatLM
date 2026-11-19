@@ -1,6 +1,7 @@
 """One-off diagnostics for the try branch."""
-import json
-from batlm import cards, rag
-
-cast = rag.cast_facts(json.loads((rag.ROOT / "data" / "chunks.json").read_text()), cards.passages())
-print("cast sentences ending badly:", [p["text"] for p in cast if ". in " in p["text"]])
+import collections, json
+from batlm import evals, rag
+index = rag.load()
+convs = evals.conversations(index)
+print("conversations by source:", collections.Counter(c["id"].split("-")[0] for c in convs))
+print("teacher-judged turns:", sum(1 for c in convs for t in c["turns"] if not t["keys"] and t["ref"]))

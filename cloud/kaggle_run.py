@@ -3,6 +3,8 @@ this script; cloud/run.json inside the dataset says which stage to run:
 
   teach   the teacher writes facts from every page, then training conversations and held-out eval questions
   train   fine-tune one base model, score it, build the browser models, score the quantized build
+  export  rebuild the browser models of an already-trained adapter (run["adapter"], a Hugging Face repo with lora/),
+          for example with more layers at 8-bit (run["bits"]), and score the quantized build
 
 Everything worth keeping is left in /kaggle/working/out, which `kaggle kernels output` downloads.
 A step that fails is recorded in out/status.json and the run carries on, so finished work is never lost.
@@ -83,18 +85,20 @@ TEACH = """
 import json, sys
 from batlm import facts, sft_gen
 from batlm.teacher import Teacher
-limit = int(sys.argv[1]) or None
-print(len(facts.pages(limit)), "pages downloaded", flush=True)  # before the teacher starts, so the GPU is not held idle
+limit, skip_facts = int(sys.argv[1]) or None, sys.argv[2] == "1"
+if not skip_facts:
+    print(len(facts.pages(limit)), "pages downloaded", flush=True)  # before the teacher starts, so the GPU is not held idle
 teacher = Teacher()
 try:
-    facts.OUT.write_text(json.dumps(facts.build(teacher, limit), ensure_ascii=False, separators=(",", ":")))
+    if not skip_facts:  # otherwise the facts already in data/facts.json are kept
+        facts.OUT.write_text(json.dumps(facts.build(teacher, limit), ensure_ascii=False, separators=(",", ":")))
     sft_gen.main(teacher, limit)
 finally:
     teacher.close()
 """
 
 if run["stage"] == "teach":
-    step("teach", lambda: sh(py, "-u", "-c", TEACH, str(run.get("limit") or 0), cwd=ROOT, env=env))
+    step("teach", lambda: sh(py, "-u", "-c", TEACH, str(run.get("limit") or 0), "1" if run.get("skip_facts") else "0", cwd=ROOT, env=env))
     keep(f"{ROOT}/data/facts.json")
     keep(f"{ROOT}/checkpoints/sft_teacher.jsonl")
     keep(f"{ROOT}/evals/generated.json")
@@ -108,16 +112,23 @@ else:
     subprocess.call([py, "-m", "pip", "uninstall", "-y", "-q", "torchao"])
     import transformers
     print("transformers", transformers.__version__, "python", sys.version.split()[0], flush=True)
-    step("train", lambda: sh(py, "-u", "-m", "batlm.train_lora", "--epochs", str(run.get("epochs") or 2), cwd=ROOT, env=env), must=True)
-    shutil.copytree(f"{ROOT}/checkpoints/batlm-lora", f"{OUT}/batlm-lora")  # safe before anything else can go wrong
-    step("eval", lambda: sh(py, "-u", "-m", "batlm.evals", "--name", "pytorch", cwd=ROOT, env=env))
+    if run["stage"] == "export":
+        def fetch():
+            from huggingface_hub import snapshot_download
+            snapshot_download(run["adapter"], allow_patterns=["lora/*"], local_dir=f"{WORK}/hf")
+            shutil.copytree(f"{WORK}/hf/lora", f"{ROOT}/checkpoints/batlm-lora")
+        step("fetch adapter", fetch, must=True)
+    else:
+        step("train", lambda: sh(py, "-u", "-m", "batlm.train_lora", "--epochs", str(run.get("epochs") or 2), cwd=ROOT, env=env), must=True)
+        step("eval", lambda: sh(py, "-u", "-m", "batlm.evals", "--name", "pytorch", cwd=ROOT, env=env))
+    shutil.copytree(f"{ROOT}/checkpoints/batlm-lora", f"{OUT}/batlm-lora")
 
     def export():
         try:  # the versions the export environment pins; fall back to current ones if this Python has no build of them
             sh(py, "-m", "pip", "install", "-q", "onnx==1.19.1", "onnxruntime==1.23.2", "onnxruntime-genai==0.11.4", "onnx-ir")
         except subprocess.CalledProcessError:
             sh(py, "-m", "pip", "install", "-q", "onnx", "onnxruntime", "onnxruntime-genai", "onnx-ir")
-        sh(py, "-u", "-m", "batlm.export_web", cwd=ROOT, env={**env, "BATLM_EXPORT_PYTHON": py})
+        sh(py, "-u", "-m", "batlm.export_web", "--bits", run.get("bits") or "attn+down", cwd=ROOT, env={**env, "BATLM_EXPORT_PYTHON": py})
         shutil.copytree(f"{ROOT}/web/public/models/batlm-360m", f"{OUT}/model")
 
     if step("export", export):
