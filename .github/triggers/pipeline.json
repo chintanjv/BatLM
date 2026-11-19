@@ -1,1 +1,1 @@
-{"stage": "teach", "action": "start", "skip_facts": true, "note": "regenerate training conversations with the fixed search and rules"}
+{"stage": "export", "action": "start", "name": "qwen05-8bit", "adapter": "chintanjv/BatLM-v3-qwen05", "base": "Qwen/Qwen2.5-0.5B-Instruct", "bits": "all", "note": "how much accuracy does an all-8-bit build win back"}
