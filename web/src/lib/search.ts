@@ -234,7 +234,13 @@ export class Index {
 
   /** Subjects named in the query. A longer name hides shorter names inside it. */
   mentions(query: string): Target[] {
-    const q = this.qWords(query), used = new Set<number>(), out: Target[] = [];
+    return this.groups(query).flat();
+  }
+
+  /** The subjects named in the query, one group per name: "the batman" is one name with two readings, Batman and the
+   *  2022 film, and counts as one subject when judging how much of the question a passage covers. */
+  groups(query: string): Target[][] {
+    const q = this.qWords(query), used = new Set<number>(), out: Target[][] = [], seen: Target[] = [];
     for (const [name, targets] of this.names) {
       const n = name.length;
       for (let s = 0; s + n <= q.length; s++) {
@@ -242,9 +248,9 @@ export class Index {
         for (let j = 0; j < n && ok; j++) ok = q[s + j] === name[j] && !used.has(s + j);
         if (!ok) continue;
         for (let j = 0; j < n; j++) used.add(s + j);
-        // A name that is one subject's title and another's nickname ("the dark knight") means the title.
-        const exact = targets.length > 1 ? targets.filter((t) => words((t[0] ?? t[1])!).join(" ") === name.join(" ")) : [];
-        for (const t of exact.length ? exact : targets) if (!has(out, t)) out.push(t);
+        const g = targets.filter((t) => !has(seen, t));
+        seen.push(...g);
+        if (g.length) out.push(g);
       }
     }
     return out;
@@ -284,26 +290,26 @@ export class Index {
       const sim = shared / (qWeight + extra);
       if (sim > (match.get(i) ?? 0)) match.set(i, sim);
     }
-    const named = this.mentions(query);
-    const subjects = [...named, ...carried.filter((t) => !has(named, t))];
+    const groups = this.groups(query);
+    const named = groups.flat();
+    groups.push(...carried.filter((t) => !has(named, t)).map((t) => [t]));
+    const subjects = groups.flat();
     const cover = new Map<number, number>();
-    /** How many of the question's subjects passage i is about or mentions. */
+    /** How many of the question's subjects (one per name) passage i is about or mentions. */
     const covers = (i: number): number => {
       let c = cover.get(i);
       if (c === undefined) {
         const p = this.passages[i];
         c = 0;
-        for (const t of subjects) {
-          const [card, page] = t;
-          if (p.title === (p.card ? card : page) || (this.called.get(JSON.stringify(t)) ?? []).some((n) => this.wtext[i].includes(n))) c++;
-        }
+        for (const g of groups)
+          if (g.some((t) => p.title === (p.card ? t[0] : t[1]) || (this.called.get(JSON.stringify(t)) ?? []).some((n) => this.wtext[i].includes(n)))) c++;
         cover.set(i, c);
       }
       return c;
     };
     // A known way of asking counts in full only for a passage about the question's subjects: "Who played Batman in
     // The Dark Knight?" is worded almost like "Who played Alfred in The Dark Knight?" but answers something else.
-    match.forEach((sim, i) => bump(i, ASK_WEIGHT * sim * (subjects.length ? ((1 + covers(i)) / (1 + subjects.length)) ** 2 : 1.0)));
+    match.forEach((sim, i) => bump(i, ASK_WEIGHT * sim * (groups.length ? ((1 + covers(i)) / (1 + groups.length)) ** 2 : 1.0)));
     if (subjects.length) { // a passage that is neither about a subject nor mentions one is probably about someone else
       const calls = subjects.flatMap((t) => this.called.get(JSON.stringify(t)) ?? []);
       for (const [i, s] of [...score.entries()]) {
@@ -312,7 +318,7 @@ export class Index {
         if (!calls.some((n) => this.wtext[i].includes(n))) score.set(i, s * OFF_SUBJECT);
       }
     }
-    if (subjects.length > 1) { // a passage about two of the question's subjects is likelier to answer it
+    if (groups.length > 1) { // a passage about two of the question's subjects is likelier to answer it
       for (const [i, s] of [...score.entries()]) {
         const hit = covers(i);
         if (hit > 1) score.set(i, s + BOTH_BOOST * (hit - 1));
