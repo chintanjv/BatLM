@@ -32,4 +32,4 @@ jobs:
         run: python -m batlm.evals --search | head -n 120
       - name: Probe
         continue-on-error: true
-        run: if [ -f .github/probe.py ]; then python .github/probe.py; fi
+        run: if [ -f .github/probe.py ]; then PYTHONPATH=. python .github/probe.py; fi
