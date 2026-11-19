@@ -30,9 +30,10 @@ matrix at 8-bit; the WebGPU file is 591 MB.
 - more teacher data for comparisons, two-part questions and follow-ups;
 - meaning-based (embedding) search.
 
-Kept on purpose: the `try` branch and workflow (see the working rule below), and the Hugging Face repos of the
-other candidates (`BatLM-v3-qwen05`, `-qwen05-8bit`, `-360m`, `-360m-r2`) and of the previous model
-`BatLM-360M`, which can be deleted if no longer wanted.
+Kept on purpose: the `try` branch and workflow (see the working rule below), and the private Hugging Face dataset
+`chintanjv/batlm-data`, which holds the training conversations. On 2026-11-19 the other model repos were deleted at the
+owner's request: `BatLM-360M`, `BatLM-v3-qwen05`, `-qwen05-8bit`, `-360m` and `-360m-r2`. Their reports remain in
+`evals/runs/`.
 
 ## Why v3 exists
 
