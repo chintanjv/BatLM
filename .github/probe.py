@@ -1,12 +1,15 @@
-"""One-off diagnostics for the try branch: the full scoring behind questions that still fail."""
+"""One-off diagnostics for the try branch."""
+import json
 from batlm import rag
-from batlm.agent import plan
 
+chunks = json.loads((rag.ROOT / "data" / "chunks.json").read_text())
+cast = rag.cast_facts(chunks)
+print(len(cast), "cast passages, e.g.:")
+for p in cast[::max(len(cast) // 25, 1)][:25]:
+    print("   ", p["title"], "|", p["text"])
 index = rag.load()
-for q in ["Who played Alfred in The Dark Knight?", "Who played Catwoman in The Dark Knight Rises?", "Who plays the Penguin in The Batman?"]:
-    print("\n=====", q)
-    print("named:", index.mentions(q))
-    for s, p in index.search(q, k=10):
+for q in ["Who played Alfred in The Dark Knight?", "Who played Catwoman in The Dark Knight Rises?", "Who plays the Penguin in The Batman?",
+          "Who played the Riddler in The Batman?", "Who voiced Batman in Batman: The Animated Series?", "Who played Bane in The Dark Knight Rises?"]:
+    print("\\n=====", q)
+    for s, p in index.search(q, k=3):
         print(f"{s:7.2f}  [{p['title']}: {p['section']}] {p['text'][:120]}")
-    alf = [(i, p) for i, p in enumerate(index.passages) if "Caine" in p["text"] and "Dark Knight" in p["title"]]
-    print("passages naming Caine in a Dark Knight page:", [(p["title"], p["section"], p["text"][:80]) for _, p in alf[:4]])

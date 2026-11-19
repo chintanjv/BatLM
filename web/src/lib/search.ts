@@ -303,7 +303,7 @@ export class Index {
     };
     // A known way of asking counts in full only for a passage about the question's subjects: "Who played Batman in
     // The Dark Knight?" is worded almost like "Who played Alfred in The Dark Knight?" but answers something else.
-    match.forEach((sim, i) => bump(i, ASK_WEIGHT * sim * (subjects.length ? (1 + covers(i)) / (1 + subjects.length) : 1.0)));
+    match.forEach((sim, i) => bump(i, ASK_WEIGHT * sim * (subjects.length ? ((1 + covers(i)) / (1 + subjects.length)) ** 2 : 1.0)));
     if (subjects.length) { // a passage that is neither about a subject nor mentions one is probably about someone else
       const calls = subjects.flatMap((t) => this.called.get(JSON.stringify(t)) ?? []);
       for (const [i, s] of [...score.entries()]) {

@@ -276,7 +276,7 @@ class Index:
         # A known way of asking counts in full only for a passage about the question's subjects: "Who played Batman in
         # The Dark Knight?" is worded almost like "Who played Alfred in The Dark Knight?" but answers something else.
         for i, sim in match.items():
-            score[i] += ASK_WEIGHT * sim * ((1 + covers(i)) / (1 + len(subjects)) if subjects else 1.0)
+            score[i] += ASK_WEIGHT * sim * (((1 + covers(i)) / (1 + len(subjects))) ** 2 if subjects else 1.0)
         if subjects:  # a passage that is neither about a subject nor mentions one is probably about someone else
             calls = [n for t in subjects for n in self.called.get(t, ())]
             for i in score:
@@ -316,12 +316,38 @@ class Index:
         return [(s, self.passages[i]) for i, s in sorted(top, key=lambda x: (-x[1], x[0]))]  # best match is read first
 
 
+CAST_LINE = re.compile(r"(?:^|(?<=[.!?]\" )|(?<=[.!?] ))([A-Z][^\s:]*(?: [A-Z][^\s:]*){1,3}) as ([^:]{2,80}?):")
+FIRST_CAST_ID = 2_000_000  # ids of the passages cast_facts makes, clear of every other kind
+
+
+def cast_facts(chunks: list[dict]) -> list[dict]:
+    """One short passage per "Actor as Role:" line of a film's or show's cast list: "Michael Caine played Alfred
+    Pennyworth in The Dark Knight." Inside a long cast passage that line loses to short sentences about other roles."""
+    out, seen = [], set()
+    for c in chunks:
+        sec = c["section"].lower()
+        if "cast" not in sec and sec not in ("starring", "characters", "main characters"):
+            continue
+        work = re.sub(r"\s*\([^)]*\)$", "", c["title"])
+        for actor, role in CAST_LINE.findall(c["text"]):
+            role = role.strip().strip('"')
+            if (actor, role, work) in seen or len(role.split()) > 10:
+                continue
+            seen.add((actor, role, work))
+            parts = [p.strip().strip('"') for p in re.split(r" / | and ", role) if p.strip()]
+            asks = [f"Who played {p} in {work}?" for p in parts] + [f"Who plays {p} in {work}?" for p in parts]
+            out.append({"id": FIRST_CAST_ID + len(out), "title": c["title"], "section": "Cast", "url": c["url"],
+                        "text": f"{actor} played {role} in {work}.", "asks": asks})
+    return out
+
+
 def load() -> Index:
-    """Hand-written fact cards, then the Wikipedia passages, then the teacher-written facts (batlm.facts), if built."""
+    """Hand-written fact cards, the Wikipedia passages, the teacher-written facts (batlm.facts) if built, and a
+    short passage per line of every cast list."""
     from . import cards
     facts = ROOT / "data" / "facts.json"
-    return Index(cards.passages() + json.loads((ROOT / "data" / "chunks.json").read_text())
-                 + (json.loads(facts.read_text()) if facts.exists() else []))
+    chunks = json.loads((ROOT / "data" / "chunks.json").read_text())
+    return Index(cards.passages() + chunks + (json.loads(facts.read_text()) if facts.exists() else []) + cast_facts(chunks))
 
 
 def format_context(hits: list[dict]) -> str:
