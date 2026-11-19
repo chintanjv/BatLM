@@ -18,7 +18,7 @@ export type WorkerOut =
 
 // Dev server: local files (public/models/batlm-360m/). Production builds: the Hugging Face Hub repo.
 // VITE_BATLM_MODEL overrides either, for testing a new fine-tune.
-export const MODEL_ID: string = import.meta.env.VITE_BATLM_MODEL || (import.meta.env.DEV ? "batlm-360m" : "chintanjv/BatLM-360M");
+export const MODEL_ID: string = import.meta.env.VITE_BATLM_MODEL || (import.meta.env.DEV ? "batlm-360m" : "chintanjv/BatLM-v3-qwen05-r2");
 const remote = MODEL_ID.includes("/");
 env.allowLocalModels = !remote;
 env.allowRemoteModels = remote;

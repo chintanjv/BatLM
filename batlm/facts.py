@@ -79,13 +79,14 @@ def accept(item, source: str) -> dict | None:
 
 def pages(limit: int | None = None) -> dict[str, dict]:
     """Display title -> {"text", "url", "words"} for the pages in the corpus (the first `limit`, if given), in corpus
-    order. The full text comes from the download cache, or from Wikipedia for any page not in it."""
+    order. The full text comes from the download cache, the one-file bundle of it, or Wikipedia for any page in neither."""
     chunks = json.loads((ROOT / "data" / "chunks.json").read_text())
     size, url = {}, {}
     for c in chunks:
         size[c["title"]] = size.get(c["title"], 0) + len(c["text"].split())
         url.setdefault(c["title"], c["url"])
-    cached = {}
+    bundle = ROOT / "data" / "pages.json"  # every page's full text in one file, as cloud/pipeline.py ships it
+    cached = json.loads(bundle.read_text()) if bundle.exists() else {}
     for f in sorted(scrape.RAW.glob("*.json")):
         page = json.loads(f.read_text()).get("query", {}).get("pages", [{}])[0]
         if page.get("extract"):
@@ -104,10 +105,10 @@ def pages(limit: int | None = None) -> dict[str, dict]:
 def build(teacher, limit: int | None = None) -> list[dict]:
     jobs = []
     for title, page in pages(limit).items():
-        for w in windows(page["text"], most=min(4, max(1, round(page["words"] / 600)))):
+        for w in windows(page["text"], most=min(3, max(1, round(page["words"] / 600)))):
             jobs.append((title, page["url"], w))
     print(f"{len(jobs)} stretches of text from {len({j[0] for j in jobs})} pages", flush=True)
-    replies = teacher.ask([PROMPT.format(title=t, n=10, text=w) for t, _, w in jobs], max_tokens=1500, temperature=0.2)
+    replies = teacher.ask([PROMPT.format(title=t, n=10, text=w) for t, _, w in jobs], max_tokens=1300, temperature=0.2)
     out, seen, raw = [], set(), 0
     for (title, url, w), reply in zip(jobs, replies):
         items = parse_json(reply)
@@ -119,6 +120,8 @@ def build(teacher, limit: int | None = None) -> list[dict]:
             seen.add(norm(f["text"]))
             out.append({"id": FIRST_ID + len(out), "title": title, "section": "Facts", "url": url, "fact": True, **f})
     print(f"{len(out)} facts kept of {raw} written", flush=True)
+    for f in out[::max(len(out) // 40, 1)][:40]:  # a sample to read in the log
+        print(f"  [{f['title']}] {f['text']}  ASKS {f['asks']} / {f['held']}  KEYS {f['keys']}", flush=True)
     return out
 
 

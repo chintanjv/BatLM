@@ -1,0 +1,35 @@
+# Scratch checks for work in progress, run on pushes to the `try` branch. Every step may fail without failing the
+# run, so experiments never send "run failed" emails; read the results in the log. Changes move to v3 only once
+# they pass here. .github/probe.py, if present, is run last for one-off diagnostics.
+name: try
+on:
+  push:
+    branches: [try]
+permissions:
+  contents: read
+concurrency:
+  group: try
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install
+        run: pip install -q "transformers>=4.44,<5" jinja2 requests pytest
+      - name: Pipeline tests
+        continue-on-error: true
+        run: python -m pytest -q tests 2>&1 | tail -n 60; exit ${PIPESTATUS[0]}
+      - name: Search report
+        continue-on-error: true
+        run: python -m batlm.evals --search | head -n 120
+      - name: Probe
+        continue-on-error: true
+        run: if [ -f .github/probe.py ]; then PYTHONPATH=. python .github/probe.py; fi

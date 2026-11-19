@@ -1,0 +1,12 @@
+{
+ "stage": "train",
+ "action": "start",
+ "name": "360m",
+ "base": "HuggingFaceTB/SmolLM2-360M-Instruct",
+ "epochs": 2,
+ "note": "bake-off candidate",
+ "id": "1794609193",
+ "failed": [
+  "eval-onnx"
+ ]
+}

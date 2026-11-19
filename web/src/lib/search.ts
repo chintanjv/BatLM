@@ -41,6 +41,8 @@ const PAGE_BOOST = 1.5;   // Wikipedia passages from that subject's page
 const LEAD_BOOST = 1.0;   // ...and a little more for the page's opening passage
 const TITLE_BOOST = 10.0; // the opening passage of a page named in the question, when that page has no card
 const OFF_SUBJECT = 0.6;  // a passage that never mentions any subject the question is about keeps this share of its score
+const BOTH_BOOST = 2.0;   // for each further subject of the question a passage is about or mentions
+const RARE = 30;          // a word used in lowercase running text by fewer passages than this is distinctive
 const K1 = 1.5, B = 0.75;
 
 // A question that leans on the previous turn: it uses a pronoun, points back at what was said, or starts mid-thought.
@@ -147,8 +149,29 @@ export class Index {
     for (const p of passages) p.aliases?.forEach((a) => add(a, [p.title, p.page ?? null]));
     const carded = new Set(passages.filter((p) => p.card).map((p) => p.page));
     const noname = new Set(passages.filter((p) => p.name === false).map((p) => p.title));
+    // A page titled with a card's name plus everyday words ("Batman Live", "Batman Family") would swallow ordinary
+    // questions ("where does batman live?"): such a title is a name only if one of its extra words is rare.
+    const lower = new Map<string, number>();
+    for (const p of passages) {
+      if (p.card) continue;
+      for (const w of new Set(p.text.match(/\b[a-z]{3,}\b/g) ?? [])) lower.set(w, (lower.get(w) ?? 0) + 1);
+    }
+    const runs = new Map<string, string[]>();
+    for (const p of passages) for (const a of p.aliases ?? []) { const r = tokens(a); if (r.length) runs.set(r.join(" "), r); }
+    const distinct = (title: string): boolean => {
+      const tw = tokens(title);
+      for (const run of runs.values()) {
+        const n = run.length;
+        for (let s = 0; s + n <= tw.length; s++) {
+          if (tw.length <= n || run.some((w, j) => tw[s + j] !== w)) continue;
+          const extra = [...tw.slice(0, s), ...tw.slice(s + n)].filter((w) => !STOP.has(w) && !(/^[a-z]+$/.test(w) && w.length < 3));
+          if (!extra.some((w) => (lower.get(w) ?? 0) < RARE)) return false;
+        }
+      }
+      return true;
+    };
     for (const title of this.pages.keys()) {
-      if (carded.has(title) || noname.has(title)) continue;
+      if (carded.has(title) || noname.has(title) || !distinct(title)) continue;
       add(title, [null, title]); // a page without a card is still findable by its own title
       const m = title.match(/^(.*?)\s*\((.+)\)$/); // "Batman (1966 film)" is also "the 1966 film Batman"
       if (m) add(`${m[2]} ${m[1]}`, [null, title]);
@@ -211,7 +234,13 @@ export class Index {
 
   /** Subjects named in the query. A longer name hides shorter names inside it. */
   mentions(query: string): Target[] {
-    const q = this.qWords(query), used = new Set<number>(), out: Target[] = [];
+    return this.groups(query).flat();
+  }
+
+  /** The subjects named in the query, one group per name: "the batman" is one name with two readings, Batman and the
+   *  2022 film, and counts as one subject when judging how much of the question a passage covers. */
+  groups(query: string): Target[][] {
+    const q = this.qWords(query), used = new Set<number>(), out: Target[][] = [], seen: Target[] = [];
     for (const [name, targets] of this.names) {
       const n = name.length;
       for (let s = 0; s + n <= q.length; s++) {
@@ -219,7 +248,9 @@ export class Index {
         for (let j = 0; j < n && ok; j++) ok = q[s + j] === name[j] && !used.has(s + j);
         if (!ok) continue;
         for (let j = 0; j < n; j++) used.add(s + j);
-        for (const t of targets) if (!has(out, t)) out.push(t);
+        const g = targets.filter((t) => !has(seen, t));
+        seen.push(...g);
+        if (g.length) out.push(g);
       }
     }
     return out;
@@ -259,9 +290,26 @@ export class Index {
       const sim = shared / (qWeight + extra);
       if (sim > (match.get(i) ?? 0)) match.set(i, sim);
     }
-    match.forEach((sim, i) => bump(i, ASK_WEIGHT * sim));
-    const named = this.mentions(query);
-    const subjects = [...named, ...carried.filter((t) => !has(named, t))];
+    const groups = this.groups(query);
+    const named = groups.flat();
+    groups.push(...carried.filter((t) => !has(named, t)).map((t) => [t]));
+    const subjects = groups.flat();
+    const cover = new Map<number, number>();
+    /** How many of the question's subjects (one per name) passage i is about or mentions. */
+    const covers = (i: number): number => {
+      let c = cover.get(i);
+      if (c === undefined) {
+        const p = this.passages[i];
+        c = 0;
+        for (const g of groups)
+          if (g.some((t) => p.title === (p.card ? t[0] : t[1]) || (this.called.get(JSON.stringify(t)) ?? []).some((n) => this.wtext[i].includes(n)))) c++;
+        cover.set(i, c);
+      }
+      return c;
+    };
+    // A known way of asking counts in full only for a passage about the question's subjects: "Who played Batman in
+    // The Dark Knight?" is worded almost like "Who played Alfred in The Dark Knight?" but answers something else.
+    match.forEach((sim, i) => bump(i, ASK_WEIGHT * sim * (groups.length ? ((1 + covers(i)) / (1 + groups.length)) ** 2 : 1.0)));
     if (subjects.length) { // a passage that is neither about a subject nor mentions one is probably about someone else
       const calls = subjects.flatMap((t) => this.called.get(JSON.stringify(t)) ?? []);
       for (const [i, s] of [...score.entries()]) {
@@ -270,8 +318,15 @@ export class Index {
         if (!calls.some((n) => this.wtext[i].includes(n))) score.set(i, s * OFF_SUBJECT);
       }
     }
-    // What the question names goes first: the best fact about it, or its page's opening passage.
-    // A subject carried over from the previous turn is pinned too, and is always given a place.
+    if (groups.length > 1) { // a passage about two of the question's subjects is likelier to answer it
+      for (const [i, s] of [...score.entries()]) {
+        const hit = covers(i);
+        if (hit > 1) score.set(i, s + BOTH_BOOST * (hit - 1));
+      }
+    }
+    // Two places at most are reserved: the best fact about (or opening passage of) a subject the question names, and
+    // the best about a subject carried over from the previous turn, who is often the "he" or "she" being asked about.
+    // The rest compete on score, so a question naming several subjects still leaves room for the passage that answers it.
     let pinned: number[] = [];
     const late: number[] = [];
     for (const t of subjects) {
@@ -291,9 +346,12 @@ export class Index {
       bump(lead, card !== null ? LEAD_BOOST : TITLE_BOOST);
       if (card === null && !pins.includes(lead)) pins.push(lead);
     }
-    pinned = pinned.slice(0, late.length ? k - 1 : k);
-    const room = Math.min(k - pinned.length, pinned.length ? 1 : k - 1);
-    pinned.push(...late.filter((i) => !pinned.includes(i)).slice(0, Math.max(room, 0)));
+    const best = (pool: number[]): number[] => {
+      let top = -1;
+      for (const i of pool) if (top < 0 || score.get(i)! > score.get(top)! || (score.get(i) === score.get(top) && i < top)) top = i;
+      return top < 0 ? [] : [top];
+    };
+    pinned = [...new Set([...best(pinned), ...best(late)])].slice(0, k);
     const rest = [...score.entries()]
       .filter(([i]) => !pinned.includes(i))
       .sort((a, b) => b[1] - a[1] || a[0] - b[0])

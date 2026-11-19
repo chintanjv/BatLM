@@ -45,6 +45,8 @@ PAGE_BOOST = 1.5   # Wikipedia passages from that subject's page
 LEAD_BOOST = 1.0   # ...and a little more for the page's opening passage
 TITLE_BOOST = 10.0  # the opening passage of a page named in the question, when that page has no card
 OFF_SUBJECT = 0.6  # a passage that never mentions any subject the question is about keeps this share of its score
+BOTH_BOOST = 2.0   # for each further subject of the question a passage is about or mentions ("Paul Dano played the Riddler in The Batman")
+RARE = 30          # a word used in lowercase running text by fewer passages than this is distinctive
 
 # A question that leans on the previous turn: it uses a pronoun, points back at what was said, or starts mid-thought.
 FOLLOW = re.compile(
@@ -142,8 +144,24 @@ class Index:
                     names[tuple(words(a))].append(target)
         carded = {p.get("page") for p in passages if p.get("card")}
         self.noname = {p["title"] for p in passages if p.get("name") is False}  # pages titled with an everyday word
+        # A page titled with a card's name plus everyday words ("Batman Live", "Batman Family") would swallow ordinary
+        # questions ("where does batman live?"): such a title is a name only if one of its extra words is rare.
+        lower = Counter(w for p in passages if not p.get("card") for w in set(re.findall(r"\b[a-z]{3,}\b", p["text"])))
+        runs = {tuple(re.findall(r"[a-z0-9]+", a.lower())) for p in passages for a in p.get("aliases", [])} - {()}
+
+        def distinct(title: str) -> bool:
+            tw = re.findall(r"[a-z0-9]+", title.lower())
+            for run in runs:
+                n = len(run)
+                for s in range(len(tw) - n + 1):
+                    if len(tw) > n and tuple(tw[s:s + n]) == run:
+                        extra = [w for w in tw[:s] + tw[s + n:] if w not in STOP and not (w.isalpha() and len(w) < 3)]
+                        if not any(lower[w] < RARE for w in extra):
+                            return False
+            return True
+
         for title in self.pages:  # a page without a card is still findable by its own title
-            if title not in carded and title not in self.noname:
+            if title not in carded and title not in self.noname and distinct(title):
                 names[tuple(words(title))].append((None, title))
                 if m := re.match(r"^(.*?)\s*\((.+)\)$", title):  # "Batman (1966 film)" is also "the 1966 film Batman"
                     names[tuple(words(f"{m.group(2)} {m.group(1)}"))].append((None, title))
@@ -202,15 +220,21 @@ class Index:
 
     def mentions(self, query: str) -> list[tuple]:
         """Subjects named in the query. A longer name hides shorter names inside it."""
-        q, used, out = self.q_words(query), set(), []
+        return [t for g in self.groups(query) for t in g]
+
+    def groups(self, query: str) -> list[list[tuple]]:
+        """The subjects named in the query, one group per name: "the batman" is one name with two readings, Batman and
+        the 2022 film, and counts as one subject when judging how much of the question a passage covers."""
+        q, used, out, seen = self.q_words(query), set(), [], set()
         for name, targets in self.names:
             n = len(name)
             for s in range(len(q) - n + 1):
                 if tuple(q[s:s + n]) == name and not used & set(range(s, s + n)):
                     used |= set(range(s, s + n))
-                    for t in targets:
-                        if t not in out:
-                            out.append(t)
+                    g = [t for t in targets if t not in seen]
+                    seen.update(g)
+                    if g:
+                        out.append(g)
         return out
 
     def subjects(self, question: str, last: dict | None = None) -> tuple[list, list]:
@@ -241,10 +265,24 @@ class Index:
                 sim = shared / (q_weight + sum(self.ask_idf[w] for w in ask if w not in q))
                 if sim > match.get(i, 0.0):
                     match[i] = sim
+        groups = self.groups(query)
+        named = [t for g in groups for t in g]
+        groups += [[t] for t in (tuple(c) for c in carried) if t not in named]
+        subjects = [t for g in groups for t in g]
+        cover = {}
+
+        def covers(i):
+            """How many of the question's subjects (one per name) passage i is about or mentions."""
+            if i not in cover:
+                p = self.passages[i]
+                cover[i] = sum(any(p["title"] == (card if p.get("card") else page) or any(n in self.wtext[i] for n in self.called.get((card, page), ()))
+                                   for card, page in g) for g in groups)
+            return cover[i]
+
+        # A known way of asking counts in full only for a passage about the question's subjects: "Who played Batman in
+        # The Dark Knight?" is worded almost like "Who played Alfred in The Dark Knight?" but answers something else.
         for i, sim in match.items():
-            score[i] += ASK_WEIGHT * sim
-        named = self.mentions(query)
-        subjects = named + [t for t in (tuple(c) for c in carried) if t not in named]
+            score[i] += ASK_WEIGHT * sim * (((1 + covers(i)) / (1 + len(groups))) ** 2 if groups else 1.0)
         if subjects:  # a passage that is neither about a subject nor mentions one is probably about someone else
             calls = [n for t in subjects for n in self.called.get(t, ())]
             for i in score:
@@ -253,8 +291,14 @@ class Index:
                     continue
                 if not any(n in self.wtext[i] for n in calls):
                     score[i] *= OFF_SUBJECT
-        # What the question names goes first: the best fact about it, or its page's opening passage.
-        # A subject carried over from the previous turn is pinned too, and is always given a place.
+        if len(groups) > 1:  # a passage about two of the question's subjects is likelier to answer it
+            for i in list(score):
+                hit = covers(i)
+                if hit > 1:
+                    score[i] += BOTH_BOOST * (hit - 1)
+        # Two places at most are reserved: the best fact about (or opening passage of) a subject the question names, and
+        # the best about a subject carried over from the previous turn, who is often the "he" or "she" being asked about.
+        # The rest compete on score, so a question naming several subjects still leaves room for the passage that answers it.
         pinned, late = [], []
         for t in subjects:
             card, page = t
@@ -271,20 +315,59 @@ class Index:
                 score[self.lead[page]] += LEAD_BOOST if card is not None else TITLE_BOOST
                 if card is None and self.lead[page] not in pins:
                     pins.append(self.lead[page])
-        pinned = pinned[:k - 1 if late else k]
-        room = min(k - len(pinned), 1 if pinned else k - 1)
-        pinned += [i for i in late if i not in pinned][:max(room, 0)]
+        best = lambda pool: [max(pool, key=lambda i: (score[i], -i))] if pool else []
+        pinned = list(dict.fromkeys(best(pinned) + best(late)))[:k]
         rest = sorted((x for x in score.items() if x[0] not in pinned), key=lambda x: (-x[1], x[0]))[:k - len(pinned)]
         top = [(i, score[i]) for i in pinned] + [x for x in rest if x[1] > 0]
         return [(s, self.passages[i]) for i, s in sorted(top, key=lambda x: (-x[1], x[0]))]  # best match is read first
 
 
+CAST_LINE = re.compile(r"(?:^|(?<=[.!?]\" )|(?<=[.!?] ))([A-Z][^\s:]*(?: [A-Z][^\s:]*){1,3}) as ([^:]{2,80}?):")
+FIRST_CAST_ID = 2_000_000  # ids of the passages cast_facts makes, clear of every other kind
+
+
+CARD_CAST = re.compile(r"([A-Z][\w.'’-]+(?: [A-Z][\w.'’-]+){1,2}) as ((?:the )?[A-Z][\w.'’-]+(?: [A-Z][\w.'’-]+){0,2})(?=,| and |\.| with|$)")
+
+
+def cast_facts(chunks: list[dict], cards: list[dict] = ()) -> list[dict]:
+    """One short passage per "Actor as Role:" line of a film's or show's cast list: "Michael Caine played Alfred
+    Pennyworth in The Dark Knight." Inside a long cast passage that line loses to short sentences about other roles."""
+    out, seen = [], set()
+    for c in chunks:
+        sec = c["section"].lower()
+        if "cast" not in sec and sec not in ("starring", "characters", "main characters"):
+            continue
+        work = re.sub(r"\s*\([^)]*\)$", "", c["title"])
+        for actor, role in CAST_LINE.findall(c["text"]):
+            role = role.strip().strip('"')
+            if (actor, role, work) in seen or len(role.split()) > 10:
+                continue
+            seen.add((actor, role, work))
+            parts = [p.strip().strip('"') for p in re.split(r" / | and ", role) if p.strip()]
+            asks = [f"Who played {p} in {work}?" for p in parts] + [f"Who plays {p} in {work}?" for p in parts]
+            out.append({"id": FIRST_CAST_ID + len(out), "title": c["title"], "section": "Cast", "url": c["url"],
+                        "text": f"{actor} played {role} in {work}.", "asks": asks})
+    # Cast named inside the hand-written film cards: "...starring Robert Pattinson as Batman, with Paul Dano as the Riddler".
+    for c in cards:
+        work = re.sub(r"\s*\([^)]*\)$", "", c.get("page") or c["title"])
+        for actor, role in CARD_CAST.findall(c["text"]):
+            role = role.rstrip(".")
+            if (actor, role, work) in seen or actor in ("DC Comics", work):
+                continue
+            seen.add((actor, role, work))
+            out.append({"id": FIRST_CAST_ID + len(out), "title": c.get("page") or c["title"], "section": "Cast", "url": c.get("url", ""),
+                        "text": f"{actor} played {role} in {work}.", "asks": [f"Who played {role} in {work}?", f"Who plays {role} in {work}?"]})
+    return out
+
+
 def load() -> Index:
-    """Hand-written fact cards, then the Wikipedia passages, then the teacher-written facts (batlm.facts), if built."""
+    """Hand-written fact cards, the Wikipedia passages, the teacher-written facts (batlm.facts) if built, and a
+    short passage per line of every cast list."""
     from . import cards
     facts = ROOT / "data" / "facts.json"
-    return Index(cards.passages() + json.loads((ROOT / "data" / "chunks.json").read_text())
-                 + (json.loads(facts.read_text()) if facts.exists() else []))
+    chunks = json.loads((ROOT / "data" / "chunks.json").read_text())
+    card = cards.passages()
+    return Index(card + chunks + (json.loads(facts.read_text()) if facts.exists() else []) + cast_facts(chunks, card))
 
 
 def format_context(hits: list[dict]) -> str:

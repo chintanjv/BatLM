@@ -47,6 +47,17 @@ def test_training_and_eval_questions_do_not_overlap():
     assert not [q for q in held if q.lower().rstrip("?.") in train]
 
 
+def test_named_subjects_leave_room_for_the_answer():
+    """Questions that failed after the corpus grew: summaries of every subject named filled all the places, or a
+    page title such as "Batman Live" captured an everyday phrase."""
+    for q, key in [("Where does Batman live?", "Wayne Manor"), ("Who played Alfred in The Dark Knight?", "Caine"),
+                   ("Who played Catwoman in The Dark Knight Rises?", "Hathaway"), ("Who plays the Penguin in The Batman?", "Farrell"),
+                   ("Name three Batman villains.", "Joker"), ("Who killed Batman's parents?", "Joe Chill")]:
+        ctx = " ".join(h["text"] for h in plan(INDEX, q).hits)
+        assert key in ctx, (q, titles(q))
+    assert not [t for t in INDEX.mentions("where does batman live") if t[1] == "Batman Live"]
+
+
 def test_typos_still_find_the_subject():
     for typo, right in [("who is the jokar", "who is the joker"), ("who is alferd", "who is alfred"), ("pengiun real name", "penguin real name")]:
         assert INDEX.mentions(typo) and INDEX.mentions(typo) == INDEX.mentions(right), typo

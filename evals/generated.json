@@ -1,0 +1,6022 @@
+[
+ {
+  "id": "gen-18300",
+  "turns": [
+   {
+    "q": "Who is Poison Ivy?",
+    "kind": "lookup",
+    "ref": "Poison Ivy is Dr. Pamela Isley, a botanist who can control plants and whose touch is poisonous. She commits crimes to protect the natural world."
+   },
+   {
+    "q": "is she a character from dc comics?",
+    "kind": "followup",
+    "ref": "Yes, Poison Ivy is a character appearing in American comic books published by DC Comics."
+   },
+   {
+    "q": "is poison ivy a doctor of botany turned misanthropic ecoterrorist?",
+    "kind": "followup",
+    "ref": "Yes, Poison Ivy is depicted as a doctor of botany turned misanthropic ecoterrorist in Gotham City."
+   }
+  ]
+ },
+ {
+  "id": "gen-20460",
+  "turns": [
+   {
+    "q": "I thought Margot Robbie played Catwoman in Suicide Squad.",
+    "kind": "challenge",
+    "ref": "No, Margot Robbie plays Dr. Harleen Quinzel, also known as Harley Quinn, in Suicide Squad."
+   }
+  ]
+ },
+ {
+  "id": "gen-18137",
+  "turns": [
+   {
+    "q": "I thought the Penguin was portrayed by Christopher Lee in the 1960s Batman TV series.",
+    "kind": "challenge",
+    "ref": "No, the Penguin was portrayed by Burgess Meredith in the 1960s Batman television series."
+   }
+  ]
+ },
+ {
+  "id": "gen-1092",
+  "turns": [
+   {
+    "q": "Are you sure Ballistic fought against Solomon Grundy?",
+    "kind": "challenge",
+    "ref": "Yes, Ballistic fought alongside former Blood Pack members against Solomon Grundy during Infinite Crisis."
+   }
+  ]
+ },
+ {
+  "id": "gen-24853",
+  "turns": [
+   {
+    "q": "Which character, Rachel Dawes or Firefly, has origins that do not align with the Batman comics?",
+    "kind": "compare",
+    "ref": "Rachel Dawes has origins that do not align with the Batman comics."
+   }
+  ]
+ },
+ {
+  "id": "gen-7321",
+  "turns": [
+   {
+    "q": "Are you sure Josh Duhamel voices Harvey Dent / Two-Face in this movie?",
+    "kind": "challenge",
+    "ref": "Yes, Josh Duhamel voices Harvey Dent / Two-Face in this movie."
+   }
+  ]
+ },
+ {
+  "id": "gen-23787",
+  "turns": [
+   {
+    "q": "What happened to the documents related to the Apocalypse experiments?",
+    "kind": "lookup",
+    "ref": "Nurse Ellen Doppel stole the documents related to the Apocalypse experiments from Batman."
+   }
+  ]
+ },
+ {
+  "id": "gen-23777",
+  "turns": [
+   {
+    "q": "Who is Wayne of Gotham?",
+    "kind": "lookup",
+    "ref": "Wayne of Gotham is a novel by Tracy Hickman and is about the fictional superhero Batman."
+   },
+   {
+    "q": "What year did Thomas Wayne meet Martha Kane?",
+    "kind": "followup",
+    "ref": "Thomas Wayne met Martha Kane in 1957."
+   }
+  ]
+ },
+ {
+  "id": "gen-9254",
+  "turns": [
+   {
+    "q": "watz wendy harris dad?",
+    "kind": "typo",
+    "ref": "Wendy Harris's dad is Calculator."
+   }
+  ]
+ },
+ {
+  "id": "gen-4078",
+  "turns": [
+   {
+    "q": "Does the graphic novel feature both Batman and Poison Ivy, and who wrote it?",
+    "kind": "multipart",
+    "ref": "Yes, the graphic novel features both Batman and Poison Ivy, and it was written by Ann Nocenti."
+   }
+  ]
+ },
+ {
+  "id": "gen-23788",
+  "turns": [
+   {
+    "q": "Does Wayne of Gotham reveal anything about Batman's childhood fears?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-20550",
+  "turns": [
+   {
+    "q": "Name three heroes featured in the first segment of Super Friends",
+    "kind": "list",
+    "ref": "Superman, Batman, and Aquaman are three heroes featured in the first segment of Super Friends."
+   }
+  ]
+ },
+ {
+  "id": "gen-6986",
+  "turns": [
+   {
+    "q": "Name three actors who starred in Batman: The Dark Knight Returns.",
+    "kind": "list",
+    "ref": "Peter Weller played Bruce Wayne / Batman, David Selby played Commissioner James Gordon, and Michael Emerson voiced The Joker."
+   }
+  ]
+ },
+ {
+  "id": "gen-20507",
+  "turns": [
+   {
+    "q": "Who is Eri Osada?",
+    "kind": "lookup",
+    "ref": "Eri Osada is the director of Suicide Squad Isekai."
+   },
+   {
+    "q": "What's the name of the opening theme song?",
+    "kind": "followup",
+    "ref": "The opening theme song for Suicide Squad Isekai is 'Another World' composed by Tomoyasu Hotei."
+   },
+   {
+    "q": "Is 'Another World' the opening theme song of Suicide Squad Isekai?",
+    "kind": "followup",
+    "ref": "Yes, 'Another World' is the opening theme song of Suicide Squad Isekai."
+   }
+  ]
+ },
+ {
+  "id": "gen-7254",
+  "turns": [
+   {
+    "q": "when did amygdala show up?",
+    "kind": "typo",
+    "ref": "Amygdala showed up in Batman: Shadow of the Bat #1 in June 1992."
+   }
+  ]
+ },
+ {
+  "id": "gen-2915",
+  "turns": [
+   {
+    "q": "name three characters that were involved in the episode",
+    "kind": "list",
+    "ref": "Batman, Robin, and the Joker"
+   }
+  ]
+ },
+ {
+  "id": "gen-25341",
+  "turns": [
+   {
+    "q": "In what ways do the projects 'Batman: The Dark Knight' and 'Batman: Child of Dreams' differ in terms of their publication formats and original languages?",
+    "kind": "compare",
+    "ref": "Batman: The Dark Knight was published as a comic book series starting in September 2011, while Batman: Child of Dreams was originally published in Japan in Kodansha's Magazine Z in its original language, Japanese, and later translated into English."
+   }
+  ]
+ },
+ {
+  "id": "gen-9543",
+  "turns": [
+   {
+    "q": "Who is Catwoman in the film?",
+    "kind": "lookup",
+    "ref": "Michelle Pfeiffer is Catwoman in the film."
+   },
+   {
+    "q": "Does Michelle Pfeiffer play the main character in Catwoman?",
+    "kind": "followup",
+    "ref": "No, Michelle Pfeiffer plays Catwoman, not the main character. The main character is Patience Phillips."
+   },
+   {
+    "q": "Who revived Patience in the movie?",
+    "kind": "followup",
+    "ref": "An Egyptian Mau cat named Midnight revived Patience in the movie."
+   }
+  ]
+ },
+ {
+  "id": "gen-18154",
+  "turns": [
+   {
+    "q": "who is the penguin?",
+    "kind": "lookup",
+    "ref": "The Penguin is Oswald Chesterfield Cobblepot, a supervillain and one of Batman's most enduring enemies."
+   },
+   {
+    "q": "what is his real name?",
+    "kind": "followup",
+    "ref": "His real name is Oswald Chesterfield Cobblepot."
+   },
+   {
+    "q": "what happened to him in infinite crisis?",
+    "kind": "followup",
+    "ref": "The Penguin was involved in the Battle of Metropolis during Infinite Crisis."
+   }
+  ]
+ },
+ {
+  "id": "gen-18131",
+  "turns": [
+   {
+    "q": "What does the Penguin run in Gotham City?",
+    "kind": "lookup",
+    "ref": "The Penguin runs the Iceberg Lounge nightclub in Gotham City."
+   }
+  ]
+ },
+ {
+  "id": "gen-824",
+  "turns": [
+   {
+    "q": "arena of valor similar 2 loL",
+    "kind": "typo",
+    "ref": "Yes, Arena of Valor is highly similar to League of Legends in terms of gameplay."
+   }
+  ]
+ },
+ {
+  "id": "gen-23773",
+  "turns": [
+   {
+    "q": "When was the audiobook of Wayne of Gotham recorded and who wrote the novel?",
+    "kind": "multipart",
+    "ref": "The GraphicAudio audiobook version of 'Wayne of Gotham' was recorded in 2013 and the novel was written by Tracy Hickman."
+   }
+  ]
+ },
+ {
+  "id": "gen-24832",
+  "turns": [
+   {
+    "q": "Which of 'The End Is the Beginning Is the End' winning a Grammy Award and Batman: Curse of the White Knight being published by DC Comics under their Black Label imprint is true?",
+    "kind": "compare",
+    "ref": "'The End Is the Beginning Is the End' won the Grammy Award for Best Hard Rock Performance. Batman: Curse of the White Knight is published by DC Comics under its Black Label imprint."
+   }
+  ]
+ },
+ {
+  "id": "gen-20473",
+  "turns": [
+   {
+    "q": "I thought the film Suicide Squad was released before 2015.",
+    "kind": "challenge",
+    "ref": "No, Suicide Squad is a 2016 American superhero film."
+   }
+  ]
+ },
+ {
+  "id": "gen-11658",
+  "turns": [
+   {
+    "q": "When did Garfield Lynns appear in Batman media and what was his voice actor?",
+    "kind": "multipart",
+    "ref": "Garfield Lynns appeared in The Batman and his voice actor was Jason Marsden. In Batman: Bad Blood, he was voiced by Steve Blum, and in Batman: Arkham Origins, he was voiced by Crispin Freeman."
+   }
+  ]
+ },
+ {
+  "id": "gen-21651",
+  "turns": [
+   {
+    "q": "i thought the movie was filmed entirely in Chicago",
+    "kind": "challenge",
+    "ref": "No, The Dark Knight was filmed in Chicago and Hong Kong."
+   }
+  ]
+ },
+ {
+  "id": "gen-4915",
+  "turns": [
+   {
+    "q": "Who wrote and illustrated 'Batman: Child of Dreams'?",
+    "kind": "lookup",
+    "ref": "Kia Asamiya wrote and illustrated 'Batman: Child of Dreams'."
+   },
+   {
+    "q": "What is the second volume's release date?",
+    "kind": "followup",
+    "ref": "The second volume of Batman: Child of Dreams was released in November 2001."
+   },
+   {
+    "q": "What magazine was 'Batman: Child of Dreams' published in?",
+    "kind": "followup",
+    "ref": "Batman: Child of Dreams was published in Kodansha's Magazine Z."
+   }
+  ]
+ },
+ {
+  "id": "gen-7682",
+  "turns": [
+   {
+    "q": "What was Batman thinking when Red Hood revealed himself as Jason?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-23968",
+  "turns": [
+   {
+    "q": "What distinguishes Miles Scott's experience as Batkid from Damian Wayne's portrayal as the Son of Batman?",
+    "kind": "compare",
+    "ref": "Miles Scott's experience as Batkid was a real-life wish fulfillment event organized by the Make-A-Wish Foundation, while Damian Wayne's portrayal as the Son of Batman is a character in an animated film."
+   }
+  ]
+ },
+ {
+  "id": "gen-4027",
+  "turns": [
+   {
+    "q": "wat year was the comic made",
+    "kind": "typo",
+    "ref": "The comic was made in 1993."
+   }
+  ]
+ },
+ {
+  "id": "gen-1640",
+  "turns": [
+   {
+    "q": "What illness did Miles Scott have?",
+    "kind": "lookup",
+    "ref": "Miles Scott was diagnosed with lymphoblastic leukemia at 18 months old."
+   }
+  ]
+ },
+ {
+  "id": "gen-11659",
+  "turns": [
+   {
+    "q": "Name three appearances of Firefly in Batman animated films.",
+    "kind": "list",
+    "ref": "Firefly appears in The Batman, Batman: Bad Blood, and Only a Dream."
+   }
+  ]
+ },
+ {
+  "id": "gen-9554",
+  "turns": [
+   {
+    "q": "Was Michelle Pfeiffer's performance in Catwoman influenced by her previous role as Catwoman?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-21811",
+  "turns": [
+   {
+    "q": "What is The End Is the Beginning Is the End?",
+    "kind": "lookup",
+    "ref": "'The End Is the Beginning Is the End' is a song by the American alternative rock band the Smashing Pumpkins, released as a single from the Batman & Robin soundtrack in 1997."
+   },
+   {
+    "q": "Was it really a song about Batman from the Batman and Robin soundtrack?",
+    "kind": "followup",
+    "ref": "Yes, 'The End Is the Beginning Is the End' was a song about Batman from the Batman & Robin soundtrack released in 1997."
+   },
+   {
+    "q": "How did it win a Grammy?",
+    "kind": "followup",
+    "ref": "'The End Is the Beginning Is the End' won the Grammy Award for Best Hard Rock Performance."
+   }
+  ]
+ },
+ {
+  "id": "gen-17037",
+  "turns": [
+   {
+    "q": "What was Matt Reeves' favorite movie growing up?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-17931",
+  "turns": [
+   {
+    "q": "did oswald ever tell anyone his middle name?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-6979",
+  "turns": [
+   {
+    "q": "Is Batman: The Dark Knight Returns an adaptation of a comic book?",
+    "kind": "yesno",
+    "ref": "Yes, Batman: The Dark Knight Returns is an adaptation of the 1986 comic book of the same name by Frank Miller."
+   }
+  ]
+ },
+ {
+  "id": "gen-18142",
+  "turns": [
+   {
+    "q": "What's the Penguin's real name?",
+    "kind": "lookup",
+    "ref": "The Penguin's real name is Oswald Chesterfield Cobblepot."
+   }
+  ]
+ },
+ {
+  "id": "gen-15269",
+  "turns": [
+   {
+    "q": "What is 'Lazy Eye'?",
+    "kind": "lookup",
+    "ref": "'Lazy Eye' is a song by the American rock band Goo Goo Dolls, recorded for the soundtrack of the 1997 film Batman & Robin."
+   }
+  ]
+ },
+ {
+  "id": "gen-25749",
+  "turns": [
+   {
+    "q": "Is it true that the Gotham Underground ran for less than a year, similar to how the Penguin was bullied for being short and penguin-like in his youth?",
+    "kind": "compare",
+    "ref": "Yes, Gotham Underground ran from December 2007 to August 2008, which is less than a year, and the Penguin was bullied as a child for his short, penguin-like appearance."
+   }
+  ]
+ },
+ {
+  "id": "gen-21641",
+  "turns": [
+   {
+    "q": "whos the direkter?",
+    "kind": "typo",
+    "ref": "The Dark Knight was directed by Christopher Nolan."
+   }
+  ]
+ },
+ {
+  "id": "gen-1626",
+  "turns": [
+   {
+    "q": "miles scott got the key to san fran, right?",
+    "kind": "typo",
+    "ref": "No, San Francisco Mayor Ed Lee presented the key to the city to Batkid, who is the superhero name of Miles Scott."
+   }
+  ]
+ },
+ {
+  "id": "gen-7680",
+  "turns": [
+   {
+    "q": "name two actors from the voice cast of Batman: Under the Red Hood",
+    "kind": "list",
+    "ref": "Bruce Greenwood and Jensen Ackles are two actors from the voice cast of Batman: Under the Red Hood."
+   }
+  ]
+ },
+ {
+  "id": "gen-9753",
+  "turns": [
+   {
+    "q": "Are you sure Romero wasn't born in the 19th century?",
+    "kind": "challenge",
+    "ref": "No, Romero was born in the 20th century on February 15, 1907."
+   }
+  ]
+ },
+ {
+  "id": "gen-17904",
+  "turns": [
+   {
+    "q": "What's the anglicized version of Cobblepot's last name and what actress played Ivy Pepper in Gotham?",
+    "kind": "multipart",
+    "ref": "The anglicized version of Cobblepot's last name is 'Cobblepot'. Erin Richards played Ivy Pepper in Gotham."
+   }
+  ]
+ },
+ {
+  "id": "gen-6073",
+  "turns": [
+   {
+    "q": "What was the state of the revived series?",
+    "kind": "lookup",
+    "ref": "The revived series was composed of self-contained stories with rotating creative teams."
+   }
+  ]
+ },
+ {
+  "id": "gen-8506",
+  "turns": [
+   {
+    "q": "wAs Elizabth Kanes frst apperance i dc 854?",
+    "kind": "typo",
+    "ref": "Yes, Elizabeth Kane first appeared in Detective Comics #854 in August 2009."
+   }
+  ]
+ },
+ {
+  "id": "gen-17928",
+  "turns": [
+   {
+    "q": "does cobblepot partner with ivy pepper to kill nygma and fight barbara kean? and whats her last name?",
+    "kind": "multipart",
+    "ref": "Yes, Cobblepot partners with Ivy Pepper to kill Nygma and fight Barbara Kean. Her last name is Kean."
+   }
+  ]
+ },
+ {
+  "id": "gen-14677",
+  "turns": [
+   {
+    "q": "what was the reason behind choosing March 1960 for the debut of the Justice League?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-9849",
+  "turns": [
+   {
+    "q": "Are you sure Chip Zdarsky wrote Sex Criminals with Matt Fraction?",
+    "kind": "challenge",
+    "ref": "Yes, Chip Zdarsky created and wrote the comic series 'Sex Criminals' with Matt Fraction."
+   }
+  ]
+ },
+ {
+  "id": "gen-12245",
+  "turns": [
+   {
+    "q": "Name three things associated with Gotham City Garage.",
+    "kind": "list",
+    "ref": "Gotham City Garage is associated with a digital comic series published by DC Comics, a collectibles statue line reimagining DC's female heroes as bikers, and its launch year of 2013."
+   }
+  ]
+ },
+ {
+  "id": "gen-9279",
+  "turns": [
+   {
+    "q": "Name three actors who have voiced Calculator.",
+    "kind": "list",
+    "ref": "Armin Shimerman, John DiMaggio, and Tracy W. Bush have voiced Calculator."
+   }
+  ]
+ },
+ {
+  "id": "gen-16176",
+  "turns": [
+   {
+    "q": "Name three characters associated with the Earth-719 version of the Batman universe",
+    "kind": "list",
+    "ref": "Esperanza Garcia, J.A.K.E. #6.1, and Paul Gambi"
+   }
+  ]
+ },
+ {
+  "id": "gen-9870",
+  "turns": [
+   {
+    "q": "Tell me about Chip Zdarsky's career at National Post.",
+    "kind": "lookup",
+    "ref": "Chip Zdarsky worked at National Post as an illustrator and humorist from 2000 to 2014, and he also wrote and illustrated the 'Extremely Bad Advice' column for the same period."
+   }
+  ]
+ },
+ {
+  "id": "gen-14411",
+  "turns": [
+   {
+    "q": "did Heath Ledger have a pay-or-play deal on The Dark Knight?",
+    "kind": "yesno",
+    "ref": "Yes, Heath Ledger had a 'pay-or-play' deal on The Dark Knight."
+   }
+  ]
+ },
+ {
+  "id": "gen-12235",
+  "turns": [
+   {
+    "q": "What is Gotham City Garage?",
+    "kind": "lookup",
+    "ref": "Gotham City Garage is a digital comic series published by DC Comics, inspired by a DC collectibles statue line reimagining DC's female heroes as bikers."
+   },
+   {
+    "q": "is it based on a collectibles line?",
+    "kind": "followup",
+    "ref": "Yes, Gotham City Garage is based on a DC collectibles statue line that reimagines DC's female heroes as bikers."
+   },
+   {
+    "q": "why was it released as a digital comic series?",
+    "kind": "followup",
+    "ref": "The Gotham City Garage characters were used to form the basis of a new digital comic series in 2017, suggesting it was released to capitalize on the popularity of the collectibles line."
+   }
+  ]
+ },
+ {
+  "id": "gen-6266",
+  "turns": [
+   {
+    "q": "Does Bruce Wayne ever feel guilty about using Bob and his family as bait?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-14651",
+  "turns": [
+   {
+    "q": "what is the name of the editor who asked for the league's reintroduction and what was his role?",
+    "kind": "multipart",
+    "ref": "The editor who asked for the Justice League's reintroduction was Julius Schwartz, and his role was as an editor."
+   }
+  ]
+ },
+ {
+  "id": "gen-1102",
+  "turns": [
+   {
+    "q": "Was Ballistic created by Frank Miller and Jim Lee?",
+    "kind": "yesno",
+    "ref": "No, Doug Moench and Michael Manley created Ballistic."
+   }
+  ]
+ },
+ {
+  "id": "gen-10880",
+  "turns": [
+   {
+    "q": "deadshot killd a senetor publicy at lincoln memorial?",
+    "kind": "typo",
+    "ref": "Yes, Deadshot publicly kills a US senator at the Lincoln Memorial."
+   }
+  ]
+ },
+ {
+  "id": "gen-18308",
+  "turns": [
+   {
+    "q": "Does Poison Ivy have any famous comic book series and when was her first one released?",
+    "kind": "multipart",
+    "ref": "Yes, Poison Ivy starred in her first solo comic book series with the 2016 miniseries Poison Ivy: Cycle of Life and Death."
+   }
+  ]
+ },
+ {
+  "id": "gen-4541",
+  "turns": [
+   {
+    "q": "Isn't Matches Malone a character from Gotham City?",
+    "kind": "challenge",
+    "ref": "Yes, Matches Malone is a character from Gotham City, as seen when Batman assumes this identity."
+   }
+  ]
+ },
+ {
+  "id": "gen-4091",
+  "turns": [
+   {
+    "q": "Did Poison Ivy's plant in 'Batman/Poison Ivy: Cast Shadows' produce enough energy to power a city?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-14405",
+  "turns": [
+   {
+    "q": "how long did Ledger seclude himself to prep and who directed the film?",
+    "kind": "multipart",
+    "ref": "Heath Ledger spent six weeks secluding himself to prepare for the role of the Joker, and Christopher Nolan directed the film."
+   }
+  ]
+ },
+ {
+  "id": "gen-22674",
+  "turns": [
+   {
+    "q": "What's the name of the actor playing Bloodsport and what's his character's real name?",
+    "kind": "multipart",
+    "ref": "The actor playing Bloodsport is Idris Elba and his character's real name is Robert DuBois."
+   }
+  ]
+ },
+ {
+  "id": "gen-860",
+  "turns": [
+   {
+    "q": "What were the personal motivations behind Falcone and Mayor James backing the Arkham Plan?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-10882",
+  "turns": [
+   {
+    "q": "can you name three key facts about deadshot?",
+    "kind": "list",
+    "ref": "Deadshot is considered the greatest marksman and one of the deadliest assassins in the DC Universe. He was originally intended to be a one-off villain for Batman. Deadshot has a tendency towards a 'death wish' which contributed to his selection for the Suicide Squad."
+   }
+  ]
+ },
+ {
+  "id": "gen-12247",
+  "turns": [
+   {
+    "q": "Tell me about Gotham City Garage",
+    "kind": "lookup",
+    "ref": "Gotham City Garage is a digital comic series published by DC Comics, inspired by a collectibles statue line that reimagines DC's female heroes as bikers. The characters were used to form the basis of this new digital comic series in 2017, following the launch of the collectibles in 2013."
+   },
+   {
+    "q": "when did the digital comic series start?",
+    "kind": "followup",
+    "ref": "The digital comic series started in 2017."
+   },
+   {
+    "q": "what inspired the comic series?",
+    "kind": "followup",
+    "ref": "The Gotham City Garage comic series was inspired by a DC collectibles statue line that reimagines DC's female heroes as bikers."
+   }
+  ]
+ },
+ {
+  "id": "gen-9856",
+  "turns": [
+   {
+    "q": "What was Chip Zdarsky thinking when he decided to use a pseudonym?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-5118",
+  "turns": [
+   {
+    "q": "Does Sal Maroni fund Hugo Strange's project at Arkham Asylum?",
+    "kind": "lookup",
+    "ref": "Yes, Sal Maroni funds Hugo Strange's project on Arkham Asylum's patients."
+   },
+   {
+    "q": "And where was Julie Madison introduced as a law student?",
+    "kind": "followup",
+    "ref": "Julie Madison is introduced as a law student in Batman and the Monster Men."
+   }
+  ]
+ },
+ {
+  "id": "gen-17405",
+  "turns": [
+   {
+    "q": "i thought Mr. Freeze opened in 1996",
+    "kind": "challenge",
+    "ref": "No, Mr. Freeze was planned to open in May 1997 to coincide with the release of Batman & Robin."
+   }
+  ]
+ },
+ {
+  "id": "gen-9761",
+  "turns": [
+   {
+    "q": "Who is Cesar Romero?",
+    "kind": "lookup",
+    "ref": "César Julio Romero Jr. was an American actor whose career spanned over 6 decades, playing roles such as Antonio Galvan in The Devil is a Woman and Sinjin in Ocean's 11 (1960), among others."
+   },
+   {
+    "q": "What play did Romero star in on Broadway?",
+    "kind": "followup",
+    "ref": "Romero made his Broadway debut in 1932 as Ricci in the play Dinner at Eight."
+   },
+   {
+    "q": "What was Romero's role in Ocean's 11?",
+    "kind": "followup",
+    "ref": "Romero played a minor role as Sinjin in Ocean's 11 (1960)."
+   }
+  ]
+ },
+ {
+  "id": "gen-3449",
+  "turns": [
+   {
+    "q": "What are the names of the composers for Batman and Harley Quinn and who directed it?",
+    "kind": "multipart",
+    "ref": "The composers for Batman and Harley Quinn are Michael McCuistion, Kristopher Carter, and Lolita Ritmanis, and Sam Liu directed the film."
+   }
+  ]
+ },
+ {
+  "id": "gen-22199",
+  "turns": [
+   {
+    "q": "did they include any jokes about lego in the lego batman movie?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-5126",
+  "turns": [
+   {
+    "q": "How is Julie Madison related to Batman: Dark Moon Rising?",
+    "kind": "lookup",
+    "ref": "Julie Madison is introduced as a law student in Batman and the Monster Men, which is the first part of Batman: Dark Moon Rising."
+   }
+  ]
+ },
+ {
+  "id": "gen-21626",
+  "turns": [
+   {
+    "q": "Is Heath Ledger the actor who plays the Joker in The Dark Knight?",
+    "kind": "yesno",
+    "ref": "Yes, Heath Ledger is the actor who plays the Joker in The Dark Knight."
+   }
+  ]
+ },
+ {
+  "id": "gen-14398",
+  "turns": [
+   {
+    "q": "Tell me about Heath Ledger's Joker",
+    "kind": "lookup",
+    "ref": "Heath Ledger prepared for the role of the Joker by secluding himself in a London hotel room for six weeks, applied his makeup by making special facial expressions, and created a character diary with photos, news clippings, and handwritten thoughts. He portrayed the Joker as a psychopathic anarchist mastermind in The Dark Knight."
+   },
+   {
+    "q": "what other actors were considered for the role of the Joker before Heath Ledger?",
+    "kind": "followup",
+    "ref": "Joaquin Phoenix and Leonardo DiCaprio were offered the role of the Joker before Heath Ledger."
+   },
+   {
+    "q": "what was the significance of Heath Ledger's preparation for the role?",
+    "kind": "followup",
+    "ref": "Heath Ledger's preparation for the role of the Joker was significant because it involved immersive methods such as secluding himself in a hotel room and creating a detailed character diary to fully embody the psychopathic anarchist mastermind."
+   }
+  ]
+ },
+ {
+  "id": "gen-20560",
+  "turns": [
+   {
+    "q": "Is Super Friends an American animated TV series?",
+    "kind": "yesno",
+    "ref": "Yes, Super Friends is an American animated television series about a team of superheroes which ran from 1973 to 1985 on ABC."
+   }
+  ]
+ },
+ {
+  "id": "gen-19109",
+  "turns": [
+   {
+    "q": "What personal reasons might have influenced Dick's decision to stay indefinitely at Wayne Manor?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-11662",
+  "turns": [
+   {
+    "q": "Tell me about Firefly's appearances in Batman media.",
+    "kind": "lookup",
+    "ref": "Firefly appears in The Batman, voiced by Jason Marsden, and in Batman: Arkham Origins, voiced by Crispin Freeman. He also appears in Batman: Bad Blood, where he is voiced by Steve Blum."
+   },
+   {
+    "q": "Which character was created by James Robinson and Stephen Segovia?",
+    "kind": "followup",
+    "ref": "Bridgit Pike, who adopted the identity of Lady Firefly, was created by James Robinson and Stephen Segovia."
+   },
+   {
+    "q": "Who voices Firefly in Batman: Arkham Origins?",
+    "kind": "followup",
+    "ref": "Crispin Freeman voices Firefly in Batman: Arkham Origins."
+   }
+  ]
+ },
+ {
+  "id": "gen-4087",
+  "turns": [
+   {
+    "q": "whos dr wood?",
+    "kind": "typo",
+    "ref": "Dr. Wood is Poison Ivy's assigned psychiatrist."
+   }
+  ]
+ },
+ {
+  "id": "gen-809",
+  "turns": [
+   {
+    "q": "aren't there less than 50 heroes in arena of valor?",
+    "kind": "challenge",
+    "ref": "No, there are more than 100 heroes in Arena of Valor."
+   }
+  ]
+ },
+ {
+  "id": "gen-7483",
+  "turns": [
+   {
+    "q": "I thought Batman: The Ultimate Evil was set in Gotham City.",
+    "kind": "challenge",
+    "ref": "No, Batman: The Ultimate Evil is not set in Gotham City; it explores the topic of child sex tourism and features a child sex tourism syndicate in Udon Khai."
+   }
+  ]
+ },
+ {
+  "id": "gen-25893",
+  "turns": [
+   {
+    "q": "Which character, Dick Grayson or Garn Daanuth, has been involved in regaining magical powers within the DC Comics universe?",
+    "kind": "compare",
+    "ref": "Garn Daanuth has regained his magical powers within the DC Comics universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-23574",
+  "turns": [
+   {
+    "q": "when did vicki vale become a main character and when did she stop being one",
+    "kind": "multipart",
+    "ref": "Vicki Vale became a main character when she first appeared in Batman #49 in 1948 and stopped being one in Detective #320 in October 1963."
+   }
+  ]
+ },
+ {
+  "id": "gen-4937",
+  "turns": [
+   {
+    "q": "who wrote Batman: Child of Dreams?",
+    "kind": "lookup",
+    "ref": "Kia Asamiya wrote and illustrated Batman: Child of Dreams."
+   },
+   {
+    "q": "did Kia Asamiya also illustrate it?",
+    "kind": "followup",
+    "ref": "Yes, Kia Asamiya wrote and illustrated Batman: Child of Dreams."
+   },
+   {
+    "q": "is it a manga series?",
+    "kind": "followup",
+    "ref": "Yes, Batman: Child of Dreams is a manga series."
+   }
+  ]
+ },
+ {
+  "id": "gen-21646",
+  "turns": [
+   {
+    "q": "Who is the director of The Dark Knight?",
+    "kind": "lookup",
+    "ref": "Christopher Nolan is the director of The Dark Knight."
+   },
+   {
+    "q": "Is The Dark Knight a sequel to Batman Begins?",
+    "kind": "followup",
+    "ref": "Yes, The Dark Knight is the sequel to Batman Begins (2005)."
+   },
+   {
+    "q": "Which actor plays the news reporter Mike Engel in The Dark Knight?",
+    "kind": "followup",
+    "ref": "Anthony Michael Hall plays the news reporter Mike Engel in The Dark Knight."
+   }
+  ]
+ },
+ {
+  "id": "gen-22192",
+  "turns": [
+   {
+    "q": "Are you sure Will Arnett plays both Bruce Wayne and Batman?",
+    "kind": "challenge",
+    "ref": "Yes, Will Arnett plays both Bruce Wayne and Batman."
+   }
+  ]
+ },
+ {
+  "id": "gen-4932",
+  "turns": [
+   {
+    "q": "wat ws the frst volume release date",
+    "kind": "typo",
+    "ref": "The first volume of Batman: Child of Dreams was released in November 2000."
+   }
+  ]
+ },
+ {
+  "id": "gen-7692",
+  "turns": [
+   {
+    "q": "Name three characters featured in Batman: Under the Red Hood.",
+    "kind": "list",
+    "ref": "Batman, Red Hood, and The Joker"
+   }
+  ]
+ },
+ {
+  "id": "gen-7675",
+  "turns": [
+   {
+    "q": "Are you sure the Joker was returned to Arkham Asylum at the end of the film?",
+    "kind": "challenge",
+    "ref": "Yes, the Joker is returned to Arkham Asylum after the events of the film."
+   }
+  ]
+ },
+ {
+  "id": "gen-20479",
+  "turns": [
+   {
+    "q": "Is Viola Davis the actress who plays Amanda Waller in Suicide Squad?",
+    "kind": "yesno",
+    "ref": "Yes, Viola Davis plays Amanda Waller in Suicide Squad."
+   }
+  ]
+ },
+ {
+  "id": "gen-9762",
+  "turns": [
+   {
+    "q": "Who is Cesar Romero?",
+    "kind": "lookup",
+    "ref": "César Julio Romero Jr. was an American actor whose career spanned over 6 decades, playing roles such as Antonio Galvan in The Devil is a Woman and Sinjin in Ocean's 11 (1960), among others."
+   },
+   {
+    "q": "What year was Romero born?",
+    "kind": "followup",
+    "ref": "César Julio Romero Jr. was born in 1907."
+   }
+  ]
+ },
+ {
+  "id": "gen-18126",
+  "turns": [
+   {
+    "q": "I thought the Penguin was originally created for the movie Batman instead of a comic book.",
+    "kind": "challenge",
+    "ref": "No, the Penguin was created for the comic book and first appeared in Detective Comics #58 (December 1941)."
+   }
+  ]
+ },
+ {
+  "id": "gen-18299",
+  "turns": [
+   {
+    "q": "What was Poison Ivy's favorite plant species before becoming a villain?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-15258",
+  "turns": [
+   {
+    "q": "is 'lazy eye' part of the batman and robin soundtrack?",
+    "kind": "yesno",
+    "ref": "Yes, 'Lazy Eye' was recorded for the Batman & Robin soundtrack."
+   }
+  ]
+ },
+ {
+  "id": "gen-4584",
+  "turns": [
+   {
+    "q": "Is Kevin Conroy known for voicing the Joker in Batman: Arkham VR?",
+    "kind": "yesno",
+    "ref": "No, Mark Hamill is known for voicing the Joker in Batman: Arkham VR, not Kevin Conroy."
+   }
+  ]
+ },
+ {
+  "id": "gen-19591",
+  "turns": [
+   {
+    "q": "whats the connection between batman and maxwell?",
+    "kind": "typo",
+    "ref": "Batman helps Maxwell and Lily find the scattered starites."
+   }
+  ]
+ },
+ {
+  "id": "gen-5108",
+  "turns": [
+   {
+    "q": "Batman: Dark Moon Rising",
+    "kind": "lookup",
+    "ref": "Batman: Dark Moon Rising is a two-part comic book series written by Matt Wagner about the superhero Batman."
+   },
+   {
+    "q": "Is Hugo Strange involved in a project on Arkham Asylum's patients?",
+    "kind": "followup",
+    "ref": "Yes, Sal Maroni funds Hugo Strange's project on Arkham Asylum's patients."
+   },
+   {
+    "q": "Are you sure Julie Madison is a law student?",
+    "kind": "followup",
+    "ref": "Yes, Julie Madison is introduced as a law student in Batman and the Monster Men."
+   }
+  ]
+ },
+ {
+  "id": "gen-9757",
+  "turns": [
+   {
+    "q": "When did Romero make his Broadway debut and in what play?",
+    "kind": "multipart",
+    "ref": "Romero made his Broadway debut in 1932 as Ricci in the play Dinner at Eight."
+   }
+  ]
+ },
+ {
+  "id": "gen-3451",
+  "turns": [
+   {
+    "q": "When did the miniseries titled Batman and Harley Quinn come out?",
+    "kind": "lookup",
+    "ref": "The seven-issue miniseries titled Batman and Harley Quinn was released on October 23."
+   }
+  ]
+ },
+ {
+  "id": "gen-845",
+  "turns": [
+   {
+    "q": "whos dey backin teh arkham plon?",
+    "kind": "typo",
+    "ref": "Falcone and Mayor James are backing the Arkham Plan."
+   }
+  ]
+ },
+ {
+  "id": "gen-20511",
+  "turns": [
+   {
+    "q": "Are you sure Kenichiro Suehiro composed the music for Suicide Squad Isekai?",
+    "kind": "challenge",
+    "ref": "Yes, Kenichiro Suehiro composed the music for Suicide Squad Isekai."
+   }
+  ]
+ },
+ {
+  "id": "gen-4540",
+  "turns": [
+   {
+    "q": "Are you sure Arnold Wesker is a patient in Arkham Asylum?",
+    "kind": "challenge",
+    "ref": "Yes, Arnold Wesker is a patient in the Arkham Asylum."
+   }
+  ]
+ },
+ {
+  "id": "gen-6246",
+  "turns": [
+   {
+    "q": "Is Batman: Noël written and illustrated by Todd McFarlane?",
+    "kind": "yesno",
+    "ref": "No, Batman: Noël is written and illustrated by Lee Bermejo."
+   }
+  ]
+ },
+ {
+  "id": "gen-17912",
+  "turns": [
+   {
+    "q": "Are you sure The Penguin is introduced in Gotham's first season?",
+    "kind": "challenge",
+    "ref": "Yes, Oswald Cobblepot is introduced in the first season of Gotham."
+   }
+  ]
+ },
+ {
+  "id": "gen-6083",
+  "turns": [
+   {
+    "q": "When did the original series start and when did it end?",
+    "kind": "multipart",
+    "ref": "The original series of Batman: Legends of the Dark Knight started in 1989 and ended with issue #214 in March 2007."
+   }
+  ]
+ },
+ {
+  "id": "gen-23586",
+  "turns": [
+   {
+    "q": "How many times has Vicki Vale appeared in Batman films and what is her most notable role?",
+    "kind": "multipart",
+    "ref": "Vicki Vale has appeared in three Batman films: Batman and Robin (1949), Batman (1989), and The Batman vs. Dracula. Her most notable role is in Batman (1989), portrayed by Kim Basinger."
+   }
+  ]
+ },
+ {
+  "id": "gen-7317",
+  "turns": [
+   {
+    "q": "Batman: The Long Halloween",
+    "kind": "lookup",
+    "ref": "Batman: The Long Halloween is a 2021 American two-part animated direct-to-video superhero film produced by Warner Bros."
+   },
+   {
+    "q": "is it a two-part animated film?",
+    "kind": "followup",
+    "ref": "Yes, Batman: The Long Halloween is a 2021 American two-part animated direct-to-video superhero film."
+   },
+   {
+    "q": "did it come out in 2021?",
+    "kind": "followup",
+    "ref": "Yes, Batman: The Long Halloween came out in 2021."
+   }
+  ]
+ },
+ {
+  "id": "gen-9760",
+  "turns": [
+   {
+    "q": "Did Cesar Romero have any nicknames during his time in the Coast Guard?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-20570",
+  "turns": [
+   {
+    "q": "who is super friends?",
+    "kind": "lookup",
+    "ref": "Super Friends is an American animated television series about a team of superheroes which ran from 1973 to 1985 on ABC as part of its Saturday-morning cartoon lineup."
+   },
+   {
+    "q": "what network did it run on?",
+    "kind": "followup",
+    "ref": "Super Friends ran on ABC."
+   },
+   {
+    "q": "were there any sidekicks featured?",
+    "kind": "followup",
+    "ref": "Yes, Super Friends introduced a trio of sidekicks: Wendy, Marvin, and Wonder Dog."
+   }
+  ]
+ },
+ {
+  "id": "gen-5114",
+  "turns": [
+   {
+    "q": "julie madison joins un peace corps afta her dads death",
+    "kind": "typo",
+    "ref": "Yes, Julie Madison joins the UN Peace Corps after her father's death."
+   }
+  ]
+ },
+ {
+  "id": "gen-18311",
+  "turns": [
+   {
+    "q": "What was Poison Ivy thinking when she decided to live on a desert island?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-22181",
+  "turns": [
+   {
+    "q": "really, zoë kravitz voiced catwoman?",
+    "kind": "challenge",
+    "ref": "Yes, Zoë Kravitz voices Catwoman in The Lego Batman Movie."
+   }
+  ]
+ },
+ {
+  "id": "gen-7315",
+  "turns": [
+   {
+    "q": "How does Scarecrow escape from Arkham Asylum in the film?",
+    "kind": "lookup",
+    "ref": "Scarecrow escapes from Arkham Asylum and injects Batman with fear toxin."
+   }
+  ]
+ },
+ {
+  "id": "gen-1623",
+  "turns": [
+   {
+    "q": "Are you sure that the key to the city was given to Miles Scott?",
+    "kind": "challenge",
+    "ref": "No, the key to the city was presented to Batkid, which is Miles Scott's superhero name."
+   }
+  ]
+ },
+ {
+  "id": "gen-9756",
+  "turns": [
+   {
+    "q": "whats his relation to emerson romer",
+    "kind": "typo",
+    "ref": "César Julio Romero Jr. was a first cousin of Emerson Romero."
+   }
+  ]
+ },
+ {
+  "id": "gen-9854",
+  "turns": [
+   {
+    "q": "Name three roles Chip Zdarsky had before writing Batman comics.",
+    "kind": "list",
+    "ref": "Chip Zdarsky worked as an illustrator and humorist for National Post from 2000 to 2014, wrote and illustrated the 'Extremely Bad Advice' column for National Post from 2008 to 2014, and created and wrote the comic series 'Sex Criminals' with Matt Fraction."
+   }
+  ]
+ },
+ {
+  "id": "gen-4586",
+  "turns": [
+   {
+    "q": "I thought Mark Hamill voiced Batman in Batman: Arkham VR.",
+    "kind": "challenge",
+    "ref": "No, Kevin Conroy voices Batman in Batman: Arkham VR."
+   }
+  ]
+ },
+ {
+  "id": "gen-19594",
+  "turns": [
+   {
+    "q": "Who gives Maxwell the first starite?",
+    "kind": "lookup",
+    "ref": "Commissioner James Gordon gives the first starite to Maxwell."
+   }
+  ]
+ },
+ {
+  "id": "gen-17046",
+  "turns": [
+   {
+    "q": "name three films matt reeves has directed",
+    "kind": "list",
+    "ref": "Matt Reeves has directed the following films: Dawn of the Planet of the Apes (2014), Let Me In, and The Batman (2022)."
+   }
+  ]
+ },
+ {
+  "id": "gen-19585",
+  "turns": [
+   {
+    "q": "Tell me about Scribblenauts Unmasked",
+    "kind": "lookup",
+    "ref": "Scribblenauts Unmasked: A DC Comics Adventure is a 2013 puzzle sandbox video game developed by 5th Cell and published by Warner Bros."
+   },
+   {
+    "q": "What locations does Maxwell visit in the game?",
+    "kind": "followup",
+    "ref": "Maxwell visits various locations including Gotham City, Metropolis, Oa, and Themyscira."
+   },
+   {
+    "q": "Who steals the globe from Lily?",
+    "kind": "followup",
+    "ref": "Brainiac steals Lily's globe."
+   }
+  ]
+ },
+ {
+  "id": "gen-9271",
+  "turns": [
+   {
+    "q": "Tell me about Calculator.",
+    "kind": "lookup",
+    "ref": "Calculator is a supervillain who appears in DC Comics and has been voiced by several actors including Jason Spisak in Batman: Bad Blood, Tom Amandes in Arrow, and Armin Shimerman in Batman: The Brave and the Bold."
+   },
+   {
+    "q": "who created him?",
+    "kind": "followup",
+    "ref": "Calculator was created by Bob Rozakis and Mike Grell."
+   },
+   {
+    "q": "who voiced him in Batman: Bad Blood?",
+    "kind": "followup",
+    "ref": "Jason Spisak voiced Calculator in Batman: Bad Blood."
+   }
+  ]
+ },
+ {
+  "id": "gen-1630",
+  "turns": [
+   {
+    "q": "Who is Batkid?",
+    "kind": "lookup",
+    "ref": "Batkid is the superhero name of Miles Scott, an American child and cancer survivor."
+   },
+   {
+    "q": "is he the superhero name for Miles Scott?",
+    "kind": "followup",
+    "ref": "Yes, Batkid is the superhero name for Miles Scott."
+   }
+  ]
+ },
+ {
+  "id": "gen-15271",
+  "turns": [
+   {
+    "q": "Is 'Lazy Eye' a single released before 'Iris'?",
+    "kind": "yesno",
+    "ref": "No, 'Lazy Eye' became a B-side track after 'Iris' was released."
+   }
+  ]
+ },
+ {
+  "id": "gen-6966",
+  "turns": [
+   {
+    "q": "Did any character mention their age during the movie?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-15264",
+  "turns": [
+   {
+    "q": "did 'lazy eye' appear in the batman and robin soundtrack and the city of angels soundtrack?",
+    "kind": "multipart",
+    "ref": "Yes, 'Lazy Eye' appeared in both the Batman & Robin soundtrack and the City of Angels soundtrack."
+   }
+  ]
+ },
+ {
+  "id": "gen-15279",
+  "turns": [
+   {
+    "q": "What is 'Lazy Eye' by Goo Goo Dolls?",
+    "kind": "lookup",
+    "ref": "'Lazy Eye' is a song by American rock band Goo Goo Dolls, recorded for the soundtrack of the 1997 film Batman & Robin."
+   },
+   {
+    "q": "Was it only released in a promotional format?",
+    "kind": "followup",
+    "ref": "No, 'Lazy Eye' was initially released only in a promotional format, but it later became a B-side track after 'Iris' was released."
+   }
+  ]
+ },
+ {
+  "id": "gen-6969",
+  "turns": [
+   {
+    "q": "Is Batman: The Dark Knight Returns based on a comic book?",
+    "kind": "yesno",
+    "ref": "Yes, Batman: The Dark Knight Returns is based on the 1986 comic book of the same name by Frank Miller."
+   }
+  ]
+ },
+ {
+  "id": "gen-21647",
+  "turns": [
+   {
+    "q": "What is the role of William Fichtner in The Dark Knight?",
+    "kind": "lookup",
+    "ref": "William Fichtner plays a bank manager in The Dark Knight."
+   },
+   {
+    "q": "Was The Dark Knight filmed in more than one country?",
+    "kind": "followup",
+    "ref": "Yes, The Dark Knight was filmed in Chicago and Hong Kong."
+   }
+  ]
+ },
+ {
+  "id": "gen-12933",
+  "turns": [
+   {
+    "q": "wat iz de date range fo publikashn",
+    "kind": "typo",
+    "ref": "The publication date range is from October 2017 to March 2018."
+   }
+  ]
+ },
+ {
+  "id": "gen-14412",
+  "turns": [
+   {
+    "q": "did Joaquin Phoenix accept the role of the Joker?",
+    "kind": "yesno",
+    "ref": "No, Joaquin Phoenix turned it down as he 'wasn't ready then'."
+   }
+  ]
+ },
+ {
+  "id": "gen-4923",
+  "turns": [
+   {
+    "q": "When was the first volume of Batman: Child of Dreams released and what is the softcover ISBN?",
+    "kind": "multipart",
+    "ref": "The first volume of Batman: Child of Dreams was released in November 2000 and the softcover ISBN is 1-56389-907-8."
+   }
+  ]
+ },
+ {
+  "id": "gen-4912",
+  "turns": [
+   {
+    "q": "Name two people involved in 'Batman: Child of Dreams'",
+    "kind": "list",
+    "ref": "Kia Asamiya and Max Allan Collins"
+   }
+  ]
+ },
+ {
+  "id": "gen-5109",
+  "turns": [
+   {
+    "q": "Batman: Dark Moon Rising",
+    "kind": "lookup",
+    "ref": "Batman: Dark Moon Rising is a two-part comic book series written by Matt Wagner about the superhero Batman."
+   },
+   {
+    "q": "Who funds Hugo Strange's project on Arkham Asylum's patients?",
+    "kind": "followup",
+    "ref": "Sal Maroni funds Hugo Strange's project on Arkham Asylum's patients."
+   }
+  ]
+ },
+ {
+  "id": "gen-7467",
+  "turns": [
+   {
+    "q": "Tell me about Batman: The Ultimate Evil",
+    "kind": "lookup",
+    "ref": "Batman: The Ultimate Evil is a novel written by Andrew Vachss and published in 1995."
+   },
+   {
+    "q": "Who approached Andrew Vachss for the novel?",
+    "kind": "followup",
+    "ref": "Steve Korte of DC Comics' book division approached Andrew Vachss for the novel."
+   },
+   {
+    "q": "Wasn't it about child abuse cases?",
+    "kind": "followup",
+    "ref": "Yes, Andrew Vachss was an attorney specializing in child abuse cases and he wrote crime novels."
+   }
+  ]
+ },
+ {
+  "id": "gen-11638",
+  "turns": [
+   {
+    "q": "Who is Firefly?",
+    "kind": "lookup",
+    "ref": "Firefly is the alias of several supervillains appearing in American comic books published by DC Comics."
+   },
+   {
+    "q": "Is he the alias of several villains?",
+    "kind": "followup",
+    "ref": "Yes, Firefly is the alias of several supervillains."
+   },
+   {
+    "q": "Are you sure it's not just one villain?",
+    "kind": "followup",
+    "ref": "Yes, Firefly is the alias of several supervillains."
+   }
+  ]
+ },
+ {
+  "id": "gen-18143",
+  "turns": [
+   {
+    "q": "what kind of ice cream does the penguin like best?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-17901",
+  "turns": [
+   {
+    "q": "I thought The Penguin's mother was named Mary Kapelput.",
+    "kind": "challenge",
+    "ref": "No, Oswald Cobblepot's mother is named Gertrud Kapelput."
+   }
+  ]
+ },
+ {
+  "id": "gen-25283",
+  "turns": [
+   {
+    "q": "How does Arena of Valor differ from The Spectre in terms of their nature as a game versus a DC Comics character?",
+    "kind": "compare",
+    "ref": "Arena of Valor is a multiplayer online battle arena game, while The Spectre is a DC Comics character who is a divine embodiment of divine wrath."
+   }
+  ]
+ },
+ {
+  "id": "gen-23601",
+  "turns": [
+   {
+    "q": "what were vicki vale's thoughts when she claimed to discover batman's identity?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-7464",
+  "turns": [
+   {
+    "q": "Did David Hechler write an essay on child sex tourism? and what was the title?",
+    "kind": "multipart",
+    "ref": "Yes, David Hechler wrote an essay on child sex tourism entitled 'Child Sex Tourism'."
+   }
+  ]
+ },
+ {
+  "id": "gen-6084",
+  "turns": [
+   {
+    "q": "Name three villains mentioned in the series",
+    "kind": "list",
+    "ref": "Hugo Strange, Pamela Isley, and Mr. Whisper."
+   }
+  ]
+ },
+ {
+  "id": "gen-4929",
+  "turns": [
+   {
+    "q": "are you certain the English translation of Batman: Child of Dreams was released in 2003?",
+    "kind": "challenge",
+    "ref": "Yes, the English-language version of Batman: Child of Dreams was released in 2003."
+   }
+  ]
+ },
+ {
+  "id": "gen-14671",
+  "turns": [
+   {
+    "q": "i thought the justice society worked together more closely than the justice league.",
+    "kind": "challenge",
+    "ref": "No, the Justice League worked together more closely in their stories compared to the Justice Society."
+   }
+  ]
+ },
+ {
+  "id": "gen-12150",
+  "turns": [
+   {
+    "q": "I thought Gotham Central was cancelled due to low sales.",
+    "kind": "challenge",
+    "ref": "No, Gotham Central's final issues ranked 102nd and 120th on the distributor's charts, which does not indicate cancellation due to low sales."
+   }
+  ]
+ },
+ {
+  "id": "gen-18288",
+  "turns": [
+   {
+    "q": "What is the reason for her staying in Gotham?",
+    "kind": "lookup",
+    "ref": "Poison Ivy resolves to never leave Gotham until the world is safe for plants."
+   }
+  ]
+ },
+ {
+  "id": "gen-11642",
+  "turns": [
+   {
+    "q": "Are you sure Firefly appeared in Arrow?",
+    "kind": "challenge",
+    "ref": "Yes, Garfield Lynns appears in Arrow, portrayed by Andrew Dunbar."
+   }
+  ]
+ },
+ {
+  "id": "gen-17413",
+  "turns": [
+   {
+    "q": "Tell me about Mr. Freeze",
+    "kind": "lookup",
+    "ref": "Mr. Freeze is a launched shuttle roller coaster located at Six Flags Over Texas in Arlington, Texas. It originally featured a theme based on the 1997 film Batman & Robin but was converted to operate backward in 2012. The roller coaster uses a linear induction motor (LIM) launch system that can accelerate riders from 0 to 70 mph in 3.8 seconds."
+   },
+   {
+    "q": "what was his original paint scheme?",
+    "kind": "followup",
+    "ref": "Both roller coasters were originally painted in light blue."
+   },
+   {
+    "q": "how fast does he go from 0 to 70mph?",
+    "kind": "followup",
+    "ref": "He accelerates from 0 to 70 mph in 3.8 seconds."
+   }
+  ]
+ },
+ {
+  "id": "gen-3474",
+  "turns": [
+   {
+    "q": "When was the miniseries based on Batman and Harley Quinn released?",
+    "kind": "lookup",
+    "ref": "The seven-issue miniseries titled Batman and Harley Quinn was released on October 23."
+   }
+  ]
+ },
+ {
+  "id": "gen-22676",
+  "turns": [
+   {
+    "q": "What kind of suit does Bloodsport wear in The Suicide Squad?",
+    "kind": "lookup",
+    "ref": "Bloodsport wears a technologically advanced suit allowing him to create different gadgets and transforming weaponry."
+   }
+  ]
+ },
+ {
+  "id": "gen-20571",
+  "turns": [
+   {
+    "q": "tell me about super friends",
+    "kind": "lookup",
+    "ref": "Super Friends is an American animated television series about a team of superheroes which ran from 1973 to 1985 on ABC. It features well-known DC characters such as Superman, Batman, Robin, Wonder Woman, and Aquaman, along with a trio of sidekicks: Wendy, Marvin, and Wonder Dog. The show was produced by Hanna-Barbera."
+   },
+   {
+    "q": "how long did it run?",
+    "kind": "followup",
+    "ref": "Super Friends ran from 1973 to 1985 on ABC."
+   },
+   {
+    "q": "any interesting villains?",
+    "kind": "followup",
+    "ref": "The Legion of Doom included thirteen villains in the Challenge of the Superfriends season."
+   }
+  ]
+ },
+ {
+  "id": "gen-21822",
+  "turns": [
+   {
+    "q": "What is 'The End Is the Beginning Is the End'?",
+    "kind": "lookup",
+    "ref": "'The End Is the Beginning Is the End' is a song by the American alternative rock band the Smashing Pumpkins, released as a single from the Batman & Robin soundtrack in 1997."
+   },
+   {
+    "q": "wasn't it supposed to be part of their own album?",
+    "kind": "followup",
+    "ref": "No, 'The End Is the Beginning Is the End' was released as a single from the Batman & Robin soundtrack in 1997, not as part of the Smashing Pumpkins' own album."
+   },
+   {
+    "q": "how did it perform internationally?",
+    "kind": "followup",
+    "ref": "'The End Is the Beginning Is the End' reached the top 10 in eight countries."
+   }
+  ]
+ },
+ {
+  "id": "gen-849",
+  "turns": [
+   {
+    "q": "did ken woodruff write the 'arkham' episode while on vacation?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-4590",
+  "turns": [
+   {
+    "q": "name three voice actors in Batman: Arkham VR",
+    "kind": "list",
+    "ref": "Kevin Conroy, Mark Hamill, and Tom Austen"
+   }
+  ]
+ },
+ {
+  "id": "gen-6063",
+  "turns": [
+   {
+    "q": "What is Batman: Legends of the Dark Knight?",
+    "kind": "lookup",
+    "ref": "Batman: Legends of the Dark Knight is an original series that started in 1989 and included seven Annuals and several special issues."
+   },
+   {
+    "q": "When did the original series of Batman: Legends of the Dark Knight start?",
+    "kind": "followup",
+    "ref": "The original series of Batman: Legends of the Dark Knight started in 1989."
+   },
+   {
+    "q": "Did Hugo Strange try to uncover Batmans secret identity?",
+    "kind": "followup",
+    "ref": "Yes, Hugo Strange foments a smear campaign against Batman and tries to uncover his secret identity."
+   }
+  ]
+ },
+ {
+  "id": "gen-7681",
+  "turns": [
+   {
+    "q": "who directed Batman: Under the Red Hood?",
+    "kind": "lookup",
+    "ref": "Brandon Vietti directed Batman: Under the Red Hood."
+   }
+  ]
+ },
+ {
+  "id": "gen-3462",
+  "turns": [
+   {
+    "q": "What was the inspiration behind 'Ask Dr. Quinzel' game show?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-21644",
+  "turns": [
+   {
+    "q": "How many cities were used as filming locations for The Dark Knight?",
+    "kind": "lookup",
+    "ref": "Two cities were used as filming locations for The Dark Knight: Chicago and Hong Kong."
+   }
+  ]
+ },
+ {
+  "id": "gen-815",
+  "turns": [
+   {
+    "q": "does arena of valor have any unique features compared to other mobas?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-16166",
+  "turns": [
+   {
+    "q": "what was the secret society of super villains' plan during the infinite crisis?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-20495",
+  "turns": [
+   {
+    "q": "When did Suicide Squad Isekai premiere and how many episodes were shown on the first day?",
+    "kind": "multipart",
+    "ref": "Suicide Squad Isekai premiered on June 27, 2024, with three episodes."
+   }
+  ]
+ },
+ {
+  "id": "gen-7477",
+  "turns": [
+   {
+    "q": "How did Andrew Vachss feel about the impact of his book on public awareness of child sex tourism?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-17898",
+  "turns": [
+   {
+    "q": "Is Robin Lord Taylor the actor who plays Oswald Cobblepot in Gotham?",
+    "kind": "yesno",
+    "ref": "Yes, Robin Lord Taylor plays Oswald Cobblepot in the TV series Gotham."
+   }
+  ]
+ },
+ {
+  "id": "gen-9526",
+  "turns": [
+   {
+    "q": "wot directer did the katwoman movie?",
+    "kind": "typo",
+    "ref": "Pitof directed the Catwoman movie."
+   }
+  ]
+ },
+ {
+  "id": "gen-9862",
+  "turns": [
+   {
+    "q": "i thought Chip Zdarsky worked for National Post as an illustrator and humorist until 2020",
+    "kind": "challenge",
+    "ref": "No, Chip Zdarsky worked for National Post as an illustrator and humorist from 2000 to 2014."
+   }
+  ]
+ },
+ {
+  "id": "gen-15261",
+  "turns": [
+   {
+    "q": "i thought 'lazy eye' was originally a single before becoming a b-side",
+    "kind": "challenge",
+    "ref": "No, 'Lazy Eye' was initially released only in a promotional format and became a B-side track after 'Iris' was released."
+   }
+  ]
+ },
+ {
+  "id": "gen-7300",
+  "turns": [
+   {
+    "q": "Isn't Harvey Dent voiced by Christian Bale in Batman: The Long Halloween?",
+    "kind": "challenge",
+    "ref": "No, Josh Duhamel voices Harvey Dent."
+   }
+  ]
+ },
+ {
+  "id": "gen-19577",
+  "turns": [
+   {
+    "q": "I thought Maxwell traveled alone to find the starites, wasn't it just him?",
+    "kind": "challenge",
+    "ref": "No, Maxwell and his twin sister Lily use a magic globe to travel together to find the starites."
+   }
+  ]
+ },
+ {
+  "id": "gen-14406",
+  "turns": [
+   {
+    "q": "name three key facts about Heath Ledger's preparation for the role of the Joker",
+    "kind": "list",
+    "ref": "Heath Ledger secluded himself in a London hotel room for six weeks to prepare for the role of the Joker. Christopher Nolan was impressed by Ledger's first video shoot of the Joker. Ledger and Nolan drew visual inspiration from the artwork of Francis Bacon for the Joker's appearance."
+   }
+  ]
+ },
+ {
+  "id": "gen-839",
+  "turns": [
+   {
+    "q": "Is Arena of Valor also known as Strike of Kings?",
+    "kind": "lookup",
+    "ref": "Yes, Arena of Valor was formerly known as Strike of Kings."
+   },
+   {
+    "q": "what was arena of valor called before it was released?",
+    "kind": "followup",
+    "ref": "Arena of Valor was formerly known as Strike of Kings before it was released."
+   }
+  ]
+ },
+ {
+  "id": "gen-9270",
+  "turns": [
+   {
+    "q": "Who is Calculator?",
+    "kind": "lookup",
+    "ref": "Calculator is a supervillain appearing in American comic books published by DC Comics."
+   }
+  ]
+ },
+ {
+  "id": "gen-9556",
+  "turns": [
+   {
+    "q": "Tell me about the catsuit in Catwoman.",
+    "kind": "lookup",
+    "ref": "The catsuit in Catwoman was designed by Angus Strathie, Berry, director Pitof, and producers Di Novi and McDonnell."
+   },
+   {
+    "q": "Who were the designers of the catsuit?",
+    "kind": "followup",
+    "ref": "The catsuit was designed by Angus Strathie, Berry, director Pitof, and producers Di Novi and McDonnell."
+   },
+   {
+    "q": "Who directed the film?",
+    "kind": "followup",
+    "ref": "Pitof directed the film."
+   }
+  ]
+ },
+ {
+  "id": "gen-22183",
+  "turns": [
+   {
+    "q": "why did development of the lego batman movie start in october 2014?",
+    "kind": "why",
+    "ref": "Development of The Lego Batman Movie started in October 2014 after Warner Bros. announced several Lego films following the success of The Lego Movie."
+   }
+  ]
+ },
+ {
+  "id": "gen-23590",
+  "turns": [
+   {
+    "q": "Who is Vicki Vale?",
+    "kind": "lookup",
+    "ref": "Vicki Vale is a Gotham City journalist and photographer and one of Bruce Wayne's love interests, who first appeared in Batman #49 in 1948."
+   },
+   {
+    "q": "What is her first appearance?",
+    "kind": "followup",
+    "ref": "Vicki Vale first appeared in Batman #49 in Oct. 1948."
+   },
+   {
+    "q": "Wasn't she also in Batman vs. Dracula?",
+    "kind": "followup",
+    "ref": "Yes, Vicki Vale appeared in The Batman vs. Dracula, voiced by Tara Strong."
+   }
+  ]
+ },
+ {
+  "id": "gen-9538",
+  "turns": [
+   {
+    "q": "whos the dirctor of catwoman?",
+    "kind": "typo",
+    "ref": "The director of Catwoman is Pitof."
+   }
+  ]
+ },
+ {
+  "id": "gen-23981",
+  "turns": [
+   {
+    "q": "Is Beth Kane known for using multiple identities like Alice or is 'Lazy Eye' known for appearing in both Batman & Robin and City of Angels soundtracks?",
+    "kind": "compare",
+    "ref": "Yes, Beth Kane is known for using multiple identities like Alice. 'Lazy Eye' is known for appearing in both Batman & Robin and City of Angels soundtracks."
+   }
+  ]
+ },
+ {
+  "id": "gen-12229",
+  "turns": [
+   {
+    "q": "I thought Gotham City Garage was about transforming Gotham into a paradise called The Garden.",
+    "kind": "challenge",
+    "ref": "No, Gotham City Garage is a digital comic series inspired by a DC collectibles statue line reimagining DC's female heroes as bikers. The transformation of Gotham into a paradise called The Garden is an alternate version of the DC Universe involving Lex Luthor."
+   }
+  ]
+ },
+ {
+  "id": "gen-4088",
+  "turns": [
+   {
+    "q": "Is Poison Ivy allowed to have a windowsill garden in her cell? And is she under the care of a psychiatrist named Dr. Wood?",
+    "kind": "multipart",
+    "ref": "Yes, Poison Ivy tends to a windowsill garden in Arkham Asylum. Yes, Dr. Wood is Poison Ivy's assigned psychiatrist."
+   }
+  ]
+ },
+ {
+  "id": "gen-19111",
+  "turns": [
+   {
+    "q": "Tell me about 'Robin's Reckoning'",
+    "kind": "lookup",
+    "ref": "Robin's Reckoning is a two-part episode of Batman: The Animated Series."
+   },
+   {
+    "q": "Who voices Dick Grayson in this episode?",
+    "kind": "followup",
+    "ref": "Loren Lester voices Dick Grayson / Robin in this episode."
+   },
+   {
+    "q": "Did Robin decide to make his stay at Wayne Manor indefinite?",
+    "kind": "followup",
+    "ref": "Yes, Robin decides to make his stay at Wayne Manor indefinite."
+   }
+  ]
+ },
+ {
+  "id": "gen-17407",
+  "turns": [
+   {
+    "q": "wat was da original theme?",
+    "kind": "typo",
+    "ref": "The original theme was based on the 1997 film Batman & Robin."
+   }
+  ]
+ },
+ {
+  "id": "gen-12166",
+  "turns": [
+   {
+    "q": "Name three things about Gotham Central",
+    "kind": "list",
+    "ref": "Gotham Central is a police procedural comic-book series published by DC Comics. It received Eisner Award nominations in 2003. Gotham Central was considered as a potential title for an untitled police procedural TV series by Matt Reeves."
+   }
+  ]
+ },
+ {
+  "id": "gen-6984",
+  "turns": [
+   {
+    "q": "wot dya kno abt the joker?",
+    "kind": "typo",
+    "ref": "The Joker was voiced by Michael Emerson in Batman: The Dark Knight Returns."
+   }
+  ]
+ },
+ {
+  "id": "gen-9530",
+  "turns": [
+   {
+    "q": "What was Michelle Pfeiffer's favorite scene to shoot in the Catwoman film?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-4592",
+  "turns": [
+   {
+    "q": "did the developers plan any secret Easter eggs in Batman: Arkham VR?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-14396",
+  "turns": [
+   {
+    "q": "What were some of the personal thoughts Heath Ledger wrote in his Joker diary?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-21813",
+  "turns": [
+   {
+    "q": "did the song win a grammy award for best hard rock performance?",
+    "kind": "yesno",
+    "ref": "Yes, 'The End Is the Beginning Is the End' won the Grammy Award for Best Hard Rock Performance."
+   }
+  ]
+ },
+ {
+  "id": "gen-25189",
+  "turns": [
+   {
+    "q": "Which podcast features a character voiced by Adam O'Byrne, 'DC High Volume: Batman' or 'The Dark Knight'?",
+    "kind": "compare",
+    "ref": "The podcast that features a character voiced by Adam O'Byrne is 'DC High Volume: Batman'."
+   }
+  ]
+ },
+ {
+  "id": "gen-9256",
+  "turns": [
+   {
+    "q": "Name three voice actors who've played Calculator",
+    "kind": "list",
+    "ref": "Armin Shimerman, Ely Henry, and Jason Spisak have voiced the character Calculator."
+   }
+  ]
+ },
+ {
+  "id": "gen-6256",
+  "turns": [
+   {
+    "q": "Batman: Noël",
+    "kind": "lookup",
+    "ref": "Batman: Noël is a 2011 original graphic novel written and illustrated by Lee Bermejo, featuring the superhero Batman."
+   },
+   {
+    "q": "does it feature a character named Bob?",
+    "kind": "followup",
+    "ref": "Yes, Bob is a financially struggling man who launders cash for the Joker."
+   }
+  ]
+ },
+ {
+  "id": "gen-1645",
+  "turns": [
+   {
+    "q": "Are you really telling me that a police chief was the emcee for this event?",
+    "kind": "challenge",
+    "ref": "Yes, Police Chief Greg Suhr served as the emcee for the events, pre-recording messages to Batkid."
+   }
+  ]
+ },
+ {
+  "id": "gen-25108",
+  "turns": [
+   {
+    "q": "Which subject involves characters running for mayor, Oswald Cobblepot in Gotham or the Alien/supervillain hybrids scenario?",
+    "kind": "compare",
+    "ref": "Oswald Cobblepot in Gotham involves characters running for mayor."
+   }
+  ]
+ },
+ {
+  "id": "gen-4594",
+  "turns": [
+   {
+    "q": "In Batman: Arkham VR, who voices Batman?",
+    "kind": "lookup",
+    "ref": "Kevin Conroy voices Batman."
+   },
+   {
+    "q": "And who plays the Joker?",
+    "kind": "followup",
+    "ref": "Mark Hamill plays the Joker."
+   }
+  ]
+ },
+ {
+  "id": "gen-5107",
+  "turns": [
+   {
+    "q": "Why does Julie Madison join the UN Peace Corps?",
+    "kind": "why",
+    "ref": "Julie Madison joins the UN Peace Corps after her father's death."
+   }
+  ]
+ },
+ {
+  "id": "gen-8517",
+  "turns": [
+   {
+    "q": "whats red alice real name?",
+    "kind": "typo",
+    "ref": "Red Alice's real name is Beth Kane."
+   }
+  ]
+ },
+ {
+  "id": "gen-20458",
+  "turns": [
+   {
+    "q": "Does Joel Kinnaman play the role of Rick Flag Sr. in the Suicide Squad movie?",
+    "kind": "yesno",
+    "ref": "No, Joel Kinnaman plays Rick Flag Jr., the heroic military leader of the Task Force X, in Suicide Squad."
+   }
+  ]
+ },
+ {
+  "id": "gen-1087",
+  "turns": [
+   {
+    "q": "What was Ballistic thinking when he faced Superboy-Prime?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-12226",
+  "turns": [
+   {
+    "q": "Is Gotham City Garage a digital comic series published by DC Comics?",
+    "kind": "yesno",
+    "ref": "Yes, Gotham City Garage is a digital comic series published by DC Comics."
+   }
+  ]
+ },
+ {
+  "id": "gen-848",
+  "turns": [
+   {
+    "q": "what is the role of bullock and gordon in the arkham episode?",
+    "kind": "lookup",
+    "ref": "Detectives Gordon and Bullock try to save the council of Gotham."
+   }
+  ]
+ },
+ {
+  "id": "gen-17416",
+  "turns": [
+   {
+    "q": "Are you sure the roller coaster received a new paint job in 2007?",
+    "kind": "challenge",
+    "ref": "Yes, the Texas Mr. Freeze received a new paint job that was completed in 2007."
+   }
+  ]
+ },
+ {
+  "id": "gen-4907",
+  "turns": [
+   {
+    "q": "Are you sure Max Allan Collins translated 'Batman: Child of Dreams'?",
+    "kind": "challenge",
+    "ref": "No, Max Allan Collins handled the English-language translation of Batman: Child of Dreams."
+   }
+  ]
+ },
+ {
+  "id": "gen-18132",
+  "turns": [
+   {
+    "q": "Who is Mr. Penguin?",
+    "kind": "lookup",
+    "ref": "Mr. Penguin is Oswald Cobblepot, a Gotham City crime boss and supervillain known for his short stature, top hat, and trick umbrellas, and he is one of Batman's most enduring enemies."
+   },
+   {
+    "q": "What's his real name?",
+    "kind": "followup",
+    "ref": "His real name is Oswald Chesterfield Cobblepot."
+   }
+  ]
+ },
+ {
+  "id": "gen-869",
+  "turns": [
+   {
+    "q": "who wrote the episode Arkham and who directed it?",
+    "kind": "multipart",
+    "ref": "Ken Woodruff wrote the episode 'Arkham' and TJ Scott directed it."
+   }
+  ]
+ },
+ {
+  "id": "gen-1635",
+  "turns": [
+   {
+    "q": "I thought the event was organized by the Red Cross.",
+    "kind": "challenge",
+    "ref": "No, the event was organized by the Make-A-Wish Foundation, San Francisco Greater Bay Area chapter."
+   }
+  ]
+ },
+ {
+  "id": "gen-4090",
+  "turns": [
+   {
+    "q": "What is the name of the tower that blocks sunlight from reaching Poison Ivy's cell in Arkham Asylum?",
+    "kind": "lookup",
+    "ref": "Gotham Tower"
+   }
+  ]
+ },
+ {
+  "id": "gen-10884",
+  "turns": [
+   {
+    "q": "Who is Deadshot?",
+    "kind": "lookup",
+    "ref": "Deadshot is the alias of Floyd Lawton, a mercenary with a death wish, regarded as the greatest marksman and one of the deadliest assassins in the DC Universe."
+   },
+   {
+    "q": "what is his real name?",
+    "kind": "followup",
+    "ref": "His real name is Floyd Lawton."
+   }
+  ]
+ },
+ {
+  "id": "gen-14655",
+  "turns": [
+   {
+    "q": "who is snapper carr?",
+    "kind": "lookup",
+    "ref": "Snapper Carr is a new non-superhero character created by Gardner Fox to represent DC's teenage readership."
+   },
+   {
+    "q": "is he a superhero character?",
+    "kind": "followup",
+    "ref": "No, Snapper Carr is a new non-superhero character created by Gardner Fox to represent DC's teenage readership."
+   },
+   {
+    "q": "wasn't he created to represent teenage readership?",
+    "kind": "followup",
+    "ref": "Yes, Snapper Carr was created by Gardner Fox to represent DC's teenage readership."
+   }
+  ]
+ },
+ {
+  "id": "gen-8522",
+  "turns": [
+   {
+    "q": "Who is Beth Kane?",
+    "kind": "lookup",
+    "ref": "Beth Kane is a character who calls herself Red Alice and was placed in suspended animation in a sarcophagus by the DEO."
+   },
+   {
+    "q": "Is she the same as Red Alice?",
+    "kind": "followup",
+    "ref": "Yes, Beth Kane calls herself Red Alice."
+   },
+   {
+    "q": "How was she revived by the DEO?",
+    "kind": "followup",
+    "ref": "The DEO used a sarcophagus to revive Beth Kane."
+   }
+  ]
+ },
+ {
+  "id": "gen-3459",
+  "turns": [
+   {
+    "q": "Did Sam Liu direct it? And who played the lead role?",
+    "kind": "multipart",
+    "ref": "Yes, Sam Liu directed it. Kevin Conroy voices Batman / Bruce Wayne."
+   }
+  ]
+ },
+ {
+  "id": "gen-8533",
+  "turns": [
+   {
+    "q": "What did Beth Kane think about being revived?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-1093",
+  "turns": [
+   {
+    "q": "I thought Ballistic survived the Infinite Crisis.",
+    "kind": "challenge",
+    "ref": "No, Ballistic was killed by Superboy-Prime during the Infinite Crisis event."
+   }
+  ]
+ },
+ {
+  "id": "gen-14392",
+  "turns": [
+   {
+    "q": "Ledger used what kind of make up technique?",
+    "kind": "typo",
+    "ref": "Heath Ledger applied his makeup by scrunching special facial expressions, creating unique textures for the Joker's face."
+   }
+  ]
+ },
+ {
+  "id": "gen-3444",
+  "turns": [
+   {
+    "q": "Kevin Conroy voices Bruce Wayne in Batman and Harley Quinn.",
+    "kind": "yesno",
+    "ref": "Yes, Kevin Conroy voices Batman in Batman and Harley Quinn."
+   }
+  ]
+ },
+ {
+  "id": "gen-22680",
+  "turns": [
+   {
+    "q": "Did Robert DuBois play Bloodsport in The Suicide Squad?",
+    "kind": "yesno",
+    "ref": "Yes, Robert DuBois / Bloodsport is played by Idris Elba in The Suicide Squad."
+   }
+  ]
+ },
+ {
+  "id": "gen-865",
+  "turns": [
+   {
+    "q": "Are you certain that TJ Scott directed the episode 'Arkham'?",
+    "kind": "challenge",
+    "ref": "Yes, TJ Scott directed the episode 'Arkham'."
+   }
+  ]
+ },
+ {
+  "id": "gen-23600",
+  "turns": [
+   {
+    "q": "what is the connection between vicki vale and batman's secret identity?",
+    "kind": "lookup",
+    "ref": "Vicki Vale claims to have discovered Batman's identity in the 2009 Batman: Battle for the Cowl storyline, and she is hunted by the League of Assassins after Ra's al Ghul realizes she knows Batman's secret."
+   }
+  ]
+ },
+ {
+  "id": "gen-17933",
+  "turns": [
+   {
+    "q": "What is Oswald Cobblepot's nickname?",
+    "kind": "lookup",
+    "ref": "Oswald Cobblepot's nickname is The Penguin."
+   },
+   {
+    "q": "who did he partner with to kill nygma?",
+    "kind": "followup",
+    "ref": "Oswald Cobblepot partnered with Ivy Pepper to kill Nygma."
+   },
+   {
+    "q": "and who adapted his character for gotham?",
+    "kind": "followup",
+    "ref": "Bruno Heller adapted the character of Oswald Cobblepot for the TV series Gotham."
+   }
+  ]
+ },
+ {
+  "id": "gen-17419",
+  "turns": [
+   {
+    "q": "whos scheduled 2 apper at the opening of gotham city? arnold sch and george c",
+    "kind": "typo",
+    "ref": "Arnold Schwarzenegger and George Clooney were scheduled to appear at the opening of Gotham City at Six Flags Over Texas."
+   }
+  ]
+ },
+ {
+  "id": "gen-23582",
+  "turns": [
+   {
+    "q": "Are you sure that Vicki Vale first appeared in Batman #49 in 1948?",
+    "kind": "challenge",
+    "ref": "Yes, Vicki Vale first appeared in Batman #49 in Oct. 1948."
+   }
+  ]
+ },
+ {
+  "id": "gen-9548",
+  "turns": [
+   {
+    "q": "Isn't the catsuit in Catwoman designed solely by Angus Strathie?",
+    "kind": "challenge",
+    "ref": "No, the catsuit was designed by Angus Strathie, Berry, director Pitof, and producers Di Novi and McDonnell."
+   }
+  ]
+ },
+ {
+  "id": "gen-4597",
+  "turns": [
+   {
+    "q": "I thought Kevin Conroy voiced Robin in Batman: Arkham VR.",
+    "kind": "challenge",
+    "ref": "No, Tom Austen voices Robin in Batman: Arkham VR."
+   }
+  ]
+ },
+ {
+  "id": "gen-14416",
+  "turns": [
+   {
+    "q": "whats jokers diary say at the end of the movie",
+    "kind": "typo",
+    "ref": "The Joker's diary written by Heath Ledger had 'BYE BYE' written on the final page at the end of shooting."
+   }
+  ]
+ },
+ {
+  "id": "gen-20565",
+  "turns": [
+   {
+    "q": "did it have the legen of doom",
+    "kind": "typo",
+    "ref": "Yes, the Legion of Doom was featured in Super Friends, specifically in the Challenge of the Superfriends season and included thirteen villains."
+   }
+  ]
+ },
+ {
+  "id": "gen-18286",
+  "turns": [
+   {
+    "q": "Does she have any movies? and when was her first appearance?",
+    "kind": "multipart",
+    "ref": "Yes, Poison Ivy appears in the 1997 film Batman & Robin. Her first appearance was in Batman #181 in June 1966."
+   }
+  ]
+ },
+ {
+  "id": "gen-4931",
+  "turns": [
+   {
+    "q": "how did Max Allan Collins get involved with translating Batman: Child of Dreams?",
+    "kind": "why",
+    "ref": "Max Allan Collins handled the English-language translation of Batman: Child of Dreams."
+   }
+  ]
+ },
+ {
+  "id": "gen-22694",
+  "turns": [
+   {
+    "q": "What country is The Suicide Squad set in and who wrote and directed it?",
+    "kind": "multipart",
+    "ref": "The Suicide Squad is set in the South American island nation of Corto Maltese and James Gunn wrote and directed it."
+   }
+  ]
+ },
+ {
+  "id": "gen-21638",
+  "turns": [
+   {
+    "q": "Are you sure Néstor Carbonell plays the mayor in The Dark Knight?",
+    "kind": "challenge",
+    "ref": "Yes, Néstor Carbonell plays Mayor Anthony Garcia in The Dark Knight."
+   }
+  ]
+ },
+ {
+  "id": "gen-4093",
+  "turns": [
+   {
+    "q": "Batman/Poison Ivy: Cast Shadows",
+    "kind": "lookup",
+    "ref": "Batman/Poison Ivy: Cast Shadows is a 2004 DC Comics one-shot graphic novel."
+   }
+  ]
+ },
+ {
+  "id": "gen-14388",
+  "turns": [
+   {
+    "q": "Was Heath Ledger not the one to play the Joker in The Dark Knight?",
+    "kind": "yesno",
+    "ref": "No, Heath Ledger was the one to play the Joker in The Dark Knight."
+   }
+  ]
+ },
+ {
+  "id": "gen-14648",
+  "turns": [
+   {
+    "q": "i thought the justice league first appeared in action comics #1",
+    "kind": "challenge",
+    "ref": "No, the Justice League first appeared in The Brave and the Bold #28 (March 1960)."
+   }
+  ]
+ },
+ {
+  "id": "gen-6252",
+  "turns": [
+   {
+    "q": "Name three characters mentioned in the summary for Batman: Noël.",
+    "kind": "list",
+    "ref": "Bruce Wayne, the Joker, and Bob"
+   }
+  ]
+ },
+ {
+  "id": "gen-9858",
+  "turns": [
+   {
+    "q": "Tell me about Chip Zdarsky",
+    "kind": "lookup",
+    "ref": "Chip Zdarsky is a Canadian comic book artist and writer who created the pseudonym Chip Zdarsky in 2000. He has worked on various comics including 'Sex Criminals' with Matt Fraction, the relaunched Jughead comic, and the mainline Batman book starting with issue 125 on July 5, 2022. Before his career in comics, he worked for National Post as an illustrator and humorist from 2000 to 2014, and wrote the 'Extremely Bad Advice' column for the same publication from 2008 to 2014."
+   },
+   {
+    "q": "How long did he work at the National Post?",
+    "kind": "followup",
+    "ref": "He worked at the National Post from 2000 to 2014."
+   }
+  ]
+ },
+ {
+  "id": "gen-4595",
+  "turns": [
+   {
+    "q": "Is Batman: Arkham VR the first game in the series to use virtual reality headsets?",
+    "kind": "yesno",
+    "ref": "Yes, Batman: Arkham VR is the first installment to use virtual reality headsets."
+   }
+  ]
+ },
+ {
+  "id": "gen-9253",
+  "turns": [
+   {
+    "q": "Why did Calculator kill Kid Eternity?",
+    "kind": "why",
+    "ref": "Calculator killed Kid Eternity after failing to see Marvin, his son."
+   }
+  ]
+ },
+ {
+  "id": "gen-7468",
+  "turns": [
+   {
+    "q": "Tell me about Batman: The Ultimate Evil",
+    "kind": "lookup",
+    "ref": "Batman: The Ultimate Evil is a novel written by Andrew Vachss and published in 1995."
+   },
+   {
+    "q": "Was it written by an attorney?",
+    "kind": "followup",
+    "ref": "Yes, it was written by Andrew Vachss, who was an attorney specializing in child abuse cases."
+   }
+  ]
+ },
+ {
+  "id": "gen-18296",
+  "turns": [
+   {
+    "q": "Did Uma Thurman play Poison Ivy in Batman & Robin? What is her real name in the comics?",
+    "kind": "multipart",
+    "ref": "Yes, Uma Thurman portrayed Poison Ivy in the 1997 film Batman & Robin. Her real name in the comics is Dr. Pamela Isley."
+   }
+  ]
+ },
+ {
+  "id": "gen-20475",
+  "turns": [
+   {
+    "q": "Whos playin katana i mean tatsu yamashiro?",
+    "kind": "typo",
+    "ref": "Karen Fukuhara plays Tatsu Yamashiro, also known as Katana."
+   }
+  ]
+ },
+ {
+  "id": "gen-9528",
+  "turns": [
+   {
+    "q": "Name three actors appearing in the Catwoman film besides Michelle Pfeiffer.",
+    "kind": "list",
+    "ref": "Benjamin Bratt, Lambert Wilson, and Sharon Stone appear in the Catwoman film besides Michelle Pfeiffer."
+   }
+  ]
+ },
+ {
+  "id": "gen-24412",
+  "turns": [
+   {
+    "q": "What similarities or differences exist between the consequences of the 2012 Aurora theater shooting and the casting choices in The Lego Batman Movie?",
+    "kind": "compare",
+    "ref": "The consequences of the 2012 Aurora theater shooting led to restrictions on costume-wearing and changes in blockbuster movie showtimes, while the casting choices in The Lego Batman Movie involved well-known comedians voicing iconic Batman villains."
+   }
+  ]
+ },
+ {
+  "id": "gen-14669",
+  "turns": [
+   {
+    "q": "did the justice league debut in the issue of the brave and the bold #29 in march 1960?",
+    "kind": "yesno",
+    "ref": "No, the Justice League debuted in The Brave and the Bold #28 in March 1960."
+   }
+  ]
+ },
+ {
+  "id": "gen-18287",
+  "turns": [
+   {
+    "q": "Name three things about Poison Ivy",
+    "kind": "list",
+    "ref": "Poison Ivy is a doctor of botany turned ecoterrorist. She grew up wealthy with emotionally distant parents in Gotham City. Her first appearance was in Batman #181 in June 1966."
+   }
+  ]
+ },
+ {
+  "id": "gen-6262",
+  "turns": [
+   {
+    "q": "suer batman: noel is by leee bermijo?",
+    "kind": "typo",
+    "ref": "Yes, Batman: Noël is a 2011 original graphic novel written and illustrated by Lee Bermejo."
+   }
+  ]
+ },
+ {
+  "id": "gen-9123",
+  "turns": [
+   {
+    "q": "How did the creators decide on the age of Bruce Wayne for this series?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-16190",
+  "turns": [
+   {
+    "q": "Who is Cecile Horton?",
+    "kind": "lookup",
+    "ref": "Cecile Horton is someone who helped Allegra Garcia turn her life around after her release from Iron Heights Penitentiary."
+   },
+   {
+    "q": "did she help Allegra Garcia?",
+    "kind": "followup",
+    "ref": "Yes, Cecile Horton helped Allegra Garcia turn her life around after her release from Iron Heights Penitentiary."
+   }
+  ]
+ },
+ {
+  "id": "gen-7255",
+  "turns": [
+   {
+    "q": "What year was 'The Last Arkham' compiled into a trade paperback and who did Victor Zsasz get his name from?",
+    "kind": "multipart",
+    "ref": "'The Last Arkham' was compiled into a trade paperback in 1995 and Victor Zsasz was named after psychiatrist Thomas Szasz."
+   }
+  ]
+ },
+ {
+  "id": "gen-6078",
+  "turns": [
+   {
+    "q": "Did the original run of Batman: Legends of the Dark Knight end in 2006?",
+    "kind": "yesno",
+    "ref": "No, the original series of Batman: Legends of the Dark Knight ended with issue #214 in March 2007."
+   }
+  ]
+ },
+ {
+  "id": "gen-14657",
+  "turns": [
+   {
+    "q": "did the Justice League start in March 1960?",
+    "kind": "yesno",
+    "ref": "Yes, the Justice League debuted in March 1960 in The Brave and the Bold #28."
+   }
+  ]
+ },
+ {
+  "id": "gen-1624",
+  "turns": [
+   {
+    "q": "I thought The Penguin was supposed to be tied up by Batkid, not Lou Seal.",
+    "kind": "challenge",
+    "ref": "No, The Penguin had Lou Seal tied up in a convertible Bentley, which Batkid chased to rescue."
+   }
+  ]
+ },
+ {
+  "id": "gen-1627",
+  "turns": [
+   {
+    "q": "Did the Make-a-wish foundation organize the Batkid event and did Mayor Ed Lee present the key to the city?",
+    "kind": "multipart",
+    "ref": "Yes, the Make-A-Wish Foundation, San Francisco Greater Bay Area chapter organized the Batkid event and San Francisco Mayor Ed Lee presented the key to the city to Batkid."
+   }
+  ]
+ },
+ {
+  "id": "gen-22677",
+  "turns": [
+   {
+    "q": "What were some of the challenges James Gunn faced while filming The Suicide Squad?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-9283",
+  "turns": [
+   {
+    "q": "Tell me about Calculator.",
+    "kind": "lookup",
+    "ref": "Calculator is portrayed by various actors across different media including Tom Amandes in Arrow, Armin Shimerman in Batman: The Brave and the Bold, John DiMaggio in Teen Titans Go!, and Tracy W. Bush in DC Universe Online. He is the father of Wendy Harris and Marvin White, and he uses Kid Eternity to repeatedly summon the spirit of Marvin White. His plans include attempting to destroy San Francisco, which was thwarted by Kid Devil."
+   },
+   {
+    "q": "is armin shimerman the original voice of calculator in batman the brave and the bold?",
+    "kind": "followup",
+    "ref": "Yes, Armin Shimerman voices the original incarnation of Calculator in Batman: The Brave and the Bold."
+   },
+   {
+    "q": "and who plays him in dc universe online?",
+    "kind": "followup",
+    "ref": "Tracy W. Bush voices Calculator in DC Universe Online."
+   }
+  ]
+ },
+ {
+  "id": "gen-9536",
+  "turns": [
+   {
+    "q": "Isn't Sharon Stone playing the main character in the film?",
+    "kind": "challenge",
+    "ref": "No, Patience Phillips is the main character, and Sharon Stone appears in the film but does not play the main character."
+   }
+  ]
+ },
+ {
+  "id": "gen-20545",
+  "turns": [
+   {
+    "q": "Are you sure the Legion of Doom had 13 villains?",
+    "kind": "challenge",
+    "ref": "Yes, the Legion of Doom included thirteen villains in the Challenge of the Superfriends season."
+   }
+  ]
+ },
+ {
+  "id": "gen-2920",
+  "turns": [
+   {
+    "q": "Is the Joker a recurring antagonist in the Batman TV series?",
+    "kind": "yesno",
+    "ref": "Yes, the Joker is a recurring antagonist in the Batman television series."
+   }
+  ]
+ },
+ {
+  "id": "gen-12926",
+  "turns": [
+   {
+    "q": "Tell me about Harley & Ivy Meet Betty & Veronica",
+    "kind": "lookup",
+    "ref": "Harley & Ivy Meet Betty & Veronica is a six-issue American comic book miniseries published from October 2017 to March 2018, co-written by Marc Andreyko and Paul Dini, and illustrated by Laura Braga."
+   },
+   {
+    "q": "When was it published?",
+    "kind": "followup",
+    "ref": "It was published from October 2017 to March 2018."
+   },
+   {
+    "q": "Did Marc Andreyko also write it?",
+    "kind": "followup",
+    "ref": "Yes, Marc Andreyko and Paul Dini co-wrote Harley & Ivy Meet Betty & Veronica."
+   }
+  ]
+ },
+ {
+  "id": "gen-6066",
+  "turns": [
+   {
+    "q": "Does Batman: Legends of the Dark Knight end with issue #215?",
+    "kind": "yesno",
+    "ref": "No, the original series of Batman: Legends of the Dark Knight ended with issue #214 in March 2007."
+   }
+  ]
+ },
+ {
+  "id": "gen-19593",
+  "turns": [
+   {
+    "q": "Name three places where Maxwell travels to recover the starites",
+    "kind": "list",
+    "ref": "Maxwell travels to Metropolis, Oa, and Themyscira to recover the starites."
+   }
+  ]
+ },
+ {
+  "id": "gen-25455",
+  "turns": [
+   {
+    "q": "In what ways are the discovery of the Batcave and the development history of Arena of Valor similar or different?",
+    "kind": "compare",
+    "ref": "The discovery of the Batcave involves Bruce Wayne falling into the cave as a child while exploring his family's estate, whereas the development history of Arena of Valor involves multiple companies and name changes over time."
+   }
+  ]
+ },
+ {
+  "id": "gen-18155",
+  "turns": [
+   {
+    "q": "who is the penguin?",
+    "kind": "lookup",
+    "ref": "The Penguin is Oswald Chesterfield Cobblepot, a supervillain and one of Batman's most enduring enemies."
+   }
+  ]
+ },
+ {
+  "id": "gen-14399",
+  "turns": [
+   {
+    "q": "Did Heath Ledger isolate himself for six weeks to prepare for the role of the Joker?",
+    "kind": "yesno",
+    "ref": "Yes, Heath Ledger spent six weeks isolating himself in a London hotel room to prepare for the role of the Joker."
+   }
+  ]
+ },
+ {
+  "id": "gen-12140",
+  "turns": [
+   {
+    "q": "whats up wid gthm ctnl",
+    "kind": "typo",
+    "ref": "Gotham Central received Eisner Award nominations in 2003 and was considered as a potential title for the untitled police procedural TV series by Matt Reeves."
+   }
+  ]
+ },
+ {
+  "id": "gen-12159",
+  "turns": [
+   {
+    "q": "Is Gotham Central a police procedural comic-book series published by DC Comics?",
+    "kind": "yesno",
+    "ref": "Yes, Gotham Central is a police procedural comic-book series published by DC Comics."
+   }
+  ]
+ },
+ {
+  "id": "gen-11647",
+  "turns": [
+   {
+    "q": "Name three different shows where Firefly has appeared",
+    "kind": "list",
+    "ref": "Firefly has appeared in The Batman, Batman: The Brave and the Bold, and Harley Quinn."
+   }
+  ]
+ },
+ {
+  "id": "gen-1094",
+  "turns": [
+   {
+    "q": "Why did Ballistic join with other New Bloods?",
+    "kind": "why",
+    "ref": "Ballistic joined with other New Bloods to defeat Angon and other alien parasites."
+   }
+  ]
+ },
+ {
+  "id": "gen-840",
+  "turns": [
+   {
+    "q": "Is Ken Woodruff the writer of the 'Arkham' episode?",
+    "kind": "yesno",
+    "ref": "Yes, Ken Woodruff wrote the episode 'Arkham'."
+   }
+  ]
+ },
+ {
+  "id": "gen-9540",
+  "turns": [
+   {
+    "q": "Name three actors who appear in the film besides Michelle Pfeiffer.",
+    "kind": "list",
+    "ref": "Benjamin Bratt, Lambert Wilson, and Sharon Stone appear in the film besides Michelle Pfeiffer."
+   }
+  ]
+ },
+ {
+  "id": "gen-4549",
+  "turns": [
+   {
+    "q": "What is Batman: Arkham Shadow about?",
+    "kind": "lookup",
+    "ref": "Batman: Arkham Shadow is a 2024 action-adventure game set six months after the events of Arkham Origins, following a younger and less experienced Batman."
+   },
+   {
+    "q": "who is detained in Blackgate Penitentiary?",
+    "kind": "followup",
+    "ref": "Batman assumes the identity of Matches Malone and gets himself incarcerated at Blackgate Penitentiary."
+   }
+  ]
+ },
+ {
+  "id": "gen-17922",
+  "turns": [
+   {
+    "q": "Is Oswald Cobblepot also known as The Penguin?",
+    "kind": "yesno",
+    "ref": "Yes, Oswald Cobblepot is also known as The Penguin."
+   }
+  ]
+ },
+ {
+  "id": "gen-14407",
+  "turns": [
+   {
+    "q": "What inspired the visual appearance of the Joker in The Dark Knight?",
+    "kind": "lookup",
+    "ref": "Christopher Nolan and Heath Ledger drew visual inspiration from the artwork of Francis Bacon for the Joker's appearance."
+   }
+  ]
+ },
+ {
+  "id": "gen-22190",
+  "turns": [
+   {
+    "q": "Is The Lego Batman Movie an animated film?",
+    "kind": "yesno",
+    "ref": "Yes, The Lego Batman Movie is an animated superhero comedy film."
+   }
+  ]
+ },
+ {
+  "id": "gen-4028",
+  "turns": [
+   {
+    "q": "What is the name of the criminal in 'Batman/Houdini: The Devil's Workshop'? And who is the Beef Baron?",
+    "kind": "multipart",
+    "ref": "Jack Schadenfreude is the criminal in 'Batman/Houdini: The Devil's Workshop'. The Beef Baron is Elijah Montenegro."
+   }
+  ]
+ },
+ {
+  "id": "gen-12158",
+  "turns": [
+   {
+    "q": "Tell me about Gotham Central's popularity.",
+    "kind": "lookup",
+    "ref": "Gotham Central's final issues ranked 102nd and 120th on the distributor's charts. I don't have information on any other measures of its popularity."
+   },
+   {
+    "q": "What were Gotham Central's final rankings?",
+    "kind": "followup",
+    "ref": "Gotham Central's final issues ranked 102nd and 120th on the distributor's charts."
+   }
+  ]
+ },
+ {
+  "id": "gen-826",
+  "turns": [
+   {
+    "q": "Name three companies that published Arena of Valor in different regions.",
+    "kind": "list",
+    "ref": "Garena, DeNA, and Actoz SG published Arena of Valor in different regions."
+   }
+  ]
+ },
+ {
+  "id": "gen-23568",
+  "turns": [
+   {
+    "q": "Is Vicki Vale a character in DC Comics?",
+    "kind": "yesno",
+    "ref": "Yes, Vicki Vale is a fictional character appearing in American comic books published by DC Comics."
+   }
+  ]
+ },
+ {
+  "id": "gen-20510",
+  "turns": [
+   {
+    "q": "Is Hiroyuki Omori the director of Suicide Squad Isekai?",
+    "kind": "yesno",
+    "ref": "No, Eri Osada directed Suicide Squad Isekai."
+   }
+  ]
+ },
+ {
+  "id": "gen-9521",
+  "turns": [
+   {
+    "q": "Is Michelle Pfeiffer the actress playing Catwoman in this film?",
+    "kind": "yesno",
+    "ref": "Yes, Michelle Pfeiffer was cast to reprise her role as Catwoman."
+   }
+  ]
+ },
+ {
+  "id": "gen-4546",
+  "turns": [
+   {
+    "q": "where does Batman save the police officers?",
+    "kind": "lookup",
+    "ref": "Batman saves the police officers being held hostage by the Rat Cultists in the sewers."
+   }
+  ]
+ },
+ {
+  "id": "gen-7316",
+  "turns": [
+   {
+    "q": "What was the inspiration behind the choice of Naya Rivera to voice Catwoman?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-20520",
+  "turns": [
+   {
+    "q": "What is Suicide Squad Isekai?",
+    "kind": "lookup",
+    "ref": "Suicide Squad Isekai is a Japanese anime television series based on the Suicide Squad from DC Comics."
+   },
+   {
+    "q": "Who directed Suicide Squad Isekai?",
+    "kind": "followup",
+    "ref": "Eri Osada directed Suicide Squad Isekai."
+   },
+   {
+    "q": "What is the premiere date of Suicide Squad Isekai?",
+    "kind": "followup",
+    "ref": "Suicide Squad Isekai premiered on June 27, 2024."
+   }
+  ]
+ },
+ {
+  "id": "gen-12915",
+  "turns": [
+   {
+    "q": "Is it true that Harley & Ivy Meet Betty & Veronica is a six-issue miniseries?",
+    "kind": "yesno",
+    "ref": "Yes, Harley & Ivy Meet Betty & Veronica is a six-issue miniseries."
+   }
+  ]
+ },
+ {
+  "id": "gen-7476",
+  "turns": [
+   {
+    "q": "Who approached Andrew Vachss with the idea for Batman: The Ultimate Evil?",
+    "kind": "lookup",
+    "ref": "Steve Korte of DC Comics' book division approached Andrew Vachss with the idea for Batman: The Ultimate Evil."
+   }
+  ]
+ },
+ {
+  "id": "gen-12238",
+  "turns": [
+   {
+    "q": "Is Gotham City Garage a digital comic series?",
+    "kind": "yesno",
+    "ref": "Yes, Gotham City Garage is a digital comic series published by DC Comics."
+   }
+  ]
+ },
+ {
+  "id": "gen-25288",
+  "turns": [
+   {
+    "q": "Is it true that both Fatman Beyond and Batman: Arkham VR feature voice acting by well-known actors?",
+    "kind": "compare",
+    "ref": "Yes, both Fatman Beyond and Batman: Arkham VR feature voice acting by well-known actors. Paul Dini and Marc Bernardin are guests on Fatman Beyond, and Mark Hamill provides the voice of the Joker in Batman: Arkham VR."
+   }
+  ]
+ },
+ {
+  "id": "gen-12917",
+  "turns": [
+   {
+    "q": "Are you sure Laura Braga was the illustrator of this comic?",
+    "kind": "challenge",
+    "ref": "Yes, Laura Braga was the illustrator of Harley & Ivy Meet Betty & Veronica."
+   }
+  ]
+ },
+ {
+  "id": "gen-4550",
+  "turns": [
+   {
+    "q": "Is Batman: Arkham Shadow a game released in 2024?",
+    "kind": "yesno",
+    "ref": "Yes, Batman: Arkham Shadow is a 2024 action-adventure game developed by Camouflaj and published by Oculus Studios."
+   }
+  ]
+ },
+ {
+  "id": "gen-1098",
+  "turns": [
+   {
+    "q": "what happened to Ballistic during Infinite Crisis?",
+    "kind": "lookup",
+    "ref": "During Infinite Crisis, Ballistic fought alongside former Blood Pack members against Solomon Grundy and was killed by Superboy-Prime."
+   }
+  ]
+ },
+ {
+  "id": "gen-4084",
+  "turns": [
+   {
+    "q": "Are you sure 'Batman/Poison Ivy: Cast Shadows' is a one-shot graphic novel?",
+    "kind": "challenge",
+    "ref": "Yes, 'Batman/Poison Ivy: Cast Shadows' is a 2004 DC Comics one-shot graphic novel."
+   }
+  ]
+ },
+ {
+  "id": "gen-7258",
+  "turns": [
+   {
+    "q": "Was 'Batman: The Last Arkham' originally planned to be a five-part story arc instead of a four-part arc?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-818",
+  "turns": [
+   {
+    "q": "aren't there less than 50 heroes in arena of valor?",
+    "kind": "lookup",
+    "ref": "No, there are more than 100 heroes in Arena of Valor."
+   },
+   {
+    "q": "but wasn't it called honor of kings originally?",
+    "kind": "followup",
+    "ref": "Yes, Arena of Valor is an international adaptation of Honor of Kings."
+   }
+  ]
+ },
+ {
+  "id": "gen-12167",
+  "turns": [
+   {
+    "q": "What happened to Commissioner Michael Akins?",
+    "kind": "lookup",
+    "ref": "Commissioner Michael Akins left the force under unknown circumstances."
+   }
+  ]
+ },
+ {
+  "id": "gen-1081",
+  "turns": [
+   {
+    "q": "I thought Ballistic was killed by Superman instead of Superboy-Prime.",
+    "kind": "challenge",
+    "ref": "No, Ballistic was killed by Superboy-Prime during the Infinite Crisis event."
+   }
+  ]
+ },
+ {
+  "id": "gen-7481",
+  "turns": [
+   {
+    "q": "Was Batman: The Ultimate Evil published in 1990?",
+    "kind": "yesno",
+    "ref": "No, Batman: The Ultimate Evil is a novel published in 1995."
+   }
+  ]
+ },
+ {
+  "id": "gen-14660",
+  "turns": [
+   {
+    "q": "i thought the Justice League consisted of six superheroes in the beginning",
+    "kind": "challenge",
+    "ref": "No, the initial Justice League lineup included seven superheroes: Superman, Batman, Aquaman, the Flash, Green Lantern, the Martian Manhunter, and Wonder Woman."
+   }
+  ]
+ },
+ {
+  "id": "gen-24674",
+  "turns": [
+   {
+    "q": "How does 'Robin: Year One' compare to 'Batman Is Riled' in terms of focusing on the relationship between Batman, Robin, and Alfred?",
+    "kind": "compare",
+    "ref": "Robin: Year One emphasizes the growing bond between Batman, Alfred, and Robin, while Batman Is Riled focuses on Batman and Robin's adventures against the Joker without mentioning their relationship with Alfred."
+   }
+  ]
+ },
+ {
+  "id": "gen-15278",
+  "turns": [
+   {
+    "q": "what other role did lazy eye have besides being on the batman & robin soundtrack?",
+    "kind": "lookup",
+    "ref": "'Lazy Eye' was also recorded for the soundtrack of City of Angels (1998)."
+   }
+  ]
+ },
+ {
+  "id": "gen-850",
+  "turns": [
+   {
+    "q": "Who is Ken Woodruff?",
+    "kind": "lookup",
+    "ref": "Ken Woodruff wrote the episode 'Arkham'."
+   },
+   {
+    "q": "what did he write?",
+    "kind": "followup",
+    "ref": "He wrote the episode 'Arkham'."
+   },
+   {
+    "q": "how did he contribute to the 'Arkham' episode?",
+    "kind": "followup",
+    "ref": "He wrote the episode 'Arkham'."
+   }
+  ]
+ },
+ {
+  "id": "gen-7674",
+  "turns": [
+   {
+    "q": "Was the film 'Batman: Under the Red Hood' released in 2009?",
+    "kind": "yesno",
+    "ref": "No, Batman: Under the Red Hood is a 2010 American animated direct-to-video superhero film."
+   }
+  ]
+ },
+ {
+  "id": "gen-4083",
+  "turns": [
+   {
+    "q": "Is 'Batman/Poison Ivy: Cast Shadows' a 2005 DC Comics one-shot graphic novel?",
+    "kind": "yesno",
+    "ref": "No, 'Batman/Poison Ivy: Cast Shadows' is a 2004 DC Comics one-shot graphic novel."
+   }
+  ]
+ },
+ {
+  "id": "gen-4917",
+  "turns": [
+   {
+    "q": "Is Batman: Child of Dreams a manga series?",
+    "kind": "yesno",
+    "ref": "Yes, Batman: Child of Dreams is a manga series written and illustrated by Kia Asamiya, published in Kodansha's Magazine Z."
+   }
+  ]
+ },
+ {
+  "id": "gen-14391",
+  "turns": [
+   {
+    "q": "How did Heath Ledger prepare to play the Joker in The Dark Knight?",
+    "kind": "why",
+    "ref": "Heath Ledger spent six weeks secluding himself in a London hotel room to prepare for the role of the Joker. He also applied his makeup by scrunching special facial expressions, creating unique textures for the Joker's face, and compiled a character diary containing photos, news clippings, and handwritten thoughts for the Joker role."
+   }
+  ]
+ },
+ {
+  "id": "gen-4926",
+  "turns": [
+   {
+    "q": "What were Kia Asamiya's inspirations for Batman: Child of Dreams?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-11649",
+  "turns": [
+   {
+    "q": "What personal reason might have driven Garfield Lynns to become Firefly?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-1632",
+  "turns": [
+   {
+    "q": "Did Police Chief Greg Suhr serve as the emcee for the Batkid event?",
+    "kind": "yesno",
+    "ref": "Yes, Police Chief Greg Suhr served as the emcee for the Batkid event, pre-recording messages to Batkid."
+   }
+  ]
+ },
+ {
+  "id": "gen-10887",
+  "turns": [
+   {
+    "q": "Are you sure Deadshot killed a US senator at the Lincoln Memorial?",
+    "kind": "challenge",
+    "ref": "Yes, Deadshot publicly kills a US senator at the Lincoln Memorial."
+   }
+  ]
+ },
+ {
+  "id": "gen-9532",
+  "turns": [
+   {
+    "q": "Tell me about the Catwoman film",
+    "kind": "lookup",
+    "ref": "Catwoman is a 2004 American superhero film directed by Pitof, with Michelle Pfeiffer reprising her role as Catwoman. The screenplay was written by John Rogers, John Brancato, and Michael Ferris from a story by Theresa Rebeck, Brancato, and Ferris. Benjamin Bratt, Lambert Wilson, Frances Conroy, and Sharon Stone also appear in the film."
+   },
+   {
+    "q": "who directed it?",
+    "kind": "followup",
+    "ref": "Pitof directed it."
+   },
+   {
+    "q": "who wrote the screenplay?",
+    "kind": "followup",
+    "ref": "John Rogers, John Brancato and Michael Ferris wrote the screenplay."
+   }
+  ]
+ },
+ {
+  "id": "gen-18151",
+  "turns": [
+   {
+    "q": "does the penguin have a real name and when did he first appear?",
+    "kind": "multipart",
+    "ref": "Yes, the Penguin's real name is Oswald Chesterfield Cobblepot. He first appeared in Detective Comics #58 in 1941."
+   }
+  ]
+ },
+ {
+  "id": "gen-18302",
+  "turns": [
+   {
+    "q": "Is Poison Ivy also known as Dr. Pamela Isley?",
+    "kind": "yesno",
+    "ref": "Yes, Poison Ivy is also known as Dr. Pamela Isley."
+   }
+  ]
+ },
+ {
+  "id": "gen-819",
+  "turns": [
+   {
+    "q": "Is Arena of Valor a MOBA game?",
+    "kind": "yesno",
+    "ref": "Yes, Arena of Valor is a multiplayer online battle arena (MOBA) game."
+   }
+  ]
+ },
+ {
+  "id": "gen-17024",
+  "turns": [
+   {
+    "q": "What was Matt Reeves' first movie as a director?",
+    "kind": "lookup",
+    "ref": "Matt Reeves' first movie as a director was The Pallbearer (1996)."
+   }
+  ]
+ },
+ {
+  "id": "gen-6985",
+  "turns": [
+   {
+    "q": "Who directed the film and who voiced Carrie Kelley / Robin?",
+    "kind": "multipart",
+    "ref": "Jay Oliva directed the film and Ariel Winter voiced Carrie Kelley / Robin."
+   }
+  ]
+ },
+ {
+  "id": "gen-20505",
+  "turns": [
+   {
+    "q": "Name two artists involved in creating music for Suicide Squad Isekai",
+    "kind": "list",
+    "ref": "Mori Calliope performed the ending theme song 'Go-Getters' and Tomoyasu Hotei composed the opening theme song 'Another World'."
+   }
+  ]
+ },
+ {
+  "id": "gen-874",
+  "turns": [
+   {
+    "q": "Who directed the episode 'Arkham'?",
+    "kind": "lookup",
+    "ref": "TJ Scott directed the episode 'Arkham'."
+   },
+   {
+    "q": "Who wrote it?",
+    "kind": "followup",
+    "ref": "Ken Woodruff wrote the episode 'Arkham'."
+   }
+  ]
+ },
+ {
+  "id": "gen-25309",
+  "turns": [
+   {
+    "q": "In which scenario does Bruce Wayne get married - the alternative version involving Harleen Quinzel or the storyline within Gotham involving the Arkham Plan?",
+    "kind": "compare",
+    "ref": "In the scenario involving Harleen Quinzel, Bruce Wayne gets married to prevent her from testifying against him. I don't have information on Bruce Wayne getting married in the storyline within Gotham involving the Arkham Plan."
+   }
+  ]
+ },
+ {
+  "id": "gen-23969",
+  "turns": [
+   {
+    "q": "Is the event organized by the Make-A-Wish Foundation for fulfilling Miles Scott's wish as Batkid or is it related to the animated film 'Son of Batman'?",
+    "kind": "compare",
+    "ref": "Yes, the event was organized by the Make-A-Wish Foundation for fulfilling Miles Scott's wish as Batkid. It is not related to the animated film 'Son of Batman'."
+   }
+  ]
+ },
+ {
+  "id": "gen-23781",
+  "turns": [
+   {
+    "q": "Are you sure that Thomas Wayne shot Denholm Sinclair?",
+    "kind": "challenge",
+    "ref": "Yes, Thomas Wayne shot Denholm Sinclair, also known as Disciple, with his father's shotgun."
+   }
+  ]
+ },
+ {
+  "id": "gen-26069",
+  "turns": [
+   {
+    "q": "In what ways do the themes of Batman: Noël differ from the excitement-driven atmosphere of The Joker roller coaster at Six Flags Discovery Kingdom?",
+    "kind": "compare",
+    "ref": "Batman: Noël focuses on themes of poverty and using a vulnerable individual as bait, whereas The Joker roller coaster emphasizes excitement and thrill-seeking."
+   }
+  ]
+ },
+ {
+  "id": "gen-3453",
+  "turns": [
+   {
+    "q": "Did Kevin Conroy voice Batman in the film?",
+    "kind": "yesno",
+    "ref": "Yes, Kevin Conroy voices Batman in the film."
+   }
+  ]
+ },
+ {
+  "id": "gen-9124",
+  "turns": [
+   {
+    "q": "Who is Bruce Wayne in the TV series?",
+    "kind": "lookup",
+    "ref": "Bruce Wayne is the focus of a young Bruce Wayne before he becomes Batman in the planned television series."
+   }
+  ]
+ },
+ {
+  "id": "gen-7238",
+  "turns": [
+   {
+    "q": "Is 'The Last Arkham' a collection of Batman stories?",
+    "kind": "yesno",
+    "ref": "Yes, 'The Last Arkham' was compiled into a trade paperback in 1995."
+   }
+  ]
+ },
+ {
+  "id": "gen-22669",
+  "turns": [
+   {
+    "q": "Does John Wick play Robert DuBois / Bloodsport in The Suicide Squad?",
+    "kind": "yesno",
+    "ref": "No, Idris Elba plays Robert DuBois / Bloodsport in The Suicide Squad."
+   }
+  ]
+ },
+ {
+  "id": "gen-856",
+  "turns": [
+   {
+    "q": "tj scott dircted arkhams?",
+    "kind": "typo",
+    "ref": "Yes, TJ Scott directed the episode 'Arkham'."
+   }
+  ]
+ },
+ {
+  "id": "gen-22690",
+  "turns": [
+   {
+    "q": "Did Todd Phillips write and direct The Suicide Squad?",
+    "kind": "yesno",
+    "ref": "No, James Gunn wrote and directed The Suicide Squad."
+   }
+  ]
+ },
+ {
+  "id": "gen-1091",
+  "turns": [
+   {
+    "q": "Was Ballistic created by Grant Morrison and Frank Quitely?",
+    "kind": "yesno",
+    "ref": "No, Doug Moench and Michael Manley created Ballistic."
+   }
+  ]
+ },
+ {
+  "id": "gen-22689",
+  "turns": [
+   {
+    "q": "Is James Gunn the writer and director of The Suicide Squad?",
+    "kind": "yesno",
+    "ref": "Yes, James Gunn wrote and directed The Suicide Squad."
+   }
+  ]
+ },
+ {
+  "id": "gen-20519",
+  "turns": [
+   {
+    "q": "Who is Hiroyuki Omori?",
+    "kind": "lookup",
+    "ref": "Hiroyuki Omori is someone who recalled that Warner Bros. Japan pitched the idea of an anime from an existing DC comic title around three/four years before the release of Suicide Squad Isekai."
+   },
+   {
+    "q": "Wasn't Hiroyuki Omori involved in pitching Suicide Squad Isekai to Warner Bros. Japan?",
+    "kind": "followup",
+    "ref": "No, Hiroyuki Omori recalled that Warner Bros. Japan pitched the idea of an anime from an existing DC comic title around three/four years before the release of Suicide Squad Isekai."
+   },
+   {
+    "q": "What was the duration between the pitch and the actual release of Suicide Squad Isekai?",
+    "kind": "followup",
+    "ref": "The pitch occurred around three to four years before the release of Suicide Squad Isekai."
+   }
+  ]
+ },
+ {
+  "id": "gen-4602",
+  "turns": [
+   {
+    "q": "How many copies of Batman: Arkham VR were sold worldwide?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-18305",
+  "turns": [
+   {
+    "q": "I thought Poison Ivy tried to live in Antarctica.",
+    "kind": "challenge",
+    "ref": "No, Poison Ivy attempts to leave Gotham to live on a desert island in the Caribbean."
+   }
+  ]
+ },
+ {
+  "id": "gen-16173",
+  "turns": [
+   {
+    "q": "Why did Esperanza Garcia appear in The Flash TV series?",
+    "kind": "why",
+    "ref": "Esperanza Garcia appeared in The Flash TV series because Alexa Barajas portrays her in the show, while Erika Soto voices her in the seventh season."
+   }
+  ]
+ },
+ {
+  "id": "gen-15268",
+  "turns": [
+   {
+    "q": "Who is Mike Malinin?",
+    "kind": "lookup",
+    "ref": "Mike Malinin is the drummer featured on the first Goo Goo Dolls studio recording of 'Lazy Eye'."
+   },
+   {
+    "q": "what's his role in the goo goo dolls?",
+    "kind": "followup",
+    "ref": "Mike Malinin's role in the Goo Goo Dolls is as the drummer, specifically noted for his performance on the song 'Lazy Eye'."
+   },
+   {
+    "q": "why is he important to the song 'lazy eye'?",
+    "kind": "followup",
+    "ref": "Mike Malinin is important to the song 'Lazy Eye' because he was the drummer on its first studio recording."
+   }
+  ]
+ },
+ {
+  "id": "gen-25252",
+  "turns": [
+   {
+    "q": "Is it correct to say that the character Amygdala was introduced in 'Batman: The Last Arkham', or did this happen in 'Lego Batman 3: Beyond Gotham'?",
+    "kind": "compare",
+    "ref": "No, Amygdala was introduced in Batman: Shadow of the Bat #1 in June 1992, not in 'Batman: The Last Arkham' or 'Lego Batman 3: Beyond Gotham'."
+   }
+  ]
+ },
+ {
+  "id": "gen-4532",
+  "turns": [
+   {
+    "q": "Name three characters mentioned in the facts about Batman Arkham Shadow",
+    "kind": "list",
+    "ref": "Leslie Thompkins, Arnold Wesker, Dick Grayson"
+   }
+  ]
+ },
+ {
+  "id": "gen-4604",
+  "turns": [
+   {
+    "q": "Did Rocksteady Studios publish Batman: Arkham VR?",
+    "kind": "lookup",
+    "ref": "No, Warner Bros published Batman: Arkham VR."
+   },
+   {
+    "q": "What is the name of the company that published Batman: Arkham VR?",
+    "kind": "followup",
+    "ref": "Warner Bros published Batman: Arkham VR."
+   }
+  ]
+ },
+ {
+  "id": "gen-1643",
+  "turns": [
+   {
+    "q": "Is Batkid a superhero name for a child named Miles Scott?",
+    "kind": "yesno",
+    "ref": "Yes, Batkid is the superhero name for a child named Miles Scott."
+   }
+  ]
+ },
+ {
+  "id": "gen-24569",
+  "turns": [
+   {
+    "q": "Which creator, Sandy Collora or Lee Bermejo, includes a storyline where Batman battles his nemesis on a significant holiday?",
+    "kind": "compare",
+    "ref": "Lee Bermejo includes a storyline where Batman battles his nemesis on a significant holiday."
+   }
+  ]
+ },
+ {
+  "id": "gen-22188",
+  "turns": [
+   {
+    "q": "who is matt villa?",
+    "kind": "lookup",
+    "ref": "Matt Villa voices Killer Croc in The Lego Batman Movie."
+   },
+   {
+    "q": "what character does he voice in the lego batman movie?",
+    "kind": "followup",
+    "ref": "He voices Killer Croc in The Lego Batman Movie."
+   },
+   {
+    "q": "what year was the movie released?",
+    "kind": "followup",
+    "ref": "The Lego Batman Movie was released in 2017."
+   }
+  ]
+ },
+ {
+  "id": "gen-23597",
+  "turns": [
+   {
+    "q": "waz up wit da league huntin vicki?",
+    "kind": "typo",
+    "ref": "The League of Assassins hunts Vicki Vale because Ra's al Ghul realized she knows Batman's secret identity."
+   }
+  ]
+ },
+ {
+  "id": "gen-24592",
+  "turns": [
+   {
+    "q": "What distinguishes Deadshot's involvement in political assassination from Barbara Gordon's portrayal in various media adaptations?",
+    "kind": "compare",
+    "ref": "Deadshot publicly kills a US senator, while Barbara Gordon is portrayed in various media adaptations as Batgirl and Oracle, but there is no mention of her involvement in political assassination."
+   }
+  ]
+ },
+ {
+  "id": "gen-10902",
+  "turns": [
+   {
+    "q": "does deadshot wear customized body armor and whats mounted on his wrists?",
+    "kind": "multipart",
+    "ref": "Yes, Deadshot wears customized body armor and wrist-mounted guns."
+   }
+  ]
+ },
+ {
+  "id": "gen-4918",
+  "turns": [
+   {
+    "q": "Is the first volume of Batman: Child of Dreams from 2002?",
+    "kind": "yesno",
+    "ref": "No, the first volume of Batman: Child of Dreams was released in November 2000."
+   }
+  ]
+ },
+ {
+  "id": "gen-24610",
+  "turns": [
+   {
+    "q": "What distinguishes the music composition process for Batman films from the inspiration behind the Gotham City Garage digital comic series?",
+    "kind": "compare",
+    "ref": "The music composition process for Batman films involves creating scores and themes for the movies, while the Gotham City Garage digital comic series is inspired by a collectibles statue line reimagining DC's female heroes as bikers."
+   }
+  ]
+ },
+ {
+  "id": "gen-2909",
+  "turns": [
+   {
+    "q": "Is 'Batman Is Riled' the first episode of the Batman television series?",
+    "kind": "yesno",
+    "ref": "No, 'Batman Is Riled' is the sixth episode of the Batman television series."
+   }
+  ]
+ },
+ {
+  "id": "gen-4935",
+  "turns": [
+   {
+    "q": "where was Batman: Child of Dreams published initially?",
+    "kind": "lookup",
+    "ref": "Batman: Child of Dreams was initially published in Kodansha's Magazine Z."
+   }
+  ]
+ },
+ {
+  "id": "gen-24269",
+  "turns": [
+   {
+    "q": "In 'The Dark Knight Rises', which character, Vicki Vale or Selina Kyle, first appeared in Batman comics in 1948?",
+    "kind": "compare",
+    "ref": "Vicki Vale first appeared in Batman comics in 1948."
+   }
+  ]
+ },
+ {
+  "id": "gen-7695",
+  "turns": [
+   {
+    "q": "Batman: Under the Red Hood",
+    "kind": "lookup",
+    "ref": "Batman: Under the Red Hood is a 2010 American animated direct-to-video superhero film directed by Brandon Vietti."
+   },
+   {
+    "q": "does it include a scene where Red Hood fights the Joker?",
+    "kind": "followup",
+    "ref": "Yes, the Red Hood brutally beats Joker in revenge and confronts Batman."
+   },
+   {
+    "q": "what happens to Black Mask at the end?",
+    "kind": "followup",
+    "ref": "Black Mask is arrested following the events of the film."
+   }
+  ]
+ },
+ {
+  "id": "gen-23774",
+  "turns": [
+   {
+    "q": "Name three characters mentioned in Wayne of Gotham",
+    "kind": "list",
+    "ref": "Bruce, Thomas Wayne, and Martha Kane"
+   }
+  ]
+ },
+ {
+  "id": "gen-25256",
+  "turns": [
+   {
+    "q": "How does the portrayal of Lucius Fox by Morgan Freeman in The Dark Knight Trilogy compare to the Irish Catholic substitute character, Jack Fox O'Dwyer, in Batman v Superman: Dawn of Justice?",
+    "kind": "compare",
+    "ref": "Morgan Freeman portrays Lucius Fox as a trusted advisor and tech expert at Wayne Enterprises with a clear understanding of Bruce Wayne's dual life, while Hugh Maguire voices Jack Fox O'Dwyer, an Irish Catholic substitute for Lucius Fox who seems to serve a similar role but within the context of a different storyline focusing on cultural representation."
+   }
+  ]
+ },
+ {
+  "id": "gen-812",
+  "turns": [
+   {
+    "q": "where was arena of valor published besides china and which company published it there?",
+    "kind": "multipart",
+    "ref": "Arena of Valor was published in other regions by Garena, DeNA, Actoz SG, and TiMi Studio Group. TiMi Studio Group published it in China."
+   }
+  ]
+ },
+ {
+  "id": "gen-2918",
+  "turns": [
+   {
+    "q": "What is Batman Is Riled about?",
+    "kind": "lookup",
+    "ref": "In 'Batman Is Riled', Batman uses a small Batmissile to escape from the Joker."
+   },
+   {
+    "q": "Was it really a small missile Batman used?",
+    "kind": "followup",
+    "ref": "Yes, in 'Batman Is Riled', Batman uses a small Batmissile to escape from the Joker."
+   }
+  ]
+ },
+ {
+  "id": "gen-22686",
+  "turns": [
+   {
+    "q": "name two characters in the movie",
+    "kind": "list",
+    "ref": "Robert DuBois / Bloodsport and Dr. Harleen Quinzel / Harley Quinn"
+   }
+  ]
+ },
+ {
+  "id": "gen-17032",
+  "turns": [
+   {
+    "q": "How did Matt Reeves start his career as a director?",
+    "kind": "why",
+    "ref": "Matt Reeves started his career as a director with the romantic comedy film The Pallbearer (1996)."
+   }
+  ]
+ },
+ {
+  "id": "gen-26186",
+  "turns": [
+   {
+    "q": "In what ways do the abilities of Ballistic differ from the plot devices used in 'The Penguin's a Jinx' episode of Batman?",
+    "kind": "compare",
+    "ref": "Ballistic has superhuman strength, durability, hearing, and vision, while the plot devices in \"The Penguin's a Jinx\" include dummies in armor statues to catch the Penguin and a magnetic trap that immobilizes Batman and Robin due to the metal in their utility belts. I don't have the other part comparing abilities to plot devices in the episode."
+   }
+  ]
+ },
+ {
+  "id": "gen-6247",
+  "turns": [
+   {
+    "q": "Are you sure Superman uses his X-ray vision to help Batman in this story?",
+    "kind": "challenge",
+    "ref": "Yes, Superman uses X-ray vision to determine Batman is coming down with pneumonia."
+   }
+  ]
+ },
+ {
+  "id": "gen-12144",
+  "turns": [
+   {
+    "q": "How did Crispus Allen feel after becoming the Spectre?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-22668",
+  "turns": [
+   {
+    "q": "Is James Gunn both the writer and director of The Suicide Squad?",
+    "kind": "yesno",
+    "ref": "Yes, James Gunn wrote and directed The Suicide Squad."
+   }
+  ]
+ },
+ {
+  "id": "gen-7707",
+  "turns": [
+   {
+    "q": "Tell me about 'Batman: Under the Red Hood'",
+    "kind": "lookup",
+    "ref": "Batman: Under the Red Hood is a 2010 American animated direct-to-video superhero film directed by Brandon Vietti and produced by Warner Premiere, DC Entertainment & Warner Bros."
+   },
+   {
+    "q": "When was it released?",
+    "kind": "followup",
+    "ref": "Batman: Under the Red Hood was released in 2010."
+   },
+   {
+    "q": "What happens to Black Mask in this film?",
+    "kind": "followup",
+    "ref": "Black Mask is arrested following the events of the film."
+   }
+  ]
+ },
+ {
+  "id": "gen-1095",
+  "turns": [
+   {
+    "q": "ballistic has supe stonks durabillity... spelling mistake here",
+    "kind": "typo",
+    "ref": "Ballistic possesses superhuman strength and durability."
+   }
+  ]
+ },
+ {
+  "id": "gen-10889",
+  "turns": [
+   {
+    "q": "Why did Deadshot kill Wes Anselm?",
+    "kind": "why",
+    "ref": "Deadshot killed Wes Anselm in retaliation for the death of his son Edward."
+   }
+  ]
+ },
+ {
+  "id": "gen-9852",
+  "turns": [
+   {
+    "q": "wut year did chip start writin batman comics",
+    "kind": "typo",
+    "ref": "Chip Zdarsky started writing the mainline Batman book with issue 125 on July 5, 2022."
+   }
+  ]
+ },
+ {
+  "id": "gen-25864",
+  "turns": [
+   {
+    "q": "How does Swagman's role in the Batman universe compare to Vicki Vale's role?",
+    "kind": "compare",
+    "ref": "Swagman is a supervillain who opposes Batman and Robin, while Vicki Vale is a journalist who often interacts with Batman."
+   }
+  ]
+ },
+ {
+  "id": "gen-4077",
+  "turns": [
+   {
+    "q": "wutz up wit dan trimble blocking sun ligh?",
+    "kind": "typo",
+    "ref": "Dan Trimble constructs Gotham Tower, which blocks sunlight to Poison Ivy's cell."
+   }
+  ]
+ },
+ {
+  "id": "gen-20561",
+  "turns": [
+   {
+    "q": "Did Super Friends run on NBC instead of ABC?",
+    "kind": "yesno",
+    "ref": "No, Super Friends ran on ABC from 1973 to 1985."
+   }
+  ]
+ },
+ {
+  "id": "gen-2917",
+  "turns": [
+   {
+    "q": "what was the Joker's reaction after escaping using the smoke bomb?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-9866",
+  "turns": [
+   {
+    "q": "name three comic books Chip Zdarsky has written",
+    "kind": "list",
+    "ref": "Chip Zdarsky has written the comic series 'Sex Criminals', the mainline Batman book starting with issue 125, and the first series arc of the relaunched Jughead comic for the 2015 New Riverdale relaunch."
+   }
+  ]
+ },
+ {
+  "id": "gen-14663",
+  "turns": [
+   {
+    "q": "how closely did they work together? and who created snapper carr?",
+    "kind": "multipart",
+    "ref": "The Justice League worked together more closely in their stories compared to the Justice Society. Gardner Fox created Snapper Carr."
+   }
+  ]
+ },
+ {
+  "id": "gen-17916",
+  "turns": [
+   {
+    "q": "Does Cobblepot partner with Ivy Pepper and kill Nygma?",
+    "kind": "multipart",
+    "ref": "Yes, Cobblepot partners with Ivy Pepper to kill Nygma."
+   }
+  ]
+ },
+ {
+  "id": "gen-9872",
+  "turns": [
+   {
+    "q": "Are you sure Chip Zdarsky created the pseudonym in 2000?",
+    "kind": "challenge",
+    "ref": "Yes, Steven Murray created the pseudonym Chip Zdarsky in 2000."
+   }
+  ]
+ },
+ {
+  "id": "gen-2911",
+  "turns": [
+   {
+    "q": "I thought Batman and Robin used a special antidote to fight the Joker's gas.",
+    "kind": "challenge",
+    "ref": "No, they took a Universal Drug Antidote Pill to counteract the paralyzing gas."
+   }
+  ]
+ },
+ {
+  "id": "gen-6978",
+  "turns": [
+   {
+    "q": "Did Batman: The Dark Knight Returns win any awards for its animation?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-7696",
+  "turns": [
+   {
+    "q": "Is Jason Todd also known as Red Hood?",
+    "kind": "yesno",
+    "ref": "Yes, Jason Todd was formerly known as Red Hood."
+   }
+  ]
+ },
+ {
+  "id": "gen-3464",
+  "turns": [
+   {
+    "q": "What company animated the film?",
+    "kind": "lookup",
+    "ref": "DR Movie in South Korea)animated the film."
+   },
+   {
+    "q": "Who composed the music for the movie?",
+    "kind": "followup",
+    "ref": "Michael McCuistion, Kristopher Carter, and Lolita Ritmanis composed the score for Batman and Harley Quinn."
+   },
+   {
+    "q": "What is the post-credits scene about?",
+    "kind": "followup",
+    "ref": "Harley Quinn runs a reality television game show called 'Ask Dr. Quinzel' in a post-credits scene."
+   }
+  ]
+ },
+ {
+  "id": "gen-23581",
+  "turns": [
+   {
+    "q": "Is Vicki Vale a superhero in the DC Comics universe?",
+    "kind": "yesno",
+    "ref": "No, Vicki Vale is a Gotham City journalist and photographer and one of Bruce Wayne's love interests, not a superhero."
+   }
+  ]
+ },
+ {
+  "id": "gen-23573",
+  "turns": [
+   {
+    "q": "vicki vale was in batman 49, right",
+    "kind": "typo",
+    "ref": "Yes, Vicki Vale first appeared in Batman #49."
+   }
+  ]
+ },
+ {
+  "id": "gen-12135",
+  "turns": [
+   {
+    "q": "Is Gotham Central known for receiving nominations for an award in 2003?",
+    "kind": "yesno",
+    "ref": "Yes, Gotham Central received Eisner Award nominations in 2003."
+   }
+  ]
+ },
+ {
+  "id": "gen-22693",
+  "turns": [
+   {
+    "q": "the film got good reviews...right?",
+    "kind": "typo",
+    "ref": "Yes, The Suicide Squad received positive reviews from critics."
+   }
+  ]
+ },
+ {
+  "id": "gen-8535",
+  "turns": [
+   {
+    "q": "Tell me about Beth Kane.",
+    "kind": "lookup",
+    "ref": "Beth Kane is the sister of Kate Kane and has been revived by the DEO using a sarcophagus. She uses the identity Red Alice."
+   },
+   {
+    "q": "What identities has she used?",
+    "kind": "followup",
+    "ref": "She has used the identities Alice, the Mother of War, and Red Alice."
+   },
+   {
+    "q": "How was she revived?",
+    "kind": "followup",
+    "ref": "She was revived by the DEO using a sarcophagus."
+   }
+  ]
+ },
+ {
+  "id": "gen-7313",
+  "turns": [
+   {
+    "q": "Who voices Selina Kyle/Catwoman and Harvey Dent/Two-Face?",
+    "kind": "multipart",
+    "ref": "Naya Rivera voices Selina Kyle / Catwoman and Josh Duhamel voices Harvey Dent / Two-Face."
+   }
+  ]
+ },
+ {
+  "id": "gen-6964",
+  "turns": [
+   {
+    "q": "name three voice actors in batman the dark knight returns",
+    "kind": "list",
+    "ref": "David Selby, Michael Emerson, and Ariel Winter are three voice actors in Batman: The Dark Knight Returns."
+   }
+  ]
+ },
+ {
+  "id": "gen-12927",
+  "turns": [
+   {
+    "q": "What is Harley & Ivy Meet Betty & Veronica?",
+    "kind": "lookup",
+    "ref": "Harley & Ivy Meet Betty & Veronica is a six-issue American comic book miniseries co-written by Marc Andreyko and Paul Dini, illustrated by Laura Braga, published from October 2017 to March 2018."
+   },
+   {
+    "q": "But wasn't it written by someone else like Neil Gaiman?",
+    "kind": "followup",
+    "ref": "No, Harley & Ivy Meet Betty & Veronica was co-written by Marc Andreyko and Paul Dini."
+   }
+  ]
+ },
+ {
+  "id": "gen-21645",
+  "turns": [
+   {
+    "q": "What was Christopher Nolan's personal favorite scene in The Dark Knight?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-14658",
+  "turns": [
+   {
+    "q": "did the Justice League first appear in Detective Comics #275?",
+    "kind": "yesno",
+    "ref": "No, the Justice League first appeared in The Brave and the Bold #28 (March 1960)."
+   }
+  ]
+ },
+ {
+  "id": "gen-19092",
+  "turns": [
+   {
+    "q": "Are you sure Jim Gordon believed Zucco might try to escape Gotham?",
+    "kind": "challenge",
+    "ref": "Yes, Jim Gordon believes that Zucco might try to flee from Gotham."
+   }
+  ]
+ },
+ {
+  "id": "gen-9258",
+  "turns": [
+   {
+    "q": "What personal motivation does Calculator have for using Kid Eternity?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-21654",
+  "turns": [
+   {
+    "q": "who plays judge surrillos and where was the movie filmed?",
+    "kind": "multipart",
+    "ref": "Nydia Rodriguez Terracina plays Judge Surrillo in The Dark Knight, which was filmed in Chicago and Hong Kong."
+   }
+  ]
+ },
+ {
+  "id": "gen-24433",
+  "turns": [
+   {
+    "q": "What character appears in both 'Batman' TV series and 'Batman: The Dark Knight Returns', and how do their roles differ?",
+    "kind": "compare",
+    "ref": "Bruce Wayne/Batman appears in both the \"Batman\" TV series and \"Batman: The Dark Knight Returns\". In the TV series, he is a costumed hero fighting crime alongside Robin, while in \"Batman: The Dark Knight Returns\", he is an older, retired vigilante who returns to action after years away."
+   }
+  ]
+ },
+ {
+  "id": "gen-20504",
+  "turns": [
+   {
+    "q": "What's the name of the ending theme song and who performed it for Suicide Squad Isekai?",
+    "kind": "multipart",
+    "ref": "The ending theme song for Suicide Squad Isekai is 'Go-Getters' performed by Mori Calliope."
+   }
+  ]
+ },
+ {
+  "id": "gen-14404",
+  "turns": [
+   {
+    "q": "the jokrs face was givn a bacon spin",
+    "kind": "typo",
+    "ref": "No, Christopher Nolan noted that the Joker's face was given a Francis Bacon spin to depict corruption and decay."
+   }
+  ]
+ },
+ {
+  "id": "gen-14410",
+  "turns": [
+   {
+    "q": "Tell me about Heath Ledger's preparation for the Joker role.",
+    "kind": "lookup",
+    "ref": "Heath Ledger spent six weeks secluding himself in a London hotel room to prepare for the role of the Joker."
+   },
+   {
+    "q": "Wasn't there a specific scene that Heath Ledger prepared for in isolation?",
+    "kind": "followup",
+    "ref": "Yes, Heath Ledger secluded himself in a London hotel room for six weeks to prepare for the role of the Joker, which included preparing for specific scenes."
+   },
+   {
+    "q": "What were some of the artistic influences for the Joker's look?",
+    "kind": "followup",
+    "ref": "Christopher Nolan and Heath Ledger drew visual inspiration from the artwork of Francis Bacon for the Joker's appearance."
+   }
+  ]
+ },
+ {
+  "id": "gen-19589",
+  "turns": [
+   {
+    "q": "Isn't it true that Superman found Maxwell and Lily in Gotham City?",
+    "kind": "challenge",
+    "ref": "No, Batman found Maxwell and Lily in Gotham City."
+   }
+  ]
+ },
+ {
+  "id": "gen-11640",
+  "turns": [
+   {
+    "q": "Is Firefly a name used by multiple villains in DC Comics?",
+    "kind": "yesno",
+    "ref": "Yes, Firefly is the alias of several supervillains appearing in American comic books published by DC Comics."
+   }
+  ]
+ },
+ {
+  "id": "gen-12153",
+  "turns": [
+   {
+    "q": "How popular was Gotham Central according to distributor charts and who drew the pencils?",
+    "kind": "multipart",
+    "ref": "Gotham Central's final issues ranked 102nd and 120th on the distributor's charts, indicating moderate popularity. Michael Lark drew the pencils for Gotham Central."
+   }
+  ]
+ },
+ {
+  "id": "gen-4908",
+  "turns": [
+   {
+    "q": "Isn't it true that Kia Asamiya didn't write and illustrate 'Batman: Child of Dreams'?",
+    "kind": "challenge",
+    "ref": "No, Kia Asamiya did write and illustrate 'Batman: Child of Dreams'."
+   }
+  ]
+ },
+ {
+  "id": "gen-3475",
+  "turns": [
+   {
+    "q": "Did Harley Quinn have any memorable lines in Batman and Harley Quinn?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-21636",
+  "turns": [
+   {
+    "q": "Is The Dark Knight based on Batman?",
+    "kind": "yesno",
+    "ref": "Yes, The Dark Knight is based on the DC Comics superhero Batman."
+   }
+  ]
+ },
+ {
+  "id": "gen-17028",
+  "turns": [
+   {
+    "q": "Is Matt Reeves the director of The Pallbearer?",
+    "kind": "yesno",
+    "ref": "Yes, Matt Reeves made his directorial debut with the romantic comedy film The Pallbearer (1996)."
+   }
+  ]
+ },
+ {
+  "id": "gen-21820",
+  "turns": [
+   {
+    "q": "when was the song released as a single?",
+    "kind": "lookup",
+    "ref": "The Smashing Pumpkins released 'The End Is the Beginning Is the End' as a single from the Batman & Robin soundtrack in 1997."
+   }
+  ]
+ },
+ {
+  "id": "gen-17048",
+  "turns": [
+   {
+    "q": "What was Matt Reeves thinking while directing 'The Batman'?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-4073",
+  "turns": [
+   {
+    "q": "Is Dr. Wood Poison Ivy's lawyer instead of her psychiatrist?",
+    "kind": "yesno",
+    "ref": "No, Dr. Wood is Poison Ivy's assigned psychiatrist, not her lawyer."
+   }
+  ]
+ },
+ {
+  "id": "gen-2926",
+  "turns": [
+   {
+    "q": "What date did the episode air and who helped Batman solve the riddle?",
+    "kind": "multipart",
+    "ref": "The episode originally aired on January 27, 1966 and Alfred helped Batman and Robin solve the Joker's riddle."
+   }
+  ]
+ },
+ {
+  "id": "gen-9877",
+  "turns": [
+   {
+    "q": "Name three comics Chip Zdarsky has worked on",
+    "kind": "list",
+    "ref": "Chip Zdarsky has worked on 'Sex Criminals', 'Jughead', and 'Extremely Bad Advice'."
+   }
+  ]
+ },
+ {
+  "id": "gen-868",
+  "turns": [
+   {
+    "q": "wot did cobbler pot do at maroni's mafia?",
+    "kind": "typo",
+    "ref": "Cobblepot indulges more in Maroni's mafia."
+   }
+  ]
+ },
+ {
+  "id": "gen-6988",
+  "turns": [
+   {
+    "q": "How did the director of Batman: The Dark Knight Returns feel about the final product?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-25287",
+  "turns": [
+   {
+    "q": "What distinguishes the collaborative nature of Fatman Beyond from the technological innovation seen in Batman: Arkham VR?",
+    "kind": "compare",
+    "ref": "Fatman Beyond distinguishes itself through its collaborative nature involving interviews with guests chosen by Kevin Smith, while Batman: Arkham VR stands out due to its technological innovation as the first installment to use virtual reality headsets."
+   }
+  ]
+ },
+ {
+  "id": "gen-7704",
+  "turns": [
+   {
+    "q": "What happened to the Joker after the events of the film?",
+    "kind": "lookup",
+    "ref": "The Joker is returned to Arkham Asylum after the events of the film."
+   }
+  ]
+ },
+ {
+  "id": "gen-7460",
+  "turns": [
+   {
+    "q": "Are you certain Bruce Wayne saw his parents get murdered?",
+    "kind": "challenge",
+    "ref": "Yes, Bruce Wayne witnessed the murder of his parents Thomas and Martha Wayne as a child."
+   }
+  ]
+ },
+ {
+  "id": "gen-14417",
+  "turns": [
+   {
+    "q": "what was heath ledgers pay or play deal and who else was offered the joker role besides him?",
+    "kind": "multipart",
+    "ref": "Heath Ledger had a 'pay-or-play' deal on The Dark Knight. Joaquin Phoenix and Leonardo DiCaprio were also offered the role of the Joker by Nolan."
+   }
+  ]
+ },
+ {
+  "id": "gen-7687",
+  "turns": [
+   {
+    "q": "Are you sure Jason Todd dies in this film?",
+    "kind": "challenge",
+    "ref": "Yes, Jason Todd dies when the bomb set by him explodes."
+   }
+  ]
+ },
+ {
+  "id": "gen-18146",
+  "turns": [
+   {
+    "q": "did the penguin first appear in detective comics #57 in 1940?",
+    "kind": "yesno",
+    "ref": "No, the Penguin first appeared in Detective Comics #58 in 1941."
+   }
+  ]
+ },
+ {
+  "id": "gen-6976",
+  "turns": [
+   {
+    "q": "Name three actors who play key roles in Batman: The Dark Knight Returns",
+    "kind": "list",
+    "ref": "Michael Emerson voices The Joker, David Selby plays Commissioner James Gordon, and Peter Weller plays Bruce Wayne / Batman."
+   }
+  ]
+ },
+ {
+  "id": "gen-21804",
+  "turns": [
+   {
+    "q": "i thought the song was performed by a different band",
+    "kind": "challenge",
+    "ref": "No, the song 'The End Is the Beginning Is the End' is by the Smashing Pumpkins."
+   }
+  ]
+ },
+ {
+  "id": "gen-3454",
+  "turns": [
+   {
+    "q": "Was the animation for Batman and Harley Quinn done in Japan?",
+    "kind": "yesno",
+    "ref": "No, the animation for Batman and Harley Quinn was outsourced to DR Movie in South Korea."
+   }
+  ]
+ },
+ {
+  "id": "gen-19595",
+  "turns": [
+   {
+    "q": "Does the game feature any original characters created specifically for Scribblenauts Unmasked?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-20501",
+  "turns": [
+   {
+    "q": "Isn't the director of Suicide Squad Isekai supposed to be Hiroyuki Omori?",
+    "kind": "challenge",
+    "ref": "No, Eri Osada directed Suicide Squad Isekai."
+   }
+  ]
+ },
+ {
+  "id": "gen-20467",
+  "turns": [
+   {
+    "q": "Who is in the Suicide Squad movie?",
+    "kind": "lookup",
+    "ref": "Amanda Waller, Rick Flag Jr., Deadshot, Katana, and Harley Quinn are in the Suicide Squad movie."
+   },
+   {
+    "q": "What role does Will Smith play?",
+    "kind": "followup",
+    "ref": "Will Smith plays Floyd Lawton, also known as Deadshot, in Suicide Squad."
+   },
+   {
+    "q": "How about Joel Kinnaman's role?",
+    "kind": "followup",
+    "ref": "Joel Kinnaman plays Rick Flag Jr., the heroic military leader of the Task Force X, in Suicide Squad."
+   }
+  ]
+ },
+ {
+  "id": "gen-9542",
+  "turns": [
+   {
+    "q": "Did Michelle Pfeiffer choose the color of her costume herself?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-18295",
+  "turns": [
+   {
+    "q": "whats poisons first appearence?",
+    "kind": "typo",
+    "ref": "Poison Ivy's first appearance was in Batman #181 in June 1966."
+   }
+  ]
+ },
+ {
+  "id": "gen-7240",
+  "turns": [
+   {
+    "q": "Are you sure Victor Zsasz was created by Alan Grant and Tom Szasz?",
+    "kind": "challenge",
+    "ref": "No, Victor Zsasz was created by Alan Grant and named after psychiatrist Thomas Szasz."
+   }
+  ]
+ },
+ {
+  "id": "gen-9864",
+  "turns": [
+   {
+    "q": "wot d00ds did chp zdzrsky wrt n tha jgdlad cmmic?",
+    "kind": "typo",
+    "ref": "Chip Zdarsky wrote the first series arc of the relaunched Jughead comic for the 2015 New Riverdale relaunch."
+   }
+  ]
+ },
+ {
+  "id": "gen-7249",
+  "turns": [
+   {
+    "q": "Is Victor Zsasz a character that was introduced in Batman: Shadow of the Bat #1 in June 1992?",
+    "kind": "yesno",
+    "ref": "Yes, Victor Zsasz was introduced in Batman: Shadow of the Bat #1 in June 1992."
+   }
+  ]
+ },
+ {
+  "id": "gen-3469",
+  "turns": [
+   {
+    "q": "I thought Loren Lester voiced Batman in Batman and Harley Quinn.",
+    "kind": "challenge",
+    "ref": "No, Loren Lester voices Nightwing in Batman and Harley Quinn."
+   }
+  ]
+ },
+ {
+  "id": "gen-10885",
+  "turns": [
+   {
+    "q": "Tell me about Deadshot",
+    "kind": "lookup",
+    "ref": "Deadshot is the alias of Floyd Lawton, a mercenary known for his death wish and considered the greatest marksman and one of the deadliest assassins in the DC Universe. He was created by writer David Vern Reed and artist Lew Sayre Schwartz and was originally intended to be a one-off villain for Batman, but he has since become a recurring character, even being selected for the Suicide Squad due to his tendencies."
+   },
+   {
+    "q": "what year did he first appear?",
+    "kind": "followup",
+    "ref": "Deadshot first appeared in 1950."
+   },
+   {
+    "q": "how is he related to the Suicide Squad?",
+    "kind": "followup",
+    "ref": "Deadshot is selected for the Suicide Squad partly because of his tendency towards a 'death wish'."
+   }
+  ]
+ },
+ {
+  "id": "gen-12149",
+  "turns": [
+   {
+    "q": "Are you sure Gotham Central had a character named Crispus Allen?",
+    "kind": "challenge",
+    "ref": "Yes, Gotham Central's main characters included Crispus Allen."
+   }
+  ]
+ },
+ {
+  "id": "gen-17411",
+  "turns": [
+   {
+    "q": "what was the reason for changing the orientation of trains on Mr. Freeze in 2023?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-21653",
+  "turns": [
+   {
+    "q": "watz the role of nydia rodriguez terracina in the dark knight?",
+    "kind": "typo",
+    "ref": "Nydia Rodriguez Terracina plays Judge Surrillo in The Dark Knight."
+   }
+  ]
+ },
+ {
+  "id": "gen-842",
+  "turns": [
+   {
+    "q": "Are you sure Ron Jenkins was killed by a hitman in 'Arkham'?",
+    "kind": "challenge",
+    "ref": "Yes, Ron Jenkins was killed by a hitman in 'Arkham'."
+   }
+  ]
+ },
+ {
+  "id": "gen-10897",
+  "turns": [
+   {
+    "q": "did Bradley Stryker play Deadshot in Arrow?",
+    "kind": "yesno",
+    "ref": "No, Bradley Stryker played Deadshot in Smallville, while Michael Rowe played him in Arrow."
+   }
+  ]
+ },
+ {
+  "id": "gen-17040",
+  "turns": [
+   {
+    "q": "Did Matt Reeves direct the film Dawn of the Planet of the Apes in 2015?",
+    "kind": "yesno",
+    "ref": "No, Matt Reeves directed the science-fiction film Dawn of the Planet of the Apes in 2014."
+   }
+  ]
+ },
+ {
+  "id": "gen-20544",
+  "turns": [
+   {
+    "q": "Hanna-Barbera got rights to Marvel Comics characters in 1973.",
+    "kind": "yesno",
+    "ref": "No, Hanna-Barbera acquired rights to DC Comics characters in 1973."
+   }
+  ]
+ },
+ {
+  "id": "gen-9277",
+  "turns": [
+   {
+    "q": "calc kill kid eternety afetr faling to sea marvin",
+    "kind": "typo",
+    "ref": "No, Calculator kills Kid Eternity after failing to see Marvin."
+   }
+  ]
+ },
+ {
+  "id": "gen-25149",
+  "turns": [
+   {
+    "q": "What distinguishes the character development of Oswald Cobblepot in Gotham from the physical structure and design features of The Joker roller coaster at Six Flags Discovery Kingdom?",
+    "kind": "compare",
+    "ref": "Oswald Cobblepot's character development in Gotham includes queer implications and being healed by Ivy Pepper after being shot by Edward Nygma, while The Joker roller coaster at Six Flags Discovery Kingdom is distinguished by its physical structure and design features such as being a steel roller coaster with each train having six cars, each seating four people with two across in two rows, for a total capacity of 24 riders per train. I don't know the other part."
+   }
+  ]
+ },
+ {
+  "id": "gen-14415",
+  "turns": [
+   {
+    "q": "how did Christopher Nolan want the Joker's face to look like?",
+    "kind": "why",
+    "ref": "Christopher Nolan wanted the Joker's face to have a Francis Bacon spin to depict corruption and decay."
+   }
+  ]
+ },
+ {
+  "id": "gen-7307",
+  "turns": [
+   {
+    "q": "Is Batman: The Long Halloween a direct-to-video release?",
+    "kind": "yesno",
+    "ref": "Yes, Batman: The Long Halloween is a direct-to-video release."
+   }
+  ]
+ },
+ {
+  "id": "gen-20500",
+  "turns": [
+   {
+    "q": "Are you certain that Suicide Squad Isekai aired until September 7th, 2024?",
+    "kind": "challenge",
+    "ref": "Yes, Suicide Squad Isekai aired until September 7th, 2024."
+   }
+  ]
+ },
+ {
+  "id": "gen-4527",
+  "turns": [
+   {
+    "q": "Are you sure Dick Grayson is Bruce's ward?",
+    "kind": "challenge",
+    "ref": "Yes, Dick Grayson is adopted as Bruce's ward."
+   }
+  ]
+ },
+ {
+  "id": "gen-23776",
+  "turns": [
+   {
+    "q": "What is the motive behind Marion Richter's claim about Bruce's parents?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-6962",
+  "turns": [
+   {
+    "q": "whos the direktor of the film?",
+    "kind": "typo",
+    "ref": "Jay Oliva directed the film."
+   }
+  ]
+ },
+ {
+  "id": "gen-20546",
+  "turns": [
+   {
+    "q": "I thought there were five segments in each episode of Super Friends.",
+    "kind": "challenge",
+    "ref": "No, there were only two segments in each episode of Super Friends."
+   }
+  ]
+ },
+ {
+  "id": "gen-2908",
+  "turns": [
+   {
+    "q": "Did Batman use a small missile to escape from the Joker in the episode?",
+    "kind": "yesno",
+    "ref": "Yes, in \"Batman Is Riled,\" Batman uses a small Batmissile to escape from the Joker."
+   }
+  ]
+ },
+ {
+  "id": "gen-14650",
+  "turns": [
+   {
+    "q": "how did the justice league debut?",
+    "kind": "typo",
+    "ref": "The Justice League debuted in March 1960 in The Brave and the Bold #28."
+   }
+  ]
+ },
+ {
+  "id": "gen-9533",
+  "turns": [
+   {
+    "q": "Is Michelle Pfeiffer the actress who plays Catwoman in the movie?",
+    "kind": "yesno",
+    "ref": "Yes, Michelle Pfeiffer was cast to reprise her role as Catwoman."
+   }
+  ]
+ },
+ {
+  "id": "gen-1083",
+  "turns": [
+   {
+    "q": "whats the deal with Ballistiks powers?",
+    "kind": "typo",
+    "ref": "Ballistic possesses superhuman strength, durability, hearing, and vision."
+   }
+  ]
+ },
+ {
+  "id": "gen-4548",
+  "turns": [
+   {
+    "q": "Tell me about Batman: Arkham Shadow",
+    "kind": "lookup",
+    "ref": "Batman: Arkham Shadow is a 2024 action-adventure game developed by Camouflaj and published by Oculus Studios. It is set six months after the events of Arkham Origins and follows a younger and less experienced Batman."
+   },
+   {
+    "q": "what happens to Batman during the game?",
+    "kind": "followup",
+    "ref": "Set six months after the events of Arkham Origins, the game follows a younger and less experienced Batman as he faces new challenges. I don't know the other part."
+   },
+   {
+    "q": "who is in the asylum?",
+    "kind": "followup",
+    "ref": "Arnold Wesker is a patient in the Arkham Asylum. I don't have information on other specific individuals in the asylum."
+   }
+  ]
+ },
+ {
+  "id": "gen-17021",
+  "turns": [
+   {
+    "q": "did matt reeves dirct let me in",
+    "kind": "typo",
+    "ref": "Yes, Matt Reeves directed the vampire film Let Me In."
+   }
+  ]
+ },
+ {
+  "id": "gen-22681",
+  "turns": [
+   {
+    "q": "Are you sure Margot Robbie plays Harley Quinn in The Suicide Squad?",
+    "kind": "challenge",
+    "ref": "Yes, The Suicide Squad stars Margot Robbie as Dr. Harleen Quinzel / Harley Quinn."
+   }
+  ]
+ },
+ {
+  "id": "gen-855",
+  "turns": [
+   {
+    "q": "I thought the hitman was killed by Gordon alone.",
+    "kind": "challenge",
+    "ref": "No, Detectives Gordon and Bullock killed the hitman together."
+   }
+  ]
+ },
+ {
+  "id": "gen-7703",
+  "turns": [
+   {
+    "q": "Name three characters mentioned in Batman: Under the Red Hood.",
+    "kind": "list",
+    "ref": "Jason Todd, Batman, and Nightwing."
+   }
+  ]
+ },
+ {
+  "id": "gen-4543",
+  "turns": [
+   {
+    "q": "wuz Arnold weskur in arkahm asyulm?",
+    "kind": "typo",
+    "ref": "Yes, Arnold Wesker is a patient in the Arkham Asylum."
+   }
+  ]
+ },
+ {
+  "id": "gen-22191",
+  "turns": [
+   {
+    "q": "Is Zach Galifianakis voicing Catwoman in The Lego Batman Movie?",
+    "kind": "yesno",
+    "ref": "No, Zach Galifianakis voices The Joker, and Zoë Kravitz voices Catwoman in The Lego Batman Movie."
+   }
+  ]
+ },
+ {
+  "id": "gen-21637",
+  "turns": [
+   {
+    "q": "Is The Dark Knight based on Superman?",
+    "kind": "yesno",
+    "ref": "No, The Dark Knight is based on the DC Comics superhero Batman."
+   }
+  ]
+ },
+ {
+  "id": "gen-2919",
+  "turns": [
+   {
+    "q": "When did Batman Is Riled originally air?",
+    "kind": "lookup",
+    "ref": "January 27, 1966"
+   },
+   {
+    "q": "How many times was Batman Is Riled broadcast on ABC?",
+    "kind": "followup",
+    "ref": "Three times: originally on January 27, 1966, and repeated on May 26, 1966, and May 25, 1967."
+   }
+  ]
+ },
+ {
+  "id": "gen-4537",
+  "turns": [
+   {
+    "q": "What is the timeline between Arkham Origins and Batman: Arkham Shadow?",
+    "kind": "lookup",
+    "ref": "Set six months after the events of Arkham Origins, the game follows a younger and less experienced Batman. The development of Batman: Arkham Shadow lasted about four years."
+   },
+   {
+    "q": "But wasn't it set before Arkham Asylum?",
+    "kind": "followup",
+    "ref": "No, the game is set six months after the events of Arkham Origins and is a 2024 game, which is after Arkham Asylum."
+   }
+  ]
+ },
+ {
+  "id": "gen-7245",
+  "turns": [
+   {
+    "q": "Name two characters introduced in Batman: Shadow of the Bat #1",
+    "kind": "list",
+    "ref": "Victor Zsasz and Amygdala were introduced in Batman: Shadow of the Bat #1."
+   }
+  ]
+ },
+ {
+  "id": "gen-4933",
+  "turns": [
+   {
+    "q": "does Batman: Child of Dreams have a softcover edition isbn? and a hardcover edition isbn?",
+    "kind": "multipart",
+    "ref": "Yes, the softcover edition of Batman: Child of Dreams has ISBN 1-56389-907-8 and the hardcover edition has ISBN 1-56389-906-X."
+   }
+  ]
+ },
+ {
+  "id": "gen-6064",
+  "turns": [
+   {
+    "q": "Tell me about Batman: Legends of the Dark Knight",
+    "kind": "lookup",
+    "ref": "Batman: Legends of the Dark Knight originally started in 1989 and included seven Annuals and several special issues."
+   },
+   {
+    "q": "Were there any special issues besides the annuals in the original series?",
+    "kind": "followup",
+    "ref": "Yes, the original series of Batman: Legends of the Dark Knight included seven Annuals and several special issues."
+   },
+   {
+    "q": "Did an officer return in a mechanized combat suit after being injured during Batman: Year One?",
+    "kind": "followup",
+    "ref": "Yes, an officer injured during Batman: Year One returned in a mechanized combat suit."
+   }
+  ]
+ },
+ {
+  "id": "gen-23603",
+  "turns": [
+   {
+    "q": "who is vicki vale?",
+    "kind": "lookup",
+    "ref": "Vicki Vale is a Gotham City journalist and photographer and one of Bruce Wayne's love interests."
+   }
+  ]
+ },
+ {
+  "id": "gen-12234",
+  "turns": [
+   {
+    "q": "Can you tell me more about the inspiration behind Gotham City Garage?",
+    "kind": "lookup",
+    "ref": "Gotham City Garage is inspired by a DC collectibles statue line that reimagines DC's female heroes as bikers."
+   }
+  ]
+ },
+ {
+  "id": "gen-9750",
+  "turns": [
+   {
+    "q": "Tell me about Cesar Romero.",
+    "kind": "lookup",
+    "ref": "César Julio Romero Jr. was an American actor with a career spanning over six decades, known for roles such as the Cisco Kid in western films and Antonio Galvan in The Devil is a Woman, and he also appeared in Broadway plays and served in the United States Coast Guard during World War II."
+   },
+   {
+    "q": "What roles did he play in Broadway shows?",
+    "kind": "followup",
+    "ref": "Romero made his Broadway debut in 1932 as Ricci in the play Dinner at Eight. I don't have information on any other Broadway roles he played."
+   }
+  ]
+ },
+ {
+  "id": "gen-11639",
+  "turns": [
+   {
+    "q": "Tell me about Firefly.",
+    "kind": "lookup",
+    "ref": "Firefly is the alias of several supervillains appearing in American comic books published by DC Comics. One instance involves Bridgit Pike, who adopted the identity of Lady Firefly. Another version is Garfield Lynns, who was originally a down-and-out film special effects expert."
+   },
+   {
+    "q": "Is Firefly's real name Garfield Lynns?",
+    "kind": "followup",
+    "ref": "Yes, Garfield Lynns is one of the real names associated with the alias Firefly."
+   }
+  ]
+ },
+ {
+  "id": "gen-20555",
+  "turns": [
+   {
+    "q": "Why did Hanna-Barbera produce Super Friends?",
+    "kind": "why",
+    "ref": "Hanna-Barbera produced Super Friends because they had acquired rights to DC Comics characters in 1973."
+   }
+  ]
+ },
+ {
+  "id": "gen-4032",
+  "turns": [
+   {
+    "q": "Who is Harry Houdini?",
+    "kind": "lookup",
+    "ref": "Harry Houdini is a famous escape artist who visits Gotham in 1907."
+   },
+   {
+    "q": "Where did he visit in 1907?",
+    "kind": "followup",
+    "ref": "He visited Gotham in 1907."
+   },
+   {
+    "q": "What is his occupation?",
+    "kind": "followup",
+    "ref": "Harry Houdini is a famous escape artist."
+   }
+  ]
+ },
+ {
+  "id": "gen-9859",
+  "turns": [
+   {
+    "q": "is Chip Zdarsky also known as Steven Murray?",
+    "kind": "yesno",
+    "ref": "Yes, Steven Murray works under the pen-name Chip Zdarsky."
+   }
+  ]
+ },
+ {
+  "id": "gen-835",
+  "turns": [
+   {
+    "q": "how many heroes are in arena of valor and what company developed it?",
+    "kind": "multipart",
+    "ref": "There are more than 100 heroes in Arena of Valor and it is developed by TiMi Studio Group."
+   }
+  ]
+ },
+ {
+  "id": "gen-9120",
+  "turns": [
+   {
+    "q": "What age is Bruce Wayne turning soon? And who is mentioned as his old friend?",
+    "kind": "multipart",
+    "ref": "Bruce Wayne is turning 18. His old friend is Harvey Dent."
+   }
+  ]
+ },
+ {
+  "id": "gen-23784",
+  "turns": [
+   {
+    "q": "wheN was the graphicAudio version recored?",
+    "kind": "typo",
+    "ref": "The GraphicAudio audiobook version of 'Wayne of Gotham' was recorded in 2013."
+   }
+  ]
+ },
+ {
+  "id": "gen-4538",
+  "turns": [
+   {
+    "q": "Is Joe Chill the man who killed Bruce Wayne's parents?",
+    "kind": "yesno",
+    "ref": "Yes, Joe Chill is the man who killed Bruce Wayne's parents."
+   }
+  ]
+ },
+ {
+  "id": "gen-6265",
+  "turns": [
+   {
+    "q": "How did Superman find out Batman was ill?",
+    "kind": "lookup",
+    "ref": "Superman used X-ray vision to determine Batman was coming down with pneumonia."
+   }
+  ]
+ },
+ {
+  "id": "gen-22206",
+  "turns": [
+   {
+    "q": "whats kate micuccis role",
+    "kind": "typo",
+    "ref": "Kate Micucci voices Clayface in The Lego Batman Movie."
+   }
+  ]
+ },
+ {
+  "id": "gen-9871",
+  "turns": [
+   {
+    "q": "Did Chip Zdarsky work for National Post before 2000?",
+    "kind": "yesno",
+    "ref": "No, Chip Zdarsky started working for National Post as an illustrator and humorist in 2000."
+   }
+  ]
+ },
+ {
+  "id": "gen-18152",
+  "turns": [
+   {
+    "q": "name three facts about the penguin from his comic book debut?",
+    "kind": "list",
+    "ref": "The Penguin first appeared in Detective Comics #58 in 1941. He studied ornithology in college. His real name is Oswald Chesterfield Cobblepot."
+   }
+  ]
+ },
+ {
+  "id": "gen-6982",
+  "turns": [
+   {
+    "q": "I thought Michael Caine voiced The Joker in Batman: The Dark Knight Returns.",
+    "kind": "challenge",
+    "ref": "No, Michael Emerson voiced The Joker in Batman: The Dark Knight Returns."
+   }
+  ]
+ },
+ {
+  "id": "gen-6253",
+  "turns": [
+   {
+    "q": "What is the relationship between Bob and Tim in Batman: Noël?",
+    "kind": "lookup",
+    "ref": "Bob is Tim's father."
+   }
+  ]
+ },
+ {
+  "id": "gen-21658",
+  "turns": [
+   {
+    "q": "what was filmed in Hong Kong and Chicago?",
+    "kind": "lookup",
+    "ref": "The Dark Knight was filmed in Chicago and Hong Kong."
+   },
+   {
+    "q": "Christopher Nolan directed it right?",
+    "kind": "followup",
+    "ref": "Yes, Christopher Nolan directed The Dark Knight."
+   },
+   {
+    "q": "is that correct?",
+    "kind": "followup",
+    "ref": "Yes, Christopher Nolan directed The Dark Knight."
+   }
+  ]
+ },
+ {
+  "id": "gen-20515",
+  "turns": [
+   {
+    "q": "When did Suicide Squad Isekai premiere and who directed it?",
+    "kind": "multipart",
+    "ref": "Suicide Squad Isekai premiered with three episodes on June 27, 2024 and Eri Osada directed it."
+   }
+  ]
+ },
+ {
+  "id": "gen-24568",
+  "turns": [
+   {
+    "q": "What distinguishes Sandy Collora's independent film 'Batman: Dead End' from Lee Bermejo's original graphic novel 'Batman: Noël'?",
+    "kind": "compare",
+    "ref": "Sandy Collora's independent film 'Batman: Dead End' is a visual adaptation presented through video, whereas Lee Bermejo's 'Batman: Noël' is an original graphic novel presented through illustrations and text."
+   }
+  ]
+ },
+ {
+  "id": "gen-20567",
+  "turns": [
+   {
+    "q": "name three sidekicks featured in super friends",
+    "kind": "list",
+    "ref": "Wendy, Marvin, and Wonder Dog"
+   }
+  ]
+ },
+ {
+  "id": "gen-4553",
+  "turns": [
+   {
+    "q": "Why did Batman destroy the Bat-Signal and get himself incarcerated at Blackgate Penitentiary?",
+    "kind": "why",
+    "ref": "Batman assumed the identity of Matches Malone and destroyed the Bat-Signal to get himself incarcerated at Blackgate Penitentiary."
+   }
+  ]
+ },
+ {
+  "id": "gen-23598",
+  "turns": [
+   {
+    "q": "when did vicki vale return and in what story",
+    "kind": "multipart",
+    "ref": "Vicki Vale returned in Batman #344 in February 1982."
+   }
+  ]
+ },
+ {
+  "id": "gen-25066",
+  "turns": [
+   {
+    "q": "Which film features a new actress joining the cast, 'Batman: Hush' or 'Robin's Reckoning'?",
+    "kind": "compare",
+    "ref": "Batman: Hush features a new actress joining the cast. Jennifer Morrison is a new addition to the cast of Batman: Hush. I don't know the other part."
+   }
+  ]
+ },
+ {
+  "id": "gen-4589",
+  "turns": [
+   {
+    "q": "does it feature both Kevin Conroy and Mark Hamill, and who else voices characters in it?",
+    "kind": "multipart",
+    "ref": "Yes, it features both Kevin Conroy as the voice of Batman and Mark Hamill as the voice of the Joker. It also features Tom Austen as the voice of Robin."
+   }
+  ]
+ },
+ {
+  "id": "gen-17906",
+  "turns": [
+   {
+    "q": "Who killed Isabella in Gotham?",
+    "kind": "lookup",
+    "ref": "Cobblepot killed Isabella in Gotham."
+   }
+  ]
+ },
+ {
+  "id": "gen-4558",
+  "turns": [
+   {
+    "q": "How many hours long is Batman: Arkham Shadow's main storyline?",
+    "kind": "missing",
+    "ref": "I don't have that in my case files."
+   }
+  ]
+ },
+ {
+  "id": "gen-27419",
+  "turns": [
+   {
+    "q": "can you think for yourself?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26685",
+  "turns": [
+   {
+    "q": "explain offsides rule",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27442",
+  "turns": [
+   {
+    "q": "can you teach me something?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27042",
+  "turns": [
+   {
+    "q": "how do I factory reset an iPad?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26693",
+  "turns": [
+   {
+    "q": "latest rugby scores",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27026",
+  "turns": [
+   {
+    "q": "sync my contacts between devices",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27055",
+  "turns": [
+   {
+    "q": "how to root a device?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27025",
+  "turns": [
+   {
+    "q": "update my android os",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27425",
+  "turns": [
+   {
+    "q": "what kind of information can you access?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27451",
+  "turns": [
+   {
+    "q": "do you have personal beliefs?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27420",
+  "turns": [
+   {
+    "q": "do you ever get tired?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26695",
+  "turns": [
+   {
+    "q": "soccer formations",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27448",
+  "turns": [
+   {
+    "q": "can you tell me a story?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26703",
+  "turns": [
+   {
+    "q": "basketball foul rules",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27045",
+  "turns": [
+   {
+    "q": "increase storage space",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27037",
+  "turns": [
+   {
+    "q": "backup important files",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26716",
+  "turns": [
+   {
+    "q": "NBA all-star game",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27054",
+  "turns": [
+   {
+    "q": "fix Bluetooth pairing problems",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26697",
+  "turns": [
+   {
+    "q": "MLB batting averages",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26707",
+  "turns": [
+   {
+    "q": "hockey goalie stats",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26690",
+  "turns": [
+   {
+    "q": "rules for penalty shootouts",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27455",
+  "turns": [
+   {
+    "q": "do you have a family?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26689",
+  "turns": [
+   {
+    "q": "goal line technology?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27053",
+  "turns": [
+   {
+    "q": "troubleshoot camera issues",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26686",
+  "turns": [
+   {
+    "q": "how many goals did Real Madrid score today?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27021",
+  "turns": [
+   {
+    "q": "can't connect to wifi",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26687",
+  "turns": [
+   {
+    "q": "can you give me the cricket scores?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26720",
+  "turns": [
+   {
+    "q": "badminton doubles strategy",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26710",
+  "turns": [
+   {
+    "q": "baseball no-hitter record",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27049",
+  "turns": [
+   {
+    "q": "fix microphone not working",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27024",
+  "turns": [
+   {
+    "q": "need help installing apps",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27430",
+  "turns": [
+   {
+    "q": "can you feel emotions?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27444",
+  "turns": [
+   {
+    "q": "can you tell jokes?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26717",
+  "turns": [
+   {
+    "q": "American football overtime rules",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27445",
+  "turns": [
+   {
+    "q": "are you always online?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27450",
+  "turns": [
+   {
+    "q": "can you recommend books?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27034",
+  "turns": [
+   {
+    "q": "optimize startup programs",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27033",
+  "turns": [
+   {
+    "q": "upgrade hardware components",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27435",
+  "turns": [
+   {
+    "q": "can you predict the future?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27050",
+  "turns": [
+   {
+    "q": "reduce lag in mobile games",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27443",
+  "turns": [
+   {
+    "q": "do you have a physical form?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27431",
+  "turns": [
+   {
+    "q": "are you capable of learning?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27437",
+  "turns": [
+   {
+    "q": "do you have a name?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27454",
+  "turns": [
+   {
+    "q": "can you give me advice?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27441",
+  "turns": [
+   {
+    "q": "are you male or female?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26713",
+  "turns": [
+   {
+    "q": "tennis serve faults",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27036",
+  "turns": [
+   {
+    "q": "sync music across devices",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27418",
+  "turns": [
+   {
+    "q": "who programmed you?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27422",
+  "turns": [
+   {
+    "q": "what's your purpose?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27043",
+  "turns": [
+   {
+    "q": "disable auto-update on app",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27031",
+  "turns": [
+   {
+    "q": "install windows updates",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27424",
+  "turns": [
+   {
+    "q": "are you alive?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-26702",
+  "turns": [
+   {
+    "q": "how do they decide gold medalists?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27428",
+  "turns": [
+   {
+    "q": "do you have feelings?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27056",
+  "turns": [
+   {
+    "q": "how to fix a frozen computer?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27415",
+  "turns": [
+   {
+    "q": "can you tell me more about yourself?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27047",
+  "turns": [
+   {
+    "q": "fix touchpad not working",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27048",
+  "turns": [
+   {
+    "q": "install android studio",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27060",
+  "turns": [
+   {
+    "q": "help with file transfer between devices",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ },
+ {
+  "id": "gen-27059",
+  "turns": [
+   {
+    "q": "how to jailbreak an iPhone?",
+    "kind": "off_topic",
+    "ref": "That is outside my case files. I only answer questions about the Batman universe."
+   }
+  ]
+ }
+]

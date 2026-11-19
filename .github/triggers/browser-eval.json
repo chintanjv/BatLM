@@ -1,6 +1,1 @@
-{
- "model": "chintanjv/BatLM-360M",
- "only": "hand",
- "name": "browser-baseline-360m",
- "top_k": 3
-}
+{"model": "chintanjv/BatLM-v3-qwen05-r2", "only": "hand", "limit": 40, "name": "browser-qwen05-r2", "top_k": 3}

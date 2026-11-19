@@ -1,0 +1,10 @@
+{
+ "stage": "train",
+ "action": "start",
+ "name": "qwen05",
+ "base": "Qwen/Qwen2.5-0.5B-Instruct",
+ "epochs": 2,
+ "note": "bake-off candidate",
+ "id": "1794609503",
+ "failed": []
+}

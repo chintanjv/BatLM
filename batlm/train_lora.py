@@ -56,8 +56,8 @@ def main():
     ap.add_argument("--epochs", type=int, default=2)
     ap.add_argument("--lr", type=float, default=2e-4)
     ap.add_argument("--rank", type=int, default=16)
-    ap.add_argument("--batch", type=int, default=8, help="examples per forward pass")
-    ap.add_argument("--accum", type=int, default=2, help="forward passes per optimizer step")
+    ap.add_argument("--batch", type=int, help="examples per forward pass (default: as many as a 15 GB GPU holds for this model size)")
+    ap.add_argument("--accum", type=int, help="forward passes per optimizer step (default: enough for 16 examples per step)")
     ap.add_argument("--max-tokens", type=int, default=1536, help="longer examples are left out")
     ap.add_argument("--data", default=str(CK / "sft_teacher.jsonl"), help="teacher-written examples (used if the file exists)")
     ap.add_argument("--dry-run", action="store_true", help="build and report the examples, then stop")
@@ -86,6 +86,10 @@ def main():
         r=args.rank, lora_alpha=2 * args.rank, lora_dropout=0.05, task_type="CAUSAL_LM",
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]))
     model.print_trainable_parameters()
+    size = sum(p.numel() for p in model.parameters())
+    args.batch = args.batch or (8 if size < 6e8 else 4 if size < 1.2e9 else 2)  # a larger model leaves less memory for examples
+    args.accum = args.accum or max(16 // args.batch, 1)
+    print(f"batch {args.batch} x {args.accum} forward passes per step")
 
     pad, data, long = tok.convert_tokens_to_ids("<|im_end|>"), [], 0
     for ex in examples:
@@ -127,12 +131,18 @@ def main():
     total = max(args.epochs * (len(batches(0)) // args.accum), 1)
     step, log, t0 = 0, [], time.time()
     model.train()
+    inner = model.get_base_model()  # the causal LM with the LoRA layers in place: .model is the transformer, .lm_head the output layer
     for epoch in range(args.epochs):
         running = 0.0
         for i, idx in enumerate(batches(epoch)):
             x, y, m = collate(idx)
             with torch.autocast("cuda", dtype=torch.float16, enabled=amp):
-                loss = model(input_ids=x, attention_mask=m, labels=y).loss / args.accum
+                # Score only the answer positions. Scoring every prompt token against the whole vocabulary
+                # costs gigabytes on a model with a large vocabulary, for numbers the loss then ignores.
+                hidden = inner.model(input_ids=x, attention_mask=m).last_hidden_state[:, :-1]
+                keep = y[:, 1:] != -100
+                logits = inner.lm_head(hidden[keep])
+            loss = torch.nn.functional.cross_entropy(logits.float(), y[:, 1:][keep]) / args.accum
             scaler.scale(loss).backward()
             running += loss.item()
             if (i + 1) % args.accum == 0:

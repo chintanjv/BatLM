@@ -1,0 +1,38 @@
+# Publishes docs/MODEL_CARD.md as the README of the released model on Hugging Face, and deletes the Hugging Face
+# repos listed for removal. Started by a push to main or v3 that changes .github/triggers/publish.json.
+name: publish
+on:
+  push:
+    branches: [main, v3]
+    paths: [".github/triggers/publish.json"]
+permissions:
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q huggingface_hub
+      - name: Publish the card and remove old repos
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'EOF'
+          import json, os
+          from huggingface_hub import HfApi
+          t = json.load(open(".github/triggers/publish.json"))
+          api = HfApi(token=os.environ["HF_TOKEN"])
+          api.upload_file(path_or_fileobj="docs/MODEL_CARD.md", path_in_repo="README.md", repo_id=t["model"],
+                          commit_message="Model card for the v3 release")
+          print("card ->", t["model"])
+          for repo in t.get("delete", []):
+              if api.repo_exists(repo):
+                  api.delete_repo(repo)
+                  print("deleted", repo)
+              else:
+                  print("already gone", repo)
+          EOF

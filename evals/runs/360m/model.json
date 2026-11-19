@@ -1,0 +1,8 @@
+{
+ "repo": "chintanjv/BatLM-v3-360m",
+ "base": "HuggingFaceTB/SmolLM2-360M-Instruct",
+ "onnx_mb": {
+  "model_q4.onnx": 583,
+  "model_q4f16.onnx": 347
+ }
+}

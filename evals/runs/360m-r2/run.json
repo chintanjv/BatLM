@@ -1,0 +1,11 @@
+{
+ "stage": "train",
+ "action": "start",
+ "name": "360m-r2",
+ "base": "HuggingFaceTB/SmolLM2-360M-Instruct",
+ "epochs": 2,
+ "bits": "all",
+ "note": "round 2: new data, fixed search, 8-bit build",
+ "id": "1795115527",
+ "failed": []
+}

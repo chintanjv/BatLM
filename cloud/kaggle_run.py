@@ -3,6 +3,8 @@ this script; cloud/run.json inside the dataset says which stage to run:
 
   teach   the teacher writes facts from every page, then training conversations and held-out eval questions
   train   fine-tune one base model, score it, build the browser models, score the quantized build
+  export  rebuild the browser models of an already-trained adapter (run["adapter"], a Hugging Face repo with lora/),
+          for example with more layers at 8-bit (run["bits"]), and score the quantized build
 
 Everything worth keeping is left in /kaggle/working/out, which `kaggle kernels output` downloads.
 A step that fails is recorded in out/status.json and the run carries on, so finished work is never lost.
@@ -50,7 +52,6 @@ def finish():
         keep(f"{WORK}/{f}")
     json.dump({"failed": failed, "run": run}, open(f"{OUT}/status.json", "w"))
     shutil.rmtree(ROOT, ignore_errors=True)  # merged weights and build caches are large and can be rebuilt
-    shutil.rmtree(f"{WORK}/teacher-env", ignore_errors=True)
     for path, _, files in os.walk(OUT):
         for f in files:
             print(f"{os.path.getsize(os.path.join(path, f)) / 1e6:8.1f} MB  {os.path.join(path, f)}")
@@ -68,10 +69,15 @@ else:
 run = json.load(open(f"{ROOT}/cloud/run.json"))
 print("run:", run, sorted(os.listdir(ROOT)), flush=True)
 os.makedirs(OUT, exist_ok=True)
+if "RUN_ID" in globals() and run.get("id") != RUN_ID:  # noqa: F821 (cloud/pipeline.py writes RUN_ID above this script)
+    print(f"STALE UPLOAD: this run is {RUN_ID} but the dataset holds {run.get('id')}", flush=True)  # noqa: F821
+    json.dump({"failed": ["stale upload"], "stale": True, "run": run}, open(f"{OUT}/status.json", "w"))
+    shutil.rmtree(ROOT, ignore_errors=True)
+    sys.exit(0)
 os.makedirs(f"{ROOT}/checkpoints", exist_ok=True)
 
 py = sys.executable
-env = {**os.environ, "TOKENIZERS_PARALLELISM": "false", "BATLM_BASE": run.get("base") or "",
+env = {**os.environ, "TOKENIZERS_PARALLELISM": "false", "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True", "BATLM_BASE": run.get("base") or "",
        "BATLM_TEACHER": run.get("teacher") or "", "BATLM_TOP_K": str(run.get("top_k") or "")}
 subprocess.call(["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv"])
 
@@ -79,17 +85,20 @@ TEACH = """
 import json, sys
 from batlm import facts, sft_gen
 from batlm.teacher import Teacher
-limit = int(sys.argv[1]) or None
+limit, skip_facts = int(sys.argv[1]) or None, sys.argv[2] == "1"
+if not skip_facts:
+    print(len(facts.pages(limit)), "pages downloaded", flush=True)  # before the teacher starts, so the GPU is not held idle
 teacher = Teacher()
 try:
-    facts.OUT.write_text(json.dumps(facts.build(teacher, limit), ensure_ascii=False, separators=(",", ":")))
+    if not skip_facts:  # otherwise the facts already in data/facts.json are kept
+        facts.OUT.write_text(json.dumps(facts.build(teacher, limit), ensure_ascii=False, separators=(",", ":")))
     sft_gen.main(teacher, limit)
 finally:
     teacher.close()
 """
 
 if run["stage"] == "teach":
-    step("teach", lambda: sh(py, "-u", "-c", TEACH, str(run.get("limit") or 0), cwd=ROOT, env=env))
+    step("teach", lambda: sh(py, "-u", "-c", TEACH, str(run.get("limit") or 0), "1" if run.get("skip_facts") else "0", cwd=ROOT, env=env))
     keep(f"{ROOT}/data/facts.json")
     keep(f"{ROOT}/checkpoints/sft_teacher.jsonl")
     keep(f"{ROOT}/evals/generated.json")
@@ -103,22 +112,32 @@ else:
     subprocess.call([py, "-m", "pip", "uninstall", "-y", "-q", "torchao"])
     import transformers
     print("transformers", transformers.__version__, "python", sys.version.split()[0], flush=True)
-    step("train", lambda: sh(py, "-u", "-m", "batlm.train_lora", "--epochs", str(run.get("epochs") or 2), cwd=ROOT, env=env), must=True)
-    shutil.copytree(f"{ROOT}/checkpoints/batlm-lora", f"{OUT}/batlm-lora")  # safe before anything else can go wrong
-    step("eval", lambda: sh(py, "-u", "-m", "batlm.evals", "--name", "pytorch", cwd=ROOT, env=env))
+    if run["stage"] == "export":
+        def fetch():
+            from huggingface_hub import snapshot_download
+            snapshot_download(run["adapter"], allow_patterns=["lora/*"], local_dir=f"{WORK}/hf")
+            shutil.copytree(f"{WORK}/hf/lora", f"{ROOT}/checkpoints/batlm-lora")
+        step("fetch adapter", fetch, must=True)
+    else:
+        step("train", lambda: sh(py, "-u", "-m", "batlm.train_lora", "--epochs", str(run.get("epochs") or 2), cwd=ROOT, env=env), must=True)
+        step("eval", lambda: sh(py, "-u", "-m", "batlm.evals", "--name", "pytorch", cwd=ROOT, env=env))
+    shutil.copytree(f"{ROOT}/checkpoints/batlm-lora", f"{OUT}/batlm-lora")
 
     def export():
         try:  # the versions the export environment pins; fall back to current ones if this Python has no build of them
             sh(py, "-m", "pip", "install", "-q", "onnx==1.19.1", "onnxruntime==1.23.2", "onnxruntime-genai==0.11.4", "onnx-ir")
         except subprocess.CalledProcessError:
             sh(py, "-m", "pip", "install", "-q", "onnx", "onnxruntime", "onnxruntime-genai", "onnx-ir")
-        sh(py, "-u", "-m", "batlm.export_web", cwd=ROOT, env={**env, "BATLM_EXPORT_PYTHON": py})
+        sh(py, "-u", "-m", "batlm.export_web", "--bits", run.get("bits") or "attn+down", cwd=ROOT, env={**env, "BATLM_EXPORT_PYTHON": py})
         shutil.copytree(f"{ROOT}/web/public/models/batlm-360m", f"{OUT}/model")
 
     if step("export", export):
         # The build the browser's CPU path runs, scored on the hand-written conversations: does quantization cost accuracy?
         step("eval-onnx", lambda: sh(py, "-u", "-m", "batlm.evals", "--onnx", f"{ROOT}/checkpoints/genai-q4", "--only", "hand",
                                      "--name", "onnx", cwd=ROOT, env=env))
+    for d in ("batlm-merged", "genai-q4", "genai-q4f16", "genai-cache"):  # several GB each: make room before the teacher is installed
+        shutil.rmtree(f"{ROOT}/checkpoints/{d}", ignore_errors=True)
+    subprocess.call(["df", "-h", WORK, "/tmp"])
     if os.path.exists(f"{ROOT}/evals/generated.json") and os.path.exists(f"{ROOT}/evals/rows_pytorch.json"):
         step("judge", lambda: sh(py, "-u", "-m", "batlm.evals", "--judge", "evals/rows_pytorch.json", cwd=ROOT, env=env))
     os.makedirs(f"{OUT}/evals", exist_ok=True)

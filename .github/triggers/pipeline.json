@@ -1,6 +1,1 @@
-{
- "stage": "teach",
- "action": "start",
- "limit": 12,
- "note": "trial run 2: 12 pages"
-}
+{"stage": "train", "action": "start", "name": "360m-r2", "base": "HuggingFaceTB/SmolLM2-360M-Instruct", "epochs": 2, "bits": "all", "note": "round 2: new data, fixed search, 8-bit build"}
