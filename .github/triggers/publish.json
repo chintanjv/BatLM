@@ -1,1 +1,1 @@
-{"model": "chintanjv/BatLM-v3-qwen05-r2", "delete": ["chintanjv/BatLM-v3-trial-qwen15"]}
+{"model": "chintanjv/BatLM-v3-qwen05-r2", "delete": ["chintanjv/BatLM-360M", "chintanjv/BatLM-v3-qwen05", "chintanjv/BatLM-v3-360m", "chintanjv/BatLM-v3-qwen05-8bit", "chintanjv/BatLM-v3-360m-r2"]}
