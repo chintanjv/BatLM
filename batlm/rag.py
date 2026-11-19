@@ -351,6 +351,7 @@ def cast_facts(chunks: list[dict], cards: list[dict] = ()) -> list[dict]:
     for c in cards:
         work = re.sub(r"\s*\([^)]*\)$", "", c.get("page") or c["title"])
         for actor, role in CARD_CAST.findall(c["text"]):
+            role = role.rstrip(".")
             if (actor, role, work) in seen or actor in ("DC Comics", work):
                 continue
             seen.add((actor, role, work))
